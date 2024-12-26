@@ -31,9 +31,6 @@ public class S1Main : MonoBehaviour
 
     private void Start()
     {
-        // Firebase Authentication 초기화
-        auth = FirebaseAuth.DefaultInstance;
-
         // 버튼 이벤트 연결
         Loginbt.onClick.AddListener(() => Login(username.text, password.text));
         joinbt.onClick.AddListener(() => OnjoinUI(true));
