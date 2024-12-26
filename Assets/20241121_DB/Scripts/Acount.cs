@@ -142,8 +142,7 @@ public class FirebaseAccount : MonoBehaviour
             // Firebase AuthResult를 통해 사용자 정보 가져오기
             Firebase.Auth.AuthResult authResult = task.Result;
             FirebaseUser newUser = authResult.User;
-
-            Debug.Log($"회원가입 성공! 사용자 ID: {newUser.UserId}, 이메일: {newUser.Email}");
+            Debug.Log("회원 가입 실패");
 
             // 사용자 정보를 Firebase Realtime Database에 저장
             database.Child("users").Child(username).SetValueAsync(newUser.UserId).ContinueWithOnMainThread(dbTask =>
@@ -202,7 +201,7 @@ public class FirebaseAccount : MonoBehaviour
 
     private bool IsPassword(string password)
     {
-        if (password.Length < 4 || password.Length > 10)
+        if (password.Length < 6 || password.Length > 10)
         {
             return false;
         }

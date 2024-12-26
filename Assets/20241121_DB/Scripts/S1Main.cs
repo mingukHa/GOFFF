@@ -56,7 +56,7 @@ public class S1Main : MonoBehaviour
             }
             if (task.IsFaulted)
             {
-                Debug.LogError($"로그인 실패: {task.Exception}");
+                Debug.LogError($"로그인 실패");
                 return;
             }
 
@@ -64,7 +64,7 @@ public class S1Main : MonoBehaviour
             Firebase.Auth.AuthResult authResult = task.Result;
             FirebaseUser user = authResult.User;
 
-            Debug.Log($"로그인 성공! 사용자 ID: {user.UserId}, 이메일: {user.Email}");
+            Debug.Log($"로그인 성공!");
             SceneManager.LoadScene("Scene2"); // 로그인 성공 시 다음 씬으로 전환
         });
     }
