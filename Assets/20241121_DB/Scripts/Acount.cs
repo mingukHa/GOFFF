@@ -16,6 +16,8 @@ public class FirebaseAccount : MonoBehaviour
     private TextMeshProUGUI passwordMessage;
     [SerializeField]
     private TextMeshProUGUI passwordMatchMessage;
+   // [SerializeField]
+    //private TextMeshProUGUI feedbackMessage; // 사용자 피드백 메시지
     [SerializeField]
     private Button acountet;
     [SerializeField]
@@ -25,6 +27,17 @@ public class FirebaseAccount : MonoBehaviour
 
     private void Start()
     {
+        // Firebase Database 초기화 확인
+        if (FirebaseInitializer.Database == null)
+        {
+            Debug.LogError("Firebase Database 초기화 실패");
+           // feedbackMessage.text = "Firebase 초기화 실패. 다시 시도하세요.";
+          //  feedbackMessage.color = Color.red;
+            return;
+        }
+
+        database = FirebaseInitializer.Database;
+
         acountet.interactable = false; // 회원가입 버튼 비활성화
         Password.onValueChanged.AddListener(OnPasswordChanged);
         passwordcheck.onValueChanged.AddListener(OnPasswordCheckChanged);
@@ -38,7 +51,6 @@ public class FirebaseAccount : MonoBehaviour
 
     private void ToggleSignUpButton()
     {
-        // 비밀번호 조건과 비밀번호 일치 조건만 충족하면 회원가입 버튼 활성화
         if (passwordMessage.color == Color.green && passwordMatchMessage.color == Color.green)
         {
             acountet.interactable = true; // 조건이 충족되면 활성화
@@ -49,11 +61,17 @@ public class FirebaseAccount : MonoBehaviour
         }
     }
 
-    // 회원가입 처리
     private void OnSignUpClicked()
     {
         string username = Username.text.Trim();
         string password = Password.text.Trim();
+
+        if (string.IsNullOrEmpty(username))
+        {
+           // feedbackMessage.text = "사용자 이름을 입력하세요.";
+           // feedbackMessage.color = Color.red;
+            return;
+        }
 
         if (!IsPasswordMatch())
         {
@@ -64,22 +82,55 @@ public class FirebaseAccount : MonoBehaviour
 
         if (!IsPassword(password))
         {
-            passwordMessage.text = "비밀번호는 영어, 숫자로 6~10자 이내로 입력하세요.";
+            passwordMessage.text = "비밀번호는 영어와 숫자로 6~10자 이내로 입력하세요.";
             passwordMessage.color = Color.red;
             return;
         }
 
-        // Firebase Realtime Database에 사용자 정보 저장
-        database.Child("users").Child(username).SetRawJsonValueAsync(JsonUtility.ToJson(new User(username, password))).ContinueWith(task =>
+        // 사용자 이름 중복 확인
+        database.Child("users").Child(username).GetValueAsync().ContinueWith(task =>
+        {
+            if (task.IsFaulted)
+            {
+                Debug.LogError("데이터베이스 접근 실패: " + task.Exception);
+              //  feedbackMessage.text = "데이터베이스 접근 실패. 다시 시도하세요.";
+              //  feedbackMessage.color = Color.red;
+                return;
+            }
+
+            if (task.Result.Exists)
+            {
+                Debug.LogWarning("이미 존재하는 사용자 이름");
+               // feedbackMessage.text = "이미 사용 중인 사용자 이름입니다.";
+               // feedbackMessage.color = Color.red;
+            }
+            else
+            {
+                // 사용자 정보 저장
+                SaveUserData(username, password);
+            }
+        });
+    }
+
+    private void SaveUserData(string username, string password)
+    {
+        User newUser = new User(username, password);
+        string jsonData = JsonUtility.ToJson(newUser);
+
+        database.Child("users").Child(username).SetRawJsonValueAsync(jsonData).ContinueWith(task =>
         {
             if (task.IsCompleted)
             {
                 Debug.Log("회원가입 성공!");
+             //   feedbackMessage.text = "회원가입 성공!";
+             //   feedbackMessage.color = Color.green;
                 acountUI.SetActive(false); // UI 닫기
             }
             else
             {
                 Debug.LogError("회원가입 실패: " + task.Exception);
+               // feedbackMessage.text = "회원가입 실패. 다시 시도하세요.";
+              //  feedbackMessage.color = Color.red;
             }
         });
     }
@@ -140,6 +191,7 @@ public class FirebaseAccount : MonoBehaviour
         }
     }
 }
+
 
 
 
