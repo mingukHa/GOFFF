@@ -1,5 +1,4 @@
-/*using UnityEngine;
-using UnityEngine.Windows.WebCam;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -55,13 +54,6 @@ public class PlayerController : MonoBehaviour
 
         // 이동 적용
         Vector3 newPosition = cameraRig.position + velocity * Time.deltaTime;
-
-        // z축 값이 음수로 이동하지 않도록 제한
-        if (newPosition.z < 0)
-        {
-            newPosition.z = 0;
-            velocity.z = Mathf.Max(0, velocity.z); // z축 속도도 양수로 보정
-        }
 
         cameraRig.position = newPosition;
     }
@@ -149,26 +141,27 @@ public class PlayerController : MonoBehaviour
 
     private void SyncWheelRotation(bool leftRotated, bool rightRotated)
     {
-        // 휠 회전 속도 계산
-        float forwardSpeed = velocity.z; // 전/후진 속도
-        float rotationSpeed = forwardSpeed * wheelRotationSpeed;
+        // 이동 속도 크기를 기준으로 휠 회전 속도 계산
+        float movementSpeed = velocity.magnitude; // 속도 크기 계산
+        float rotationSpeed = movementSpeed * wheelRotationSpeed;
 
-        // 전/후진 시 양쪽 휠 회전
+        // 양쪽 휠 회전 (전/후진)
         leftWheel.Rotate(Vector3.right, rotationSpeed * Time.deltaTime);
         rightWheel.Rotate(Vector3.right, rotationSpeed * Time.deltaTime);
 
-        // 좌회전 시 오른쪽 바퀴만 회전
+        // 좌회전 시 오른쪽 바퀴 추가 회전
         if (leftRotated)
         {
             rightWheel.Rotate(Vector3.right, wheelRotationSpeed * Time.deltaTime);
         }
 
-        // 우회전 시 왼쪽 바퀴만 회전
+        // 우회전 시 왼쪽 바퀴 추가 회전
         if (rightRotated)
         {
             leftWheel.Rotate(Vector3.right, wheelRotationSpeed * Time.deltaTime);
         }
     }
+
 
     private void ApplyBrakingOrDamping(bool isMoving)
     {
@@ -194,4 +187,4 @@ public class PlayerController : MonoBehaviour
     }
 
     // SAVE POINT
-}*/
+}
