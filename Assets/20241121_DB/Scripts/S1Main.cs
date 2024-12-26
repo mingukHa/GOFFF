@@ -25,8 +25,6 @@ public class S1Main : MonoBehaviour
     private TMP_InputField username;
     [SerializeField]
     private TMP_InputField password;
-   // [SerializeField]
-    //private TextMeshProUGUI feedbackMessage; // 에러 메시지를 표시할 UI
 
     private DatabaseReference database;
 
@@ -36,8 +34,6 @@ public class S1Main : MonoBehaviour
         if (FirebaseInitializer.Database == null)
         {
             Debug.LogError("Firebase Database가 초기화되지 않았습니다.");
-       //     feedbackMessage.text = "Firebase 초기화 실패. 다시 시도하세요.";
-       //     feedbackMessage.color = Color.red;
             return;
         }
 
@@ -51,14 +47,12 @@ public class S1Main : MonoBehaviour
         Eclosebt.onClick.AddListener(() => Eclose(false));
     }
 
-    // Firebase Realtime Database로 로그인
     private void Login(string username, string password)
     {
         // 입력값 검증
         if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
         {
-       //     feedbackMessage.text = "아이디와 비밀번호를 입력하세요.";
-       //     feedbackMessage.color = Color.red;
+            Debug.LogWarning("아이디와 비밀번호를 입력하세요.");
             return;
         }
 
@@ -68,13 +62,12 @@ public class S1Main : MonoBehaviour
             if (task.IsFaulted)
             {
                 Debug.LogError($"데이터베이스 접근 실패: {task.Exception}");
-          //      feedbackMessage.text = "서버 오류로 로그인에 실패했습니다.";
-           //     feedbackMessage.color = Color.red;
                 return;
             }
 
             if (task.Result.Exists)
             {
+                // 사용자 데이터를 가져오기
                 var userData = task.Result.Value as System.Collections.Generic.Dictionary<string, object>;
 
                 if (userData != null && userData.ContainsKey("password"))
@@ -85,8 +78,6 @@ public class S1Main : MonoBehaviour
                     if (storedPassword == password)
                     {
                         Debug.Log("로그인 성공!");
-           //             feedbackMessage.text = "로그인 성공!";
-              //          feedbackMessage.color = Color.green;
 
                         // 로그인 성공 후 씬 전환
                         SceneManager.LoadScene("Scene2");
@@ -94,22 +85,16 @@ public class S1Main : MonoBehaviour
                     else
                     {
                         Debug.LogWarning("비밀번호가 일치하지 않습니다.");
-             //           feedbackMessage.text = "비밀번호가 일치하지 않습니다.";
-              //          feedbackMessage.color = Color.red;
                     }
                 }
                 else
                 {
                     Debug.LogError("데이터 형식 오류: 'password' 키를 찾을 수 없습니다.");
-                //    feedbackMessage.text = "사용자 정보를 가져오는 데 실패했습니다.";
-                 //   feedbackMessage.color = Color.red;
                 }
             }
             else
             {
                 Debug.LogWarning("사용자를 찾을 수 없습니다.");
-             //   feedbackMessage.text = "존재하지 않는 사용자 이름입니다.";
-             //   feedbackMessage.color = Color.red;
             }
         });
     }
@@ -135,6 +120,7 @@ public class S1Main : MonoBehaviour
         joinUI.SetActive(join);
     }
 }
+
 
 
 
