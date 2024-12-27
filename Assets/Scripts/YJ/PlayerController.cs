@@ -1,131 +1,101 @@
-/*using UnityEngine;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public Transform cameraRig; // 카메라 리그
+    public Transform cameraRig;
+    public Transform leftWheel;
+    public Transform rightWheel;
 
-    public Transform leftWheel; // 왼쪽 바퀴
-    public Transform rightWheel; // 오른쪽 바퀴
+    // 입력 액션 정의
+    public InputAction moveAction;
+    public InputAction rotateLeftAction;
+    public InputAction rotateRightAction;
 
-    public OVRInput.Controller leftController;  // 왼쪽 컨트롤러
-    public OVRInput.Controller rightController; // 오른쪽 컨트롤러
+    [SerializeField] private float moveSpeed = 1.0f;
+    [SerializeField] private float accelerationFactor = 2.0f;
+    [SerializeField] private float dampingFactor = 0.99f;
+    [SerializeField] private float wheelRotationSpeed = 100f;
 
-    [SerializeField] private float moveSpeed = 1.0f;          // 이동 속도
-    [SerializeField] private float accelerationFactor = 2.0f; // 가속도 계수
-    [SerializeField] private float dampingFactor = 0.99f;     // 감속 계수(관성)
-    [SerializeField] private float wheelRotationSpeed = 100f; // 휠 회전 속도
+    private Vector3 velocity = Vector3.zero;
+    private Quaternion initialLeftControllerRotation;
+    private Quaternion initialRightControllerRotation;
+    private bool isLeftRotating = false;
+    private bool isRightRotating = false;
 
-    private Vector3 velocity = Vector3.zero; // 현재 이동 속도
-    private Quaternion initialLeftControllerRotation;  // 왼쪽 컨트롤러 초기 회전
-    private Quaternion initialRightControllerRotation; // 오른쪽 컨트롤러 초기 회전
-    private bool isLeftRotating = false;  // 왼쪽 회전 상태
-    private bool isRightRotating = false; // 오른쪽 회전 상태
+    private void OnEnable()
+    {
+        // 입력 액션 활성화
+        moveAction.Enable();
+        rotateLeftAction.Enable();
+        rotateRightAction.Enable();
+    }
 
+    private void OnDisable()
+    {
+        // 입력 액션 비활성화
+        moveAction.Disable();
+        rotateLeftAction.Disable();
+        rotateRightAction.Disable();
+    }
 
-    //private void Start()
-    //{
-    //    cameraRig.position = new Vector3(0f, 0f, 0f);
-    //    cameraRig.rotation = Quaternion.identity;
-    //}
     private void Update()
     {
-        // 두 컨트롤러의 입력을 결합하여 이동 처리
-        bool isMoving = HandleMovement(leftController, rightController);
+        bool isMoving = HandleMovement();
 
         bool leftRotated = false;
         bool rightRotated = false;
 
         if (!isMoving)
         {
-            // 각각의 컨트롤러로 회전 처리
-            // 왼쪽 컨트롤러: 우회전만
-            leftRotated = HandleRotation(
-                leftController, ref initialLeftControllerRotation, ref isLeftRotating, true);
-            // 오른쪽 컨트롤러: 좌회전만
-            rightRotated = HandleRotation(
-                rightController, ref initialRightControllerRotation, ref isRightRotating, false);
+            leftRotated = HandleRotation(rotateLeftAction, ref initialLeftControllerRotation, ref isLeftRotating, true);
+            rightRotated = HandleRotation(rotateRightAction, ref initialRightControllerRotation, ref isRightRotating, false);
         }
 
-        // 휠 회전 동기화
         SyncWheelRotation(leftRotated, rightRotated);
-
-        // 감속(관성) 처리 또는 브레이크 처리
         ApplyBrakingOrDamping(isMoving);
 
-        // 이동 적용
         Vector3 newPosition = cameraRig.position + velocity * Time.deltaTime;
-
         cameraRig.position = newPosition;
     }
 
-    private bool HandleMovement(OVRInput.Controller left, OVRInput.Controller right)
+    private bool HandleMovement()
     {
-        // 왼쪽 컨트롤러의 입력 처리
-        Vector3 leftControllerDirection = OVRInput.GetLocalControllerRotation(left) * Vector3.forward;
-        Vector3 leftControllerMovement = Vector3.zero;
-        if (Vector3.Dot(leftControllerDirection, Vector3.down) > 0.8f &&
-            OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, left))
-        {
-            leftControllerMovement = OVRInput.GetLocalControllerVelocity(left);
-        }
+        // OpenXR 입력을 통해 이동 처리
+        Vector2 moveInput = moveAction.ReadValue<Vector2>();
 
-        // 오른쪽 컨트롤러의 입력 처리
-        Vector3 rightControllerDirection = OVRInput.GetLocalControllerRotation(right) * Vector3.forward;
-        Vector3 rightControllerMovement = Vector3.zero;
-        if (Vector3.Dot(rightControllerDirection, Vector3.down) > 0.8f &&
-            OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, right))
-        {
-            rightControllerMovement = OVRInput.GetLocalControllerVelocity(right);
-        }
+        // 이동 처리
+        Vector3 combinedMovement = new Vector3(moveInput.x, 0, moveInput.y); // moveInput은 벡터로 가정
 
-        // 두 컨트롤러의 입력을 결합
-        Vector3 combinedMovement = leftControllerMovement + rightControllerMovement;
-        float acceleration = combinedMovement.magnitude * accelerationFactor;
-
-        // 양쪽 컨트롤러의 입력값 합이 -0.1f보다 작으면 후방 이동
         if (combinedMovement.z < -0.1f)
         {
-            velocity += cameraRig.forward * (-combinedMovement.z * moveSpeed * acceleration * Time.deltaTime);
-            return true; // 이동 중
+            velocity += cameraRig.forward * (-combinedMovement.z * moveSpeed * accelerationFactor * Time.deltaTime);
+            return true;
         }
-        // 양쪽 컨트롤러의 입력값 합이 0.1f보다 크면 전방 이동
         else if (combinedMovement.z > 0.1f)
         {
-            velocity -= cameraRig.forward * (combinedMovement.z * moveSpeed * acceleration * Time.deltaTime);
-            return true; // 이동 중
+            velocity -= cameraRig.forward * (combinedMovement.z * moveSpeed * accelerationFactor * Time.deltaTime);
+            return true;
         }
 
-        return false; // 정지
+        return false;
     }
 
-    private bool HandleRotation(OVRInput.Controller controller, ref Quaternion initialRotation, ref bool isRotating, bool isRightDirectionOnly)
+    private bool HandleRotation(InputAction rotateAction, ref Quaternion initialRotation, ref bool isRotating, bool isRightDirectionOnly)
     {
         bool hasRotated = false;
 
-        // Hand Trigger가 눌린 상태
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, controller))
+        if (rotateAction.triggered)
         {
-            initialRotation = OVRInput.GetLocalControllerRotation(controller); // 초기 회전값
-            isRotating = true; // 회전 중
+            initialRotation = Quaternion.Euler(0, rotateAction.ReadValue<Vector2>().x, 0); // 예시, 실제 입력에 맞게 수정
+            isRotating = true;
         }
 
-        // Hand Trigger에서 손을 뗀 상태
-        if (OVRInput.GetUp(OVRInput.Button.PrimaryHandTrigger, controller))
-        {
-            isRotating = false; // 회전하지 않음
-        }
-
-        // Hand Trigger가 눌려 회전 중일 때
         if (isRotating)
         {
-            // 현재 회전값
-            Quaternion currentRotation = OVRInput.GetLocalControllerRotation(controller);
-            Quaternion rotationDelta = currentRotation * Quaternion.Inverse(initialRotation);
+            Quaternion currentRotation = Quaternion.Euler(0, rotateAction.ReadValue<Vector2>().x, 0);
+            float yawDelta = Mathf.DeltaAngle(0, currentRotation.eulerAngles.y);
 
-            // Yaw (y축 회전) 변화 계산
-            float yawDelta = Mathf.DeltaAngle(0, rotationDelta.eulerAngles.y);
-
-            // 방향에 따라 회전 처리
             if ((isRightDirectionOnly && yawDelta > 0) || (!isRightDirectionOnly && yawDelta < 0))
             {
                 Vector3 pivot = isRightDirectionOnly ? leftWheel.position : rightWheel.position;
@@ -141,50 +111,34 @@ public class PlayerController : MonoBehaviour
 
     private void SyncWheelRotation(bool leftRotated, bool rightRotated)
     {
-        // 이동 속도 크기를 기준으로 휠 회전 속도 계산
-        float movementSpeed = velocity.magnitude; // 속도 크기 계산
+        float movementSpeed = velocity.magnitude;
         float rotationSpeed = movementSpeed * wheelRotationSpeed;
 
-        // 양쪽 휠 회전 (전/후진)
         leftWheel.Rotate(Vector3.right, rotationSpeed * Time.deltaTime);
         rightWheel.Rotate(Vector3.right, rotationSpeed * Time.deltaTime);
 
-        // 좌회전 시 오른쪽 바퀴 추가 회전
         if (leftRotated)
         {
             rightWheel.Rotate(Vector3.right, wheelRotationSpeed * Time.deltaTime);
         }
 
-        // 우회전 시 왼쪽 바퀴 추가 회전
         if (rightRotated)
         {
             leftWheel.Rotate(Vector3.right, wheelRotationSpeed * Time.deltaTime);
         }
     }
 
-
     private void ApplyBrakingOrDamping(bool isMoving)
     {
-        if (isMoving)
-        {
-            // 이동 중인 경우 브레이크 효과를 적용하지 않음
-            return;
-        }
+        if (isMoving) return;
 
-        bool isLeftTriggerPressed = OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, leftController);
-        bool isRightTriggerPressed = OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, rightController);
-
-        if ((isLeftTriggerPressed || isRightTriggerPressed) && velocity.magnitude < 0.5f)
+        if (velocity.magnitude < 0.5f)
         {
-            // 속도가 0.5f 이하일 때 브레이크 효과 적용
-            velocity = Vector3.Lerp(velocity, Vector3.zero, 0.1f); // 속도를 천천히 감소시킴
+            velocity = Vector3.Lerp(velocity, Vector3.zero, 0.1f);
         }
         else
         {
-            // 그 이외의 경우 자연스러운 감속(관성) 적용
             velocity *= dampingFactor;
         }
     }
-
-    // SAVE POINT
-}*/
+}
