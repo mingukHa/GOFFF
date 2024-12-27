@@ -378,12 +378,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &435463443 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4184620964887872721, guid: d2e8c4942af99c143a3f6e55a6c91c7f,
-    type: 3}
-  m_PrefabInstance: {fileID: 2016708891}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &694247426
 GameObject:
   m_ObjectHideFlags: 0
@@ -873,12 +867,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1696531296 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4683283521051438201, guid: d2e8c4942af99c143a3f6e55a6c91c7f,
-    type: 3}
-  m_PrefabInstance: {fileID: 2016708891}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1720569547
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1103,7 +1091,7 @@ PrefabInstance:
         type: 3}
       propertyPath: 'm_ActionAssets.Array.data[0]'
       value: 
-      objectReference: {fileID: -944628639613478452, guid: c348712bda248c246b8c49b3db54643f,
+      objectReference: {fileID: -944628639613478452, guid: e8ac5613b7721e84093d2006d5859f3e,
         type: 3}
     - target: {fileID: 6693052528577237899, guid: f6336ac4ac8b4d34bc5072418cdc62a0,
         type: 3}
@@ -1130,16 +1118,18 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1717954561962503725, guid: f6336ac4ac8b4d34bc5072418cdc62a0,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2088024932}
-    - targetCorrespondingSourceObject: {fileID: 1717954561962503725, guid: f6336ac4ac8b4d34bc5072418cdc62a0,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 2088024925}
     - targetCorrespondingSourceObject: {fileID: 1767192433, guid: f6336ac4ac8b4d34bc5072418cdc62a0,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2115621476}
   m_SourcePrefab: {fileID: 100100000, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+--- !u!20 &1720569548 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1767192439, guid: f6336ac4ac8b4d34bc5072418cdc62a0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1720569547}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1890726246
 GameObject:
   m_ObjectHideFlags: 0
@@ -1300,39 +1290,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraRig: {fileID: 2088024924}
-  leftWheel: {fileID: 1696531296}
-  rightWheel: {fileID: 435463443}
-  moveAction:
-    m_Name: Move
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 9b7abf20-1f1c-4fb3-b876-add5160f8b25
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  rotateLeftAction:
-    m_Name: Rotate Left
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 7aa61124-31ec-4171-8012-27c7d86fa9b8
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  rotateRightAction:
-    m_Name: Rotate Right
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 04ce7c8a-7c57-4889-a4b1-324e397d2831
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
   moveSpeed: 1
   accelerationFactor: 2
-  dampingFactor: 0.99
-  wheelRotationSpeed: 100
 --- !u!114 &2088024926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1340,83 +1299,98 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2088024918}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e933e81d3c20c74ea6fdc708a67e3a5, type: 3}
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useRecommendedMSAALevel: 0
-  _monoscopic: 0
-  _sharpenType: 0
-  enableDynamicResolution: 0
-  minDynamicResolutionScale: 1
-  maxDynamicResolutionScale: 1
-  minRenderScale: 0.7
-  maxRenderScale: 1
-  _headPoseRelativeOffsetRotation: {x: 0, y: 0, z: 0}
-  _headPoseRelativeOffsetTranslation: {x: 0, y: 0, z: 0}
-  profilerTcpPort: 32419
-  expandMixedRealityCapturePropertySheet: 0
-  enableMixedReality: 0
-  compositionMethod: 0
-  extraHiddenLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  extraVisibleLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  dynamicCullingMask: 1
-  externalCompositionBackdropColorRift: {r: 0, g: 1, b: 0, a: 1}
-  externalCompositionBackdropColorQuest: {r: 0, g: 0, b: 0, a: 0}
-  capturingCameraDevice: 0
-  flipCameraFrameHorizontally: 0
-  flipCameraFrameVertically: 0
-  handPoseStateLatency: 0
-  sandwichCompositionRenderLatency: 0
-  sandwichCompositionBufferedFrames: 8
-  chromaKeyColor: {r: 0, g: 1, b: 0, a: 1}
-  chromaKeySimilarity: 0.6
-  chromaKeySmoothRange: 0.03
-  chromaKeySpillRange: 0.06
-  useDynamicLighting: 0
-  depthQuality: 1
-  dynamicLightingSmoothFactor: 8
-  dynamicLightingDepthVariationClampingValue: 0.001
-  virtualGreenScreenType: 0
-  virtualGreenScreenTopY: 10
-  virtualGreenScreenBottomY: -10
-  virtualGreenScreenApplyDepthCulling: 0
-  virtualGreenScreenDepthTolerance: 0.2
-  mrcActivationMode: 0
-  launchMultimodalHandsControllersOnStartup: 0
-  isInsightPassthroughEnabled: 0
-  requestBodyTrackingPermissionOnStartup: 0
-  requestFaceTrackingPermissionOnStartup: 0
-  requestEyeTrackingPermissionOnStartup: 0
-  requestScenePermissionOnStartup: 0
-  _localDimming: 0
-  _trackingOriginType: 0
-  usePositionTracking: 1
-  useRotationTracking: 1
-  useIPDInPositionTracking: 0
-  resetTrackerOnLoad: 0
-  AllowRecenter: 1
-  LateControllerUpdate: 1
-  LateLatching: 0
-  _readOnlyControllerDrivenHandPosesType: 0
-  controllerDrivenHandPosesType: 0
---- !u!114 &2088024932
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2088024918}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95585eadee357c644b0dc891f7b8dc9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: e8ac5613b7721e84093d2006d5859f3e,
+    type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1a9029f8-7a46-46b9-9eff-e9ae8365f611
+    m_ActionName: HMD/Position
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: aed87fe6-2b01-4dd2-a8fa-195578fd8158
+    m_ActionName: HMD/Rotation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6bb4e248-e42b-47c3-b66c-79566508ca74
+    m_ActionName: HMD/Is Tracked
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 08654a17-c094-4bbd-8946-415ae4ce2406
+    m_ActionName: HMD/Tracking State
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dde820a2-0462-4756-be47-630b5b56c115
+    m_ActionName: HMD/Eye Gaze Position
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8ac32629-4403-4068-aae5-2cd243e230c2
+    m_ActionName: HMD/Eye Gaze Rotation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ea26ba43-844b-4585-817a-2f124b571813
+    m_ActionName: HMD/Eye Gaze Is Tracked
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 73053154-2fbc-4d78-9cac-000282b64f79
+    m_ActionName: HMD/Eye Gaze Tracking State
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ee35d14d-3957-49f8-b4ae-bd5e20d594c2
+    m_ActionName: Move/Left Trigger
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2728ace6-f151-44a1-8db1-8d5785e28530
+    m_ActionName: Move/Move Left Trigger
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c18f5bbb-5de2-449e-aec9-04b9f2e47d66
+    m_ActionName: Move/Right Trigger
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 34599d94-c025-4952-ab0d-4fdab151548e
+    m_ActionName: Move/Move Right Trigger
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 126a9d28-94fc-494d-9ae4-2070b69a48e0
+    m_ActionName: Rotate/Left Grip
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e6f26213-6423-4067-b714-0e45b813b0e8
+    m_ActionName: Rotate/Right Grip
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: HMD
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 1720569548}
 --- !u!1 &2115621471 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1767192433, guid: f6336ac4ac8b4d34bc5072418cdc62a0,
