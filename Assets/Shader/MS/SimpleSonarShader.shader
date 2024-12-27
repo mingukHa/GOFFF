@@ -225,7 +225,7 @@
                 }
 
                 // 가장 최근에 영향을 준 파동이 있을 경우 페이드 적용
-                if (mostRecentTime > 0.01)
+                if (mostRecentTime > 0)
                 {
                     float fadeTime = _RingFadeDuration;
                     float fadeProgress = 1 - ((_Time.y - mostRecentTime) / fadeTime);
