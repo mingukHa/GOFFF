@@ -1299,26 +1299,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2088024918}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9e7c9b87dbe1b245a4029d3d666cf39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cameraRig: {fileID: 2088024924}
-  leftWheel: {fileID: 0}
-  rightWheel: {fileID: 0}
-  leftHandTrigger: {fileID: 0}
-  rightHandTrigger: {fileID: 0}
-  leftIndexTrigger: {fileID: 0}
-  rightIndexTrigger: {fileID: 0}
-  leftControllerVelocity: {fileID: 0}
-  rightControllerVelocity: {fileID: 0}
-  leftControllerRotation: {fileID: 0}
-  rightControllerRotation: {fileID: 0}
   moveSpeed: 1
-  accelerationFactor: 2
-  dampingFactor: 0.99
-  wheelRotationSpeed: 100
+  accelerationFactor: 1.8
+  inertiaFactor: 0.9
+  maxSpeed: 5
 --- !u!114 &2088024926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1326,7 +1316,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2088024918}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
@@ -1346,18 +1336,30 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2088024925}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnLeftTrigger
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: ee35d14d-3957-49f8-b4ae-bd5e20d594c2
     m_ActionName: Move/Left Trigger
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 2088024925}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnMoveLeft
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1366,11 +1368,35 @@ MonoBehaviour:
     m_ActionId: 2728ace6-f151-44a1-8db1-8d5785e28530
     m_ActionName: Move/Move Left Trigger
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2088024925}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnRightTrigger
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: c18f5bbb-5de2-449e-aec9-04b9f2e47d66
     m_ActionName: Move/Right Trigger
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2088024925}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnMoveRight
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 34599d94-c025-4952-ab0d-4fdab151548e
     m_ActionName: Move/Move Right Trigger
   - m_PersistentCalls:

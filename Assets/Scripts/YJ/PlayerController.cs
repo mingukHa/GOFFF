@@ -1,166 +1,117 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerControllerOpenXR : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
-    public Transform cameraRig; // 카메라 리그
-    public Transform leftWheel; // 왼쪽 바퀴
-    public Transform rightWheel; // 오른쪽 바퀴
+    public Transform cameraRig; // 플레이어의 Transform
+    public float moveSpeed = 1.0f; // 기본 이동 속도
+    public float accelerationFactor = 1.8f; // 두 컨트롤러 사용 시 가속도 계수
+    public float inertiaFactor = 0.05f; // 트리거를 뗀 후 이동 관성 (느리게 멈추는 정도)
+    public float maxSpeed = 5.0f; // 최대 이동 속도
 
-    [SerializeField] private InputActionReference leftHandTrigger; // 왼쪽 핸드 트리거 입력
-    [SerializeField] private InputActionReference rightHandTrigger; // 오른쪽 핸드 트리거 입력
-    [SerializeField] private InputActionReference leftIndexTrigger; // 왼쪽 인덱스 트리거 입력
-    [SerializeField] private InputActionReference rightIndexTrigger; // 오른쪽 인덱스 트리거 입력
-    [SerializeField] private InputActionReference leftControllerVelocity; // 왼쪽 컨트롤러 속도
-    [SerializeField] private InputActionReference rightControllerVelocity; // 오른쪽 컨트롤러 속도
-    [SerializeField] private InputActionReference leftControllerRotation; // 왼쪽 컨트롤러 회전
-    [SerializeField] private InputActionReference rightControllerRotation; // 오른쪽 컨트롤러 회전
+    private Vector3 leftVelocity; // 왼쪽 컨트롤러 속도
+    private Vector3 rightVelocity; // 오른쪽 컨트롤러 속도
+    private bool isLeftTriggerPressed; // 왼쪽 트리거 상태
+    private bool isRightTriggerPressed; // 오른쪽 트리거 상태
+    private Vector3 leftMovementVelocity; // 왼쪽 관성 속도
+    private Vector3 rightMovementVelocity; // 오른쪽 관성 속도
 
-    [SerializeField] private float moveSpeed = 1.0f;
-    [SerializeField] private float accelerationFactor = 2.0f;
-    [SerializeField] private float dampingFactor = 0.99f;
-    [SerializeField] private float wheelRotationSpeed = 100f;
+    private Vector3 lastLeftPosition; // 왼쪽 컨트롤러의 마지막 위치
+    private Vector3 lastRightPosition; // 오른쪽 컨트롤러의 마지막 위치
 
-    private Vector3 velocity = Vector3.zero;
-    private Quaternion initialLeftControllerRotation;
-    private Quaternion initialRightControllerRotation;
-    private bool isLeftRotating = false;
-    private bool isRightRotating = false;
+    private void Start()
+    {
+        lastLeftPosition = cameraRig.position; // 카메라의 위치로 초기화
+        lastRightPosition = cameraRig.position;
+    }
+
+    // Input System 콜백 메서드
+    public void OnMoveLeft(InputAction.CallbackContext context)
+    {
+        leftVelocity = context.ReadValue<Vector3>();
+    }
+
+    public void OnMoveRight(InputAction.CallbackContext context)
+    {
+        rightVelocity = context.ReadValue<Vector3>();
+    }
+
+    public void OnLeftTrigger(InputAction.CallbackContext context)
+    {
+        isLeftTriggerPressed = context.ReadValue<float>() > 0.5f;
+    }
+
+    public void OnRightTrigger(InputAction.CallbackContext context)
+    {
+        isRightTriggerPressed = context.ReadValue<float>() > 0.5f;
+    }
 
     private void Update()
     {
-        bool isMoving = HandleMovement();
+        // 이전 프레임과 비교해 이동 거리 계산
+        Vector3 leftDelta = leftVelocity - lastLeftPosition;
+        Vector3 rightDelta = rightVelocity - lastRightPosition;
 
-        bool leftRotated = false;
-        bool rightRotated = false;
+        // 이전 위치 업데이트
+        lastLeftPosition = leftVelocity;
+        lastRightPosition = rightVelocity;
 
-        if (!isMoving)
+        // 이동 방향 계산
+        Vector3 movement = Vector3.zero;
+
+        if (isLeftTriggerPressed)
         {
-            leftRotated = HandleRotation(leftControllerRotation, ref initialLeftControllerRotation, ref isLeftRotating, true);
-            rightRotated = HandleRotation(rightControllerRotation, ref initialRightControllerRotation, ref isRightRotating, false);
-        }
-
-        SyncWheelRotation(leftRotated, rightRotated);
-        ApplyBrakingOrDamping(isMoving);
-
-        Vector3 newPosition = cameraRig.position + velocity * Time.deltaTime;
-
-        if (newPosition.z < 0)
-        {
-            newPosition.z = 0;
-            velocity.z = Mathf.Max(0, velocity.z);
-        }
-
-        cameraRig.position = newPosition;
-    }
-
-    private bool HandleMovement()
-    {
-        Vector3 leftMovement = GetControllerMovement(leftHandTrigger, leftControllerVelocity);
-        Vector3 rightMovement = GetControllerMovement(rightHandTrigger, rightControllerVelocity);
-
-        Vector3 combinedMovement = leftMovement + rightMovement;
-        float acceleration = combinedMovement.magnitude * accelerationFactor;
-
-        if (combinedMovement.z < -0.1f)
-        {
-            velocity += cameraRig.forward * (-combinedMovement.z * moveSpeed * acceleration * Time.deltaTime);
-            return true;
-        }
-        else if (combinedMovement.z > 0.1f)
-        {
-            velocity -= cameraRig.forward * (combinedMovement.z * moveSpeed * acceleration * Time.deltaTime);
-            return true;
-        }
-
-        return false;
-    }
-
-    private Vector3 GetControllerMovement(InputActionReference trigger, InputActionReference velocity)
-    {
-        if (trigger.action.ReadValue<float>() > 0.1f)
-        {
-            return velocity.action.ReadValue<Vector3>();
-        }
-        return Vector3.zero;
-    }
-
-    private bool HandleRotation(InputActionReference rotationAction, ref Quaternion initialRotation, ref bool isRotating, bool isRightDirectionOnly)
-    {
-        bool hasRotated = false;
-
-        // 현재 컨트롤러의 회전값을 InputAction에서 가져옴
-        Quaternion currentRotation = rotationAction.action.ReadValue<Quaternion>();
-
-        // 트리거가 눌렸는지 확인 (적절한 InputAction 사용)
-        if (rotationAction.action.WasPressedThisFrame())
-        {
-            // 초기 회전값 설정 및 회전 시작
-            initialRotation = currentRotation;
-            isRotating = true;
-        }
-        else if (rotationAction.action.WasReleasedThisFrame())
-        {
-            // 회전 상태 종료
-            isRotating = false;
-        }
-
-        // 회전 상태일 때만 처리
-        if (isRotating)
-        {
-            // 회전 변화 계산
-            Quaternion rotationDelta = currentRotation * Quaternion.Inverse(initialRotation);
-            float yawDelta = Mathf.DeltaAngle(0, rotationDelta.eulerAngles.y);
-
-            // 방향과 입력에 따라 회전 처리
-            if ((isRightDirectionOnly && yawDelta > 0) || (!isRightDirectionOnly && yawDelta < 0))
-            {
-                Vector3 pivot = isRightDirectionOnly ? leftWheel.position : rightWheel.position;
-                cameraRig.RotateAround(pivot, Vector3.up, yawDelta);
-                hasRotated = true;
-            }
-
-            // 다음 프레임을 위해 초기 회전값 업데이트
-            initialRotation = currentRotation;
-        }
-
-        return hasRotated;
-    }
-
-
-    private void SyncWheelRotation(bool leftRotated, bool rightRotated)
-    {
-        float forwardSpeed = velocity.z;
-        float rotationSpeed = forwardSpeed * wheelRotationSpeed;
-
-        leftWheel.Rotate(Vector3.right, rotationSpeed * Time.deltaTime);
-        rightWheel.Rotate(Vector3.right, rotationSpeed * Time.deltaTime);
-
-        if (leftRotated)
-        {
-            rightWheel.Rotate(Vector3.right, wheelRotationSpeed * Time.deltaTime);
-        }
-
-        if (rightRotated)
-        {
-            leftWheel.Rotate(Vector3.right, wheelRotationSpeed * Time.deltaTime);
-        }
-    }
-
-    private void ApplyBrakingOrDamping(bool isMoving)
-    {
-        if (isMoving) return;
-
-        bool isLeftPressed = leftIndexTrigger.action.ReadValue<float>() > 0.1f;
-        bool isRightPressed = rightIndexTrigger.action.ReadValue<float>() > 0.1f;
-
-        if ((isLeftPressed || isRightPressed) && velocity.magnitude < 0.5f)
-        {
-            velocity = Vector3.Lerp(velocity, Vector3.zero, 0.1f);
+            movement += CalculateMovement(leftVelocity, leftDelta);
+            leftMovementVelocity = CalculateMovement(leftVelocity, leftDelta); // 트리거를 누를 때 속도 계산
         }
         else
         {
-            velocity *= dampingFactor;
+            // 트리거를 떼면 속도 감소 (관성)
+            leftMovementVelocity = Vector3.Lerp(leftMovementVelocity, Vector3.zero, inertiaFactor);
+            movement += leftMovementVelocity;
+        }
+
+        if (isRightTriggerPressed)
+        {
+            movement += CalculateMovement(rightVelocity, rightDelta);
+            rightMovementVelocity = CalculateMovement(rightVelocity, rightDelta); // 트리거를 누를 때 속도 계산
+        }
+        else
+        {
+            // 트리거를 떼면 속도 감소 (관성)
+            rightMovementVelocity = Vector3.Lerp(rightMovementVelocity, Vector3.zero, inertiaFactor);
+            movement += rightMovementVelocity;
+        }
+
+        // 두 컨트롤러 모두 사용 시 가속 적용
+        if (isLeftTriggerPressed && isRightTriggerPressed)
+        {
+            movement *= accelerationFactor;
+        }
+
+        // 카메라 리그 이동
+        cameraRig.position += movement * Time.deltaTime;
+
+        // 최대 속도 제한
+        if (movement.magnitude > maxSpeed)
+        {
+            movement = movement.normalized * maxSpeed;
         }
     }
+
+
+    private Vector3 CalculateMovement(Vector3 controllerVelocity, Vector3 controllerDelta)
+    {
+        // 컨트롤러의 움직임에 따라 이동 방향 계산
+        float forwardMovement = -controllerVelocity.z; // 컨트롤러의 움직임 반전
+        Vector3 movementDirection = cameraRig.forward * (forwardMovement * moveSpeed);
+
+        // 이동 거리 기반으로 가속도 적용
+        float distanceMoved = controllerDelta.magnitude;
+        movementDirection *= (1 + distanceMoved); // 더 많이 움직일수록 더 빨리 이동
+
+        return movementDirection;
+    }
+
+    // SAVE POINT
 }
