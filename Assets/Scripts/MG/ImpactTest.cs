@@ -18,15 +18,13 @@ public class ImpactTest : MonoBehaviour
                 Vector3 clickPosition = hit.point;
                 targetObject.transform.position = clickPosition + Vector3.up;
 
-                Debug.Log("좌표 이동: " + clickPosition);
-
                 // 충돌 확인
                 Collider[] hitColliders = Physics.OverlapSphere(clickPosition, 0.1f);
                 foreach (Collider collider in hitColliders)
                 {
                     if (collider.gameObject != targetObject)
                     {
-                        Debug.Log("충돌: " + collider.name);
+                        //Debug.Log("충돌: " + collider.name);
                     }
                 }
             }

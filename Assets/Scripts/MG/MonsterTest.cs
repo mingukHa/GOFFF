@@ -17,12 +17,13 @@ public class MonsterTest : MonoBehaviour
     [SerializeField]
     private NavMeshAgent navAgent;
     private Animator animator;
-    private enum MonsterState { Idle, Walking, Quest, Attack, Returning , Detect} //대기, 걷기 , 탐색, 공격, 돌아가기
+    private enum MonsterState { Idle, Walking, Quest, Attack, Returning, Detect } // 대기, 걷기, 탐색, 공격, 돌아가기
     private MonsterState currentState = MonsterState.Idle;
 
     private Vector3 originalPosition; // 몬스터 원래 위치
     private Vector3 targetPosition; // 이동할 목표 지점
     private Transform detectedTarget; // 탐지된 타겟
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -30,54 +31,50 @@ public class MonsterTest : MonoBehaviour
 
     private void Start()
     {
-        originalPosition = transform.position; //원래 지점을 저장 해두고
+        originalPosition = transform.position; // 원래 지점을 저장
     }
 
     private void Update()
     {
-        // 타겟 감지는 모든 상태에서 지속적으로 실행
-        DetectTargetsInView();
+        DetectTargetsInView(); // 시야각과 거리 기반 탐지
 
         switch (currentState)
         {
-            case MonsterState.Idle: //기본 상태에서는
-                
+            case MonsterState.Idle:
                 break;
-            case MonsterState.Walking: //걸을 때는
-                
+            case MonsterState.Walking:
+                MoveToTarget();
                 break;
-            case MonsterState.Quest: //탐색 할 때는
-               
+            case MonsterState.Quest:
+                break;           
+            case MonsterState.Returning:
+                ReturnToOriginalPosition();
                 break;
-            case MonsterState.Attack: //공격시
-                
+            case MonsterState.Detect:
                 break;
-            case MonsterState.Returning: //돌아간다
-                
-                break;
-            case MonsterState.Detect: //근접 탐지 시
-
+            case MonsterState.Attack:
+                AttackTarget();
                 break;
         }
     }
 
-    private void DetectTargetsInView() //기본 탐지 범위
+    private void DetectTargetsInView()
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRadius, detectionLayer);
-        //구형 콜라이더를 그려서 탐색
-        foreach (Collider collider in hitColliders) //콜라이더에 탐지 된 정보의 배열을 가져온다
-        {
-            Vector3 directionToTarget = (collider.transform.position - transform.position).normalized; //콜라이더의 포지션에 나의 포지션을 빼서 해당 방향을 구한다
-            float angleToTarget = Vector3.Angle(transform.forward, directionToTarget); 
 
-            // 시야각 및 거리 확인
+        foreach (Collider collider in hitColliders)
+        {
+            Vector3 directionToTarget = (collider.transform.position - transform.position).normalized;
+            float angleToTarget = Vector3.Angle(transform.forward, directionToTarget);
+
             if (angleToTarget <= viewAngle / 2 && Vector3.Distance(transform.position, collider.transform.position) <= visionDistance)
             {
-                if (collider.CompareTag("Player")) //감지 된 물체가 플레이어 태그를 가지고 있다면
+                if (collider.CompareTag("Player"))
                 {
+                    
                     Debug.Log("플레이어 발견");
-                    detectedTarget = collider.transform; //타겟 플레이어의 콜라이더 트랜스폼을 가져온다
-                    currentState = MonsterState.Attack; // 플레이어 발견 시 즉시 공격 상태로 전환
+                    detectedTarget = collider.transform;
+                    currentState = MonsterState.Attack;
                     Debug.Log("플레이어 공격");
                     return;
                 }
@@ -85,18 +82,42 @@ public class MonsterTest : MonoBehaviour
                 {
                     Debug.Log("플레이어 찾지 못 함");
                     targetPosition = collider.transform.position;
-                    if (currentState != MonsterState.Walking)
-                        currentState = MonsterState.Walking; // 충격 또는 일반 타겟 감지 시 Walking으로 전환                   
+                    currentState = MonsterState.Walking;
                     return;
                 }
             }
         }
 
-        // 타겟이 없으면 감지된 타겟 초기화
         detectedTarget = null;
     }
 
-    
+    private void MoveToTarget()
+    {
+        if (targetPosition != Vector3.zero)
+        {
+            navAgent.SetDestination(targetPosition);
+            Debug.Log($"목표 지점으로 이동 중: {targetPosition}");
+        }
+    }
+
+    private void AttackTarget()
+    {
+        if (detectedTarget != null)
+        {
+            navAgent.SetDestination(detectedTarget.position);
+            if (Vector3.Distance(transform.position, detectedTarget.position) <= navAgent.stoppingDistance)
+            {
+                animator.SetTrigger("AttackTrigger");
+                Debug.Log($"플레이어 공격 중: {detectedTarget.position}");
+            }
+        }
+    }
+
+    private void ReturnToOriginalPosition()
+    {
+        navAgent.SetDestination(originalPosition);
+        Debug.Log("원래 위치로 돌아가는 중...");
+    }
 
     private void OnDrawGizmosSelected()
     {
@@ -114,4 +135,5 @@ public class MonsterTest : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position + rightBoundary);
     }
 }
+
 

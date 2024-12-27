@@ -4,9 +4,8 @@ using TMPro;
 using Firebase.Auth;
 using Firebase.Database;
 using System.Text.RegularExpressions;
-using Firebase.Extensions;
 
-public class FirebaseAccount : MonoBehaviour
+public class FireBaseLog : MonoBehaviour
 {
     [SerializeField]
     private TMP_InputField Username;
@@ -42,9 +41,6 @@ public class FirebaseAccount : MonoBehaviour
 
     private void Start()
     {
-        // Firebase 초기화
-        auth = FirebaseAuth.DefaultInstance;
-        database = FirebaseDatabase.DefaultInstance.RootReference;
 
         acountet.interactable = false; // 회원가입 버튼 비활성화
         Password.onValueChanged.AddListener(OnPasswordChanged);
@@ -111,6 +107,7 @@ public class FirebaseAccount : MonoBehaviour
     }
 
     // Firebase Authentication을 사용한 회원가입
+    // Firebase Authentication을 사용한 회원가입
     private void OnSignUpClicked()
     {
         string username = Username.text.Trim();
@@ -125,41 +122,55 @@ public class FirebaseAccount : MonoBehaviour
 
         if (!IsPassword(password))
         {
-            passwordMessage.text = "비밀번호는 영어, 숫자로 4~10자 이내로 입력하세요.";
+            passwordMessage.text = "비밀번호는 영어, 숫자로 6~10자 이내로 입력하세요.";
             passwordMessage.color = Color.red;
             return;
         }
 
-        // Firebase Authentication으로 회원가입 처리
-        auth.CreateUserWithEmailAndPasswordAsync($"{username}", password).ContinueWithOnMainThread(task =>
+        auth.CreateUserWithEmailAndPasswordAsync($"{username}", password).ContinueWith(task =>
         {
-            if (task.IsCanceled || task.IsFaulted)
+            if (task.IsCanceled)
             {
-                Debug.LogError($"회원가입 실패: {task.Exception}");
+                Debug.LogError("회원가입이 취소되었습니다.");
                 return;
             }
 
-            // Firebase AuthResult를 통해 사용자 정보 가져오기
-            Firebase.Auth.AuthResult authResult = task.Result;
-            FirebaseUser newUser = authResult.User;
-
-            Debug.Log($"회원가입 성공! 사용자 ID: {newUser.UserId}, 이메일: {newUser.Email}");
-
-            // 사용자 정보를 Firebase Realtime Database에 저장
-            database.Child("users").Child(username).SetValueAsync(newUser.UserId).ContinueWithOnMainThread(dbTask =>
+            if (task.IsFaulted)
             {
-                if (dbTask.IsCompleted)
+                Debug.LogError($"회원가입 중 오류 발생: {task.Exception}");
+                return;
+            }
+
+            if (task.IsCompletedSuccessfully)
+            {
+                // UID를 직접 추출하여 사용
+                string userId = auth.CurrentUser?.UserId; // 현재 로그인된 사용자의 UID
+                if (!string.IsNullOrEmpty(userId))
                 {
-                    Debug.Log("Firebase에 사용자 정보 저장 성공!");
-                    acountUI.SetActive(false); // UI 닫기
+                    Debug.Log($"회원가입 성공! 사용자 ID: {userId}");
+
+                    // Firebase Realtime Database에 유저 정보 저장
+                    database.Child("users").Child(username).SetValueAsync(userId).ContinueWith(dbTask =>
+                    {
+                        if (dbTask.IsCompletedSuccessfully)
+                        {
+                            Debug.Log("Firebase에 사용자 정보 저장 성공!");
+                            acountUI.SetActive(false); // UI 닫기
+                        }
+                        else
+                        {
+                            Debug.LogError("Firebase에 사용자 정보 저장 실패: " + dbTask.Exception);
+                        }
+                    });
                 }
                 else
                 {
-                    Debug.LogError("Firebase에 사용자 정보 저장 실패: " + dbTask.Exception);
+                    Debug.LogError("회원가입 성공했지만 사용자 ID를 가져올 수 없습니다.");
                 }
-            });
+            }
         });
     }
+
 
 
     // 비밀번호 유효성 검사
@@ -214,6 +225,10 @@ public class FirebaseAccount : MonoBehaviour
     {
         return Password.text == passwordcheck.text;
     }
+
 }
+
+
+
 
 
