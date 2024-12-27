@@ -1,0 +1,54 @@
+{
+    "name": "PlayerInputAction",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "1f5ceb81-f8c2-4f0b-a338-2b5f0ad4a5c6",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Button",
+                    "id": "d220244f-c20d-451c-8610-de80e876750e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Rotate",
+                    "type": "Button",
+                    "id": "e5e29e81-8d09-4c6e-ab52-5d9ea1d4056e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5828c39e-8a0e-4633-b7b7-c5d5ea4e033d",
+                    "path": "<OculusTouchController>/triggerPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4a40ee09-8587-45a9-83b9-4c25184c3cc0",
+                    "path": "<OculusTouchController>/gripPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
