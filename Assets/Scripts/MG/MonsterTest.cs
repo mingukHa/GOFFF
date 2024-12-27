@@ -32,6 +32,7 @@ public class MonsterTest : MonoBehaviour
     private void Start()
     {
         originalPosition = transform.position; // 원래 지점을 저장
+        GroundCollision.OnObjectHitGround += HandleGroundCollision;
     }
 
     private void Update()
@@ -46,7 +47,7 @@ public class MonsterTest : MonoBehaviour
                 MoveToTarget();
                 break;
             case MonsterState.Quest:
-                break;           
+                break;
             case MonsterState.Returning:
                 ReturnToOriginalPosition();
                 break;
@@ -56,6 +57,14 @@ public class MonsterTest : MonoBehaviour
                 AttackTarget();
                 break;
         }
+    }
+    private void HandleGroundCollision(Vector3 collisionPoint)
+    {
+        // 충돌 좌표를 목표 위치로 설정
+        targetPosition = collisionPoint;
+        currentState = MonsterState.Walking; // 상태를 Walking으로 변경
+           
+        Debug.Log($"충돌 좌표로 이동: {collisionPoint}");
     }
 
     private void DetectTargetsInView()
@@ -71,7 +80,7 @@ public class MonsterTest : MonoBehaviour
             {
                 if (collider.CompareTag("Player"))
                 {
-                    
+
                     Debug.Log("플레이어 발견");
                     detectedTarget = collider.transform;
                     currentState = MonsterState.Attack;
@@ -96,6 +105,7 @@ public class MonsterTest : MonoBehaviour
         if (targetPosition != Vector3.zero)
         {
             navAgent.SetDestination(targetPosition);
+            animator.SetTrigger("isWalking");
             Debug.Log($"목표 지점으로 이동 중: {targetPosition}");
         }
     }
@@ -135,5 +145,3 @@ public class MonsterTest : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position + rightBoundary);
     }
 }
-
-
