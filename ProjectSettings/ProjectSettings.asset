@@ -842,7 +842,8 @@ PlayerSettings:
     Android: USE_INPUT_SYSTEM_POSE_CONTROL;USE_STICK_CONTROL_THUMBSTICKS
     Standalone: USE_INPUT_SYSTEM_POSE_CONTROL;USE_STICK_CONTROL_THUMBSTICKS
     Windows Store Apps: USE_INPUT_SYSTEM_POSE_CONTROL;USE_STICK_CONTROL_THUMBSTICKS
-  additionalCompilerArguments: {}
+  additionalCompilerArguments:
+    Android: []
   platformArchitecture: {}
   scriptingBackend:
     Android: 1

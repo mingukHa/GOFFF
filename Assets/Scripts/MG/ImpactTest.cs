@@ -24,7 +24,7 @@ public class ImpactTest : MonoBehaviour
                 {
                     if (collider.gameObject != targetObject)
                     {
-                        Debug.Log("충돌: " + collider.name);
+                        //Debug.Log("충돌: " + collider.name);
                     }
                 }
             }

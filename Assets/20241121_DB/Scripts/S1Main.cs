@@ -30,15 +30,6 @@ public class S1Main : MonoBehaviour
 
     private void Start()
     {
-        // Firebase 초기화 확인
-        if (FirebaseInitializer.Database == null)
-        {
-            Debug.LogError("Firebase Database가 초기화되지 않았습니다.");
-            return;
-        }
-
-        database = FirebaseInitializer.Database;
-
         // 버튼 이벤트 연결
         Loginbt.onClick.AddListener(() => Login(username.text, password.text));
         joinbt.onClick.AddListener(() => OnjoinUI(true));

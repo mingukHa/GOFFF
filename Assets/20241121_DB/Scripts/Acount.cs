@@ -41,9 +41,6 @@ public class FireBaseLog : MonoBehaviour
 
     private void Start()
     {
-        // Firebase 초기화
-        auth = FirebaseAuth.DefaultInstance;
-        database = FirebaseDatabase.DefaultInstance.RootReference;
 
         acountet.interactable = false; // 회원가입 버튼 비활성화
         Password.onValueChanged.AddListener(OnPasswordChanged);
