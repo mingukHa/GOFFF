@@ -218,6 +218,7 @@
                     // 링이 이 픽셀을 지나간 경우
                     if (dist < ringStart && hitTime > mostRecentTime)
                     {
+                        if (ringEnd > dist)
                         mostRecentTime = hitTime;   // 가장 최근 시간 업데이트
                         mostRecentPos = hitPos;    // 가장 최근 위치 업데이트
                     }
