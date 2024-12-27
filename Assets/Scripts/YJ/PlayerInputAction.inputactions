@@ -6,7 +6,7 @@
             "id": "b120365b-2601-4c46-a009-b280c1078f5b",
             "actions": [
                 {
-                    "name": "Left Trigger",
+                    "name": "Left Index Trigger",
                     "type": "Button",
                     "id": "ee35d14d-3957-49f8-b4ae-bd5e20d594c2",
                     "expectedControlType": "",
@@ -15,7 +15,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Move Left Trigger",
+                    "name": "Move Left Index Trigger",
                     "type": "Value",
                     "id": "2728ace6-f151-44a1-8db1-8d5785e28530",
                     "expectedControlType": "Vector3",
@@ -24,7 +24,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Right Trigger",
+                    "name": "Right Index Trigger",
                     "type": "Button",
                     "id": "c18f5bbb-5de2-449e-aec9-04b9f2e47d66",
                     "expectedControlType": "",
@@ -33,7 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Move Right Trigger",
+                    "name": "Move Right Index Trigger",
                     "type": "Value",
                     "id": "34599d94-c025-4952-ab0d-4fdab151548e",
                     "expectedControlType": "Vector3",
@@ -50,7 +50,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Left Trigger",
+                    "action": "Left Index Trigger",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -61,7 +61,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Right Trigger",
+                    "action": "Right Index Trigger",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -72,18 +72,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move Left Trigger",
+                    "action": "Move Left Index Trigger",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "8d758920-e9a4-4e87-9d9f-1b5530a75912",
-                    "path": "<OculusTouchController>/devicePose/velocity",
+                    "path": "<XRInputV1::Oculus::OculusTouchControllerOpenXR>{RightHand}/devicepose/velocity",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move Right Trigger",
+                    "action": "Move Right Index Trigger",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -94,7 +94,7 @@
             "id": "36e0c5e2-466a-49b1-96ef-42304ada7eda",
             "actions": [
                 {
-                    "name": "Left Grip",
+                    "name": "Left Grip Trigger",
                     "type": "Button",
                     "id": "126a9d28-94fc-494d-9ae4-2070b69a48e0",
                     "expectedControlType": "",
@@ -103,7 +103,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Move Left Grip",
+                    "name": "Move Left Grip Trigger",
                     "type": "Value",
                     "id": "2071b6bb-43ce-4e72-8144-72158ad9cd86",
                     "expectedControlType": "Vector3",
@@ -112,7 +112,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Right Grip",
+                    "name": "Right Grip Trigger",
                     "type": "Button",
                     "id": "e6f26213-6423-4067-b714-0e45b813b0e8",
                     "expectedControlType": "",
@@ -121,7 +121,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Move Right Grip",
+                    "name": "Move Right Grip Trigger",
                     "type": "Value",
                     "id": "f8e2f553-7abd-4f84-a026-2e1849584a91",
                     "expectedControlType": "Vector3",
@@ -138,7 +138,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Right Grip",
+                    "action": "Right Grip Trigger",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -149,29 +149,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Left Grip",
+                    "action": "Left Grip Trigger",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "0c4f1322-3f68-49a7-bc8c-21bc4289409d",
-                    "path": "<OculusTouchController>{LeftHand}/devicePose/velocity",
+                    "path": "<OculusTouchController>{LeftHand}/devicePose/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move Left Grip",
+                    "action": "Move Left Grip Trigger",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "8743d6cd-2e2c-4163-87ae-0c6dc61b00b8",
-                    "path": "<OculusTouchController>{RightHand}/devicePose/velocity",
+                    "path": "<OculusTouchController>{RightHand}/devicePose/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move Right Grip",
+                    "action": "Move Right Grip Trigger",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
