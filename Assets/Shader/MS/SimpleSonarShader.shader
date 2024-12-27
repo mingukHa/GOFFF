@@ -15,6 +15,9 @@
         _DistanceFactor("Distance Factor", Float) = 0.1
         _OutlineAlpha("Outline Alpha", Float) = 1.0
 
+        _OutlineRingSpeed("Outline Ring Speed", Float) = 1
+        _OutlineRingWitdh("Outline Ring Width", Float) = 0.1
+
 
         _RingFadeDuration("Ring Fade Duration", Float) = 2
     }
@@ -23,8 +26,6 @@
     {
         Tags { "RenderType" = "Transparent" "Queue" = "Transparent" }
         LOD 200
-
-        // 파동 그리는 부분
         Pass
         {
             Tags { "LightMode" = "UniversalForward" }
@@ -124,8 +125,9 @@
         {
             Name "OUTLINE"
             Cull Front
-            ZWrite Off
+            ZWrite ON
             ZTest LEqual
+
             Blend SrcAlpha OneMinusSrcAlpha
 
             HLSLPROGRAM
@@ -152,37 +154,38 @@
             float _OutlineWidth;
             float4 _OutlineColor;
             float4 _RingColor; // 링 색상 추가
-            float _RingSpeed;
-            float _RingWidth;
+            float _OutlineRingSpeed;
+            float _OutlineRingWidth;
             float4 _hitPts[100];
             float _StartTime;
             float _RingFadeDuration;
             float _OutlineAlpha;
             float _DistanceFactor; // 거리 기반 스케일링을 위한 팩터
+            float _OutlinePower; // Fresnel 효과의 강도 조절
 
 
             v2f vert(appdata v)
             {
                 v2f o;
 
-                // 월드 공간에서 정점 위치 계산
+                // 월드 좌표 계산
                 o.originalWorldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
 
-                // 오브젝트 중심 계산 (local space에서 원점 기준)
-                float3 objectCenterWorld = mul(unity_ObjectToWorld, float4(0, 0, 0, 1)).xyz;
+                // 카메라 방향 계산
+                float3 viewDir = normalize(_WorldSpaceCameraPos - o.originalWorldPos);
+                // 법선 방향
+                float3 normal = normalize(mul((float3x3)unity_ObjectToWorld, v.normal));
 
-                // 중심에서 정점으로 향하는 벡터
-                float3 outlineDirection = normalize(o.originalWorldPos - objectCenterWorld);
+                // Fresnel 효과 계산 (내적값을 사용)
+                float fresnel = 1.0 - saturate(dot(viewDir, normal));
+                fresnel = pow(fresnel, _OutlinePower); // 강조 정도를 조절
 
-                // 카메라와의 거리 비례한 스케일링
-                float distanceFromCamera = distance(o.originalWorldPos, _WorldSpaceCameraPos);
-                float outlineScale = _OutlineWidth * (1.0 + _DistanceFactor * distanceFromCamera);
+                // 월드 공간에서 일정한 아웃라인 크기를 유지하도록 조정
+                float outlineScale = _OutlineWidth * (1.0 + _DistanceFactor * distance(o.originalWorldPos, _WorldSpaceCameraPos));
 
-                // 아웃라인을 중심 방향으로 확장
-                float3 projectedNormal = outlineDirection * outlineScale;
+                // 법선 방향으로 정점 이동 (아웃라인 생성)
+                v.vertex.xyz += v.normal * outlineScale; // 아웃라인 크기를 일정하게 유지
 
-                // 정점 변위
-                v.vertex.xyz += projectedNormal;
                 o.vertex = UnityObjectToClipPos(v.vertex);
 
                 // 변위된 월드 좌표 계산
@@ -209,25 +212,32 @@
                     float hitTime = _hitPts[idx].w;   // 파동의 시작 시간
 
                     float dist = distance(hitPos, i.originalWorldPos);  // 현재 픽셀과 파동의 거리
-                    float ringStart = (_Time.y - hitTime) * _RingSpeed - _RingWidth;
-                    float ringEnd = (_Time.y - hitTime) * _RingSpeed;
+                    float ringStart = (_Time.y - hitTime) * _OutlineRingSpeed - _OutlineRingWidth;
+                    float ringEnd = (_Time.y - hitTime) * _OutlineRingSpeed;
 
                     // 링이 이 픽셀을 지나간 경우
                     if (dist < ringStart && hitTime > mostRecentTime)
                     {
+                        if (ringEnd > dist)
                         mostRecentTime = hitTime;   // 가장 최근 시간 업데이트
                         mostRecentPos = hitPos;    // 가장 최근 위치 업데이트
                     }
                 }
 
                 // 가장 최근에 영향을 준 파동이 있을 경우 페이드 적용
-                if (mostRecentTime > 0)
+                if (mostRecentTime > 0.01)
                 {
                     float fadeTime = _RingFadeDuration;
                     float fadeProgress = 1 - ((_Time.y - mostRecentTime) / fadeTime);
                     fadeProgress = saturate(fadeProgress); // 0~1로 제한
                     //col = _RingColor; // 링 색상 적용
-                    col.a = fadeProgress; // 알파값은 페이드 프로그래스
+                    float nonLinearFade = pow(fadeProgress, 0.6);
+                    col.a = nonLinearFade; // 알파값은 페이드 프로그래스
+                }
+
+                if (col.a <= 0.0)
+                {
+                    discard; // 아웃라인을 그리지 않음
                 }
 
                 UNITY_APPLY_FOG(i.fogCoord, col);
