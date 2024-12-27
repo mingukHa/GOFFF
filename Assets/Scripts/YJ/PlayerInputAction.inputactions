@@ -324,7 +324,7 @@
             ]
         },
         {
-            "name": "Left Controller",
+            "name": "Move",
             "id": "b120365b-2601-4c46-a009-b280c1078f5b",
             "actions": [
                 {
@@ -337,31 +337,31 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Left Grip",
+                    "name": "Move Left Trigger",
+                    "type": "Value",
+                    "id": "2728ace6-f151-44a1-8db1-8d5785e28530",
+                    "expectedControlType": "Vector3",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Right Trigger",
                     "type": "Button",
-                    "id": "425a2fe6-cf1e-4ae4-8138-e39f50450a27",
+                    "id": "c18f5bbb-5de2-449e-aec9-04b9f2e47d66",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "X",
-                    "type": "Button",
-                    "id": "8a859b8d-0dc9-44d9-9131-1abb7b8713cc",
-                    "expectedControlType": "",
+                    "name": "Move Right Trigger",
+                    "type": "Value",
+                    "id": "34599d94-c025-4952-ab0d-4fdab151548e",
+                    "expectedControlType": "Vector3",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Y",
-                    "type": "Button",
-                    "id": "737bc743-3cee-44f7-9edc-8e2b4ab280a0",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -378,47 +378,47 @@
                 },
                 {
                     "name": "",
-                    "id": "891ba80d-dca6-4764-bf2c-4e64cbc876a1",
-                    "path": "<OculusTouchController>{LeftHand}/gripPressed",
+                    "id": "25da444b-880b-4bdb-b03a-b6ca132bdeda",
+                    "path": "<OculusTouchController>{RightHand}/triggerPressed",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Left Grip",
+                    "action": "Right Trigger",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "f6ea7111-7fd0-4c45-ab87-2af4d4f1e738",
-                    "path": "<OculusTouchController>{LeftHand}/primaryButton",
+                    "id": "71ee21f7-817e-4b08-9198-28a1cec3feed",
+                    "path": "<OculusTouchController>{LeftHand}/devicePose/velocity",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "X",
+                    "action": "Move Left Trigger",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "c83a46a3-71c1-409d-81ab-579861b0bf4b",
-                    "path": "<OculusTouchController>{LeftHand}/secondaryButton",
+                    "id": "8d758920-e9a4-4e87-9d9f-1b5530a75912",
+                    "path": "<OculusTouchController>/devicePose/velocity",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Y",
+                    "action": "Move Right Trigger",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
             ]
         },
         {
-            "name": "Right Controller",
+            "name": "Rotate",
             "id": "36e0c5e2-466a-49b1-96ef-42304ada7eda",
             "actions": [
                 {
-                    "name": "Right Trigger",
+                    "name": "Left Grip",
                     "type": "Button",
-                    "id": "26802595-0489-4a2d-a472-558e3dda08c3",
+                    "id": "126a9d28-94fc-494d-9ae4-2070b69a48e0",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -432,38 +432,9 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "A",
-                    "type": "Button",
-                    "id": "3719dae1-e038-4200-80d9-79850d68fc22",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "B",
-                    "type": "Button",
-                    "id": "1e2d3de6-cb01-4a7f-a506-19c8f59f0f64",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "ccfc6d8e-98b1-488d-ba69-8070c78a631f",
-                    "path": "<OculusTouchController>{RightHand}/triggerPressed",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Right Trigger",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "5f277772-276a-4061-b5cd-87129755082a",
@@ -477,23 +448,12 @@
                 },
                 {
                     "name": "",
-                    "id": "54e20565-de72-4414-9a5d-e67b0f3c8e99",
-                    "path": "<OculusTouchController>/primaryButton",
+                    "id": "81761ba7-61b8-4d1c-a05c-268d9d00758a",
+                    "path": "<OculusTouchController>{LeftHand}/gripPressed",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "A",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "921ccb48-e101-4d60-82c8-137f8ce90f88",
-                    "path": "<OculusTouchController>/secondaryButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "B",
+                    "action": "Left Grip",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
