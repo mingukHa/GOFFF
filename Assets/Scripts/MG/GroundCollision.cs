@@ -2,18 +2,17 @@ using UnityEngine;
 
 public class GroundCollision : MonoBehaviour
 {
-    public delegate void CollisionEvent(Vector3 collisionPoint); //콜백 델리게이트
-    public static event CollisionEvent OnObjectHitGround; //충돌 이벤트
+    public delegate void CollisionEvent(Vector3 collisionPoint);
+    public static event CollisionEvent OnObjectHitGround;
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Object")) //만약 충돌한게 오브젝트라면
+        if (collision.gameObject.CompareTag("Object"))
         {
-            Vector2 collisionPoint = collision.contacts[0].point; //충돌 한 오브젝트의 좌표를 가져온다
-            Debug.Log($"좌표 위치{collision.contacts[0].point}"); //좌표 확인 용
-
-            OnObjectHitGround?.Invoke(collisionPoint); //콜백을 호출한다
-
+            Vector3 collisionPoint = collision.contacts[0].point; // 충돌 좌표
+            Debug.Log($"GroundCollision에서 전달된 좌표: {collisionPoint}"); // 전달값 디버깅
+            OnObjectHitGround?.Invoke(collisionPoint); // 이벤트 호출
         }
     }
+
 }
