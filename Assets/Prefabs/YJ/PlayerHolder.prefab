@@ -63,7 +63,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 7102014293633449745}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: OnLeftIndexTrigger
         m_Mode: 0
@@ -79,7 +79,7 @@ MonoBehaviour:
     m_ActionName: Move/Left Trigger
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 7102014293633449745}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: OnMoveLeft
         m_Mode: 0
@@ -95,7 +95,7 @@ MonoBehaviour:
     m_ActionName: Move/Move Left Trigger
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 7102014293633449745}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: OnRightIndexTrigger
         m_Mode: 0
@@ -111,7 +111,7 @@ MonoBehaviour:
     m_ActionName: Move/Right Trigger
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 7102014293633449745}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: OnMoveRight
         m_Mode: 0
@@ -127,7 +127,7 @@ MonoBehaviour:
     m_ActionName: Move/Move Right Trigger
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 7102014293633449745}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: OnLeftGripTrigger
         m_Mode: 0
@@ -143,7 +143,7 @@ MonoBehaviour:
     m_ActionName: Rotate/Left Grip
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 7102014293633449745}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: OnRightGripTrigger
         m_Mode: 0
@@ -159,7 +159,7 @@ MonoBehaviour:
     m_ActionName: Rotate/Right Grip
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 7102014293633449745}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: OnRotateLeft
         m_Mode: 0
@@ -175,7 +175,7 @@ MonoBehaviour:
     m_ActionName: Rotate/Move Left Grip
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 7102014293633449745}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: OnRotateRight
         m_Mode: 0
@@ -254,6 +254,10 @@ PrefabInstance:
     - target: {fileID: 1670256624, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1680501587, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 153982007679157697, guid: f6336ac4ac8b4d34bc5072418cdc62a0,
         type: 3}
@@ -424,6 +428,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TrackingType
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6232745470614056090, guid: f6336ac4ac8b4d34bc5072418cdc62a0,
+        type: 3}
+      propertyPath: m_Height
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6232745470614056090, guid: f6336ac4ac8b4d34bc5072418cdc62a0,
         type: 3}
@@ -602,7 +611,7 @@ PrefabInstance:
     - target: {fileID: 2873166199871243482, guid: d2e8c4942af99c143a3f6e55a6c91c7f,
         type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2917702264380948948, guid: d2e8c4942af99c143a3f6e55a6c91c7f,
         type: 3}
@@ -627,7 +636,7 @@ PrefabInstance:
     - target: {fileID: 7257531184700124340, guid: d2e8c4942af99c143a3f6e55a6c91c7f,
         type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
