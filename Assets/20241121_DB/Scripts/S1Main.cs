@@ -4,7 +4,8 @@ using UnityEngine.UI;
 using TMPro;
 using Firebase.Database;
 using Firebase.Extensions;
-
+using Firebase;
+using System.Collections;
 public class S1Main : MonoBehaviour
 {
     [SerializeField]
@@ -26,10 +27,13 @@ public class S1Main : MonoBehaviour
     [SerializeField]
     private TMP_InputField password;
 
-    private DatabaseReference database;
+    public static DatabaseReference database;
 
     private void Start()
     {
+        // Firebase 초기화 시작
+        StartCoroutine(InitializeFirebase());
+
         // 버튼 이벤트 연결
         Loginbt.onClick.AddListener(() => Login(username.text, password.text));
         joinbt.onClick.AddListener(() => OnjoinUI(true));
@@ -38,12 +42,44 @@ public class S1Main : MonoBehaviour
         Eclosebt.onClick.AddListener(() => Eclose(false));
     }
 
+    private IEnumerator InitializeFirebase()
+    {
+        Debug.Log("Firebase 초기화 중...");
+        var dependencyTask = FirebaseApp.CheckAndFixDependenciesAsync();
+        yield return new WaitUntil(() => dependencyTask.IsCompleted);
+
+        if (dependencyTask.Result == DependencyStatus.Available)
+        {
+            Debug.Log("Firebase 초기화 성공!");
+            database = FirebaseDatabase.DefaultInstance.RootReference;
+
+            // Database 초기화 성공 로그
+            if (database != null)
+                Debug.Log("Firebase Database 초기화 성공!");
+            else
+                Debug.LogError("Firebase Database 초기화 실패!");
+        }
+        else
+        {
+            Debug.LogError($"Firebase 초기화 실패: {dependencyTask.Result}");
+            yield break; // 초기화 실패 시 종료
+        }
+    }
+
+
     private void Login(string username, string password)
     {
         // 입력값 검증
         if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
         {
             Debug.LogWarning("아이디와 비밀번호를 입력하세요.");
+            return;
+        }
+
+        // Firebase Database 초기화 확인
+        if (database == null)
+        {
+            Debug.LogError("Firebase Database가 초기화되지 않았습니다.");
             return;
         }
 
@@ -111,9 +147,3 @@ public class S1Main : MonoBehaviour
         joinUI.SetActive(join);
     }
 }
-
-
-
-
-
-
