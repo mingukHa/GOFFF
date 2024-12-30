@@ -62,6 +62,14 @@ public class SimpleSonarShader_Parent : MonoBehaviour
                 r.material.SetFloatArray("_Intensity", intensityQueue.ToArray());
             }
         }
+        foreach (Renderer r in ObjectRenderers)
+        {
+            if (r)
+            {
+                Debug.Log(r.material.GetVectorArray("_hitPts"));
+                Debug.Log(r.material.GetFloatArray("_Intensity"));
+            }
+        }
     }
 
 }
