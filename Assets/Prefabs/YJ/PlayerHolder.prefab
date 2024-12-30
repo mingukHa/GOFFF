@@ -9860,6 +9860,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: f8e2f553-7abd-4f84-a026-2e1849584a91
     m_ActionName: Rotate/Move Right Grip
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7102014293633449745}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnLeftPrimaryButton
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e41f4844-825f-4373-8601-cf0b7354d826
+    m_ActionName: Grab/Left Grab Key
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7102014293633449745}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnRightPrimaryButton
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2e802c87-fca3-46b0-bda1-3258a9b9fce6
+    m_ActionName: Grab/Right Grab Key
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Move
@@ -10684,7 +10716,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6755688651460778695}
   - component: {fileID: 6507007735328496453}
-  - component: {fileID: 2047248185538926707}
   - component: {fileID: 1182999641519801702}
   - component: {fileID: 1930969186902786008}
   - component: {fileID: 1138784109802874504}
@@ -10730,31 +10761,6 @@ MonoBehaviour:
   m_CameraFloorOffsetObject: {fileID: 5338561726664548283}
   m_RequestedTrackingOriginMode: 1
   m_CameraYOffset: 1.1
---- !u!143 &2047248185538926707
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6755688651460778692}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 0.1
-  m_Radius: 0.1
-  m_SlopeLimit: 45
-  m_StepOffset: 0.5
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.76072, z: 0}
 --- !u!114 &1182999641519801702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15159,7 +15165,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4197581269819362388
 Transform:
   m_ObjectHideFlags: 0
