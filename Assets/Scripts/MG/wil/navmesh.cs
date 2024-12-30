@@ -52,6 +52,6 @@ public class DynamicNavMeshBaker : MonoBehaviour
 
         // NavMesh 재생성
         navMeshSurface.BuildNavMesh();
-        Debug.Log($"NavMesh가 {target.position} 주변으로 Bake되었습니다.");
+        //Debug.Log($"NavMesh가 {target.position} 주변으로 Bake되었습니다.");
     }
 }

@@ -4,7 +4,7 @@
     {
         _BaseColor("Base Color", Color) = (1, 1, 1, 1)
         _MainTex("Albedo (RGB)", 2D) = "white" {}
-        _RingColor("Ring Color", Color) = (1, 1, 1, 1) // 링 색상, Inspector에서 설정
+        //_RingColor("Ring Color", Color) = (1, 1, 1, 1) // 링 색상, Inspector에서 설정
         _RingColorIntensity("Ring Color Intensity", Float) = 2
         _RingSpeed("Ring Speed", Float) = 1
         _RingWidth("Ring Width", Float) = 0.1
@@ -39,7 +39,7 @@
             sampler2D _RingTex;
 
             float4 _BaseColor;
-            float4 _RingColor;
+            float4 _RingColor[100];
             float _RingColorIntensity;
             float _RingSpeed;
             float _RingWidth;
@@ -77,12 +77,16 @@
                 float4 baseColor = tex2D(_MainTex, i.uv) * _BaseColor;
                 float3 finalColor = baseColor.rgb;
 
-                float diffFromRingCol = abs(finalColor.r - _RingColor.r) +
-                                        abs(finalColor.g - _RingColor.g) +
-                                        abs(finalColor.b - _RingColor.b);
+                // float diffFromRingCol = abs(finalColor.r - _RingColor.r) +
+                //                         abs(finalColor.g - _RingColor.g) +
+                //                         abs(finalColor.b - _RingColor.b);
 
                 for (int idx = 0; idx < 100; idx++)
                 {
+                    float diffFromRingCol = abs(finalColor.r - _RingColor[idx].r) +
+                                        abs(finalColor.g - _RingColor[idx].g) +
+                                        abs(finalColor.b - _RingColor[idx].b);
+
                     float3 hitPos = _hitPts[idx].xyz;
                     float hitTime = _hitPts[idx].w;
                     float intensity = _Intensity[idx] * _RingIntensityScale;
@@ -99,12 +103,12 @@
 
                         if (val > 0)
                         {
-                            float3 ringColor = _RingColor.rgb * val * _RingColorIntensity;
+                            float3 ringColor = _RingColor[idx].rgb * val * _RingColorIntensity;
                             float3 blendedColor = lerp(finalColor, ringColor, val);
 
-                            float newDiffFromRingCol = abs(blendedColor.r - _RingColor.r) +
-                                                        abs(blendedColor.g - _RingColor.g) +
-                                                        abs(blendedColor.b - _RingColor.b);
+                            float newDiffFromRingCol = abs(blendedColor.r - _RingColor[idx].r) +
+                                                        abs(blendedColor.g - _RingColor[idx].g) +
+                                                        abs(blendedColor.b - _RingColor[idx].b);
 
                             if (newDiffFromRingCol < diffFromRingCol)
                             {
@@ -153,7 +157,7 @@
 
             float _OutlineWidth;
             float4 _OutlineColor;
-            float4 _RingColor; // 링 색상 추가
+            float4 _RingColor[100]; // 링 색상 추가
             float _OutlineRingSpeed;
             float _OutlineRingWidth;
             float4 _hitPts[100];
@@ -162,6 +166,8 @@
             float _OutlineAlpha;
             float _DistanceFactor; // 거리 기반 스케일링을 위한 팩터
             float _OutlinePower; // Fresnel 효과의 강도 조절
+
+            float diffFromRingCol;
 
 
             v2f vert(appdata v)
@@ -205,9 +211,14 @@
 
                 float mostRecentTime = -1.0; // 가장 최근 파동의 시간
                 float3 mostRecentPos = float3(0, 0, 0); // 가장 최근 파동의 위치
+                float3 finalColor = (0,0,0);
 
                 for (int idx = 0; idx < 100; idx++)
                 {
+                    diffFromRingCol = abs(finalColor.r - _RingColor[idx].r) +
+                                        abs(finalColor.g - _RingColor[idx].g) +
+                                        abs(finalColor.b - _RingColor[idx].b);
+
                     float3 hitPos = _hitPts[idx].xyz;  // 파동의 위치
                     float hitTime = _hitPts[idx].w;   // 파동의 시작 시간
 
@@ -222,18 +233,29 @@
                         mostRecentTime = hitTime;   // 가장 최근 시간 업데이트
                         mostRecentPos = hitPos;    // 가장 최근 위치 업데이트
                     }
+
+                                    // 가장 최근에 영향을 준 파동이 있을 경우 페이드 적용
+                    if (mostRecentTime > 0)
+                    {
+                        float fadeTime = _RingFadeDuration;
+                        float fadeProgress = 1 - ((_Time.y - mostRecentTime) / fadeTime);
+                        fadeProgress = saturate(fadeProgress); // 0~1로 제한
+                        col = diffFromRingCol; // 링 색상 적용
+                        float nonLinearFade = pow(fadeProgress, 0.6);
+                        col.a = nonLinearFade; // 알파값은 페이드 프로그래스
+                    }
                 }
 
-                // 가장 최근에 영향을 준 파동이 있을 경우 페이드 적용
-                if (mostRecentTime > 0)
-                {
-                    float fadeTime = _RingFadeDuration;
-                    float fadeProgress = 1 - ((_Time.y - mostRecentTime) / fadeTime);
-                    fadeProgress = saturate(fadeProgress); // 0~1로 제한
-                    //col = _RingColor; // 링 색상 적용
-                    float nonLinearFade = pow(fadeProgress, 0.6);
-                    col.a = nonLinearFade; // 알파값은 페이드 프로그래스
-                }
+                // // 가장 최근에 영향을 준 파동이 있을 경우 페이드 적용
+                // if (mostRecentTime > 0)
+                // {
+                //     float fadeTime = _RingFadeDuration;
+                //     float fadeProgress = 1 - ((_Time.y - mostRecentTime) / fadeTime);
+                //     fadeProgress = saturate(fadeProgress); // 0~1로 제한
+                //     col = diffFromRingCol; // 링 색상 적용
+                //     float nonLinearFade = pow(fadeProgress, 0.6);
+                //     col.a = nonLinearFade; // 알파값은 페이드 프로그래스
+                // }
 
                 if (col.a <= 0.0)
                 {
