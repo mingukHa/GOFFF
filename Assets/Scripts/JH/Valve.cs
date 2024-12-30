@@ -1,4 +1,7 @@
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 // Valve 관련 스크립트
 public class Valve : MonoBehaviour
@@ -13,10 +16,23 @@ public class Valve : MonoBehaviour
     public GameObject bridge1;  // 회전하는 다리 변수1
     public GameObject bridge2;  // 회전하는 다리 변수2
 
+    private XRGrabInteractable grabInteractable;  // XR Grab Interactable
+    private Transform attachTransform;  // 손 위치 추적을 위한 변수
+
     void Start()
     {
         // Rigidbody 컴포넌트를 가져와서 valveRigidbody 변수에 저장
         valveRigidbody = GetComponent<Rigidbody>();
+
+        // XR Grab Interactable을 가져오기
+        grabInteractable = GetComponent<XRGrabInteractable>();
+
+        // 오브젝트의 attachTransform 설정
+        attachTransform = grabInteractable.attachTransform;
+
+        // XRGrabInteractable 이벤트 등록
+        grabInteractable.selectEntered.AddListener(OnGrabEnter);
+        grabInteractable.selectExited.AddListener(OnGrabExit);
     }
 
     void Update()
@@ -54,15 +70,26 @@ public class Valve : MonoBehaviour
         }
     }
 
-    // 다른 Collider와 충돌이 끝났을 때 호출되는 메서드
-    private void OnTriggerExit(Collider other)
+    private void OnGrabEnter(SelectEnterEventArgs arg0)
     {
-        // 충돌한 오브젝트가 "Cylinder" 태그를 가지고 있고, 밸브가 실린더에 붙어 있다면
-        if (other.CompareTag("Cylinder") && isAttached)
-        {
-            DetachFromCylinder();  // 실린더에서 밸브를 떼는 메서드 호출
-        }
+        // Grab된 상태에서 추가 처리 필요 시 사용
     }
+
+    private void OnGrabExit(SelectExitEventArgs arg0)
+    {
+        // Grabbed 상태에서 떨어졌을 때, 물리 상태 복원
+        DetachFromCylinder();
+    }
+
+    // 다른 Collider와 충돌이 끝났을 때 호출되는 메서드
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    // 충돌한 오브젝트가 "Cylinder" 태그를 가지고 있고, 밸브가 실린더에 붙어 있다면
+    //    if (other.CompareTag("Cylinder") && isAttached)
+    //    {
+    //        DetachFromCylinder();  // 실린더에서 밸브를 떼는 메서드 호출
+    //    }
+    //}
 
     // 실린더에 밸브를 붙이는 메서드
     private void AttachToCylinder(GameObject cylinder)
