@@ -15,7 +15,7 @@ public class MonsterTest : MonoBehaviour
     [SerializeField]
     private float idleTimeLimit = 10f; // 탐지 없을 때 원래 위치로 복귀 시간
     [SerializeField]
-    private float arrivalThreshold = 2f; // 목표 지점 도착으로 간주할 거리
+    private float arrivalThreshold = 0.5f; // 목표 지점 도착으로 간주할 거리
     [SerializeField]
     private NavMeshAgent navAgent; // NavMeshAgent
     private Animator animator; // 몬스터의 애니메이터
@@ -74,7 +74,7 @@ public class MonsterTest : MonoBehaviour
         // Z 값 보정
         collisionPoint.z = collisionPoint.z == 0 ? transform.position.z : collisionPoint.z;
 
-        // 충돌 지점에서 2m 뒤로 물러난 위치를 설정
+        // 충돌 지점에서 뒤로 물러난 위치를 설정
         Vector3 offset = (transform.position - collisionPoint).normalized * arrivalThreshold;
         collisionPoint += offset;
 
