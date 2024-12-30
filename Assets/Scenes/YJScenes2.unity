@@ -971,46 +971,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2128511918386348633, guid: feab0d83960f233479b23431946ef43e,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2128511918386348633, guid: feab0d83960f233479b23431946ef43e,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2128511918386348633, guid: feab0d83960f233479b23431946ef43e,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2128511918386348633, guid: feab0d83960f233479b23431946ef43e,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2128511918386348633, guid: feab0d83960f233479b23431946ef43e,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2128511918386348633, guid: feab0d83960f233479b23431946ef43e,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2128511918386348633, guid: feab0d83960f233479b23431946ef43e,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2128511918386348633, guid: feab0d83960f233479b23431946ef43e,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 5117189579281559636, guid: feab0d83960f233479b23431946ef43e,
         type: 3}
       propertyPath: m_InteractionManager
@@ -1031,6 +991,11 @@ PrefabInstance:
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 1890726247}
+    - target: {fileID: 7102014293633449745, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: accelerationFactor
+      value: 1.8
+      objectReference: {fileID: 0}
     - target: {fileID: 7775752761938324472, guid: feab0d83960f233479b23431946ef43e,
         type: 3}
       propertyPath: m_InteractionManager
