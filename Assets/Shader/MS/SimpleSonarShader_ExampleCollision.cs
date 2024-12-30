@@ -22,7 +22,7 @@ public class SimpleSonarShader_ExampleCollision : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(mousePosToRay, out hit))
             {
-                par.StartSonarRing(hit.point, 1.4f);
+                par.StartSonarRing(hit.point, 1.4f, Color.white);
             }
         }
     }
@@ -30,6 +30,6 @@ public class SimpleSonarShader_ExampleCollision : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         // Start sonar ring from the contact point
-        if (par) par.StartSonarRing(collision.contacts[0].point, collision.impulse.magnitude / 10.0f);
+        if (par) par.StartSonarRing(collision.contacts[0].point, collision.impulse.magnitude / 10.0f, Color.white);
     }
 }

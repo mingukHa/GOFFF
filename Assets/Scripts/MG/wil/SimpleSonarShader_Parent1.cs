@@ -1,10 +1,10 @@
-﻿// SimpleSonarShader scripts and shaders were written by Drew Okenfuss.
+// SimpleSonarShader scripts and shaders were written by Drew Okenfuss.
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SimpleSonarShader_Parent : MonoBehaviour
+public class SimpleSonarShader_Parent1 : MonoBehaviour
 {
 
     // All the renderers that will have the sonar data sent to their shaders.
@@ -26,8 +26,6 @@ public class SimpleSonarShader_Parent : MonoBehaviour
     // These are kept in the same order as the positionsQueue.
     private Queue<float> intensityQueue = new Queue<float>(QueueSize);
 
-    private Queue<Color> colorQueue = new Queue<Color>(QueueSize);
-
 
     private void Start()
     {
@@ -39,14 +37,13 @@ public class SimpleSonarShader_Parent : MonoBehaviour
         {
             positionsQueue.Enqueue(GarbagePosition);
             intensityQueue.Enqueue(-5000f);
-            colorQueue.Enqueue(GarbagePosition);
         }
     }
 
     /// <summary>
     /// Starts a sonar ring from this position with the given intensity.
     /// </summary>
-    public void StartSonarRing(Vector4 position, float intensity, Color color)
+    public void StartSonarRing(Vector4 position, float intensity, bool monster)
     {
         // Put values into the queue
         position.w = Time.timeSinceLevelLoad;
@@ -56,9 +53,6 @@ public class SimpleSonarShader_Parent : MonoBehaviour
         intensityQueue.Dequeue();
         intensityQueue.Enqueue(intensity);
 
-        colorQueue.Dequeue();
-        colorQueue.Enqueue(color);
-
         // Send updated queues to the shaders
         foreach (Renderer r in ObjectRenderers)
         {
@@ -66,9 +60,10 @@ public class SimpleSonarShader_Parent : MonoBehaviour
             {
                 r.material.SetVectorArray("_hitPts", positionsQueue.ToArray());
                 r.material.SetFloatArray("_Intensity", intensityQueue.ToArray());
-                r.material.SetColorArray("_RingColor", colorQueue.ToArray());
+                r.material.SetVector("_RingColor", Color.red);
             }
         }
     }
 
 }
+
