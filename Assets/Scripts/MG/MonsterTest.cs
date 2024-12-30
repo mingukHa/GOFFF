@@ -43,7 +43,7 @@ public class MonsterTest : MonoBehaviour
     {
         DetectTargetsInView(); // 시야각과 거리 기반 탐지
 
-        Debug.Log($"현재 상태: {currentState}, TargetPosition: {targetPosition}");
+        //Debug.Log($"현재 상태: {currentState}, TargetPosition: {targetPosition}");
 
         switch (currentState)
         {
@@ -69,7 +69,7 @@ public class MonsterTest : MonoBehaviour
     // 충돌 이벤트 처리
     private void HandleGroundCollision(Vector3 collisionPoint)
     {
-        Debug.Log($"콜백에서 전달된 충돌 좌표: {collisionPoint}");
+      //  Debug.Log($"콜백에서 전달된 충돌 좌표: {collisionPoint}");
 
         // Z 값 보정
         collisionPoint.z = collisionPoint.z == 0 ? transform.position.z : collisionPoint.z;
@@ -80,14 +80,14 @@ public class MonsterTest : MonoBehaviour
 
         SetTargetPosition(collisionPoint); // 목표 지점 설정
         currentState = MonsterState.Walking; // 상태를 Walking으로 전환
-        Debug.Log($"충돌 좌표로 이동: {targetPosition}");
+      //  Debug.Log($"충돌 좌표로 이동: {targetPosition}");
     }
 
     // 목표 위치 설정
     private void SetTargetPosition(Vector3 newTargetPosition)
     {
         targetPosition = newTargetPosition; // 목표 위치 저장
-        Debug.Log($"TargetPosition 설정됨: {targetPosition}");
+     //   Debug.Log($"TargetPosition 설정됨: {targetPosition}");
     }
 
     // 주변 시야 내 타겟 탐지
@@ -104,15 +104,15 @@ public class MonsterTest : MonoBehaviour
             {
                 if (collider.CompareTag("Player"))
                 {
-                    Debug.Log("플레이어 발견");
+                  //  Debug.Log("플레이어 발견");
                     detectedTarget = collider.transform;
                     currentState = MonsterState.Attack;
-                    Debug.Log("플레이어 공격");
+                  //  Debug.Log("플레이어 공격");
                     return;
                 }
                 else
                 {
-                    Debug.Log("플레이어 찾지 못 함");
+                 //   Debug.Log("플레이어 찾지 못 함");
                     SetTargetPosition(collider.transform.position);
                     currentState = MonsterState.Walking;
                     return;
@@ -136,7 +136,7 @@ public class MonsterTest : MonoBehaviour
 
             navAgent.SetDestination(targetPosition); // 목표 지점으로 이동
             animator.SetTrigger("isWalking"); // 걷기 애니메이션 실행
-            Debug.Log($"목표 지점으로 이동 중: {targetPosition}");
+            //Debug.Log($"목표 지점으로 이동 중: {targetPosition}");
 
             // 목표 지점에 일정 거리 내로 도착하면 탐색 상태로 전환
             if (Vector3.Distance(transform.position, targetPosition) <= arrivalThreshold && !navAgent.pathPending)
@@ -144,7 +144,7 @@ public class MonsterTest : MonoBehaviour
                 navAgent.ResetPath(); // 이동 중지
                 currentState = MonsterState.Quest; // 탐색 상태로 전환
                 questTime = 0f; // 탐색 시간 초기화
-                Debug.Log("목표 지점에 도착, 탐색 상태로 전환");
+               // Debug.Log("목표 지점에 도착, 탐색 상태로 전환");
             }
         }
     }
@@ -158,12 +158,12 @@ public class MonsterTest : MonoBehaviour
         {
             transform.Rotate(Vector3.up, 180f * Time.deltaTime); // 회전
             animator.SetTrigger("isLookingAround"); // 탐색 애니메이션 실행
-            Debug.Log("주변을 탐색 중...");
+          //  Debug.Log("주변을 탐색 중...");
         }
         else
         {
             currentState = MonsterState.Idle; // 탐색 후 대기 상태로 전환
-            Debug.Log("탐색 완료, 대기 상태로 전환");
+          //  Debug.Log("탐색 완료, 대기 상태로 전환");
         }
     }
 
@@ -176,7 +176,7 @@ public class MonsterTest : MonoBehaviour
             if (Vector3.Distance(transform.position, detectedTarget.position) <= navAgent.stoppingDistance)
             {
                 animator.SetTrigger("AttackTrigger"); // 공격 애니메이션 실행
-                Debug.Log($"플레이어 공격 중: {detectedTarget.position}");
+              //  Debug.Log($"플레이어 공격 중: {detectedTarget.position}");
             }
         }
     }
@@ -185,7 +185,7 @@ public class MonsterTest : MonoBehaviour
     private void ReturnToOriginalPosition()
     {
         navAgent.SetDestination(originalPosition); // 원래 위치로 이동
-        Debug.Log("원래 위치로 돌아가는 중...");
+      //  Debug.Log("원래 위치로 돌아가는 중...");
     }
 
     // 디버그용 Gizmo 그리기
