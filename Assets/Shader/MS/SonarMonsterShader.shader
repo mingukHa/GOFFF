@@ -1,17 +1,17 @@
-ï»¿Shader "MadeByProfessorOakie/URP_SimpleSonarShader"
+Shader "MadeByProfessorOakie/URP_MonsterSonar"
 {
     Properties
     {
         _BaseColor("Base Color", Color) = (1, 1, 1, 1)
         _MainTex("Albedo (RGB)", 2D) = "white" {}
-        //_RingColor("Ring Color", Color) = (1, 1, 1, 1) // ë§ ìƒ‰ìƒ, Inspectorì—ì„œ ì„¤ì •
+        //_RingColor("Ring Color", Color) = (1, 1, 1, 1) // ¸µ »ö»ó, Inspector¿¡¼­ ¼³Á¤
         _RingColorIntensity("Ring Color Intensity", Float) = 2
         _RingSpeed("Ring Speed", Float) = 1
         _RingWidth("Ring Width", Float) = 0.1
         _RingIntensityScale("Ring Intensity Scale", Float) = 1
         _RingTex("Ring Texture", 2D) = "white" {}
         _OutlineColor("OutlineColor", Color) = (0, 0, 0, 1)
-        _OutlineWidth("Outline Width", Float) = 0.02
+        _OutlineWidth("Outline Width", float) = 0.02
         _DistanceFactor("Distance Factor", Float) = 0.1
         _OutlineAlpha("Outline Alpha", Float) = 1.0
 
@@ -20,8 +20,6 @@
 
 
         _RingFadeDuration("Ring Fade Duration", Float) = 2
-
-        _Type("Type", int) = 0
     }
 
     SubShader
@@ -41,17 +39,16 @@
             sampler2D _RingTex;
 
             float4 _BaseColor;
-            float4 _RingColor[100];
+            float4 _RingColorM;
             float _RingColorIntensity;
             float _RingSpeed;
             float _RingWidth;
             float _RingIntensityScale;
             float _RingFadeDuration;
 
-            float4 _hitPts[100];
+            float4 _hitPtsM[100];
             float _StartTime;
-            float _Intensity[100];
-
+            float _IntensityM[100];
 
             struct Attributes
             {
@@ -86,13 +83,13 @@
 
                 for (int idx = 0; idx < 100; idx++)
                 {
-                    float diffFromRingCol = abs(finalColor.r - _RingColor[idx].r) +
-                                        abs(finalColor.g - _RingColor[idx].g) +
-                                        abs(finalColor.b - _RingColor[idx].b);
+                    float diffFromRingCol = abs(finalColor.r - _RingColorM.r) +
+                                        abs(finalColor.g - _RingColorM.g) +
+                                        abs(finalColor.b - _RingColorM.b);
 
-                    float3 hitPos = _hitPts[idx].xyz;
-                    float hitTime = _hitPts[idx].w;
-                    float intensity = _Intensity[idx] * _RingIntensityScale;
+                    float3 hitPos = _hitPtsM[idx].xyz;
+                    float hitTime = _hitPtsM[idx].w;
+                    float intensity = _IntensityM[idx] * _RingIntensityScale;
 
                     float dist = distance(hitPos, i.worldPos);
                     float ringStart = (_Time.y - hitTime) * _RingSpeed - _RingWidth;
@@ -106,12 +103,12 @@
 
                         if (val > 0)
                         {
-                            float3 ringColor = _RingColor[idx].rgb * val * _RingColorIntensity;
+                            float3 ringColor = _RingColorM.rgb * val * _RingColorIntensity;
                             float3 blendedColor = lerp(finalColor, ringColor, val);
 
-                            float newDiffFromRingCol = abs(blendedColor.r - _RingColor[idx].r) +
-                                                        abs(blendedColor.g - _RingColor[idx].g) +
-                                                        abs(blendedColor.b - _RingColor[idx].b);
+                            float newDiffFromRingCol = abs(blendedColor.r - _RingColorM.r) +
+                                                        abs(blendedColor.g - _RingColorM.g) +
+                                                        abs(blendedColor.b - _RingColorM.b);
 
                             if (newDiffFromRingCol < diffFromRingCol)
                             {
@@ -127,7 +124,7 @@
             ENDHLSL
         }
 
-        // ì•„ì›ƒ ë¼ì¸ ê·¸ë¦¬ëŠ” ë¶€ë¶„
+        // ¾Æ¿ô ¶óÀÎ ±×¸®´Â ºÎºĞ
         Pass
         {
             Name "OUTLINE"
@@ -154,94 +151,100 @@
             {
                 UNITY_FOG_COORDS(1)
                 float4 vertex : SV_POSITION;
-                float3 worldPos : TEXCOORD0; // ì›”ë“œ ì¢Œí‘œ ì¶”ê°€
-                float3 originalWorldPos : TEXCOORD1; // ì›ë˜ ìœ„ì¹˜ì˜ ì›”ë“œ ì¢Œí‘œ ì¶”ê°€
+                float3 worldPos : TEXCOORD0; // ¿ùµå ÁÂÇ¥ Ãß°¡
+                float3 originalWorldPos : TEXCOORD1; // ¿ø·¡ À§Ä¡ÀÇ ¿ùµå ÁÂÇ¥ Ãß°¡
             };
 
             float _OutlineWidth;
             float4 _OutlineColor;
-            float4 _RingColor[100]; // ë§ ìƒ‰ìƒ ì¶”ê°€
+            float4 _RingColorM; // ¸µ »ö»ó Ãß°¡
             float _OutlineRingSpeed;
             float _OutlineRingWidth;
-            float4 _hitPts[100];
+            float4 _hitPtsM[100];
             float _StartTime;
             float _RingFadeDuration;
             float _OutlineAlpha;
-            float _DistanceFactor; // ê±°ë¦¬ ê¸°ë°˜ ìŠ¤ì¼€ì¼ë§ì„ ìœ„í•œ íŒ©í„°
-            float _OutlinePower; // Fresnel íš¨ê³¼ì˜ ê°•ë„ ì¡°ì ˆ
+            float _DistanceFactor; // °Å¸® ±â¹İ ½ºÄÉÀÏ¸µÀ» À§ÇÑ ÆÑÅÍ
+            float _OutlinePower; // Fresnel È¿°úÀÇ °­µµ Á¶Àı
 
-            int _Type;
+
 
             v2f vert(appdata v)
             {
                 v2f o;
 
-                // ì›”ë“œ ì¢Œí‘œ ê³„ì‚°
+                // ¿ùµå ÁÂÇ¥ °è»ê
                 o.originalWorldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
 
-                // ì¹´ë©”ë¼ ë°©í–¥ ê³„ì‚°
+                // Ä«¸Ş¶ó ¹æÇâ °è»ê
                 float3 viewDir = normalize(_WorldSpaceCameraPos - o.originalWorldPos);
-                // ë²•ì„  ë°©í–¥
+                // ¹ı¼± ¹æÇâ
                 float3 normal = normalize(mul((float3x3)unity_ObjectToWorld, v.normal));
 
-                // Fresnel íš¨ê³¼ ê³„ì‚° (ë‚´ì ê°’ì„ ì‚¬ìš©)
+                // Fresnel È¿°ú °è»ê (³»Àû°ªÀ» »ç¿ë)
                 float fresnel = 1.0 - saturate(dot(viewDir, normal));
-                fresnel = pow(fresnel, _OutlinePower); // ê°•ì¡° ì •ë„ë¥¼ ì¡°ì ˆ
+                fresnel = pow(fresnel, _OutlinePower); // °­Á¶ Á¤µµ¸¦ Á¶Àı
 
-                // ì›”ë“œ ê³µê°„ì—ì„œ ì¼ì •í•œ ì•„ì›ƒë¼ì¸ í¬ê¸°ë¥¼ ìœ ì§€í•˜ë„ë¡ ì¡°ì •
+                // ¿ùµå °ø°£¿¡¼­ ÀÏÁ¤ÇÑ ¾Æ¿ô¶óÀÎ Å©±â¸¦ À¯ÁöÇÏµµ·Ï Á¶Á¤
                 float outlineScale = _OutlineWidth * (1.0 + _DistanceFactor * distance(o.originalWorldPos, _WorldSpaceCameraPos));
 
-                // ë²•ì„  ë°©í–¥ìœ¼ë¡œ ì •ì  ì´ë™ (ì•„ì›ƒë¼ì¸ ìƒì„±)
-                v.vertex.xyz += v.normal * outlineScale; // ì•„ì›ƒë¼ì¸ í¬ê¸°ë¥¼ ì¼ì •í•˜ê²Œ ìœ ì§€
+                // ¹ı¼± ¹æÇâÀ¸·Î Á¤Á¡ ÀÌµ¿ (¾Æ¿ô¶óÀÎ »ı¼º)
+                v.vertex.xyz += v.normal * outlineScale; // ¾Æ¿ô¶óÀÎ Å©±â¸¦ ÀÏÁ¤ÇÏ°Ô À¯Áö
 
                 o.vertex = UnityObjectToClipPos(v.vertex);
 
-                // ë³€ìœ„ëœ ì›”ë“œ ì¢Œí‘œ ê³„ì‚°
+                // º¯À§µÈ ¿ùµå ÁÂÇ¥ °è»ê
                 o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
 
                 UNITY_TRANSFER_FOG(o, o.vertex);
                 return o;
             }
 
+
             fixed4 frag(v2f i) : SV_Target
             {
                 fixed4 col = _OutlineColor;
-                col.a = _OutlineAlpha;; // ê¸°ë³¸ ì•ŒíŒŒê°’ 1
+                col.a = _OutlineAlpha;; // ±âº» ¾ËÆÄ°ª 1
 
-                float mostRecentTime = -1.0; // ê°€ì¥ ìµœê·¼ íŒŒë™ì˜ ì‹œê°„
-                float3 mostRecentPos = float3(0, 0, 0); // ê°€ì¥ ìµœê·¼ íŒŒë™ì˜ ìœ„ì¹˜
+
+
+                float mostRecentTime = -1.0; // °¡Àå ÃÖ±Ù ÆÄµ¿ÀÇ ½Ã°£
+                float3 mostRecentPos = float3(0, 0, 0); // °¡Àå ÃÖ±Ù ÆÄµ¿ÀÇ À§Ä¡
 
                 for (int idx = 0; idx < 100; idx++)
                 {
 
-                    float3 hitPos = _hitPts[idx].xyz;  // íŒŒë™ì˜ ìœ„ì¹˜
-                    float hitTime = _hitPts[idx].w;   // íŒŒë™ì˜ ì‹œì‘ ì‹œê°„
 
-                    float dist = distance(hitPos, i.originalWorldPos);  // í˜„ì¬ í”½ì…€ê³¼ íŒŒë™ì˜ ê±°ë¦¬
+                    float3 hitPos = _hitPtsM[idx].xyz;  // ÆÄµ¿ÀÇ À§Ä¡
+                    float hitTime = _hitPtsM[idx].w;   // ÆÄµ¿ÀÇ ½ÃÀÛ ½Ã°£
+
+                    float dist = distance(hitPos, i.originalWorldPos);  // ÇöÀç ÇÈ¼¿°ú ÆÄµ¿ÀÇ °Å¸®
                     float ringStart = (_Time.y - hitTime) * _OutlineRingSpeed - _OutlineRingWidth;
                     float ringEnd = (_Time.y - hitTime) * _OutlineRingSpeed;
 
-                    // ë§ì´ ì´ í”½ì…€ì„ ì§€ë‚˜ê°„ ê²½ìš°
-                    if ( ringStart -0.1f && ringEnd > dist && hitTime > mostRecentTime)
+                    // ¸µÀÌ ÀÌ ÇÈ¼¿À» Áö³ª°£ °æ¿ì
+                    if ( ringStart -0.01f&&ringEnd > dist && hitTime > mostRecentTime)
                     {
-                        mostRecentTime = hitTime;   // ê°€ì¥ ìµœê·¼ ì‹œê°„ ì—…ë°ì´íŠ¸
-                        mostRecentPos = hitPos;    // ê°€ì¥ ìµœê·¼ ìœ„ì¹˜ ì—…ë°ì´íŠ¸
+                        mostRecentTime = hitTime;   // °¡Àå ÃÖ±Ù ½Ã°£ ¾÷µ¥ÀÌÆ®
+                        mostRecentPos = hitPos;    // °¡Àå ÃÖ±Ù À§Ä¡ ¾÷µ¥ÀÌÆ®
                     }
-                                    // ê°€ì¥ ìµœê·¼ì— ì˜í–¥ì„ ì¤€ íŒŒë™ì´ ìˆì„ ê²½ìš° í˜ì´ë“œ ì ìš©
+                                    // °¡Àå ÃÖ±Ù¿¡ ¿µÇâÀ» ÁØ ÆÄµ¿ÀÌ ÀÖÀ» °æ¿ì ÆäÀÌµå Àû¿ë
                 if (mostRecentTime > 0)
                 {
                     float fadeTime = _RingFadeDuration;
                     float fadeProgress = 1 - ((_Time.y - mostRecentTime) / fadeTime);
-                    fadeProgress = saturate(fadeProgress); // 0~1ë¡œ ì œí•œ
-                    //col = _RingColor; // ë§ ìƒ‰ìƒ ì ìš©
+                    fadeProgress = saturate(fadeProgress); // 0~1·Î Á¦ÇÑ
+                    col.rgb = _RingColorM; // ¸µ »ö»ó Àû¿ë
                     float nonLinearFade = pow(fadeProgress, 0.6);
-                    col.a = nonLinearFade; // ì•ŒíŒŒê°’ì€ í˜ì´ë“œ í”„ë¡œê·¸ë˜ìŠ¤
+                    col.a = nonLinearFade; // ¾ËÆÄ°ªÀº ÆäÀÌµå ÇÁ·Î±×·¡½º
                 }
                 }
 
+
+
                 if (col.a <= 0.0)
                 {
-                    discard; // ì•„ì›ƒë¼ì¸ì„ ê·¸ë¦¬ì§€ ì•ŠìŒ
+                    discard; // ¾Æ¿ô¶óÀÎÀ» ±×¸®Áö ¾ÊÀ½
                 }
 
                 UNITY_APPLY_FOG(i.fogCoord, col);
@@ -249,7 +252,6 @@
             }
             ENDHLSL
         }
-
     }
 
     FallBack "Diffuse"
