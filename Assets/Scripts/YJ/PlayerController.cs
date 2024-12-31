@@ -220,10 +220,14 @@ public class PlayerController : MonoBehaviourPun
 
     private void SyncWheelRotation(bool leftRotated, bool rightRotated)
     {
-        float forwardSpeed = currentVelocity.z;
-        Debug.Log("Velocity: " + currentVelocity);
+        // currentVelocity를 이용하여 전진/후진 속도 추적
+        float forwardSpeed = currentVelocity.z;  // Z축 방향 속도
+        Debug.Log("Velocity :" + forwardSpeed);
+
+        // 회전 속도 계산
         float rotationSpeed = forwardSpeed * wheelRotationSpeed;
 
+        // 후진 시 회전 방향 반대로 설정
         if (forwardSpeed < 0)
         {
             rotationSpeed = -rotationSpeed;
@@ -245,6 +249,7 @@ public class PlayerController : MonoBehaviourPun
             leftWheel.Rotate(Vector3.right, wheelRotationSpeed * Time.deltaTime);
         }
     }
+
 
 
     [PunRPC]
