@@ -779,6 +779,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6399690094543642477, guid: 3ee00b8e91af48f4aa5ad5a5cb165436,
+        type: 3}
+      propertyPath: spawnPositions.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6399690094543642477, guid: 3ee00b8e91af48f4aa5ad5a5cb165436,
+        type: 3}
+      propertyPath: spawnRotations.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7151794176280414733, guid: 3ee00b8e91af48f4aa5ad5a5cb165436,
         type: 3}
       propertyPath: m_LocalPosition.x
