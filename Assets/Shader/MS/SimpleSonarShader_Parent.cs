@@ -2,6 +2,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SimpleSonarShader_Parent : MonoBehaviour
@@ -26,7 +27,8 @@ public class SimpleSonarShader_Parent : MonoBehaviour
     // These are kept in the same order as the positionsQueue.
     private Queue<float> intensityQueue = new Queue<float>(QueueSize);
 
-    private Queue<Color> colorQueue = new Queue<Color>(QueueSize);
+    private Queue<Vector4> colorQueue = new Queue<Vector4>(QueueSize);
+    private Color ringColor = Color.white;
 
 
     private void Start()
@@ -43,12 +45,8 @@ public class SimpleSonarShader_Parent : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Starts a sonar ring from this position with the given intensity.
-    /// </summary>
-    public void StartSonarRing(Vector4 position, float intensity, Color color)
+    public void StartSonarRing(Vector4 position, float intensity, int type)
     {
-        // Put values into the queue
         position.w = Time.timeSinceLevelLoad;
         positionsQueue.Dequeue();
         positionsQueue.Enqueue(position);
@@ -56,19 +54,75 @@ public class SimpleSonarShader_Parent : MonoBehaviour
         intensityQueue.Dequeue();
         intensityQueue.Enqueue(intensity);
 
-        colorQueue.Dequeue();
-        colorQueue.Enqueue(color);
+        ringColor = type == 0 ? Color.white : Color.red; // 일반: 0, 몬스터: 1
 
-        // Send updated queues to the shaders
+        colorQueue.Dequeue();
+        colorQueue.Enqueue(ringColor);
+
+
         foreach (Renderer r in ObjectRenderers)
         {
             if (r)
             {
-                r.material.SetVectorArray("_hitPts", positionsQueue.ToArray());
-                r.material.SetFloatArray("_Intensity", intensityQueue.ToArray());
-                r.material.SetColorArray("_RingColor", colorQueue.ToArray());
+                MaterialPropertyBlock block = new MaterialPropertyBlock();
+                r.GetPropertyBlock(block);
+
+                block.SetVectorArray("_hitPts", positionsQueue.ToArray());
+                block.SetFloatArray("_Intensity", intensityQueue.ToArray());
+                //block.SetVectorArray("_RingColor", colorQueue.ToArray());
+                block.SetVectorArray("_RingColor", colorQueue.Select(c => (Vector4)c).ToArray());
+
+                block.SetInt("_Type", type); // 추가적인 구분 정보 전달
+                r.SetPropertyBlock(block);
             }
         }
     }
+
+    /// <summary>
+    /// Starts a sonar ring from this position with the given intensity.
+    /// </summary>
+    //public void StartSonarRing(Vector4 position, float intensity, bool monster)
+    //{
+    //    // Put values into the queue
+    //    position.w = Time.timeSinceLevelLoad;
+    //    positionsQueue.Dequeue();
+    //    positionsQueue.Enqueue(position);
+
+    //    intensityQueue.Dequeue();
+    //    intensityQueue.Enqueue(intensity);
+
+    //    //colorQueue.Dequeue();
+    //    //colorQueue.Enqueue(color);
+
+    //    if (monster)
+    //    {
+    //        ringColor = Color.red;
+
+    //        // Send updated queues to the shaders
+    //        foreach (Renderer r in ObjectRenderers)
+    //        {
+    //            if (r)
+    //            {
+    //                r.material.SetVectorArray("_hitPtsM", positionsQueue.ToArray());
+    //                r.material.SetFloatArray("_IntensityM", intensityQueue.ToArray());
+    //                r.material.SetColor("_RingColorM", ringColor);
+    //            }
+    //        }
+    //    }
+    //    else
+    //    {
+    //        ringColor = Color.white;
+    //        foreach (Renderer r in ObjectRenderers)
+    //        {
+    //            if (r)
+    //            {
+    //                r.material.SetVectorArray("_hitPts", positionsQueue.ToArray());
+    //                r.material.SetFloatArray("_Intensity", intensityQueue.ToArray());
+    //                r.material.SetColor("_RingColor", ringColor);
+    //            }
+    //        }
+    //    }
+
+    //}
 
 }
