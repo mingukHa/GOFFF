@@ -487,197 +487,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &910141234 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5983295875041255981, guid: feab0d83960f233479b23431946ef43e,
-    type: 3}
-  m_PrefabInstance: {fileID: 1218687726403628714}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &910141244 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2080871421963820864, guid: feab0d83960f233479b23431946ef43e,
-    type: 3}
-  m_PrefabInstance: {fileID: 1218687726403628714}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &910141245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 910141234}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78dc4e408721e0f45bad2932e03d4c5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraRig: {fileID: 910141244}
-  leftWheel: {fileID: 1474353116}
-  rightWheel: {fileID: 1788671582}
-  leftControllerRotationAction:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Left Controller Rotation
-      m_Type: 0
-      m_ExpectedControlType: Vector3
-      m_Id: d750272f-519f-469e-ba99-582842e562d1
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings:
-      - m_Name: 
-        m_Id: 70f4aba5-d8d0-4d1e-89db-997e09aa3f3c
-        m_Path: <OculusTouchController>{LeftHand}/devicePose/position
-        m_Interactions: 
-        m_Processors: 
-        m_Groups: 
-        m_Action: Left Controller Rotation
-        m_Flags: 0
-      m_Flags: 0
-    m_Reference: {fileID: 0}
-  rightControllerRotationAction:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Right Controller Rotation
-      m_Type: 0
-      m_ExpectedControlType: Vector3
-      m_Id: 9f813b3f-8487-4ea9-971e-f895ca44d3df
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings:
-      - m_Name: 
-        m_Id: cc78cd88-6f51-4028-bb32-aa54729da773
-        m_Path: <OculusTouchController>{RightHand}/devicePose/position
-        m_Interactions: 
-        m_Processors: 
-        m_Groups: 
-        m_Action: Right Controller Rotation
-        m_Flags: 0
-      m_Flags: 0
-    m_Reference: {fileID: 0}
-  leftControllerVelocityAction:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Left Controller Velocity
-      m_Type: 0
-      m_ExpectedControlType: Vector3
-      m_Id: 6a52fc84-185e-4f4d-84c9-b55b47f869f6
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings:
-      - m_Name: 
-        m_Id: 8d627da1-f781-41ea-bf53-80bc9b8586c7
-        m_Path: <OculusTouchController>{RightHand}/devicePose/velocity
-        m_Interactions: 
-        m_Processors: 
-        m_Groups: 
-        m_Action: Left Controller Velocity
-        m_Flags: 0
-      m_Flags: 0
-    m_Reference: {fileID: 0}
-  rightControllerVelocityAction:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Right Controller Velocity
-      m_Type: 0
-      m_ExpectedControlType: Vector3
-      m_Id: e011feed-20ae-4f4c-8015-32e84052fdbe
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings:
-      - m_Name: 
-        m_Id: 72294f2d-2629-4bb2-ab9c-2c606a463a31
-        m_Path: <OculusTouchController>{RightHand}/devicePose/velocity
-        m_Interactions: 
-        m_Processors: 
-        m_Groups: 
-        m_Action: Right Controller Velocity
-        m_Flags: 0
-      m_Flags: 0
-    m_Reference: {fileID: 0}
-  leftControllerTriggerAction:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Left Controller Trigger
-      m_Type: 1
-      m_ExpectedControlType: Button
-      m_Id: e3d3695a-a7c4-4abe-a540-6a910ccd1d7d
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings:
-      - m_Name: 
-        m_Id: d855466f-4648-4f2d-9f61-34c62007bf0c
-        m_Path: <OculusTouchController>{LeftHand}/triggerPressed
-        m_Interactions: 
-        m_Processors: 
-        m_Groups: 
-        m_Action: Left Controller Trigger
-        m_Flags: 0
-      m_Flags: 0
-    m_Reference: {fileID: 0}
-  rightControllerTriggerAction:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Right Controller Trigger
-      m_Type: 1
-      m_ExpectedControlType: Button
-      m_Id: a59ee276-5c19-442d-b710-8cd825d6b661
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings:
-      - m_Name: 
-        m_Id: a0a3a805-9239-47d7-8dcd-4e34584dc47d
-        m_Path: <OculusTouchController>{RightHand}/triggerPressed
-        m_Interactions: 
-        m_Processors: 
-        m_Groups: 
-        m_Action: Right Controller Trigger
-        m_Flags: 0
-      m_Flags: 0
-    m_Reference: {fileID: 0}
-  leftControllerGripAction:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Left Controller Grip
-      m_Type: 1
-      m_ExpectedControlType: Button
-      m_Id: 8f8440ab-e789-45bb-b800-971fe950a6f9
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings:
-      - m_Name: 
-        m_Id: 6a7a4d01-45e6-4cf8-9ab4-af509f9e6b0a
-        m_Path: <OculusTouchController>{LeftHand}/gripPressed
-        m_Interactions: 
-        m_Processors: 
-        m_Groups: 
-        m_Action: Left Controller Grip
-        m_Flags: 0
-      m_Flags: 0
-    m_Reference: {fileID: 0}
-  rightControllerGripAction:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Right Controller Grip
-      m_Type: 1
-      m_ExpectedControlType: Button
-      m_Id: 9ab306c8-5cf3-4da2-8f9b-829446b9080a
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings:
-      - m_Name: 
-        m_Id: 846156bb-2f94-4f89-82cb-5904daf24580
-        m_Path: <OculusTouchController>{RightHand}/gripPressed
-        m_Interactions: 
-        m_Processors: 
-        m_Groups: 
-        m_Action: Right Controller Grip
-        m_Flags: 0
-      m_Flags: 0
-    m_Reference: {fileID: 0}
-  moveSpeed: 1
-  accelerationFactor: 2
-  dampingFactor: 0.99
-  wheelRotationSpeed: 100
 --- !u!1 &1099598466
 GameObject:
   m_ObjectHideFlags: 0
@@ -799,18 +608,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!4 &1474353116 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2939196036982047554, guid: feab0d83960f233479b23431946ef43e,
-    type: 3}
-  m_PrefabInstance: {fileID: 1218687726403628714}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1788671582 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5919559691808041962, guid: feab0d83960f233479b23431946ef43e,
-    type: 3}
-  m_PrefabInstance: {fileID: 1218687726403628714}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1890726246
 GameObject:
   m_ObjectHideFlags: 0
@@ -1064,7 +861,7 @@ PrefabInstance:
     - target: {fileID: 2128511918386348633, guid: feab0d83960f233479b23431946ef43e,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3116046014492116379, guid: feab0d83960f233479b23431946ef43e,
         type: 3}
@@ -1094,7 +891,7 @@ PrefabInstance:
     - target: {fileID: 7102014293633449745, guid: feab0d83960f233479b23431946ef43e,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7102014293633449745, guid: feab0d83960f233479b23431946ef43e,
         type: 3}
@@ -1114,11 +911,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5983295875041255981, guid: feab0d83960f233479b23431946ef43e,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 910141245}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: feab0d83960f233479b23431946ef43e, type: 3}
 --- !u!1001 &2237451551058342804
 PrefabInstance:
