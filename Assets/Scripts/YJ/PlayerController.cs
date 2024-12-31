@@ -4,47 +4,46 @@ using Photon.Pun;
 
 public class PlayerController : MonoBehaviourPun
 {
-    public Transform cameraRig; // ÇÃ·¹ÀÌ¾îÀÇ Transform
-    public Transform leftWheel; // ÈÙÃ¼¾î ¿ŞÂÊ ¹ÙÄû
-    public Transform rightWheel; // ÈÙÃ¼¾î ¿À¸¥ÂÊ ¹ÙÄû
+    public Transform cameraRig; // í”Œë ˆì´ì–´ì˜ Transform
+    public Transform leftWheel; // íœ ì²´ì–´ ì™¼ìª½ ë°”í€´
+    public Transform rightWheel; // íœ ì²´[ì–´ ì˜¤ë¥¸ìª½ ë°”í€´
 
-    public float moveSpeed = 1.0f; // ±âº» ÀÌµ¿ ¼Óµµ
-    public float accelerationFactor = 1.8f; // µÎ ÄÁÆ®·Ñ·¯ »ç¿ë ½Ã °¡¼Óµµ °è¼ö
-    public float inertiaFactor = 0.05f; // Æ®¸®°Å¸¦ ¶¾ ÈÄ ÀÌµ¿ °ü¼º (´À¸®°Ô ¸ØÃß´Â Á¤µµ)
-    public float maxSpeed = 5.0f; // ÃÖ´ë ÀÌµ¿ ¼Óµµ
-    public float rotationSpeed = 100f; // È¸Àü ¼Óµµ
-    public float wheelRotationSpeed = 50f; // ÈÙÃ¼¾î ¹ÙÄû È¸Àü ¼Óµµ
+    public float moveSpeed = 1.0f; // ê¸°ë³¸ ì´ë™ ì†ë„
+    public float accelerationFactor = 1.8f; // ë‘ ì»¨íŠ¸ë¡¤ëŸ¬ ì‚¬ìš© ì‹œ ê°€ì†ë„ ê³„ìˆ˜
+    public float inertiaFactor = 0.05f; // íŠ¸ë¦¬ê±°ë¥¼ ë—€ í›„ ì´ë™ ê´€ì„± (ëŠë¦¬ê²Œ ë©ˆì¶”ëŠ” ì •ë„)
+    public float maxSpeed = 5.0f; // ìµœëŒ€ ì´ë™ ì†ë„
+    public float rotationSpeed = 100f; // íšŒì „ ì†ë„
+    public float wheelRotationMultiplier = 10f; // íœ ì²´ì–´ ë°”í€´ íšŒì „ ê³„ìˆ˜
 
-    private Vector3 leftVelocity; // ¿ŞÂÊ ÄÁÆ®·Ñ·¯ ¼Óµµ
-    private Vector3 rightVelocity; // ¿À¸¥ÂÊ ÄÁÆ®·Ñ·¯ ¼Óµµ
-    private bool isLIdxTriggerPressed; // ¿ŞÂÊ ÀÎµ¦½º Æ®¸®°Å »óÅÂ
-    private bool isRIdxTriggerPressed; // ¿À¸¥ÂÊ ÀÎµ¦½º Æ®¸®°Å »óÅÂ
-    private Vector3 leftMovementVelocity; // ¿ŞÂÊ °ü¼º ¼Óµµ
-    private Vector3 rightMovementVelocity; // ¿À¸¥ÂÊ °ü¼º ¼Óµµ
-    private Vector3 currentVelocity = Vector3.zero; // ÇöÀç ¼Óµµ
+    private Vector3 leftVelocity; // ì™¼ìª½ ì»¨íŠ¸ë¡¤ëŸ¬ ì†ë„
+    private Vector3 rightVelocity; // ì˜¤ë¥¸ìª½ ì»¨íŠ¸ë¡¤ëŸ¬ ì†ë„
+    private bool isLIdxTriggerPressed; // ì™¼ìª½ ì¸ë±ìŠ¤ íŠ¸ë¦¬ê±° ìƒíƒœ
+    private bool isRIdxTriggerPressed; // ì˜¤ë¥¸ìª½ ì¸ë±ìŠ¤ íŠ¸ë¦¬ê±° ìƒíƒœ
+    private Vector3 leftMovementVelocity; // ì™¼ìª½ ê´€ì„± ì†ë„
+    private Vector3 rightMovementVelocity; // ì˜¤ë¥¸ìª½ ê´€ì„± ì†ë„
 
-    private Vector3 leftPosition; // ¿ŞÂÊ ÄÁÆ®·Ñ·¯ À§Ä¡
-    private Vector3 rightPosition; // ¿À¸¥ÂÊ ÄÁÆ®·Ñ·¯ À§Ä¡
-    private bool isLGripTriggerPressed; // ¿ŞÂÊ ±×¸³ Æ®¸®°Å »óÅÂ
-    private bool isRGripTriggerPressed; // ¿À¸¥ÂÊ ±×¸³ Æ®¸®°Å »óÅÂ
+    private Vector3 leftPosition; // ì™¼ìª½ ì»¨íŠ¸ë¡¤ëŸ¬ ìœ„ì¹˜
+    private Vector3 rightPosition; // ì˜¤ë¥¸ìª½ ì»¨íŠ¸ë¡¤ëŸ¬ ìœ„ì¹˜
+    private bool isLGripTriggerPressed; // ì™¼ìª½ ê·¸ë¦½ íŠ¸ë¦¬ê±° ìƒíƒœ
+    private bool isRGripTriggerPressed; // ì˜¤ë¥¸ìª½ ê·¸ë¦½ íŠ¸ë¦¬ê±° ìƒíƒœ
 
-    private Vector3 lastLeftPosition; // ¿ŞÂÊ ÄÁÆ®·Ñ·¯ÀÇ ¸¶Áö¸· À§Ä¡
-    private Vector3 lastRightPosition; // ¿À¸¥ÂÊ ÄÁÆ®·Ñ·¯ÀÇ ¸¶Áö¸· À§Ä¡
+    private Vector3 lastLeftPosition; // ì™¼ìª½ ì»¨íŠ¸ë¡¤ëŸ¬ì˜ ë§ˆì§€ë§‰ ìœ„ì¹˜
+    private Vector3 lastRightPosition; // ì˜¤ë¥¸ìª½ ì»¨íŠ¸ë¡¤ëŸ¬ì˜ ë§ˆì§€ë§‰ ìœ„ì¹˜
 
     private void Start()
     {
         if (!photonView.IsMine)
         {
-            // ´Ù¸¥ ÇÃ·¹ÀÌ¾îÀÇ ÀÔ·Â ¹× ÄÁÆ®·Ñ ºñÈ°¼ºÈ­
+            // ë‹¤ë¥¸ í”Œë ˆì´ì–´ì˜ ì…ë ¥ ë° ì»¨íŠ¸ë¡¤ ë¹„í™œì„±í™”
             this.enabled = false;
         }
 
-        lastLeftPosition = cameraRig.position; // Ä«¸Ş¶óÀÇ À§Ä¡·Î ÃÊ±âÈ­
+        lastLeftPosition = cameraRig.position; // ì¹´ë©”ë¼ì˜ ìœ„ì¹˜ë¡œ ì´ˆê¸°í™”
         lastRightPosition = cameraRig.position;
     }
 
-    // Input System Äİ¹é ¸Ş¼­µå
-    // ------------ ÀÌµ¿ ------------
+    // Input System ì½œë°± ë©”ì„œë“œ
+    // ------------ ì´ë™ ------------
     public void OnMoveLeft(InputAction.CallbackContext context)
     {
         leftVelocity = context.ReadValue<Vector3>();
@@ -65,7 +64,7 @@ public class PlayerController : MonoBehaviourPun
         isRIdxTriggerPressed = context.ReadValue<float>() > 0.5f;
     }
 
-    // ------------ È¸Àü ------------
+    // ------------ íšŒì „ ------------
 
     public void OnRotateLeft(InputAction.CallbackContext context)
     {
@@ -89,32 +88,25 @@ public class PlayerController : MonoBehaviourPun
 
     private void Update()
     {
-        // ÇöÀç À§Ä¡¿Í ÀÌÀü À§Ä¡ Â÷ÀÌ¸¦ °è»êÇÏ¿© ÀÌµ¿ ¼Óµµ °è»ê
-        Vector3 previousPosition = cameraRig.position;
-    
-        // ÀÌµ¿ ¹æÇâ °è»ê (À§¿¡¼­ °è»êÇÑ ¹æ½Ä ±×´ë·Î)
-        Vector3 movement = Vector3.zero;
-
-        // ÀÌÀü ÇÁ·¹ÀÓ°ú ºñ±³ÇØ ÀÌµ¿ °Å¸® °è»ê
+        // ì´ì „ í”„ë ˆì„ê³¼ ë¹„êµí•´ ì´ë™ ê±°ë¦¬ ê³„ì‚°
         Vector3 leftDelta = leftVelocity - lastLeftPosition;
         Vector3 rightDelta = rightVelocity - lastRightPosition;
 
-        // ÁÂ,¿ì È¸Àü »óÅÂ
-        bool leftRotated = false;
-        bool rightRotated = false;
-
-        // ÀÌÀü À§Ä¡ ¾÷µ¥ÀÌÆ®
+        // ì´ì „ ìœ„ì¹˜ ì—…ë°ì´íŠ¸
         lastLeftPosition = leftVelocity;
         lastRightPosition = rightVelocity;
+
+        // ì´ë™ ë°©í–¥ ê³„ì‚°
+        Vector3 movement = Vector3.zero;
 
         if (isLIdxTriggerPressed)
         {
             movement += CalculateMovement(leftVelocity, leftDelta);
-            leftMovementVelocity = CalculateMovement(leftVelocity, leftDelta); // Æ®¸®°Å¸¦ ´©¸¦ ¶§ ¼Óµµ °è»ê
+            leftMovementVelocity = CalculateMovement(leftVelocity, leftDelta); // íŠ¸ë¦¬ê±°ë¥¼ ëˆ„ë¥¼ ë•Œ ì†ë„ ê³„ì‚°
         }
         else
         {
-            // Æ®¸®°Å¸¦ ¶¼¸é ¼Óµµ °¨¼Ò (°ü¼º)
+            // íŠ¸ë¦¬ê±°ë¥¼ ë–¼ë©´ ì†ë„ ê°ì†Œ (ê´€ì„±)
             leftMovementVelocity = Vector3.Lerp(leftMovementVelocity, Vector3.zero, inertiaFactor);
             movement += leftMovementVelocity;
         }
@@ -122,77 +114,74 @@ public class PlayerController : MonoBehaviourPun
         if (isRIdxTriggerPressed)
         {
             movement += CalculateMovement(rightVelocity, rightDelta);
-            rightMovementVelocity = CalculateMovement(rightVelocity, rightDelta); // Æ®¸®°Å¸¦ ´©¸¦ ¶§ ¼Óµµ °è»ê
+            rightMovementVelocity = CalculateMovement(rightVelocity, rightDelta); // íŠ¸ë¦¬ê±°ë¥¼ ëˆ„ë¥¼ ë•Œ ì†ë„ ê³„ì‚°
         }
         else
         {
-            // Æ®¸®°Å¸¦ ¶¼¸é ¼Óµµ °¨¼Ò (°ü¼º)
+            // íŠ¸ë¦¬ê±°ë¥¼ ë–¼ë©´ ì†ë„ ê°ì†Œ (ê´€ì„±)
             rightMovementVelocity = Vector3.Lerp(rightMovementVelocity, Vector3.zero, inertiaFactor);
             movement += rightMovementVelocity;
         }
 
-        // µÎ ÄÁÆ®·Ñ·¯ ¸ğµÎ »ç¿ë ½Ã °¡¼Ó Àû¿ë
+        // ë‘ ì»¨íŠ¸ë¡¤ëŸ¬ ëª¨ë‘ ì‚¬ìš© ì‹œ ê°€ì† ì ìš©
         if (isLIdxTriggerPressed && isRIdxTriggerPressed)
         {
             movement *= accelerationFactor;
         }
 
+        // íšŒì „ ì²˜ë¦¬
+        HandleRotation();
 
         Vector3 finalMovement = movement * Time.deltaTime;
 
-        // ÃÖ´ë ¼Óµµ Á¦ÇÑ
+        // ìµœëŒ€ ì†ë„ ì œí•œ
         if (finalMovement.magnitude > maxSpeed)
         {
             finalMovement = finalMovement.normalized * maxSpeed;
         }
 
-        // È¸Àü Ã³¸®
-        HandleRotation();
 
-        // Ä«¸Ş¶ó ¸®±× ÀÌµ¿
+        // ì¹´ë©”ë¼ ë¦¬ê·¸ ì´ë™
         cameraRig.position += finalMovement;
 
-        // currentVelocity¸¦ ÀÌµ¿ ¼Óµµ¿¡ ¸Â°Ô ¾÷µ¥ÀÌÆ®
-        currentVelocity = (cameraRig.position - previousPosition) / Time.deltaTime;
+        // ë°”í€´ íšŒì „ ì²˜ë¦¬
+        HandleWheelRotation(finalMovement.magnitude);
 
-        // ¹ÙÄû È¸Àü Ã³¸®
-        SyncWheelRotation(leftRotated, rightRotated);
-
-        // Photon µ¿±âÈ­
+        // Photon ë™ê¸°í™”
         photonView.RPC("SyncWheelRotation", RpcTarget.Others, finalMovement.magnitude);
     }
 
     private void HandleRotation()
     {
-        float movementThreshold = 0.01f; // ¿òÁ÷ÀÓ °¨Áö ÀÓ°è°ª
+        float movementThreshold = 0.01f; // ì›€ì§ì„ ê°ì§€ ì„ê³„ê°’
 
-        // ¿Ş¼Õ Grip Trigger·Î ¿ìÈ¸Àü
+        // ì™¼ì† Grip Triggerë¡œ ìš°íšŒì „
         if (isLGripTriggerPressed)
         {
             Vector3 leftDeltaPosition = leftPosition - lastLeftPosition;
 
-            // Forward ¹æÇâÀ¸·Î ÃæºĞÈ÷ ¿òÁ÷¿´À» ¶§¸¸ ¿ìÈ¸Àü Çã¿ë
-            if (leftDeltaPosition.z < -movementThreshold) // Z°ª À½¼ö´Â Forward ¹æÇâ
+            // Forward ë°©í–¥ìœ¼ë¡œ ì¶©ë¶„íˆ ì›€ì§ì˜€ì„ ë•Œë§Œ ìš°íšŒì „ í—ˆìš©
+            if (leftDeltaPosition.z > movementThreshold) // Zê°’ ì–‘ìˆ˜ëŠ” Forward ë°©í–¥
             {
-                float rotationInput = -leftDeltaPosition.z; // ¿Ş¼Õ ÄÁÆ®·Ñ·¯ÀÇ ZÃà ¿òÁ÷ÀÓ
-                ApplyRotation(rotationInput); // ½Ã°è ¹æÇâÀ¸·Î È¸Àü
+                float rotationInput = leftDeltaPosition.z; // ì™¼ì† ì»¨íŠ¸ë¡¤ëŸ¬ì˜ Zì¶• ì›€ì§ì„
+                ApplyRotation(rotationInput); // ì‹œê³„ ë°©í–¥ìœ¼ë¡œ íšŒì „
             }
         }
 
-        // ¿À¸¥¼Õ Grip Trigger·Î ÁÂÈ¸Àü
+        // ì˜¤ë¥¸ì† Grip Triggerë¡œ ì¢ŒíšŒì „
         if (isRGripTriggerPressed)
         {
             Vector3 rightDeltaPosition = rightPosition - lastRightPosition;
 
-            // Forward ¹æÇâÀ¸·Î ÃæºĞÈ÷ ¿òÁ÷¿´À» ¶§¸¸ ÁÂÈ¸Àü Çã¿ë
-            if (rightDeltaPosition.z < -movementThreshold) // Z°ª À½¼ö´Â Forward ¹æÇâ
+            // Forward ë°©í–¥ìœ¼ë¡œ ì¶©ë¶„íˆ ì›€ì§ì˜€ì„ ë•Œë§Œ ì¢ŒíšŒì „ í—ˆìš©
+            if (rightDeltaPosition.z > movementThreshold) // Zê°’ ì–‘ìˆ˜ëŠ” Forward ë°©í–¥
             {
-                float rotationInput = rightDeltaPosition.z; // ¿À¸¥¼Õ ÄÁÆ®·Ñ·¯ÀÇ ZÃà ¿òÁ÷ÀÓ
-                ApplyRotation(rotationInput); // ¹İ½Ã°è ¹æÇâÀ¸·Î È¸Àü
+                float rotationInput = -rightDeltaPosition.z; // ì˜¤ë¥¸ì† ì»¨íŠ¸ë¡¤ëŸ¬ì˜ Zì¶• ì›€ì§ì„
+                ApplyRotation(rotationInput); // ë°˜ì‹œê³„ ë°©í–¥ìœ¼ë¡œ íšŒì „
             }
         }
 
-        // ÀÌÀü À§Ä¡ ¾÷µ¥ÀÌÆ®
+        // ì´ì „ ìœ„ì¹˜ ì—…ë°ì´íŠ¸
         lastRightPosition = rightPosition;
         lastLeftPosition = leftPosition;
     }
@@ -200,67 +189,57 @@ public class PlayerController : MonoBehaviourPun
 
     private Vector3 CalculateMovement(Vector3 controllerVelocity, Vector3 controllerDelta)
     {
-        // ÄÁÆ®·Ñ·¯ÀÇ ¿òÁ÷ÀÓ¿¡ µû¶ó ÀÌµ¿ ¹æÇâ °è»ê
-        float forwardMovement = controllerVelocity.z; // ÄÁÆ®·Ñ·¯ÀÇ zÃà ¿òÁ÷ÀÓ
+        // ì»¨íŠ¸ë¡¤ëŸ¬ì˜ ì›€ì§ì„ì— ë”°ë¼ ì´ë™ ë°©í–¥ ê³„ì‚°
+        float forwardMovement = controllerVelocity.z; // ì»¨íŠ¸ë¡¤ëŸ¬ì˜ zì¶• ì›€ì§ì„
         Vector3 movementDirection = cameraRig.forward * (forwardMovement * moveSpeed);
 
-        // ÀÌµ¿ °Å¸® ±â¹İÀ¸·Î °¡¼Óµµ Àû¿ë
+        // ì´ë™ ê±°ë¦¬ ê¸°ë°˜ìœ¼ë¡œ ê°€ì†ë„ ì ìš©
         float distanceMoved = controllerDelta.magnitude;
-        movementDirection *= (1 + distanceMoved); // ´õ ¸¹ÀÌ ¿òÁ÷ÀÏ¼ö·Ï ´õ »¡¸® ÀÌµ¿
+        movementDirection *= (1 + distanceMoved); // ë” ë§ì´ ì›€ì§ì¼ìˆ˜ë¡ ë” ë¹¨ë¦¬ ì´ë™
 
         return movementDirection;
     }
 
     private void ApplyRotation(float direction)
     {
-        // È¸Àü ±¸Çö
+        // íšŒì „ êµ¬í˜„
         float rotationAmount = direction * rotationSpeed * Time.deltaTime;
         cameraRig.Rotate(Vector3.up, rotationAmount);
     }
 
-    private void SyncWheelRotation(bool leftRotated, bool rightRotated)
+    private void HandleWheelRotation(float movementMagnitude)
     {
-        // currentVelocity¸¦ ÀÌ¿ëÇÏ¿© ÀüÁø/ÈÄÁø ¼Óµµ ÃßÀû
-        float forwardSpeed = currentVelocity.z;  // ZÃà ¹æÇâ ¼Óµµ
-        Debug.Log("Velocity :" + forwardSpeed);
+        // ì´ë™ ë°©í–¥ì— ë”°ë¥¸ íšŒì „ ë°©í–¥ ì„¤ì •
+        float wheelRotation = movementMagnitude * wheelRotationMultiplier;
 
-        // È¸Àü ¼Óµµ °è»ê
-        float rotationSpeed = forwardSpeed * wheelRotationSpeed;
+        // íšŒì „ ì¤‘ì¸ì§€ í™•ì¸
+        float rotationAmount = (isLGripTriggerPressed || isRGripTriggerPressed) ? rotationSpeed * Time.deltaTime : 0;
 
-        // ÈÄÁø ½Ã È¸Àü ¹æÇâ ¹İ´ë·Î ¼³Á¤
-        if (forwardSpeed < 0)
+        if (isLGripTriggerPressed && !isRGripTriggerPressed) // ìš°íšŒì „
         {
-            rotationSpeed = -rotationSpeed;
+            leftWheel.Rotate(Vector3.right, wheelRotation);
+            rightWheel.Rotate(Vector3.right, 0f);
         }
-
-        // ¾çÂÊ ÈÙ ¸ğµÎ Àü/ÈÄÁø¿¡ ¸Â°Ô È¸Àü
-        leftWheel.Rotate(Vector3.right, rotationSpeed * Time.deltaTime);
-        rightWheel.Rotate(Vector3.right, rotationSpeed * Time.deltaTime);
-
-        // ÁÂÈ¸Àü ½Ã ¿À¸¥ÂÊ ¹ÙÄû¸¸ È¸Àü
-        if (leftRotated)
+        else if (isRGripTriggerPressed && !isLGripTriggerPressed) // ì¢ŒíšŒì „
         {
-            rightWheel.Rotate(Vector3.right, wheelRotationSpeed * Time.deltaTime);
+            rightWheel.Rotate(Vector3.right, wheelRotation);
+            leftWheel.Rotate(Vector3.right, 0f);
         }
-
-        // ¿ìÈ¸Àü ½Ã ¿ŞÂÊ ¹ÙÄû¸¸ È¸Àü
-        if (rightRotated)
+        else
         {
-            leftWheel.Rotate(Vector3.right, wheelRotationSpeed * Time.deltaTime);
+            // ì „ì§„ ë˜ëŠ” í›„ì§„ ì‹œ ì–‘ìª½ ë°”í€´ íšŒì „
+            leftWheel.Rotate(Vector3.right, wheelRotation);
+            rightWheel.Rotate(Vector3.right, wheelRotation);
         }
     }
-
 
 
     [PunRPC]
-    private void PUNSyncWheelRotation(bool leftRotated, bool rightRotated)
+    private void SyncWheelRotation(float movementMagnitude)
     {
-        float forwardSpeed = currentVelocity.z; // Àü/ÈÄÁø ¼Óµµ
-        float rotationSpeed = forwardSpeed * wheelRotationSpeed;
+        float wheelRotation = movementMagnitude * wheelRotationMultiplier;
 
-        leftWheel.Rotate(Vector3.right, rotationSpeed * Time.deltaTime);
-        rightWheel.Rotate(Vector3.right, rotationSpeed * Time.deltaTime);
+        leftWheel.Rotate(Vector3.right, wheelRotation);
+        rightWheel.Rotate(Vector3.right, wheelRotation);
     }
-
-    // SAVE POINT
 }
