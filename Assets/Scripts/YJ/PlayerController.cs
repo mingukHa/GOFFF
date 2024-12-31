@@ -6,14 +6,14 @@ public class PlayerController : MonoBehaviourPun
 {
     public Transform cameraRig; // 플레이어의 Transform
     public Transform leftWheel; // 휠체어 왼쪽 바퀴
-    public Transform rightWheel; // 휠체[어 오른쪽 바퀴
+    public Transform rightWheel; // 휠체어 오른쪽 바퀴
 
     public float moveSpeed = 1.0f; // 기본 이동 속도
     public float accelerationFactor = 1.8f; // 두 컨트롤러 사용 시 가속도 계수
     public float inertiaFactor = 0.05f; // 트리거를 뗀 후 이동 관성 (느리게 멈추는 정도)
     public float maxSpeed = 5.0f; // 최대 이동 속도
     public float rotationSpeed = 100f; // 회전 속도
-    public float wheelRotationMultiplier = 10f; // 휠체어 바퀴 회전 계수
+    public float wheelRotationSpeed = 50f; // 휠체어 바퀴 회전 속도
 
     private Vector3 leftVelocity; // 왼쪽 컨트롤러 속도
     private Vector3 rightVelocity; // 오른쪽 컨트롤러 속도
@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviourPun
     private bool isRIdxTriggerPressed; // 오른쪽 인덱스 트리거 상태
     private Vector3 leftMovementVelocity; // 왼쪽 관성 속도
     private Vector3 rightMovementVelocity; // 오른쪽 관성 속도
+    private Vector3 currentVelocity = Vector3.zero; // 현재 속도
 
     private Vector3 leftPosition; // 왼쪽 컨트롤러 위치
     private Vector3 rightPosition; // 오른쪽 컨트롤러 위치
@@ -88,16 +89,23 @@ public class PlayerController : MonoBehaviourPun
 
     private void Update()
     {
+        // 현재 위치와 이전 위치 차이를 계산하여 이동 속도 계산
+        Vector3 previousPosition = cameraRig.position;
+    
+        // 이동 방향 계산 (위에서 계산한 방식 그대로)
+        Vector3 movement = Vector3.zero;
+
         // 이전 프레임과 비교해 이동 거리 계산
         Vector3 leftDelta = leftVelocity - lastLeftPosition;
         Vector3 rightDelta = rightVelocity - lastRightPosition;
 
+        // 좌,우 회전 상태
+        bool leftRotated = false;
+        bool rightRotated = false;
+
         // 이전 위치 업데이트
         lastLeftPosition = leftVelocity;
         lastRightPosition = rightVelocity;
-
-        // 이동 방향 계산
-        Vector3 movement = Vector3.zero;
 
         if (isLIdxTriggerPressed)
         {
@@ -129,8 +137,6 @@ public class PlayerController : MonoBehaviourPun
             movement *= accelerationFactor;
         }
 
-        // 회전 처리
-        HandleRotation();
 
         Vector3 finalMovement = movement * Time.deltaTime;
 
@@ -140,12 +146,17 @@ public class PlayerController : MonoBehaviourPun
             finalMovement = finalMovement.normalized * maxSpeed;
         }
 
+        // 회전 처리
+        HandleRotation();
 
         // 카메라 리그 이동
         cameraRig.position += finalMovement;
 
+        // currentVelocity를 이동 속도에 맞게 업데이트
+        currentVelocity = (cameraRig.position - previousPosition) / Time.deltaTime;
+
         // 바퀴 회전 처리
-        HandleWheelRotation(finalMovement.magnitude);
+        SyncWheelRotation(leftRotated, rightRotated);
 
         // Photon 동기화
         photonView.RPC("SyncWheelRotation", RpcTarget.Others, finalMovement.magnitude);
@@ -207,44 +218,48 @@ public class PlayerController : MonoBehaviourPun
         cameraRig.Rotate(Vector3.up, rotationAmount);
     }
 
-    private void HandleWheelRotation(float movementMagnitude)
+    private void SyncWheelRotation(bool leftRotated, bool rightRotated)
     {
-        // 이동 방향에 따른 회전 방향 설정
-        float forwardDirection = Mathf.Sign(movementMagnitude); // 전진(1) / 후진(-1) 감지
-        float wheelRotation = Mathf.Abs(movementMagnitude) * wheelRotationMultiplier * forwardDirection;
+        // currentVelocity를 이용하여 전진/후진 속도 추적
+        float forwardSpeed = currentVelocity.z;  // Z축 방향 속도
+        Debug.Log("Velocity :" + forwardSpeed);
 
-        // 회전 중인지 확인
-        float rotationAmount = (isLGripTriggerPressed || isRGripTriggerPressed) ? rotationSpeed * Time.deltaTime : 0;
+        // 회전 속도 계산
+        float rotationSpeed = forwardSpeed * wheelRotationSpeed;
 
-        if (isLGripTriggerPressed && !isRGripTriggerPressed) // 우회전
+        // 후진 시 회전 방향 반대로 설정
+        if (forwardSpeed < 0)
         {
-            // 왼쪽 바퀴만 회전
-            leftWheel.Rotate(Vector3.right, wheelRotation);
-            rightWheel.Rotate(Vector3.right, 0f);
+            rotationSpeed = -rotationSpeed;
         }
-        else if (isRGripTriggerPressed && !isLGripTriggerPressed) // 좌회전
+
+        // 양쪽 휠 모두 전/후진에 맞게 회전
+        leftWheel.Rotate(Vector3.right, rotationSpeed * Time.deltaTime);
+        rightWheel.Rotate(Vector3.right, rotationSpeed * Time.deltaTime);
+
+        // 좌회전 시 오른쪽 바퀴만 회전
+        if (leftRotated)
         {
-            // 오른쪽 바퀴만 회전
-            rightWheel.Rotate(Vector3.right, wheelRotation);
-            leftWheel.Rotate(Vector3.right, 0f);
+            rightWheel.Rotate(Vector3.right, wheelRotationSpeed * Time.deltaTime);
         }
-        else
+
+        // 우회전 시 왼쪽 바퀴만 회전
+        if (rightRotated)
         {
-            // 전진 또는 후진 시 양쪽 바퀴 회전
-            leftWheel.Rotate(Vector3.right, wheelRotation);
-            rightWheel.Rotate(Vector3.right, wheelRotation);
+            leftWheel.Rotate(Vector3.right, wheelRotationSpeed * Time.deltaTime);
         }
     }
 
 
 
     [PunRPC]
-    private void SyncWheelRotation(float movementMagnitude)
+    private void PUNSyncWheelRotation(bool leftRotated, bool rightRotated)
     {
-        float wheelRotation = movementMagnitude * wheelRotationMultiplier;
+        float forwardSpeed = currentVelocity.z; // 전/후진 속도
+        float rotationSpeed = forwardSpeed * wheelRotationSpeed;
 
-        leftWheel.Rotate(Vector3.right, wheelRotation);
-        rightWheel.Rotate(Vector3.right, wheelRotation);
+        leftWheel.Rotate(Vector3.right, rotationSpeed * Time.deltaTime);
+        rightWheel.Rotate(Vector3.right, rotationSpeed * Time.deltaTime);
     }
 
     // SAVE POINT
