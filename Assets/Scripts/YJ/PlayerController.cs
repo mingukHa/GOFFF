@@ -1,14 +1,19 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Photon.Pun;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviourPun
 {
     public Transform cameraRig; // 플레이어의 Transform
+    public Transform leftWheel; // 휠체어 왼쪽 바퀴
+    public Transform rightWheel; // 휠체[어 오른쪽 바퀴
+
     public float moveSpeed = 1.0f; // 기본 이동 속도
     public float accelerationFactor = 1.8f; // 두 컨트롤러 사용 시 가속도 계수
     public float inertiaFactor = 0.05f; // 트리거를 뗀 후 이동 관성 (느리게 멈추는 정도)
     public float maxSpeed = 5.0f; // 최대 이동 속도
     public float rotationSpeed = 100f; // 회전 속도
+    public float wheelRotationMultiplier = 10f; // 휠체어 바퀴 회전 계수
 
     private Vector3 leftVelocity; // 왼쪽 컨트롤러 속도
     private Vector3 rightVelocity; // 오른쪽 컨트롤러 속도
@@ -27,6 +32,12 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        if (!photonView.IsMine)
+        {
+            // 다른 플레이어의 입력 및 컨트롤 비활성화
+            this.enabled = false;
+        }
+
         lastLeftPosition = cameraRig.position; // 카메라의 위치로 초기화
         lastRightPosition = cameraRig.position;
     }
@@ -121,26 +132,39 @@ public class PlayerController : MonoBehaviour
         // 회전 처리
         HandleRotation();
 
-        // 카메라 리그 이동
-        cameraRig.position += movement * Time.deltaTime;
+        Vector3 finalMovement = movement * Time.deltaTime;
 
         // 최대 속도 제한
-        if (movement.magnitude > maxSpeed)
+        if (finalMovement.magnitude > maxSpeed)
         {
-            movement = movement.normalized * maxSpeed;
+            finalMovement = finalMovement.normalized * maxSpeed;
         }
+
+
+        // 카메라 리그 이동
+        cameraRig.position += finalMovement;
+
+        // 바퀴 회전 처리
+        HandleWheelRotation(finalMovement.magnitude);
+
+        // Photon 동기화
+        photonView.RPC("SyncWheelRotation", RpcTarget.Others, finalMovement.magnitude);
     }
 
     private void HandleRotation()
     {
+        float movementThreshold = 0.01f; // 움직임 감지 임계값
+
         // 왼손 Grip Trigger로 우회전
         if (isLGripTriggerPressed)
         {
             Vector3 leftDeltaPosition = leftPosition - lastLeftPosition;
-            if (leftDeltaPosition.x > 0) // 오른쪽으로 움직였을 때만 우회전 허용
+
+            // Forward 방향으로 충분히 움직였을 때만 우회전 허용
+            if (leftDeltaPosition.z < -movementThreshold) // Z값 음수는 Forward 방향
             {
-                float rotationInput = leftDeltaPosition.x; // 왼손 컨트롤러의 X축 움직임
-                Rotate(rotationInput); // 시계 방향으로 회전
+                float rotationInput = -leftDeltaPosition.z; // 왼손 컨트롤러의 Z축 움직임
+                ApplyRotation(rotationInput); // 시계 방향으로 회전
             }
         }
 
@@ -148,10 +172,12 @@ public class PlayerController : MonoBehaviour
         if (isRGripTriggerPressed)
         {
             Vector3 rightDeltaPosition = rightPosition - lastRightPosition;
-            if (rightDeltaPosition.x < 0) // 왼쪽으로 움직였을 때만 좌회전 허용
+
+            // Forward 방향으로 충분히 움직였을 때만 좌회전 허용
+            if (rightDeltaPosition.z < -movementThreshold) // Z값 음수는 Forward 방향
             {
-                float rotationInput = rightDeltaPosition.x; // 오른손 컨트롤러의 X축 움직임
-                Rotate(rotationInput); // 반시계 방향으로 회전
+                float rotationInput = rightDeltaPosition.z; // 오른손 컨트롤러의 Z축 움직임
+                ApplyRotation(rotationInput); // 반시계 방향으로 회전
             }
         }
 
@@ -160,10 +186,11 @@ public class PlayerController : MonoBehaviour
         lastLeftPosition = leftPosition;
     }
 
+
     private Vector3 CalculateMovement(Vector3 controllerVelocity, Vector3 controllerDelta)
     {
         // 컨트롤러의 움직임에 따라 이동 방향 계산
-        float forwardMovement = -controllerVelocity.z; // 컨트롤러의 움직임 반전
+        float forwardMovement = controllerVelocity.z; // 컨트롤러의 z축 움직임
         Vector3 movementDirection = cameraRig.forward * (forwardMovement * moveSpeed);
 
         // 이동 거리 기반으로 가속도 적용
@@ -173,11 +200,51 @@ public class PlayerController : MonoBehaviour
         return movementDirection;
     }
 
-    private void Rotate(float direction)
+    private void ApplyRotation(float direction)
     {
         // 회전 구현
         float rotationAmount = direction * rotationSpeed * Time.deltaTime;
         cameraRig.Rotate(Vector3.up, rotationAmount);
+    }
+
+    private void HandleWheelRotation(float movementMagnitude)
+    {
+        // 이동 방향에 따른 회전 방향 설정
+        float forwardDirection = Mathf.Sign(movementMagnitude); // 전진(1) / 후진(-1) 감지
+        float wheelRotation = Mathf.Abs(movementMagnitude) * wheelRotationMultiplier * forwardDirection;
+
+        // 회전 중인지 확인
+        float rotationAmount = (isLGripTriggerPressed || isRGripTriggerPressed) ? rotationSpeed * Time.deltaTime : 0;
+
+        if (isLGripTriggerPressed && !isRGripTriggerPressed) // 우회전
+        {
+            // 왼쪽 바퀴만 회전
+            leftWheel.Rotate(Vector3.right, wheelRotation);
+            rightWheel.Rotate(Vector3.right, 0f);
+        }
+        else if (isRGripTriggerPressed && !isLGripTriggerPressed) // 좌회전
+        {
+            // 오른쪽 바퀴만 회전
+            rightWheel.Rotate(Vector3.right, wheelRotation);
+            leftWheel.Rotate(Vector3.right, 0f);
+        }
+        else
+        {
+            // 전진 또는 후진 시 양쪽 바퀴 회전
+            leftWheel.Rotate(Vector3.right, wheelRotation);
+            rightWheel.Rotate(Vector3.right, wheelRotation);
+        }
+    }
+
+
+
+    [PunRPC]
+    private void SyncWheelRotation(float movementMagnitude)
+    {
+        float wheelRotation = movementMagnitude * wheelRotationMultiplier;
+
+        leftWheel.Rotate(Vector3.right, wheelRotation);
+        rightWheel.Rotate(Vector3.right, wheelRotation);
     }
 
     // SAVE POINT

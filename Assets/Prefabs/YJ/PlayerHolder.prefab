@@ -2793,7 +2793,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4369494004295192646
 Transform:
   m_ObjectHideFlags: 0
@@ -3852,7 +3852,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2124235159028562076
 Transform:
   m_ObjectHideFlags: 0
@@ -9678,11 +9678,12 @@ GameObject:
   - component: {fileID: 2080871421963820864}
   - component: {fileID: 2128511918386348633}
   - component: {fileID: 7102014293633449745}
+  - component: {fileID: 1011193479603461132}
   - component: {fileID: 7776948961059441294}
   - component: {fileID: 5760728534539583603}
   - component: {fileID: 2374373779939970929}
   - component: {fileID: 3116046014492116379}
-  - component: {fileID: 1052068761581116691}
+  - component: {fileID: 3326424169088456771}
   m_Layer: 0
   m_Name: PlayerHolder
   m_TagString: Player
@@ -9700,7 +9701,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6755688651460778695}
@@ -9860,6 +9861,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: f8e2f553-7abd-4f84-a026-2e1849584a91
     m_ActionName: Rotate/Move Right Grip
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7102014293633449745}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnLeftPrimaryButton
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e41f4844-825f-4373-8601-cf0b7354d826
+    m_ActionName: Grab/Left Grab Key
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7102014293633449745}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnRightPrimaryButton
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2e802c87-fca3-46b0-bda1-3258a9b9fce6
+    m_ActionName: Grab/Right Grab Key
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Move
@@ -9878,11 +9911,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraRig: {fileID: 6755688651460778695}
+  leftWheel: {fileID: 0}
+  rightWheel: {fileID: 0}
   moveSpeed: 1
   accelerationFactor: 1.8
   inertiaFactor: 0.05
   maxSpeed: 5
   rotationSpeed: 100
+  wheelRotationMultiplier: 10
+--- !u!114 &1011193479603461132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5983295875041255981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 388616cedc24b354dbf3ea4b78b5e8b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!54 &7776948961059441294
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9964,17 +10012,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
+  ObservedComponentsFoldoutOpen: 0
   Group: 0
   prefixField: -1
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 3326424169088456771}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &1052068761581116691
+--- !u!114 &3326424169088456771
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9983,9 +10032,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5983295875041255981}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 388616cedc24b354dbf3ea4b78b5e8b9, type: 3}
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 1
+  m_UseLocal: 1
 --- !u!1 &6018296630136438552
 GameObject:
   m_ObjectHideFlags: 0
@@ -10684,7 +10737,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6755688651460778695}
   - component: {fileID: 6507007735328496453}
-  - component: {fileID: 2047248185538926707}
   - component: {fileID: 1182999641519801702}
   - component: {fileID: 1930969186902786008}
   - component: {fileID: 1138784109802874504}
@@ -10730,31 +10782,6 @@ MonoBehaviour:
   m_CameraFloorOffsetObject: {fileID: 5338561726664548283}
   m_RequestedTrackingOriginMode: 1
   m_CameraYOffset: 1.1
---- !u!143 &2047248185538926707
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6755688651460778692}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 0.1
-  m_Radius: 0.1
-  m_SlopeLimit: 45
-  m_StepOffset: 0.5
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.76072, z: 0}
 --- !u!114 &1182999641519801702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14457,7 +14484,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2848203652129184214
 Transform:
   m_ObjectHideFlags: 0
@@ -15159,7 +15186,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4197581269819362388
 Transform:
   m_ObjectHideFlags: 0
