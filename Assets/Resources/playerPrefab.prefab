@@ -3092,11 +3092,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraRig: {fileID: 3299913450793777546}
+  leftWheel: {fileID: 0}
+  rightWheel: {fileID: 0}
   moveSpeed: 1
   accelerationFactor: 1.8
   inertiaFactor: 0.05
   maxSpeed: 5
   rotationSpeed: 100
+  wheelRotationMultiplier: 10
 --- !u!54 &8066748175555039279
 Rigidbody:
   m_ObjectHideFlags: 0
