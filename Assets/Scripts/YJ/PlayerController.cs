@@ -6,14 +6,14 @@ public class PlayerController : MonoBehaviourPun
 {
     public Transform playerHolder; // 플레이어의 Transform
     public Transform leftWheel; // 휠체어 왼쪽 바퀴
-    public Transform rightWheel; // 휠체[어 오른쪽 바퀴
+    public Transform rightWheel; // 휠체어 오른쪽 바퀴
 
     public float moveSpeed = 1.0f; // 기본 이동 속도
     public float accelerationFactor = 1.8f; // 두 컨트롤러 사용 시 가속도 계수
     public float inertiaFactor = 0.05f; // 트리거를 뗀 후 이동 관성 (느리게 멈추는 정도)
     public float maxSpeed = 5.0f; // 최대 이동 속도
     public float rotationSpeed = 100f; // 회전 속도
-    public float wheelRotationMultiplier = 10f; // 휠체어 바퀴 회전 계수
+    public float wheelRotationMultiplier = 50f; // 휠체어 바퀴 회전 계수
 
     private Vector3 leftVelocity; // 왼쪽 컨트롤러 속도
     private Vector3 rightVelocity; // 오른쪽 컨트롤러 속도
@@ -242,4 +242,6 @@ public class PlayerController : MonoBehaviourPun
         leftWheel.Rotate(Vector3.right, wheelRotation);
         rightWheel.Rotate(Vector3.right, wheelRotation);
     }
+
+    // SAVE POINT
 }
