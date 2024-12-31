@@ -4,6 +4,11 @@ using TMPro;
 using Firebase.Auth;
 using Firebase.Database;
 using System.Text.RegularExpressions;
+using Photon.Pun;
+using UnityEngine.SceneManagement;
+using Photon.Realtime;
+using Photon.Pun.Demo.PunBasics;
+
 
 public class LoginFireBase : MonoBehaviour
 {
@@ -35,10 +40,12 @@ public class LoginFireBase : MonoBehaviour
     private Button acountet;
     [SerializeField]
     private GameObject acountUI;
+    
 
     private FirebaseAuth auth;
     private DatabaseReference database;
 
+   
     private void Start()
     {
         // Firebase √ ±‚»≠

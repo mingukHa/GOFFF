@@ -15,18 +15,19 @@ public class MonsterTest : MonoBehaviour
     [SerializeField]
     private float idleTimeLimit = 10f; // 탐지 없을 때 원래 위치로 복귀 시간
     [SerializeField]
-    private float arrivalThreshold = 0.5f; // 목표 지점 도착으로 간주할 거리
+    private float arrivalThreshold = 1.5f; // 목표 지점 도착으로 간주할 거리
     [SerializeField]
     private NavMeshAgent navAgent; // NavMeshAgent
     private Animator animator; // 몬스터의 애니메이터
 
-    private enum MonsterState { Idle, Walking, Quest, Attack, Returning, Detect } // 몬스터의 상태
+    private enum MonsterState { Idle, Walking, LookingAround, Attack, Returning, Detect } // 몬스터의 상태
     private MonsterState currentState = MonsterState.Idle;
 
     private Vector3 originalPosition; // 몬스터 원래 위치
     private Vector3 targetPosition = Vector3.zero; // 이동할 목표 지점
     private Transform detectedTarget; // 탐지된 타겟
     private float questTime; // 탐색 상태 시간
+    private float detectTime = 0f;
 
     private void Awake()
     {
@@ -43,26 +44,39 @@ public class MonsterTest : MonoBehaviour
     {
         DetectTargetsInView(); // 시야각과 거리 기반 탐지
 
-        //Debug.Log($"현재 상태: {currentState}, TargetPosition: {targetPosition}");
-
         switch (currentState)
         {
             case MonsterState.Idle:
                 break;
             case MonsterState.Walking:
-                MoveToTarget();
+                MoveToTarget(); // 목표 지점으로 이동
                 break;
-            case MonsterState.Quest:
-                LookAround(); // 주변을 탐색
+            case MonsterState.LookingAround:
+                LookAround(); // 주변 탐색
                 break;
-            case MonsterState.Returning:
-                ReturnToOriginalPosition();
-                break;
+            //case MonsterState.Returning:
+            //    ReturnToOriginalPosition(); // 원래 위치로 복귀
+            //    break;
             case MonsterState.Detect:
+                HandleDetectState();
                 break;
             case MonsterState.Attack:
-                AttackTarget();
+                Debug.Log("attack");
+                AttackTarget(); // 타겟 공격
                 break;
+        }
+    }
+    private void HandleDetectState()
+    {
+        detectTime += Time.deltaTime; // Detect 상태에서 경과 시간 증가
+
+        if (detectTime >= 2f) // Detect 상태에서 2초 경과 시
+        {
+            currentState = MonsterState.Attack; // Attack 상태로 전환
+            animator.SetTrigger("isAttack");
+            detectTime = 0f; // 타이머 초기화
+            animator.SetBool("isDetecting", false); // Detect 애니메이션 종료
+            Debug.Log("Detect 상태에서 2초 경과 후 Attack 상태로 전환");
         }
     }
 
@@ -90,9 +104,9 @@ public class MonsterTest : MonoBehaviour
      //   Debug.Log($"TargetPosition 설정됨: {targetPosition}");
     }
 
-    // 주변 시야 내 타겟 탐지
     private void DetectTargetsInView()
     {
+        // 탐지 반경 내의 콜라이더 검색
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRadius, detectionLayer);
 
         foreach (Collider collider in hitColliders)
@@ -100,34 +114,35 @@ public class MonsterTest : MonoBehaviour
             Vector3 directionToTarget = (collider.transform.position - transform.position).normalized;
             float angleToTarget = Vector3.Angle(transform.forward, directionToTarget);
 
+            // 시야각과 거리 내에 있는 경우
             if (angleToTarget <= viewAngle / 2 && Vector3.Distance(transform.position, collider.transform.position) <= visionDistance)
             {
                 if (collider.CompareTag("Player"))
                 {
-                  //  Debug.Log("플레이어 발견");
+                    // 플레이어를 발견한 경우
                     detectedTarget = collider.transform;
-                    currentState = MonsterState.Attack;
-                  //  Debug.Log("플레이어 공격");
-                    return;
-                }
-                else
-                {
-                 //   Debug.Log("플레이어 찾지 못 함");
-                    SetTargetPosition(collider.transform.position);
-                    currentState = MonsterState.Walking;
-                    return;
+
+                    // Detect 애니메이션 값 설정
+                    animator.SetBool("isDetecting", true);
+                    currentState = MonsterState.Detect;
+
+                    Debug.Log("플레이어를 탐지했습니다!");
+                    return; // 발견 즉시 종료
                 }
             }
         }
 
+        // 플레이어가 탐지되지 않은 경우
+        animator.SetBool("isDetecting", false);
         detectedTarget = null;
     }
 
-    // 목표 지점으로 이동
+
     private void MoveToTarget()
     {
         if (targetPosition != Vector3.zero)
         {
+            // NavMesh 위에 있는지 확인 및 보정
             NavMeshHit hit;
             if (NavMesh.SamplePosition(targetPosition, out hit, 1.0f, NavMesh.AllAreas))
             {
@@ -135,58 +150,80 @@ public class MonsterTest : MonoBehaviour
             }
 
             navAgent.SetDestination(targetPosition); // 목표 지점으로 이동
-            animator.SetTrigger("isWalking"); // 걷기 애니메이션 실행
-            //Debug.Log($"목표 지점으로 이동 중: {targetPosition}");
+            animator.SetBool("isWalking", true); // 걷기 애니메이션 실행
 
-            // 목표 지점에 일정 거리 내로 도착하면 탐색 상태로 전환
-            if (Vector3.Distance(transform.position, targetPosition) <= arrivalThreshold && !navAgent.pathPending)
+            // 도착 감지
+            if (!navAgent.pathPending && navAgent.remainingDistance <= arrivalThreshold)
             {
                 navAgent.ResetPath(); // 이동 중지
-                currentState = MonsterState.Quest; // 탐색 상태로 전환
+                animator.SetBool("isWalking", false); // 걷기 애니메이션 정지
+                currentState = MonsterState.LookingAround; // 탐색 상태로 전환
                 questTime = 0f; // 탐색 시간 초기화
-               // Debug.Log("목표 지점에 도착, 탐색 상태로 전환");
+                Debug.Log("목표 지점에 도착, 탐색 상태로 전환");
             }
         }
     }
 
-    // 주변 탐색
     private void LookAround()
     {
-        questTime += Time.deltaTime;
+        questTime += Time.deltaTime; // 탐색 시간 증가
 
-        if (questTime < 3f) // 3초 동안 주변 탐색
+        if (questTime < 3f) // 3초 동안 탐색
         {
-            transform.Rotate(Vector3.up, 180f * Time.deltaTime); // 회전
-            animator.SetTrigger("isLookingAround"); // 탐색 애니메이션 실행
-          //  Debug.Log("주변을 탐색 중...");
+            transform.Rotate(Vector3.up, 40f * Time.deltaTime); // 몬스터 회전
+            animator.SetBool("isLookingAround", true); // 탐색 애니메이션 실행
+            Debug.Log("주변을 탐색 중...");
         }
         else
         {
-            currentState = MonsterState.Idle; // 탐색 후 대기 상태로 전환
-          //  Debug.Log("탐색 완료, 대기 상태로 전환");
+            animator.SetBool("isLookingAround", false); // 탐색 애니메이션 종료
+            currentState = MonsterState.Idle; // 대기 상태로 전환
+            Debug.Log("탐색 완료, 대기 상태로 전환");
         }
     }
+
 
     // 타겟을 공격
     private void AttackTarget()
     {
         if (detectedTarget != null)
         {
-            navAgent.SetDestination(detectedTarget.position); // 타겟으로 이동
-            if (Vector3.Distance(transform.position, detectedTarget.position) <= navAgent.stoppingDistance)
+            // 플레이어 위치 가져오기
+            Vector3 targetPosition = detectedTarget.position;
+            Debug.Log($"좌표 위치 :{detectedTarget.position}");
+            // 순간이동 좌표 설정 (플레이어 위치)
+            Vector3 teleportPosition = targetPosition + Vector3.up * 0.5f; // 약간 위로 이동
+            transform.position = teleportPosition;
+
+          
+            // 상태를 Attack 유지 (필요시 다른 상태로 전환 가능)
+            currentState = MonsterState.Attack;
+        }
+    }
+    private void OnCollisionEnter(Collision collision) //플레이어 사망 처리
+    {
+        // 충돌한 객체가 Player 태그를 가진 경우
+        if (collision.collider.CompareTag("Player"))
+        {
+            // PlayerHealth 컴포넌트를 가져와 사망 처리
+            Player player = collision.collider.GetComponent<Player>();
+            if (player != null)
             {
-                animator.SetTrigger("AttackTrigger"); // 공격 애니메이션 실행
-              //  Debug.Log($"플레이어 공격 중: {detectedTarget.position}");
+                //player.Die(); // 플레이어 사망 처리
+                Debug.Log("플레이어를 처치했습니다!");
             }
         }
     }
 
-    // 원래 위치로 돌아가기
-    private void ReturnToOriginalPosition()
-    {
-        navAgent.SetDestination(originalPosition); // 원래 위치로 이동
-      //  Debug.Log("원래 위치로 돌아가는 중...");
-    }
+
+
+
+    //// 원래 위치로 돌아가기
+    //private void ReturnToOriginalPosition()
+    //{
+    //    navAgent.SetDestination(originalPosition); // 원래 위치로 이동
+    //  //  Debug.Log("원래 위치로 돌아가는 중...");
+    //}
 
     // 디버그용 Gizmo 그리기
     private void OnDrawGizmosSelected()
