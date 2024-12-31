@@ -7,7 +7,7 @@ public class SceneChanger : MonoBehaviour
     private void Start()
     {
 
-        VivoxController.Instance.OnLoginEndEvent += HandleLoginEnd;
+        JoinEchoChannel.Instance.OnLoginEndEvent += HandleLoginEnd;
 
     }
 
