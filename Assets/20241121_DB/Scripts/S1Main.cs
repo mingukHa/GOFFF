@@ -55,45 +55,54 @@ public class S1Main : MonoBehaviourPunCallbacks
         PhotonNetwork.AutomaticallySyncScene = true;
     }
 
-    public void Connect(string roomName)
+    public void ConnectToRandomRoom()
     {
         if (PhotonNetwork.IsConnected)
         {
-            PhotonNetwork.JoinRoom(roomName);
+            Debug.Log("랜덤 방 입장을 시도합니다.");
+            PhotonNetwork.JoinRandomRoom(); // 랜덤 방에 입장 시도
         }
         else
         {
-            Debug.LogFormat("Connect : {0}", gameVersion);
+            Debug.LogFormat("Photon 연결 시작: {0}", gameVersion);
             PhotonNetwork.GameVersion = gameVersion;
-            PhotonNetwork.ConnectUsingSettings();
+            PhotonNetwork.ConnectUsingSettings(); // Photon 서버에 연결
         }
     }
 
-    public override void OnDisconnected(DisconnectCause cause)
+    public override void OnConnectedToMaster()
     {
-        Debug.LogError($"Photon 연결 끊김: {cause}");
+        Debug.Log("Photon 서버 연결 성공. 랜덤 방 입장을 시도합니다.");
+        ConnectToRandomRoom();
     }
 
-    public override void OnJoinRoomFailed(short returnCode, string message)
+    public override void OnJoinRandomFailed(short returnCode, string message)
     {
-        Debug.LogWarning($"방 입장 실패: {message}");
-        isCreateRoom(PhotonNetwork.NickName);
+        Debug.LogWarning($"랜덤 방 입장 실패: {message}");
+        CreateRoom(); // 방이 없으면 새로운 방 생성
     }
 
-    private void isCreateRoom(string roomName)
+    private void CreateRoom()
     {
+        string roomName = "Room_" + Random.Range(1000, 9999); // 랜덤한 방 이름 생성
         RoomOptions roomOptions = new RoomOptions
         {
             MaxPlayers = maxPlayerPerRoom
         };
 
-        PhotonNetwork.CreateRoom(roomName, roomOptions);
-        Debug.Log($"방 생성 요청: {roomName}");
+        PhotonNetwork.CreateRoom(roomName, roomOptions); // 방 생성
+        Debug.Log($"새로운 방 생성: {roomName}");
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
         Debug.LogError($"방 생성 실패: {message}");
+    }
+
+    public override void OnJoinedRoom()
+    {
+        Debug.Log($"방에 입장했습니다: {PhotonNetwork.CurrentRoom.Name}");
+        SceneManager.LoadScene("waitRoom"); // 대기실 씬으로 이동
     }
 
     private IEnumerator InitializeFirebase()
@@ -159,8 +168,8 @@ public class S1Main : MonoBehaviourPunCallbacks
                         // Photon 서버 연결 시도
                         if (PhotonNetwork.IsConnected)
                         {
-                            Debug.Log("Photon 서버에 이미 연결됨. 방 입장 또는 생성 중...");
-                            Connect(username); // 닉네임 기반 방 이름 사용
+                            Debug.Log("Photon 서버에 이미 연결됨. 랜덤 방 입장 시도...");
+                            ConnectToRandomRoom();
                         }
                         else
                         {
@@ -183,18 +192,6 @@ public class S1Main : MonoBehaviourPunCallbacks
                 Debug.LogWarning("사용자를 찾을 수 없습니다.");
             }
         });
-    }
-
-    public override void OnConnectedToMaster()
-    {
-        Debug.Log("Photon 서버 연결 성공. 방 입장 또는 생성 중...");
-        Connect(PhotonNetwork.NickName); // 닉네임 기반 방 이름 사용
-    }
-
-    public override void OnJoinedRoom()
-    {
-        Debug.Log($"방에 입장했습니다: {PhotonNetwork.CurrentRoom.Name}");
-        SceneManager.LoadScene("waitRoom");
     }
 
     private void Jclose(bool close)
