@@ -4,7 +4,7 @@ using Photon.Pun;
 
 public class PlayerController : MonoBehaviourPun
 {
-    public Transform cameraRig; // 플레이어의 Transform
+    public Transform playerHolder; // 플레이어의 Transform
     public Transform leftWheel; // 휠체어 왼쪽 바퀴
     public Transform rightWheel; // 휠체[어 오른쪽 바퀴
 
@@ -38,8 +38,8 @@ public class PlayerController : MonoBehaviourPun
             this.enabled = false;
         }
 
-        lastLeftPosition = cameraRig.position; // 카메라의 위치로 초기화
-        lastRightPosition = cameraRig.position;
+        lastLeftPosition = playerHolder.position; // 카메라의 위치로 초기화
+        lastRightPosition = playerHolder.position;
     }
 
     // Input System 콜백 메서드
@@ -142,7 +142,7 @@ public class PlayerController : MonoBehaviourPun
 
 
         // 카메라 리그 이동
-        cameraRig.position += finalMovement;
+        playerHolder.position += finalMovement;
 
         // 바퀴 회전 처리
         HandleWheelRotation(finalMovement.magnitude);
@@ -191,7 +191,7 @@ public class PlayerController : MonoBehaviourPun
     {
         // 컨트롤러의 움직임에 따라 이동 방향 계산
         float forwardMovement = controllerVelocity.z; // 컨트롤러의 z축 움직임
-        Vector3 movementDirection = cameraRig.forward * (forwardMovement * moveSpeed);
+        Vector3 movementDirection = playerHolder.forward * (forwardMovement * moveSpeed);
 
         // 이동 거리 기반으로 가속도 적용
         float distanceMoved = controllerDelta.magnitude;
@@ -204,7 +204,7 @@ public class PlayerController : MonoBehaviourPun
     {
         // 회전 구현
         float rotationAmount = direction * rotationSpeed * Time.deltaTime;
-        cameraRig.Rotate(Vector3.up, rotationAmount);
+        playerHolder.Rotate(Vector3.up, rotationAmount);
     }
 
     private void HandleWheelRotation(float movementMagnitude)
