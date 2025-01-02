@@ -18606,6 +18606,7 @@ GameObject:
   - component: {fileID: 1822828306}
   - component: {fileID: 1822828305}
   - component: {fileID: 1822828304}
+  - component: {fileID: 1822828308}
   m_Layer: 0
   m_Name: RoomPassBox (2)
   m_TagString: Untagged
@@ -18702,6 +18703,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1288826422}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1822828308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1822828303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfa55ceeed345a14292b47039bf0121e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numbtn:
+  - {fileID: 1485996782}
+  - {fileID: 494795997}
+  - {fileID: 791893459}
+  - {fileID: 1552620769}
+  - {fileID: 678189360}
+  - {fileID: 1526534200}
+  - {fileID: 1694685482}
+  - {fileID: 701213455}
+  - {fileID: 845676902}
+  - {fileID: 1990802743}
+  - {fileID: 1998423200}
+  passwordPuzzle: {fileID: 1288826423}
 --- !u!1 &1847261648 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1611644270237827686, guid: 9fdec67d5c754744eb263733cdfa059f,
