@@ -120,6 +120,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &23521048 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3484128599267958350, guid: 02be27ab17ab3b14f954f65dc06dd738,
+    type: 3}
+  m_PrefabInstance: {fileID: 647856711}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &144602115 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5338561726846157723, guid: feab0d83960f233479b23431946ef43e,
@@ -980,8 +992,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6963354150573667627, guid: a7719254242dd59499910883f1d39bc3,
         type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6963354150573667627, guid: a7719254242dd59499910883f1d39bc3,
+        type: 3}
       propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6963354150573667627, guid: a7719254242dd59499910883f1d39bc3,
+        type: 3}
+      propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6963354150573667627, guid: a7719254242dd59499910883f1d39bc3,
         type: 3}
@@ -990,7 +1012,17 @@ PrefabInstance:
       objectReference: {fileID: 1366962748}
     - target: {fileID: 6963354150573667627, guid: a7719254242dd59499910883f1d39bc3,
         type: 3}
+      propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1164051609}
+    - target: {fileID: 6963354150573667627, guid: a7719254242dd59499910883f1d39bc3,
+        type: 3}
       propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6963354150573667627, guid: a7719254242dd59499910883f1d39bc3,
+        type: 3}
+      propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6963354150573667627, guid: a7719254242dd59499910883f1d39bc3,
@@ -1000,7 +1032,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6963354150573667627, guid: a7719254242dd59499910883f1d39bc3,
         type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6963354150573667627, guid: a7719254242dd59499910883f1d39bc3,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1164051617}
+    - target: {fileID: 6963354150573667627, guid: a7719254242dd59499910883f1d39bc3,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6963354150573667627, guid: a7719254242dd59499910883f1d39bc3,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnKeyPress
+      objectReference: {fileID: 0}
+    - target: {fileID: 6963354150573667627, guid: a7719254242dd59499910883f1d39bc3,
+        type: 3}
       propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: VRKeyboardManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6963354150573667627, guid: a7719254242dd59499910883f1d39bc3,
+        type: 3}
+      propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: VRKeyboardManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6963354150573667627, guid: a7719254242dd59499910883f1d39bc3,
@@ -1010,8 +1067,18 @@ PrefabInstance:
       objectReference: {fileID: 1568504651}
     - target: {fileID: 6963354150573667627, guid: a7719254242dd59499910883f1d39bc3,
         type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: VirtualKeyboardController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6963354150573667627, guid: a7719254242dd59499910883f1d39bc3,
+        type: 3}
       propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: TMPro.TMP_InputField, Unity.TextMeshPro
+      objectReference: {fileID: 0}
+    - target: {fileID: 6963354150573667627, guid: a7719254242dd59499910883f1d39bc3,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7291123119192167392, guid: a7719254242dd59499910883f1d39bc3,
         type: 3}
@@ -1820,7 +1887,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3484128598961847049, guid: 02be27ab17ab3b14f954f65dc06dd738,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1164051617}
   m_SourcePrefab: {fileID: 100100000, guid: 02be27ab17ab3b14f954f65dc06dd738, type: 3}
 --- !u!1001 &723187193
 PrefabInstance:
@@ -1902,14 +1973,14 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 4895434573007124402, guid: feab0d83960f233479b23431946ef43e, type: 3}
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 5338561726664548282, guid: feab0d83960f233479b23431946ef43e,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 269454658}
     - targetCorrespondingSourceObject: {fileID: 5338561726846157723, guid: feab0d83960f233479b23431946ef43e,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1043640317}
+    - targetCorrespondingSourceObject: {fileID: 5338561726664548282, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 269454658}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: feab0d83960f233479b23431946ef43e, type: 3}
 --- !u!1 &1043640313 stripped
@@ -2026,6 +2097,22 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 647856711}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1164051617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1164051609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9bd584e086fa2e45a2db217cc0c4e95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sourceInputField: {fileID: 23521048}
+  targetInputFields:
+  - {fileID: 1568504651}
+  - {fileID: 2019892633}
 --- !u!1 &1366962745
 GameObject:
   m_ObjectHideFlags: 0
