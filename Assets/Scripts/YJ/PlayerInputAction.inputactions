@@ -79,7 +79,7 @@
                 {
                     "name": "",
                     "id": "8d758920-e9a4-4e87-9d9f-1b5530a75912",
-                    "path": "<XRInputV1::Oculus::OculusTouchControllerOpenXR>{RightHand}/devicepose/velocity",
+                    "path": "<OculusTouchController>{RightHand}/devicePose/velocity",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -172,6 +172,54 @@
                     "processors": "",
                     "groups": "",
                     "action": "Move Right Grip Trigger",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Grab",
+            "id": "f09c40d9-924f-40ab-be22-04bfb89e9b84",
+            "actions": [
+                {
+                    "name": "Left Grab Key",
+                    "type": "Button",
+                    "id": "e41f4844-825f-4373-8601-cf0b7354d826",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Right Grab Key",
+                    "type": "Button",
+                    "id": "2e802c87-fca3-46b0-bda1-3258a9b9fce6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5bd3e77a-19c2-449d-9b7b-4acf3f33f50d",
+                    "path": "<OculusTouchController>{LeftHand}/primaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Left Grab Key",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "42c0e472-d207-4f8b-a6e4-640718aa4fb4",
+                    "path": "<OculusTouchController>{RightHand}/primaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Right Grab Key",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

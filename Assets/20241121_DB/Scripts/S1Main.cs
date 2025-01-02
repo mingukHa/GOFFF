@@ -6,7 +6,10 @@ using Firebase.Database;
 using Firebase.Extensions;
 using Firebase;
 using System.Collections;
-public class S1Main : MonoBehaviour
+using Photon.Pun;
+using Photon.Realtime;
+
+public class S1Main : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     private Button Jclosebt = null;
@@ -29,6 +32,11 @@ public class S1Main : MonoBehaviour
 
     public static DatabaseReference database;
 
+    [SerializeField]
+    private string gameVersion = "0.0.1";
+    [SerializeField]
+    private byte maxPlayerPerRoom = 2;
+
     private void Start()
     {
         // Firebase 초기화 시작
@@ -42,6 +50,61 @@ public class S1Main : MonoBehaviour
         Eclosebt.onClick.AddListener(() => Eclose(false));
     }
 
+    private void Awake()
+    {
+        PhotonNetwork.AutomaticallySyncScene = true;
+    }
+
+    public void ConnectToRandomRoom()
+    {
+        if (PhotonNetwork.IsConnected)
+        {
+            Debug.Log("랜덤 방 입장을 시도합니다.");
+            PhotonNetwork.JoinRandomRoom(); // 랜덤 방에 입장 시도
+        }
+        else
+        {
+            Debug.LogFormat("Photon 연결 시작: {0}", gameVersion);
+            PhotonNetwork.GameVersion = gameVersion;
+            PhotonNetwork.ConnectUsingSettings(); // Photon 서버에 연결
+        }
+    }
+
+    public override void OnConnectedToMaster()
+    {
+        Debug.Log("Photon 서버 연결 성공. 랜덤 방 입장을 시도합니다.");
+        ConnectToRandomRoom();
+    }
+
+    public override void OnJoinRandomFailed(short returnCode, string message)
+    {
+        Debug.LogWarning($"랜덤 방 입장 실패: {message}");
+        CreateRoom(); // 방이 없으면 새로운 방 생성
+    }
+
+    private void CreateRoom()
+    {
+        string roomName = "Room_" + Random.Range(1000, 9999); // 랜덤한 방 이름 생성
+        RoomOptions roomOptions = new RoomOptions
+        {
+            MaxPlayers = maxPlayerPerRoom
+        };
+
+        PhotonNetwork.CreateRoom(roomName, roomOptions); // 방 생성
+        Debug.Log($"새로운 방 생성: {roomName}");
+    }
+
+    public override void OnCreateRoomFailed(short returnCode, string message)
+    {
+        Debug.LogError($"방 생성 실패: {message}");
+    }
+
+    public override void OnJoinedRoom()
+    {
+        Debug.Log($"방에 입장했습니다: {PhotonNetwork.CurrentRoom.Name}");
+        SceneManager.LoadScene("waitRoom"); // 대기실 씬으로 이동
+    }
+
     private IEnumerator InitializeFirebase()
     {
         Debug.Log("Firebase 초기화 중...");
@@ -53,7 +116,6 @@ public class S1Main : MonoBehaviour
             Debug.Log("Firebase 초기화 성공!");
             database = FirebaseDatabase.DefaultInstance.RootReference;
 
-            // Database 초기화 성공 로그
             if (database != null)
                 Debug.Log("Firebase Database 초기화 성공!");
             else
@@ -62,28 +124,24 @@ public class S1Main : MonoBehaviour
         else
         {
             Debug.LogError($"Firebase 초기화 실패: {dependencyTask.Result}");
-            yield break; // 초기화 실패 시 종료
+            yield break;
         }
     }
 
-
     private void Login(string username, string password)
     {
-        // 입력값 검증
         if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
         {
             Debug.LogWarning("아이디와 비밀번호를 입력하세요.");
             return;
         }
 
-        // Firebase Database 초기화 확인
         if (database == null)
         {
             Debug.LogError("Firebase Database가 초기화되지 않았습니다.");
             return;
         }
 
-        // Realtime Database에서 사용자 정보 조회
         database.Child("users").Child(username).GetValueAsync().ContinueWithOnMainThread(task =>
         {
             if (task.IsFaulted)
@@ -94,20 +152,30 @@ public class S1Main : MonoBehaviour
 
             if (task.Result.Exists)
             {
-                // 사용자 데이터를 가져오기
                 var userData = task.Result.Value as System.Collections.Generic.Dictionary<string, object>;
 
                 if (userData != null && userData.ContainsKey("password"))
                 {
                     string storedPassword = userData["password"].ToString();
 
-                    // 비밀번호 확인
                     if (storedPassword == password)
                     {
                         Debug.Log("로그인 성공!");
 
-                        // 로그인 성공 후 씬 전환
-                        SceneManager.LoadScene("Scene2");
+                        // Photon 닉네임 설정
+                        PhotonNetwork.NickName = username;
+
+                        // Photon 서버 연결 시도
+                        if (PhotonNetwork.IsConnected)
+                        {
+                            Debug.Log("Photon 서버에 이미 연결됨. 랜덤 방 입장 시도...");
+                            ConnectToRandomRoom();
+                        }
+                        else
+                        {
+                            Debug.Log("Photon 서버에 연결 중...");
+                            PhotonNetwork.ConnectUsingSettings();
+                        }
                     }
                     else
                     {
@@ -126,7 +194,6 @@ public class S1Main : MonoBehaviour
         });
     }
 
-    // 닫기 버튼 처리
     private void Jclose(bool close)
     {
         joinUI.SetActive(close);
