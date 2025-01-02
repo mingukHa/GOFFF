@@ -1,47 +1,47 @@
 using UnityEngine;
 using TMPro;
 
-public class VirtualKeyboardController : MonoBehaviour
+public class MoveInputFieldValue : MonoBehaviour
 {
-    private TMP_InputField targetInputField; // 현재 입력 대상 InputField
+    [SerializeField] private TMP_InputField sourceInputField; // 값을 가져올 InputField
+    [SerializeField] private TMP_InputField[] targetInputFields; // 값을 보낼 InputField
 
-    // InputField 선택 시 호출 (OnSelect 이벤트와 연결)
-    public void SetTargetInputField(TMP_InputField inputField)
+    private void Start()
     {
-        if (inputField != null)
+        // Source InputField에 Enter 키 감지 이벤트 추가
+        if (sourceInputField != null)
         {
-            targetInputField = inputField; // 현재 입력 대상 설정
-            Debug.Log($"가상 키보드의 대상 InputField가 {inputField.name}으로 설정되었습니다.");
-        }
-        else
-        {
-            Debug.LogError("입력된 InputField가 null입니다!");
+            sourceInputField.onSubmit.AddListener(OnSubmit); // Enter 키 눌렀을 때 이벤트 실행
         }
     }
 
-    // 가상 키보드 버튼 클릭 시 호출
-    public void OnKeyPress(string key)
+    private void OnDestroy()
     {
-        if (targetInputField == null)
+        // 이벤트 제거 (메모리 누수 방지)
+        if (sourceInputField != null)
         {
-            Debug.LogWarning("선택된 InputField가 없습니다!");
-            return;
+            sourceInputField.onSubmit.RemoveListener(OnSubmit);
         }
+    }
 
-        if (key == "BACKSPACE")
+    // Enter 키를 누르면 호출되는 메서드
+    private void OnSubmit(string inputText)
+    {
+        foreach (TMP_InputField target in targetInputFields)
         {
-            // Backspace 동작: 마지막 문자 삭제
-            if (targetInputField.text.Length > 0)
+            if (target != null)
             {
-                targetInputField.text = targetInputField.text.Substring(0, targetInputField.text.Length - 1);
-                Debug.Log($"현재 텍스트: {targetInputField.text}");
+                target.text = inputText;
             }
         }
-        else
+        sourceInputField.text = "";
+    }
+    public void MoveValue()
+    {
+        foreach (TMP_InputField target in targetInputFields)
         {
-            // 일반 문자 입력
-            targetInputField.text += key;
-            Debug.Log($"현재 텍스트: {targetInputField.text}");
+            target.text = sourceInputField.text;
+            sourceInputField.text = ""; // Source 초기화
         }
     }
 }
