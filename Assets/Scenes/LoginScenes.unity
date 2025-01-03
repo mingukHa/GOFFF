@@ -1903,6 +1903,21 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2080871421963820864, guid: feab0d83960f233479b23431946ef43e,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2080871421963820864, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2080871421963820864, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2080871421963820864, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -1951,6 +1966,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2080871421963820864, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3116046014492116379, guid: feab0d83960f233479b23431946ef43e,
         type: 3}
       propertyPath: sceneViewId
@@ -1976,10 +1996,30 @@ PrefabInstance:
       propertyPath: wheelchairRigidbody
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5338561727377559521, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: m_AttachTransform
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338561727377559521, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: m_RayOriginTransform
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5983295875041255981, guid: feab0d83960f233479b23431946ef43e,
         type: 3}
       propertyPath: m_Name
       value: PlayerHolder
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775752761938324472, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: m_AttachTransform
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775752761938324472, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: m_RayOriginTransform
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1011193479603461132, guid: feab0d83960f233479b23431946ef43e, type: 3}
@@ -1993,6 +2033,8 @@ PrefabInstance:
     - {fileID: 4292619623845241322, guid: feab0d83960f233479b23431946ef43e, type: 3}
     m_RemovedGameObjects:
     - {fileID: 4895434573007124402, guid: feab0d83960f233479b23431946ef43e, type: 3}
+    - {fileID: 513997305623281270, guid: feab0d83960f233479b23431946ef43e, type: 3}
+    - {fileID: 7814508101149799987, guid: feab0d83960f233479b23431946ef43e, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5338561726846157723, guid: feab0d83960f233479b23431946ef43e,
         type: 3}
