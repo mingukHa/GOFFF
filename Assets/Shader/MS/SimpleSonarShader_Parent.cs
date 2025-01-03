@@ -28,8 +28,8 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
     // These are kept in the same order as the positionsQueue.
     private Queue<float> intensityQueue = new Queue<float>(QueueSize);
 
-    private Queue<Vector4> colorQueue = new Queue<Vector4>(QueueSize);
-    private Color ringColor = Color.white;
+    //private Queue<Vector4> colorQueue = new Queue<Vector4>(QueueSize);
+    //private Color ringColor = Color.white;
 
     private void Start()
     {
@@ -41,26 +41,13 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
         {
             positionsQueue.Enqueue(GarbagePosition);
             intensityQueue.Enqueue(-5000f);
-            colorQueue.Enqueue(GarbagePosition);
+            //colorQueue.Enqueue(GarbagePosition);
         }
     }
 
     [PunRPC]
-    public void StartSonarRingRPC(Vector4 position, float intensity, int type)
+    public void UpdateSonarMaterial(float[] hitPts, float[] intensities, int type)
     {
-        position.w = Time.timeSinceLevelLoad;
-        positionsQueue.Dequeue();
-        positionsQueue.Enqueue(position);
-
-        intensityQueue.Dequeue();
-        intensityQueue.Enqueue(intensity);
-
-        ringColor = type == 0 ? Color.white : Color.red; // 일반: 0, 몬스터: 1
-
-        colorQueue.Dequeue();
-        colorQueue.Enqueue(ringColor);
-
-
         foreach (Renderer r in ObjectRenderers)
         {
             if (r)
@@ -68,22 +55,79 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
                 MaterialPropertyBlock block = new MaterialPropertyBlock();
                 r.GetPropertyBlock(block);
 
-                block.SetVectorArray("_hitPts", positionsQueue.ToArray());
-                block.SetFloatArray("_Intensity", intensityQueue.ToArray());
-                //block.SetVectorArray("_RingColor", colorQueue.ToArray());
-                block.SetVectorArray("_RingColor", colorQueue.Select(c => (Vector4)c).ToArray());
+                // 받은 float[] 배열을 다시 Vector4로 변환
+                Vector4[] hitPtsVec = new Vector4[hitPts.Length / 4];
+                for (int i = 0; i < hitPtsVec.Length; i++)
+                {
+                    hitPtsVec[i] = new Vector4(hitPts[i * 4], hitPts[i * 4 + 1], hitPts[i * 4 + 2], hitPts[i * 4 + 3]);
+                }
 
-                block.SetInt("_Type", type); // 추가적인 구분 정보 전달
+                block.SetVectorArray("_hitPts", hitPtsVec);
+                block.SetFloatArray("_Intensity", intensities);
+                //block.SetVectorArray("_RingColor", ringColorsVec);
+                block.SetInt("_Type", type);
+
                 r.SetPropertyBlock(block);
+                
+                Debug.Log("_hitPtsRPC" + hitPtsVec.Length);
             }
         }
     }
 
-    // 네트워크를 통해서 해당 RPC를 호출하는 메서드
     public void StartSonarRing(Vector4 position, float intensity, int type)
     {
-        photonView.RPC("StartSonarRingRPC", RpcTarget.All, position, intensity, type);
+        Debug.Log("충돌됐음");
+
+        // Vector4를 float[] 배열로 변환
+        float[] hitPts = positionsQueue.SelectMany(v => new float[] { v.x, v.y, v.z, v.w }).ToArray();
+        float[] intensities = intensityQueue.ToArray();
+        //float[] ringColors = colorQueue.SelectMany(c => new float[] { c.x, c.y, c.z, c.w }).ToArray();
+
+        Debug.Log("hitPts: " + hitPts.Length);
+        photonView.RPC("UpdateSonarMaterial", RpcTarget.All, hitPts, intensities, type);
     }
+
+    //[PunRPC]
+    //public void StartSonarRingRPC(Vector4 position, float intensity, int type)
+    //{
+    //    position.w = Time.timeSinceLevelLoad;
+    //    positionsQueue.Dequeue();
+    //    positionsQueue.Enqueue(position);
+
+    //    intensityQueue.Dequeue();
+    //    intensityQueue.Enqueue(intensity);
+
+    //    ringColor = type == 0 ? Color.white : Color.red; // 일반: 0, 몬스터: 1
+
+    //    colorQueue.Dequeue();
+    //    colorQueue.Enqueue(ringColor);
+
+
+    //    foreach (Renderer r in ObjectRenderers)
+    //    {
+    //        if (r)
+    //        {
+    //            MaterialPropertyBlock block = new MaterialPropertyBlock();
+    //            r.GetPropertyBlock(block);
+
+    //            block.SetVectorArray("_hitPts", positionsQueue.ToArray());
+    //            block.SetFloatArray("_Intensity", intensityQueue.ToArray());
+    //            //block.SetVectorArray("_RingColor", colorQueue.ToArray());
+    //            block.SetVectorArray("_RingColor", colorQueue.Select(c => (Vector4)c).ToArray());
+
+    //            block.SetInt("_Type", type); // 추가적인 구분 정보 전달
+    //            r.SetPropertyBlock(block);
+    //        }
+    //    }
+    //    Debug.Log("RPC 함수 실행 됨");
+    //}
+
+    //// 네트워크를 통해서 해당 RPC를 호출하는 메서드
+    //public void StartSonarRing(Vector4 position, float intensity, int type)
+    //{
+    //    Debug.Log("충돌됐음");
+    //    photonView.RPC("StartSonarRingRPC", RpcTarget.OthersBuffered, position, intensity, type);
+    //}
 
     /// <summary>
     /// Starts a sonar ring from this position with the given intensity.
