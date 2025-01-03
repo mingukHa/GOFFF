@@ -15,8 +15,6 @@ public class KeypadNumberButton : MonoBehaviour
 
     public void OnPressed()
     {
-        Debug.Log(number +"번 버튼을 눌렀습니다.");
-
         // 숫자 버튼을 눌렀을 때 동작
         GameObject displayedNumber = Instantiate(numberPrefab, screenDisplayPoint);
         keypadManager.AddNumber(number);
