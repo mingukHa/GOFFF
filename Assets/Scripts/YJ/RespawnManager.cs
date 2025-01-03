@@ -1,33 +1,68 @@
 using UnityEngine;
-using System.Collections;
 using Photon.Pun;
+using System.Collections;
+using System.Collections.Generic;
 
-public class RespawnManager : MonoBehaviour
+public class RespawnManager : MonoBehaviourPunCallbacks
 {
+    // Player의 Respawn Point를 저장하기 위한 Dictionary
+    private Dictionary<int, Vector3> playerRespawnPoints = new Dictionary<int, Vector3>();
+
+    // Game Over 상태 확인
+    private bool isGameOver = false;
+
+    // Singleton Instance
     public static RespawnManager Instance;
 
     private void Awake()
     {
         if (Instance == null) Instance = this;
-        else Destroy(gameObject);
     }
 
-    public void HandlePlayerRespawn(GameObject player, PhotonView playerPhotonView)
+    public void RegisterInitialRespawnPoint(int playerId, Vector3 position)
     {
-        if (player == null || playerPhotonView == null) return; // Null 체크
-        StartCoroutine(RespawnCoroutine(player, playerPhotonView));
+        if (!playerRespawnPoints.ContainsKey(playerId))
+        {
+            playerRespawnPoints[playerId] = position;
+        }
     }
 
-    private IEnumerator RespawnCoroutine(GameObject player, PhotonView playerPhotonView)
+    public void UpdateRespawnPoint(int playerId, Vector3 newRespawnPoint)
     {
-        // 플레이어 캐릭터 제거
-        playerPhotonView.RPC("SetPlayerActive", RpcTarget.All, false);
-        yield return new WaitForSeconds(3f);
+        if (playerRespawnPoints.ContainsKey(playerId))
+        {
+            playerRespawnPoints[playerId] = newRespawnPoint;
+        }
+    }
 
-        // 세이브 포인트 생성
-        SaveManager.SavePoint respawnPoint = SaveManager.Instance.GetSavePoint(playerPhotonView.OwnerActorNr);
+    public void TriggerGameOver()
+    {
+        if (isGameOver) return; // 중복 실행 방지
+        isGameOver = true;
 
-        // 플레이어 리스폰
-        playerPhotonView.RPC("RespawnPlayer", RpcTarget.All, respawnPoint.position, respawnPoint.rotation);
+        // 모든 Player 비활성화
+        foreach (var player in FindObjectsByType<PlayerManager>(FindObjectsSortMode.None))
+        {
+            player.DisablePlayer();
+        }
+
+        // 3초 후 Respawn
+        StartCoroutine(RespawnAllPlayers());
+    }
+
+    private IEnumerator RespawnAllPlayers()
+    {
+        yield return new WaitForSeconds(3);
+
+        foreach (var player in FindObjectsByType<PlayerManager>(FindObjectsSortMode.None))
+        {
+            int playerId = player.photonView.OwnerActorNr; // Photon Actor ID로 Player 식별
+            if (playerRespawnPoints.TryGetValue(playerId, out Vector3 respawnPoint))
+            {
+                player.RespawnAt(respawnPoint);
+            }
+        }
+
+        isGameOver = false;
     }
 }
