@@ -9,13 +9,19 @@ public class Elevator : MonoBehaviour
     private Vector3 closedScale = new Vector3(1,1,1); //닫힌 상태의 Scale
     private Vector3 openScale = new Vector3(0,1,1);   //열린 상태의 Scale
 
+    private bool isDoorOpening = false; //문이 열리는 중인지 확인
+
     public void OpenDoors()
     {
-        StartCoroutine(OpenDoorsCoroutine());
+        if (!isDoorOpening)
+        {
+            StartCoroutine(OpenDoorsCoroutine());
+        }
     }
 
     public IEnumerator OpenDoorsCoroutine()
     {
+        isDoorOpening = true;
         float elapsedTime = 0f;
 
         while (elapsedTime < openDuration)
