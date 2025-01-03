@@ -10,8 +10,6 @@ namespace UnityEngine.XR.Content.Interaction
     /// </summary>
     public class XRKnob : UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable
     {
-        bool m_IsCollidingWithCylinder = false; // Cylinder와 충돌 여부를 저장
-
         const float k_ModeSwitchDeadZone = 0.1f; // Prevents rapid switching between the different rotation tracking modes
 
         /// <summary>
@@ -202,14 +200,7 @@ namespace UnityEngine.XR.Content.Interaction
         void Start()
         {
             SetValue(m_Value);
-            m_IsCollidingWithCylinder = false; // 초기에는 충돌 상태 아님
             SetKnobRotation(ValueToRotation());
-
-            if (m_Handle != null)
-            {
-                var initialRotation = m_Handle.localEulerAngles;
-                m_Handle.localEulerAngles = new Vector3(initialRotation.x, initialRotation.y, 0.0f); // Z축 초기화
-            }
         }
 
         protected override void OnEnable()
@@ -269,17 +260,17 @@ namespace UnityEngine.XR.Content.Interaction
             // We cache the three potential sources of rotation - the position offset, the forward vector of the controller, and up vector of the controller
             // We store any data used for determining which rotation to use, then flatten the vectors to the local xz plane
             var localOffset = transform.InverseTransformVector(interactorTransform.position - m_Handle.position);
-            localOffset.z = 0.0f;
+            localOffset.y = 0.0f;
             var radiusOffset = transform.TransformVector(localOffset).magnitude;
             localOffset.Normalize();
 
             var localForward = transform.InverseTransformDirection(interactorTransform.forward);
             var localY = Math.Abs(localForward.y);
-            localForward.z = 0.0f;
+            localForward.y = 0.0f;
             localForward.Normalize();
 
             var localUp = transform.InverseTransformDirection(interactorTransform.up);
-            localUp.z = 0.0f;
+            localUp.y = 0.0f;
             localUp.Normalize();
 
 
@@ -357,29 +348,7 @@ namespace UnityEngine.XR.Content.Interaction
             }
 
             if (m_Handle != null)
-            {
-                // 충돌 시 Z축을 90도로 설정, 아닐 경우 0으로 유지
-                var zRotation = m_IsCollidingWithCylinder ? 90.0f : 0.0f;
-                m_Handle.localEulerAngles = new Vector3(angle, 0.0f, zRotation);
-            }
-        }
-
-        void OnTriggerEnter(Collider other)
-        {
-            if (other.gameObject.name == "Cylinder") // Cylinder라는 이름의 오브젝트와 충돌 확인
-            {
-                m_IsCollidingWithCylinder = true; // 충돌 시작
-                SetKnobRotation(ValueToRotation()); // Z축 갱신
-            }
-        }
-
-        void OnTriggerExit(Collider other)
-        {
-            if (other.gameObject.name == "Cylinder") // Cylinder와 충돌 종료
-            {
-                m_IsCollidingWithCylinder = false; // 충돌 종료
-                SetKnobRotation(ValueToRotation()); // Z축 갱신
-            }
+                m_Handle.localEulerAngles = new Vector3(0.0f, angle, 0.0f);
         }
 
         void SetValue(float value)

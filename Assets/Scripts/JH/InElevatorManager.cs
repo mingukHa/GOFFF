@@ -1,37 +1,88 @@
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit; // XR Interaction Toolkit 사용
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Collections;
 
 public class InElevatorManager : MonoBehaviour
 {
-    private List<InElevator> elevatorObjects = new List<InElevator>(); // 모든 InElevator 오브젝트 리스트
+    [SerializeField] private List<Transform> elevatorDoors;
+    [SerializeField] private GameObject inbutton1;
+    [SerializeField] private GameObject inbutton2;
+    public float closeDuration = 2f;
+    private Vector3 closedScale = new Vector3(1, 1, 1);
+    private Vector3 openScale = new Vector3(0, 1, 1);
 
-    private void Start()
+    private bool isButton1Pressed = false;
+    private bool isButton2Pressed = false;
+
+    [SerializeField] private Image fadeImage;
+
+    // 버튼 선택이벤트 연결
+    public void OnButton1SelectEnter()
     {
-        // 씬에 있는 모든 InElevator 오브젝트를 찾기
-        elevatorObjects.AddRange(FindObjectsOfType<InElevator>());
+        isButton1Pressed = true;
+        CheckButtonsAndCloseDoors();
     }
 
-    public void CloseDoorsDetected()
+    public void OnButton2SelectEnter()
     {
-        // 모든 InElevator에서 CloseDoors()가 호출될 때마다 반응
-        Debug.Log("어떤 InElevator에서 CloseDoors()가 호출되었습니다.");
-        // 여기에 추가적인 처리를 할 수 있음
+        isButton2Pressed = true;
+        CheckButtonsAndCloseDoors();
     }
 
-    // InElevator 스크립트에서 호출할 메서드
-    public void RegisterCloseDoors(InElevator inElevator)
+    // 두 버튼 모두 눌렸을 때 문 닫고, 페이드 아웃 시작
+    private void CheckButtonsAndCloseDoors()
     {
-        if (!elevatorObjects.Contains(inElevator))
+        if (isButton1Pressed && isButton2Pressed)
         {
-            elevatorObjects.Add(inElevator);
+            CloseDoors();
+            StartCoroutine(FadeOutAndLoadScene("JHScenes2"));
         }
     }
 
-    public void UnregisterCloseDoors(InElevator inElevator)
+    // 문 닫는 함수
+    public void CloseDoors()
     {
-        if (elevatorObjects.Contains(inElevator))
+        StartCoroutine(CloseDoorsCoroutine());
+    }
+
+    private IEnumerator CloseDoorsCoroutine()
+    {
+        float elapsedTime = 0f;
+
+        while (elapsedTime < closeDuration)
         {
-            elevatorObjects.Remove(inElevator);
+            float t = elapsedTime / closeDuration;
+            for (int i = 0; i < elevatorDoors.Count; i++)
+            {
+                elevatorDoors[i].localScale = Vector3.Lerp(openScale, closedScale, t);
+            }
+            elapsedTime += Time.deltaTime;
+            yield return null;
         }
+
+        for (int i = 0; i < elevatorDoors.Count; i++)
+        {
+            elevatorDoors[i].localScale = closedScale;
+        }
+    }
+
+    // 페이드 아웃 후 장면 로드
+    private IEnumerator FadeOutAndLoadScene(string sceneName)
+    {
+        float fadeDuration = 1f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < fadeDuration)
+        {
+            float t = elapsedTime / fadeDuration;
+            fadeImage.color = new Color(0, 0, 0, t);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        fadeImage.color = new Color(0, 0, 0, 1);
+        SceneManager.LoadScene(sceneName);
     }
 }

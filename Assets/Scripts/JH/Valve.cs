@@ -1,38 +1,49 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.XR.Content.Interaction;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
-using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 // Valve 관련 스크립트
 public class Valve : MonoBehaviour
 {
+    public BoxCollider cylinderCollider;
     public Transform cylinderAttachPoint;  // 밸브가 실린더에 붙을 위치 변수
+
+    public GameObject knobValve;
+    public GameObject grabValve;
+
+    public GameObject bridge1;  // 회전하는 다리 변수1
+    public GameObject bridge2;  // 회전하는 다리 변수2
+
+    public KnobValve knobScript;
+    public GrabValve grabScript;
+    public XRGrabInteractable grabInteractable;  // XR Grab Interactable
+    public Transform grabTr;
+
     private Rigidbody valveRigidbody;  // 밸브의 Rigidbody를 변수
     private bool isAttached = false;  // 밸브가 실린더에 붙었는지 판별하는 변수
     private bool isRotating = false;  // 밸브가 회전 판별하는 변수
     private float rotationSpeed = 10f;  // 밸브 회전 속도
     private float currentRotationZ = 0f;  // 밸브의 현재 z축 회전값
 
-    public GameObject bridge1;  // 회전하는 다리 변수1
-    public GameObject bridge2;  // 회전하는 다리 변수2
+    private XRKnob knob;
+    //private Transform attachTransform;  // 손 위치 추적을 위한 변수
 
-    private XRGrabInteractable grabInteractable;  // XR Grab Interactable
-    private Transform attachTransform;  // 손 위치 추적을 위한 변수
+    private IEnumerator Delay;
+
+    public bool IsAttached { get { return isAttached; } }
 
     void Start()
     {
         // Rigidbody 컴포넌트를 가져와서 valveRigidbody 변수에 저장
-        valveRigidbody = GetComponent<Rigidbody>();
+        valveRigidbody = grabValve.GetComponent<Rigidbody>();
 
-        // XR Grab Interactable을 가져오기
-        grabInteractable = GetComponent<XRGrabInteractable>();
+        knob = GetComponent<XRKnob>();
 
-        // 오브젝트의 attachTransform 설정
-        attachTransform = grabInteractable.attachTransform;
+        Delay = ColliderDelay(1f);
 
-        // XRGrabInteractable 이벤트 등록
-        grabInteractable.selectEntered.AddListener(OnGrabEnter);
-        grabInteractable.selectExited.AddListener(OnGrabExit);
+        grabScript.grabValveTrigger = grabValveTriggerHandle;
     }
 
     void Update()
@@ -60,76 +71,75 @@ public class Valve : MonoBehaviour
         }
     }
 
-    // 다른 Collider가 이 밸브와 충돌했을 때 호출되는 메서드
-    private void OnTriggerEnter(Collider other)
-    {
-        // 충돌한 오브젝트가 "Cylinder" 태그를 가지고 있고, 밸브가 아직 실린더에 붙지 않았다면
-        if (other.CompareTag("Cylinder") && !isAttached)
-        {
-            AttachToCylinder(other.gameObject);  // 실린더에 밸브를 붙이는 메서드 호출
-        }
-    }
-
-    private void OnGrabEnter(SelectEnterEventArgs arg0)
-    {
-        // Grab된 상태에서 추가 처리 필요 시 사용
-    }
-
-    private void OnGrabExit(SelectExitEventArgs arg0)
-    {
-        // Grabbed 상태에서 떨어졌을 때, 물리 상태 복원
-        DetachFromCylinder();
-    }
-
-    // 다른 Collider와 충돌이 끝났을 때 호출되는 메서드
-    //private void OnTriggerExit(Collider other)
+    //// 다른 Collider가 이 밸브와 충돌했을 때 호출되는 메서드
+    //private void OnTriggerEnter(Collider other)
     //{
-    //    // 충돌한 오브젝트가 "Cylinder" 태그를 가지고 있고, 밸브가 실린더에 붙어 있다면
-    //    if (other.CompareTag("Cylinder") && isAttached)
+    //    // 충돌한 오브젝트가 "Cylinder" 태그를 가지고 있고, 밸브가 아직 실린더에 붙지 않았다면
+    //    if (other.CompareTag("Cylinder") && !isAttached)
     //    {
-    //        DetachFromCylinder();  // 실린더에서 밸브를 떼는 메서드 호출
+    //        Debug.Log("실린더에 충돌함");
+    //        AttachToCylinder(other.gameObject);  // 실린더에 밸브를 붙이는 메서드 호출
     //    }
     //}
 
     // 실린더에 밸브를 붙이는 메서드
-    private void AttachToCylinder(GameObject cylinder)
+    private void AttachToCylinder(GameObject cylinder, GameObject grabValve)
     {
-        if (isAttached) return;  // 이미 밸브가 실린더에 붙어 있다면 아무 작업도 하지 않음
+        if (isAttached) return;
 
-        // Rigidbody 비활성화 (중력 영향을 받지 않도록)
-        valveRigidbody.isKinematic = true;
-        valveRigidbody.useGravity = false;
-
-        // 실린더의 AttachPoint 위치를 찾아서, 그 위치와 회전 값으로 밸브를 설정
-        Transform attachPoint = cylinder.transform.Find("AttachPoint");
-        if (attachPoint != null)
+        if (Delay != null)
         {
-            transform.position = attachPoint.position;  // 밸브의 위치를 AttachPoint 위치로 설정
-            transform.rotation = attachPoint.rotation;  // 밸브의 회전을 AttachPoint 회전으로 설정
-            isAttached = true;  // 밸브가 실린더에 붙어 있다고 표시
+            StopCoroutine(Delay);
         }
+
+        //if (cylinderAttachPoint != null)
+        //{
+        //    grabValve.transform.position = cylinderAttachPoint.position;  // 밸브의 위치를 AttachPoint 위치로 설정
+        //    grabValve.transform.rotation = cylinderAttachPoint.rotation;  // 밸브의 회전을 AttachPoint 회전으로 설정
+        //    isAttached = true;  // 밸브가 실린더에 붙어 있다고 표시
+        //}
+
+        isAttached = true;
+        grabValve.transform.position = grabTr.position;
+        knobValve.SetActive(true);
     }
 
     // 실린더에서 밸브를 떼는 메서드
-    private void DetachFromCylinder()
+    public void DetachFromCylinder()
     {
-        if (!isAttached) return;  // 밸브가 실린더에 붙어 있지 않다면 아무 작업도 하지 않음
-
-        // Rigidbody 원래 상태로 복원 (중력 영향을 받도록 설정)
-        valveRigidbody.isKinematic = false;
-        valveRigidbody.useGravity = true;
         isAttached = false;  // 밸브가 실린더에서 떨어졌다고 표시
+
+
+        Delay = ColliderDelay(2f); // 코루틴이 계속 활성화되지 않도록 새로운 코루틴을 할당
+        StartCoroutine(Delay);
+
+        knobValve.SetActive(false);
+        grabValve.transform.position = cylinderAttachPoint.position;  // 밸브의 위치를 AttachPoint 위치로 설정
+        grabValve.transform.rotation = cylinderAttachPoint.rotation;  // 밸브의 회전을 AttachPoint 회전으로 설정
+
+        //// Interaction Manager 및 Collider 상태 확인 및 재설정
+        //grabInteractable.interactionManager = FindFirstObjectByType<XRInteractionManager>();
+        //grabInteractable.attachTransform = transform; // 필요시 attachTransform 재설정
+        //grabInteractable.GetComponent<Collider>().enabled = true;
+
+
     }
 
-    // 외부에서 회전을 시작하는 메서드
-    public void StartRotation()
+    private IEnumerator ColliderDelay(float delay)
     {
-        isRotating = true;  // 회전 시작
+        yield return new WaitForSeconds(delay);
+        cylinderCollider.enabled = true;
+
+        Debug.Log("실린더 콜라이더 활성화");
     }
 
-    // 외부에서 회전을 멈추는 메서드
-    public void StopRotation()
+    private void grabValveTriggerHandle(GameObject grabValve, Collider other)
     {
-        isRotating = false;  // 회전 멈춤
+        if (other.CompareTag("Cylinder") && !isAttached)
+        {
+            Debug.Log("게임 오브젝트 : " + grabValve.name + "콜라이더" + other.name);
+            AttachToCylinder(other.gameObject, grabValve);
+        }
     }
+
 }
