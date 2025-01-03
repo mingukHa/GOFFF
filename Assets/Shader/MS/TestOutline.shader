@@ -1,4 +1,4 @@
-﻿Shader "MadeByProfessorOakie/URP_SimpleSonarShader"
+﻿Shader "MadeByProfessorOakie/TestOutline"
 {
     Properties
     {
@@ -128,127 +128,92 @@
         }
 
         // 아웃 라인 그리는 부분
-        Pass
+Pass
+{
+    Name "OUTLINE"
+    Cull Front
+    ZWrite Off
+    ZTest LEqual
+    Blend SrcAlpha OneMinusSrcAlpha
+
+    HLSLPROGRAM
+    #pragma vertex vert
+    #pragma fragment frag
+    #pragma multi_compile_fog
+
+    #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+
+    struct Attributes
+    {
+        float3 positionOS : POSITION; // Object Space 좌표
+    };
+
+    struct Varyings
+    {
+        float4 positionHCS : SV_POSITION; // Homogeneous Clip Space
+        float2 uv : TEXCOORD0;            // 화면 공간 좌표
+    };
+
+    float _OutlineWidth;
+    float4 _OutlineColor;
+    float _OutlineAlpha;
+
+    Varyings vert(Attributes v)
+    {
+        Varyings o;
+        o.positionHCS = TransformObjectToHClip(v.positionOS);
+
+        // 화면 공간 UV 좌표를 계산
+        o.uv = (o.positionHCS.xy / o.positionHCS.w) * 0.5 + 0.5; // Normalize to [0, 1]
+        return o;
+    }
+
+    // Declare the _CameraDepthTexture
+    TEXTURE2D(_CameraDepthTexture);
+    SAMPLER(sampler_CameraDepthTexture);
+
+    float SampleDepth(float2 uv)
+    {
+        // Depth Texture 샘플링
+        return SAMPLE_TEXTURE2D(_CameraDepthTexture, sampler_CameraDepthTexture, uv).r;
+    }
+
+    float4 frag(Varyings i) : SV_Target
+    {
+        // 현재 픽셀의 깊이 값
+        float currentDepth = SampleDepth(i.uv);
+        
+        // 주변 픽셀 깊이 값 샘플링
+        float2 texelSize = _ScreenParams.zw * _OutlineWidth; // 텍셀 크기 계산
+        float depthLeft = SampleDepth(i.uv + float2(-texelSize.x, 0));
+        float depthRight = SampleDepth(i.uv + float2(texelSize.x, 0));
+        float depthUp = SampleDepth(i.uv + float2(0, texelSize.y));
+        float depthDown = SampleDepth(i.uv + float2(0, -texelSize.y));
+
+        // 깊이 차이를 계산하여 에지를 감지
+        float depthDiff = abs(currentDepth - depthLeft) +
+                          abs(currentDepth - depthRight) +
+                          abs(currentDepth - depthUp) +
+                          abs(currentDepth - depthDown);
+
+        // 에지 감지 기준 값
+        float edgeThreshold = 0.1; // 이 값은 아웃라인 강도를 조절
+
+        if (depthDiff > edgeThreshold)
         {
-            Name "OUTLINE"
-            Cull Front
-            ZWrite ON
-            ZTest LEqual
-
-            Blend SrcAlpha OneMinusSrcAlpha
-
-            HLSLPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
-            #pragma multi_compile_fog
-
-            #include "UnityCG.cginc"
-
-            struct appdata
-            {
-                float4 vertex : POSITION;
-                float3 normal : NORMAL;
-            };
-
-            struct v2f
-            {
-                UNITY_FOG_COORDS(1)
-                float4 vertex : SV_POSITION;
-                float3 worldPos : TEXCOORD0; // 월드 좌표 추가
-                float3 originalWorldPos : TEXCOORD1; // 원래 위치의 월드 좌표 추가
-            };
-
-            float _OutlineWidth;
-            float4 _OutlineColor;
-            float4 _RingColor[100]; // 링 색상 추가
-            float _OutlineRingSpeed;
-            float _OutlineRingWidth;
-            float4 _hitPts[100];
-            float _StartTime;
-            float _RingFadeDuration;
-            float _OutlineAlpha;
-            float _DistanceFactor; // 거리 기반 스케일링을 위한 팩터
-            float _OutlinePower; // Fresnel 효과의 강도 조절
-
-            int _Type;
-
-            v2f vert(appdata v)
-            {
-                v2f o;
-
-                // 월드 좌표 계산
-                o.originalWorldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
-
-                // 카메라 방향 계산
-                float3 viewDir = normalize(_WorldSpaceCameraPos - o.originalWorldPos);
-                // 법선 방향
-                float3 normal = normalize(mul((float3x3)unity_ObjectToWorld, v.normal));
-
-                // Fresnel 효과 계산 (내적값을 사용)
-                float fresnel = 1.0 - saturate(dot(viewDir, normal));
-                fresnel = pow(fresnel, _OutlinePower); // 강조 정도를 조절
-
-                // 월드 공간에서 일정한 아웃라인 크기를 유지하도록 조정
-                float outlineScale = _OutlineWidth * (1.0 + _DistanceFactor * distance(o.originalWorldPos, _WorldSpaceCameraPos));
-
-                // 법선 방향으로 정점 이동 (아웃라인 생성)
-                v.vertex.xyz += v.normal * outlineScale; // 아웃라인 크기를 일정하게 유지
-
-                o.vertex = UnityObjectToClipPos(v.vertex);
-
-                // 변위된 월드 좌표 계산
-                o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
-
-                UNITY_TRANSFER_FOG(o, o.vertex);
-                return o;
-            }
-
-            fixed4 frag(v2f i) : SV_Target
-            {
-                fixed4 col = _OutlineColor;
-                col.a = _OutlineAlpha;; // 기본 알파값 1
-
-                float mostRecentTime = -1.0; // 가장 최근 파동의 시간
-                float3 mostRecentPos = float3(0, 0, 0); // 가장 최근 파동의 위치
-
-                for (int idx = 0; idx < 100; idx++)
-                {
-
-                    float3 hitPos = _hitPts[idx].xyz;  // 파동의 위치
-                    float hitTime = _hitPts[idx].w;   // 파동의 시작 시간
-
-                    float dist = distance(hitPos, i.originalWorldPos);  // 현재 픽셀과 파동의 거리
-                    float ringStart = (_Time.y - hitTime) * _OutlineRingSpeed - _OutlineRingWidth;
-                    float ringEnd = (_Time.y - hitTime) * _OutlineRingSpeed;
-
-                    // 링이 이 픽셀을 지나간 경우
-                    if ( ringStart -0.1f && ringEnd > dist && hitTime > mostRecentTime)
-                    {
-                        mostRecentTime = hitTime;   // 가장 최근 시간 업데이트
-                        mostRecentPos = hitPos;    // 가장 최근 위치 업데이트
-                    }
-                                    // 가장 최근에 영향을 준 파동이 있을 경우 페이드 적용
-                if (mostRecentTime > 0)
-                {
-                    float fadeTime = _RingFadeDuration;
-                    float fadeProgress = 1 - ((_Time.y - mostRecentTime) / fadeTime);
-                    fadeProgress = saturate(fadeProgress); // 0~1로 제한
-                    //col = _RingColor; // 링 색상 적용
-                    float nonLinearFade = pow(fadeProgress, 0.6);
-                    col.a = nonLinearFade; // 알파값은 페이드 프로그래스
-                }
-                }
-
-                if (col.a <= 0.0)
-                {
-                    discard; // 아웃라인을 그리지 않음
-                }
-
-                UNITY_APPLY_FOG(i.fogCoord, col);
-                return col;
-            }
-            ENDHLSL
+            float4 col = _OutlineColor;
+            col.a = _OutlineAlpha; // 아웃라인 투명도
+            return col;
         }
+
+        // 아웃라인이 아닌 경우 투명 처리
+        return float4(0, 0, 0, 0);
+    }
+    ENDHLSL
+}
+
+
+
 
     }
 

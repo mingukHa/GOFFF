@@ -3,11 +3,14 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.XR;
+using Photon.Pun;
 
 
-public class SimpleSonarShader_ExampleCollision : MonoBehaviour
+public class SimpleSonarShader_ExampleCollision : MonoBehaviourPun
 {
     SimpleSonarShader_Parent par = null;
+    private bool isBPressed = false;
+    private bool wasBPressed = false; // 버튼이 마지막으로 눌린 상태 추적
 
     private void Start()
     {
@@ -31,20 +34,25 @@ public class SimpleSonarShader_ExampleCollision : MonoBehaviour
     {
         // 오른손 컨트롤러의 입력 상태 가져오기
         InputDevice rightController = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
-        bool isBPressed = false;
 
         // Secondary Button (B 버튼) 상태 읽기
         if (rightController.TryGetFeatureValue(CommonUsages.secondaryButton, out isBPressed) && isBPressed)
         {
-            // B 버튼이 눌렸을 때 동작
-            RaycastHit hit;
-            Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
-
-            if (Physics.Raycast(ray, out hit))
+            if (!wasBPressed)
             {
-                par.StartSonarRing(hit.point, 1.4f, 0);
+                // B 버튼이 눌렸을 때 동작
+                RaycastHit hit;
+                Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+
+                if (Physics.Raycast(ray, out hit))
+                {
+                    par.StartSonarRing(hit.point, 1.4f, 0);
+                }
+                wasBPressed = true;
             }
         }
+        else
+            wasBPressed= false;
     }
 
     void OnCollisionEnter(Collision collision)

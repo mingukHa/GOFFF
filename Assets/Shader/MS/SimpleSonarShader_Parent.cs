@@ -1,13 +1,12 @@
 ﻿// SimpleSonarShader scripts and shaders were written by Drew Okenfuss.
 
-using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Netcode;
 using UnityEngine;
+using Photon.Pun;
 
-public class SimpleSonarShader_Parent : MonoBehaviourPunCallbacks
+public class SimpleSonarShader_Parent : MonoBehaviourPun
 {
 
     // All the renderers that will have the sonar data sent to their shaders.
@@ -32,7 +31,6 @@ public class SimpleSonarShader_Parent : MonoBehaviourPunCallbacks
     private Queue<Vector4> colorQueue = new Queue<Vector4>(QueueSize);
     private Color ringColor = Color.white;
 
-
     private void Start()
     {
         // Get renderers that will have effect applied to them
@@ -46,8 +44,9 @@ public class SimpleSonarShader_Parent : MonoBehaviourPunCallbacks
             colorQueue.Enqueue(GarbagePosition);
         }
     }
+
     [PunRPC]
-    public void StartSonarRing(Vector4 position, float intensity, int type)
+    public void StartSonarRingRPC(Vector4 position, float intensity, int type)
     {
         position.w = Time.timeSinceLevelLoad;
         positionsQueue.Dequeue();
@@ -78,6 +77,12 @@ public class SimpleSonarShader_Parent : MonoBehaviourPunCallbacks
                 r.SetPropertyBlock(block);
             }
         }
+    }
+
+    // 네트워크를 통해서 해당 RPC를 호출하는 메서드
+    public void StartSonarRing(Vector4 position, float intensity, int type)
+    {
+        photonView.RPC("StartSonarRingRPC", RpcTarget.All, position, intensity, type);
     }
 
     /// <summary>
