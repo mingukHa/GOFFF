@@ -1,0 +1,54 @@
+using UnityEngine;
+
+public class KeypadManager : MonoBehaviour
+{
+    public Transform[] displayPoints; // 100자리, 10자리, 1자리 위치를 담은 배열
+    public GameObject doorObject; // Door Object
+    public string correctPassword = "346"; // 정답 비밀번호
+
+    private string enteredPassword = ""; // 입력된 비밀번호
+    private GameObject[] displayedNumbers = new GameObject[3]; // 표시된 숫자 오브젝트
+
+    public void AddNumber(int number)
+    {
+        if (enteredPassword.Length < 3)
+        {
+            // 입력된 숫자 추가
+            enteredPassword += number.ToString();
+
+            // 해당 숫자를 올바른 자리수 위치에 표시
+            int index = enteredPassword.Length - 1;
+            GameObject numberPrefab = Resources.Load<GameObject>($"NumberPrefabs/{number}");
+            displayedNumbers[index] = Instantiate(numberPrefab, displayPoints[index]);
+            displayedNumbers[index].transform.localScale = new Vector3(2, 2, 1);
+        }
+    }
+
+    public void OnEnterButtonPressed()
+    {
+        // 표시된 숫자 오브젝트 제거
+        foreach (var displayedNumber in displayedNumbers)
+        {
+            if (displayedNumber != null)
+                Destroy(displayedNumber);
+        }
+
+        // 입력된 비밀번호 검증
+        if (enteredPassword == correctPassword)
+        {
+            doorObject.SetActive(false); // 문 비활성화
+            Debug.Log("Correct Password! Door is disabled.");
+        }
+        else
+        {
+            Debug.Log("Incorrect Password!");
+        }
+
+        // 상태 초기화
+        enteredPassword = "";
+        for (int i = 0; i < displayedNumbers.Length; i++)
+        {
+            displayedNumbers[i] = null;
+        }
+    }
+}
