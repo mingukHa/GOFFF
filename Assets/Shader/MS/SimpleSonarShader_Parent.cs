@@ -1,11 +1,13 @@
 ﻿// SimpleSonarShader scripts and shaders were written by Drew Okenfuss.
 
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Netcode;
 using UnityEngine;
 
-public class SimpleSonarShader_Parent : MonoBehaviour
+public class SimpleSonarShader_Parent : MonoBehaviourPunCallbacks
 {
 
     // All the renderers that will have the sonar data sent to their shaders.
@@ -44,7 +46,7 @@ public class SimpleSonarShader_Parent : MonoBehaviour
             colorQueue.Enqueue(GarbagePosition);
         }
     }
-
+    [PunRPC]
     public void StartSonarRing(Vector4 position, float intensity, int type)
     {
         position.w = Time.timeSinceLevelLoad;
