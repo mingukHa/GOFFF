@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
+using Photon.Pun;
 
 public class InElevatorManager : MonoBehaviour
 {
@@ -43,6 +44,7 @@ public class InElevatorManager : MonoBehaviour
     }
 
     // ¹® ´Ý´Â ÇÔ¼ö
+    [PunRPC]
     public void CloseDoors()
     {
         StartCoroutine(CloseDoorsCoroutine());
@@ -83,6 +85,6 @@ public class InElevatorManager : MonoBehaviour
             yield return null;
         }
         fadeImage.color = new Color(0, 0, 0, 1);
-        SceneManager.LoadScene(sceneName);
+        PhotonNetwork.LoadLevel("JHScenes2");
     }
 }
