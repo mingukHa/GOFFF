@@ -1,47 +1,83 @@
 using UnityEngine;
-using TMPro;
+using TMPro; // TextMeshPro 관련 클래스 사용
+using System.Collections.Generic;
 
-public class MoveInputFieldValue : MonoBehaviour
+public class KeyboardManager : MonoBehaviour
 {
-    [SerializeField] private TMP_InputField sourceInputField; // 값을 가져올 InputField
-    [SerializeField] private TMP_InputField[] targetInputFields; // 값을 보낼 InputField
+    public TMP_InputField keyboardInputField; // 가상 키보드의 InputField
+    private TMP_InputField activeInputField;  // 현재 활성화된 대상 InputField
+    private List<TMP_InputField> targetInputFields = new List<TMP_InputField>(); // 다중 대상 리스트
 
-    private void Start()
+    void Start()
     {
-        // Source InputField에 Enter 키 감지 이벤트 추가
-        if (sourceInputField != null)
+        // 키보드 InputField 값 변경 이벤트 등록
+        if (keyboardInputField != null)
         {
-            sourceInputField.onSubmit.AddListener(OnSubmit); // Enter 키 눌렀을 때 이벤트 실행
+            keyboardInputField.onValueChanged.AddListener(UpdateTargetInputFields);
         }
     }
 
-    private void OnDestroy()
+    /// <summary>
+    /// 활성화된 대상 InputField를 설정
+    /// </summary>
+    /// <param name="newField">활성화할 InputField</param>
+    public void SetActiveInputField(TMP_InputField newField)
     {
-        // 이벤트 제거 (메모리 누수 방지)
-        if (sourceInputField != null)
+        activeInputField = newField;
+        Debug.Log($"활성화된 InputField가 설정되었습니다: {newField.name}");
+    }
+
+    /// <summary>
+    /// 대상 InputField 리스트에 추가
+    /// </summary>
+    /// <param name="newField">추가할 InputField</param>
+    public void AddTargetInputField(TMP_InputField newField)
+    {
+        if (!targetInputFields.Contains(newField))
         {
-            sourceInputField.onSubmit.RemoveListener(OnSubmit);
+            targetInputFields.Add(newField);
+            Debug.Log($"InputField가 리스트에 추가되었습니다: {newField.name}");
         }
     }
 
-    // Enter 키를 누르면 호출되는 메서드
-    private void OnSubmit(string inputText)
+    /// <summary>
+    /// 대상 InputField 리스트에서 제거
+    /// </summary>
+    /// <param name="removeField">제거할 InputField</param>
+    public void RemoveTargetInputField(TMP_InputField removeField)
     {
-        foreach (TMP_InputField target in targetInputFields)
+        if (targetInputFields.Contains(removeField))
         {
-            if (target != null)
-            {
-                target.text = inputText;
-            }
+            targetInputFields.Remove(removeField);
+            Debug.Log($"InputField가 리스트에서 제거되었습니다: {removeField.name}");
         }
-        sourceInputField.text = "";
     }
-    public void MoveValue()
+
+    /// <summary>
+    /// 키보드 입력값을 활성화된 InputField에 복사
+    /// </summary>
+    public void CopyInputValueToActive()
     {
-        foreach (TMP_InputField target in targetInputFields)
+        if (keyboardInputField != null && activeInputField != null)
         {
-            target.text = sourceInputField.text;
-            sourceInputField.text = ""; // Source 초기화
+            activeInputField.text = keyboardInputField.text;
+            Debug.Log($"값이 복사되었습니다: {keyboardInputField.text}");
+        }
+        else
+        {
+            Debug.LogWarning("활성화된 InputField가 설정되지 않았습니다!");
+        }
+    }
+
+    /// <summary>
+    /// 키보드 입력값을 다중 대상 InputField로 실시간 업데이트
+    /// </summary>
+    /// <param name="inputValue">현재 키보드 입력값</param>
+    private void UpdateTargetInputFields(string inputValue)
+    {
+        foreach (var inputField in targetInputFields)
+        {
+            inputField.text = inputValue;
         }
     }
 }
