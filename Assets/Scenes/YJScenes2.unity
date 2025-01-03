@@ -608,50 +608,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!1 &1694851197
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1694851199}
-  - component: {fileID: 1694851198}
-  m_Layer: 0
-  m_Name: VRStart
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1694851198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1694851197}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87fbfa3de4eaef745aea543ef601969f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1694851199
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1694851197}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.6093402, y: 13.215565, z: -0.5806316}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1890726246
 GameObject:
   m_ObjectHideFlags: 0
@@ -902,6 +858,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2128511918386348633, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3116046014492116379, guid: feab0d83960f233479b23431946ef43e,
         type: 3}
       propertyPath: sceneViewId
@@ -927,6 +888,16 @@ PrefabInstance:
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 1890726247}
+    - target: {fileID: 7102014293633449745, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7102014293633449745, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: wheelRotationMultiplier
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 7775752761938324472, guid: feab0d83960f233479b23431946ef43e,
         type: 3}
       propertyPath: m_InteractionManager
@@ -1101,4 +1072,3 @@ SceneRoots:
   - {fileID: 2237451551058342804}
   - {fileID: 81208492786641257}
   - {fileID: 493014661697299102}
-  - {fileID: 1694851199}

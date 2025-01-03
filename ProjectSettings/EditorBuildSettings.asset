@@ -5,12 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/LoginScenes.unity
     guid: 3ff35cecbcc52cc42945cf531638a60a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MGScenes/waitRoom.unity
     guid: 338ff7a97d572444b92506bfec0ec2e0
+  - enabled: 0
+    path: Assets/Scenes/MainScenes.unity
+    guid: 6efc0f3aac81f2448b541b050061eedc
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
