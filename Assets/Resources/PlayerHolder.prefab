@@ -9701,6 +9701,7 @@ GameObject:
   - component: {fileID: 2080871421963820864}
   - component: {fileID: 2128511918386348633}
   - component: {fileID: 7102014293633449745}
+  - component: {fileID: 4292619623845241322}
   - component: {fileID: 7776948961059441294}
   - component: {fileID: 5760728534539583603}
   - component: {fileID: 2374373779939970929}
@@ -9943,6 +9944,29 @@ MonoBehaviour:
   maxSpeed: 5
   rotationSpeed: 100
   wheelRotationMultiplier: 10
+--- !u!114 &4292619623845241322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5983295875041255981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5021ed5ddaa3a947b868789a13d647e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftWheel: {fileID: 2939196036982047554}
+  rightWheel: {fileID: 5919559691808041962}
+  centerOfMass: {fileID: 5240997417116052744}
+  wheelchairRigidbody: {fileID: 7776948961059441294}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  recoveryForce: 10
+  uprightRotationSpeed: 5
+  balanceCheckInterval: 0.5
+  groundCheckDistance: 0.5
 --- !u!54 &7776948961059441294
 Rigidbody:
   m_ObjectHideFlags: 0
