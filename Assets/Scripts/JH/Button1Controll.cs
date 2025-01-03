@@ -12,28 +12,28 @@ public class Button1Controll : MonoBehaviour
     {
         grabInteractable = GetComponent<XRGrabInteractable>();
 
-        if (grabInteractable != null)
-        {
-            // grab이 시작될 때 호출되는 이벤트
-            grabInteractable.selectEntered.AddListener(OnButtonEntered);
-            // grab이 끝날 때 호출되는 이벤트
-            grabInteractable.selectExited.AddListener(OnButtonReleased);
-        }
+        //if (grabInteractable != null)
+        //{
+        //    // grab이 시작될 때 호출되는 이벤트
+        //    grabInteractable.selectEntered.AddListener(OnButtonEntered);
+        //    // grab이 끝날 때 호출되는 이벤트
+        //    grabInteractable.selectExited.AddListener(OnButtonReleased);
+        //}
     }
 
-    private void OnButtonEntered(SelectEnterEventArgs arg0)
-    {
-        if (valve != null)
-        {
-            valve.StartRotation(); // 밸브 회전 시작
-        }
-    }
+    //private void OnButtonEntered(SelectEnterEventArgs arg0)
+    //{
+    //    if (valve != null)
+    //    {
+    //        valve.StartRotation(); // 밸브 회전 시작
+    //    }
+    //}
 
-    private void OnButtonReleased(SelectExitEventArgs arg0)
-    {
-        if (valve != null)
-        {
-            valve.StopRotation(); // 밸브 회전 멈춤
-        }
-    }
+    //private void OnButtonReleased(SelectExitEventArgs arg0)
+    //{
+    //    if (valve != null)
+    //    {
+    //        valve.StopRotation(); // 밸브 회전 멈춤
+    //    }
+    //}
 }
