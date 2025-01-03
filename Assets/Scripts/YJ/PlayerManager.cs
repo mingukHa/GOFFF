@@ -14,6 +14,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
     private void Update()
     {
+        // Debug용 Self Destroy 메소드
         if (Input.GetKeyUp(KeyCode.R))
         {
             OnPlayerDeath();

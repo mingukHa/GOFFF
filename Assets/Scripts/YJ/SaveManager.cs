@@ -1,8 +1,8 @@
-using Photon.Pun;
+//using Photon.Pun;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SaveManager : MonoBehaviourPun
+public class SaveManager : MonoBehaviour //MonoBehaviourPun
 {
     [System.Serializable]
     public struct SavePoint
