@@ -3842,7 +3842,6 @@ GameObject:
   - component: {fileID: 494795998}
   - component: {fileID: 494796002}
   - component: {fileID: 494796003}
-  - component: {fileID: 494796004}
   m_Layer: 0
   m_Name: 1
   m_TagString: Untagged
@@ -3952,8 +3951,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_InteractionManager: {fileID: 894315045}
+  m_Colliders:
+  - {fileID: 0}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -4017,19 +4017,7 @@ MonoBehaviour:
       m_Calls: []
   m_Activated:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 494795997}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_Deactivated:
     m_PersistentCalls:
       m_Calls: []
@@ -4050,34 +4038,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 1
   screenDisplayPoint: {fileID: 1822828307}
-  numberPrefab: {fileID: 6647488597264509199}
---- !u!54 &494796004
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 494795997}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  numberPrefab: {fileID: 1293547591249678473, guid: 0ed08e5e64127df4d964c64d7a50116c,
+    type: 3}
 --- !u!1 &525819196
 GameObject:
   m_ObjectHideFlags: 0
@@ -5349,8 +5311,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_InteractionManager: {fileID: 894315045}
+  m_Colliders:
+  - {fileID: 0}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -5379,9 +5342,9 @@ MonoBehaviour:
   m_FirstSelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1315480341}
         m_TargetAssemblyTypeName: PasswordPuzzle, Assembly-CSharp
-        m_MethodName: EnterNumber
+        m_MethodName: 
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5435,7 +5398,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 4
   screenDisplayPoint: {fileID: 1822828307}
-  numberPrefab: {fileID: 7517884646501517905}
+  numberPrefab: {fileID: 7742348071779844276, guid: adbbd29c4272d144fa044a33e0be0e61,
+    type: 3}
 --- !u!1001 &692204134
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5761,8 +5725,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_InteractionManager: {fileID: 894315045}
+  m_Colliders:
+  - {fileID: 0}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -5791,9 +5756,9 @@ MonoBehaviour:
   m_FirstSelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1315480341}
         m_TargetAssemblyTypeName: PasswordPuzzle, Assembly-CSharp
-        m_MethodName: EnterNumber
+        m_MethodName: 
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5847,7 +5812,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 7
   screenDisplayPoint: {fileID: 1822828307}
-  numberPrefab: {fileID: 3539422535807413956}
+  numberPrefab: {fileID: 8485546558589671153, guid: 40e1210233bee5a4ab116a50e47e7192,
+    type: 3}
 --- !u!1001 &720231614
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9028,8 +8994,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_InteractionManager: {fileID: 894315045}
+  m_Colliders:
+  - {fileID: 0}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -9058,10 +9025,10 @@ MonoBehaviour:
   m_FirstSelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PasswordPuzzle, Assembly-CSharp
-        m_MethodName: EnterNumber
-        m_Mode: 3
+      - m_Target: {fileID: 791893465}
+        m_TargetAssemblyTypeName: KeypadNumberButton, Assembly-CSharp
+        m_MethodName: OnPressed
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9114,7 +9081,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 2
   screenDisplayPoint: {fileID: 1822828307}
-  numberPrefab: {fileID: 1863544570137487462}
+  numberPrefab: {fileID: 4542670189326328149, guid: ce29c63031aa66b409f0e6b377f43f16,
+    type: 3}
 --- !u!43 &799446081
 Mesh:
   m_ObjectHideFlags: 0
@@ -9565,8 +9533,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_InteractionManager: {fileID: 894315045}
+  m_Colliders:
+  - {fileID: 0}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -9595,9 +9564,9 @@ MonoBehaviour:
   m_FirstSelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1315480341}
         m_TargetAssemblyTypeName: PasswordPuzzle, Assembly-CSharp
-        m_MethodName: EnterNumber
+        m_MethodName: 
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9651,7 +9620,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 8
   screenDisplayPoint: {fileID: 1822828307}
-  numberPrefab: {fileID: 4533913513642140664}
+  numberPrefab: {fileID: 1641657169313954312, guid: 6be875dada883a24e91db060f59ba642,
+    type: 3}
 --- !u!1001 &871334971
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14280,7 +14250,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1288826417}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
   m_Name: 
@@ -15914,8 +15884,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_InteractionManager: {fileID: 894315045}
+  m_Colliders:
+  - {fileID: 0}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -15944,9 +15915,9 @@ MonoBehaviour:
   m_FirstSelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1315480341}
         m_TargetAssemblyTypeName: PasswordPuzzle, Assembly-CSharp
-        m_MethodName: EnterNumber
+        m_MethodName: 
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16000,7 +15971,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 0
   screenDisplayPoint: {fileID: 1822828307}
-  numberPrefab: {fileID: 1919156664224276978}
+  numberPrefab: {fileID: 7725440780627158772, guid: 25a33f68fd463244e94001304346e462,
+    type: 3}
 --- !u!1 &1486644153
 GameObject:
   m_ObjectHideFlags: 0
@@ -16447,8 +16419,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_InteractionManager: {fileID: 894315045}
+  m_Colliders:
+  - {fileID: 0}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -16477,9 +16450,9 @@ MonoBehaviour:
   m_FirstSelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1315480341}
         m_TargetAssemblyTypeName: PasswordPuzzle, Assembly-CSharp
-        m_MethodName: EnterNumber
+        m_MethodName: 
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16533,7 +16506,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 5
   screenDisplayPoint: {fileID: 1822828307}
-  numberPrefab: {fileID: 747850507078198501}
+  numberPrefab: {fileID: 554384969731493706, guid: 53bffab7d2f9a7b44b01e0514c9b6626,
+    type: 3}
 --- !u!43 &1538105200
 Mesh:
   m_ObjectHideFlags: 0
@@ -16822,8 +16796,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_InteractionManager: {fileID: 894315045}
+  m_Colliders:
+  - {fileID: 0}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -16852,10 +16827,10 @@ MonoBehaviour:
   m_FirstSelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PasswordPuzzle, Assembly-CSharp
-        m_MethodName: EnterNumber
-        m_Mode: 3
+      - m_Target: {fileID: 1552620775}
+        m_TargetAssemblyTypeName: KeypadNumberButton, Assembly-CSharp
+        m_MethodName: OnPressed
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -16908,7 +16883,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 3
   screenDisplayPoint: {fileID: 1822828307}
-  numberPrefab: {fileID: 5513225454897283597}
+  numberPrefab: {fileID: 5991176998060703347, guid: b2b1100c2636e75418b5cddd18aced9e,
+    type: 3}
 --- !u!1 &1555838847 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3739160495327841099, guid: fc22fe697b1fbdd43b00b9a648ec921f,
@@ -17928,8 +17904,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_InteractionManager: {fileID: 894315045}
+  m_Colliders:
+  - {fileID: 0}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -17958,9 +17935,9 @@ MonoBehaviour:
   m_FirstSelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1315480341}
         m_TargetAssemblyTypeName: PasswordPuzzle, Assembly-CSharp
-        m_MethodName: EnterNumber
+        m_MethodName: 
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -18014,7 +17991,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 6
   screenDisplayPoint: {fileID: 1822828307}
-  numberPrefab: {fileID: 5827420986944068942}
+  numberPrefab: {fileID: 7776494653254555480, guid: e814705dc5a73434e88b8d24a7ae6d2c,
+    type: 3}
 --- !u!1001 &1701633127
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18758,7 +18736,6 @@ GameObject:
   - component: {fileID: 1822828306}
   - component: {fileID: 1822828305}
   - component: {fileID: 1822828304}
-  - component: {fileID: 1822828308}
   m_Layer: 0
   m_Name: RoomPassBox (2)
   m_TagString: Untagged
@@ -18858,20 +18835,6 @@ Transform:
   - {fileID: 155264180}
   m_Father: {fileID: 1288826422}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1822828308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1822828303}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfa55ceeed345a14292b47039bf0121e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  numbtn: []
-  passwordPuzzle: {fileID: 0}
 --- !u!1 &1847261648 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1611644270237827686, guid: 9fdec67d5c754744eb263733cdfa059f,
@@ -19941,8 +19904,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_InteractionManager: {fileID: 894315045}
+  m_Colliders:
+  - {fileID: 0}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -19971,9 +19935,9 @@ MonoBehaviour:
   m_FirstSelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1315480341}
         m_TargetAssemblyTypeName: PasswordPuzzle, Assembly-CSharp
-        m_MethodName: EnterNumber
+        m_MethodName: 
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -20027,7 +19991,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   number: 9
   screenDisplayPoint: {fileID: 1822828307}
-  numberPrefab: {fileID: 1712324987405582492}
+  numberPrefab: {fileID: 8060265953847383411, guid: 22dea1b6fe029b24ca20a4fa5c6c5c32,
+    type: 3}
 --- !u!1 &1998423200
 GameObject:
   m_ObjectHideFlags: 0
@@ -20151,8 +20116,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_InteractionManager: {fileID: 894315045}
+  m_Colliders:
+  - {fileID: 0}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
