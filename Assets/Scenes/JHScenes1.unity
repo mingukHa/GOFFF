@@ -4146,6 +4146,7 @@ GameObject:
   - component: {fileID: 615894865}
   - component: {fileID: 615894863}
   - component: {fileID: 615894862}
+  - component: {fileID: 615894869}
   m_Layer: 0
   m_Name: InElevator_Button
   m_TagString: Untagged
@@ -4371,6 +4372,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 615894860}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &615894869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 615894860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 471720e19eb13244cb992d24cba1a417, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elevatorDoors: []
+  closeDuration: 2
 --- !u!1001 &620858888
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11199,6 +11214,7 @@ GameObject:
   - component: {fileID: 1479123485}
   - component: {fileID: 1479123483}
   - component: {fileID: 1479123482}
+  - component: {fileID: 1479123489}
   m_Layer: 0
   m_Name: InElevator_Button (1)
   m_TagString: Untagged
@@ -11275,9 +11291,9 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Elevator, Assembly-CSharp
-        m_MethodName: MyFirstVRFunction
+      - m_Target: {fileID: 1479123489}
+        m_TargetAssemblyTypeName: InElevator, Assembly-CSharp
+        m_MethodName: CloseDoors
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11365,7 +11381,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -11424,6 +11440,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1479123480}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1479123489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1479123480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 471720e19eb13244cb992d24cba1a417, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elevatorDoors:
+  - {fileID: 346438221}
+  - {fileID: 141748853}
+  closeDuration: 2
 --- !u!1 &1482985738
 GameObject:
   m_ObjectHideFlags: 0
@@ -16153,7 +16185,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62ccdc32174868046b228a906d6f3cd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elevatorDoors: []
+  elevatorDoors:
+  - {fileID: 393085525}
+  - {fileID: 102473478}
+  - {fileID: 346438221}
+  - {fileID: 141748853}
   openDuration: 2
 --- !u!114 &2076719936
 MonoBehaviour:
@@ -16205,7 +16241,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2076719935}
         m_TargetAssemblyTypeName: Elevator, Assembly-CSharp
-        m_MethodName: MyFirstVRFunction
+        m_MethodName: OpenDoors
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
