@@ -10,7 +10,7 @@ public class KeypadNumberButton : MonoBehaviour
 
     private void Start()
     {
-        keypadManager = FindFirstObjectByType<KeypadManager>();
+        keypadManager = FindObjectOfType<KeypadManager>();
     }
 
     public void OnPressed()
