@@ -101,6 +101,7 @@ public class Waitscene : MonoBehaviourPunCallbacks
     public void OnButtonPressed()
     {
         photonView.RPC("PlayerReady", RpcTarget.AllBuffered); // 모든 클라이언트에 플레이어 준비 상태 전달
+        Debug.Log("버튼이 눌렸습니다");
     }
 
     [PunRPC]
