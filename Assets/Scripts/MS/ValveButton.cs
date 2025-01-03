@@ -9,7 +9,7 @@ public class ValveButton : MonoBehaviour
 
     private float buttonDownValue = 0f;
     private float buttonPositionY = 0f;
-    private float smoothTime = 0.003f; // 부드럽게 이동하는 시간
+    private float smoothTime = 0.001f; // 부드럽게 이동하는 시간
     private float velocity = 0f; // 속도는 내부적으로 업데이트됨
     private Vector3 currentPosition;
 
@@ -29,7 +29,7 @@ public class ValveButton : MonoBehaviour
             transform.localPosition = new Vector3(0, buttonPositionY, 0);
         }
 
-        if(buttonPositionY < 0.015 && valve.IsAttached)
+        if(buttonPositionY < 0.010)
         {
             Debug.Log("버튼이 눌리고 Y가 일정 값 이하로 떨어졌기 때문에 밸브가 떨어짐");
             valve.DetachFromCylinder();
