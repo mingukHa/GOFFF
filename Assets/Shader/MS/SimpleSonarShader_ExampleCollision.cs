@@ -58,6 +58,6 @@ public class SimpleSonarShader_ExampleCollision : MonoBehaviourPun
     void OnCollisionEnter(Collision collision)
     {
         // Start sonar ring from the contact point
-        if (par) par.StartSonarRing(new Vector3(0,0,0), collision.impulse.magnitude / 10.0f, 0);
+        if (par) par.StartSonarRing(collision.contacts[0].point, collision.impulse.magnitude / 10.0f, 0);
     }
 }
