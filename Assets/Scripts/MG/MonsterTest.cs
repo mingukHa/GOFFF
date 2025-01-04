@@ -200,20 +200,20 @@ public class MonsterTest : MonoBehaviour
             currentState = MonsterState.Attack;
         }
     }
-    private void OnCollisionEnter(Collision collision) //플레이어 사망 처리
-    {
-        // 충돌한 객체가 Player 태그를 가진 경우
-        if (collision.collider.CompareTag("Player"))
-        {
-            // PlayerHealth 컴포넌트를 가져와 사망 처리
-            Player player = collision.collider.GetComponent<Player>();
-            if (player != null)
-            {
-                //player.Die(); // 플레이어 사망 처리
-                Debug.Log("플레이어를 처치했습니다!");
-            }
-        }
-    }
+    //private void OnCollisionEnter(Collision collision) //플레이어 사망 처리
+    //{
+    //    // 충돌한 객체가 Player 태그를 가진 경우
+    //    if (collision.collider.CompareTag("Player"))
+    //    {
+    //        // PlayerHealth 컴포넌트를 가져와 사망 처리
+    //        //Player player = collision.collider.GetComponent<Player>();
+    //        if (player != null)
+    //        {
+    //            //player.Die(); // 플레이어 사망 처리
+    //            Debug.Log("플레이어를 처치했습니다!");
+    //        }
+    //    }
+    //}
 
 
 
