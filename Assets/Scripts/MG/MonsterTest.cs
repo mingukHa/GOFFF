@@ -192,7 +192,7 @@ public class MonsterTest : MonoBehaviour
             Vector3 targetPosition = detectedTarget.position;
             Debug.Log($"좌표 위치 :{detectedTarget.position}");
             // 순간이동 좌표 설정 (플레이어 위치)
-            Vector3 teleportPosition = targetPosition + Vector3.up * 0.5f; // 약간 위로 이동
+            Vector3 teleportPosition = targetPosition; // 약간 위로 이동
             transform.position = teleportPosition;
 
           
