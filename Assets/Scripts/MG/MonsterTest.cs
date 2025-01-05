@@ -183,23 +183,42 @@ public class MonsterTest : MonoBehaviour
     }
 
 
-    // 타겟을 공격
     private void AttackTarget()
     {
         if (detectedTarget != null)
         {
+            // NavMeshAgent 비활성화
+            navAgent.enabled = false;
+
             // 플레이어 위치 가져오기
             Vector3 targetPosition = detectedTarget.position;
-            Debug.Log($"좌표 위치 :{detectedTarget.position}");
-            // 순간이동 좌표 설정 (플레이어 위치)
-            Vector3 teleportPosition = targetPosition; // 약간 위로 이동
-            transform.position = teleportPosition;
 
-          
-            // 상태를 Attack 유지 (필요시 다른 상태로 전환 가능)
+            // NavMesh 위 좌표 보정
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(targetPosition, out hit, 1.0f, NavMesh.AllAreas))
+            {
+                // 보정된 위치로 순간이동
+                transform.position = hit.position;
+                Debug.Log($"플레이어 위치로 순간이동: {hit.position}");
+            }
+            else
+            {
+                Debug.LogWarning("플레이어 위치가 NavMesh 위에 없습니다!");
+            }
+
+            // NavMeshAgent 다시 활성화
+            navAgent.enabled = true;
+
+            // 공격 상태 유지
             currentState = MonsterState.Attack;
         }
+        else
+        {
+            Debug.LogWarning("타겟이 없습니다!");
+            currentState = MonsterState.Idle; // 대기 상태로 복귀
+        }
     }
+
     //private void OnCollisionEnter(Collision collision) //플레이어 사망 처리
     //{
     //    // 충돌한 객체가 Player 태그를 가진 경우
