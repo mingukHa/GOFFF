@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Collections;
 using Photon.Pun;
 
-public class InElevatorManager : MonoBehaviour
+public class InElevatorManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private List<Transform> elevatorDoors;
     [SerializeField] private GameObject inbutton1;
@@ -21,12 +21,13 @@ public class InElevatorManager : MonoBehaviour
     [SerializeField] private Image fadeImage;
 
     // 버튼 선택이벤트 연결
+    [PunRPC]
     public void OnButton1SelectEnter()
     {
         isButton1Pressed = true;
         CheckButtonsAndCloseDoors();
     }
-
+    [PunRPC]
     public void OnButton2SelectEnter()
     {
         isButton2Pressed = true;
@@ -34,6 +35,7 @@ public class InElevatorManager : MonoBehaviour
     }
 
     // 두 버튼 모두 눌렸을 때 문 닫고, 페이드 아웃 시작
+    [PunRPC]
     private void CheckButtonsAndCloseDoors()
     {
         if (isButton1Pressed && isButton2Pressed)
@@ -49,7 +51,7 @@ public class InElevatorManager : MonoBehaviour
     {
         StartCoroutine(CloseDoorsCoroutine());
     }
-
+    [PunRPC]
     private IEnumerator CloseDoorsCoroutine()
     {
         float elapsedTime = 0f;
