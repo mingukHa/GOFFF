@@ -750,7 +750,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1360368297}
   - component: {fileID: 1360368296}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Map
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -982,11 +982,26 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 5038965953708589039, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5038965953708589039, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5117189579281559636, guid: feab0d83960f233479b23431946ef43e,
         type: 3}
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 1890726247}
+    - target: {fileID: 5240997417116052744, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.07
+      objectReference: {fileID: 0}
     - target: {fileID: 5338561727377559521, guid: feab0d83960f233479b23431946ef43e,
         type: 3}
       propertyPath: m_InteractionManager
@@ -1004,6 +1019,11 @@ PrefabInstance:
       objectReference: {fileID: 1890726247}
     - target: {fileID: 7102014293633449745, guid: feab0d83960f233479b23431946ef43e,
         type: 3}
+      propertyPath: maxSpeed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7102014293633449745, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
@@ -1014,19 +1034,54 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7102014293633449745, guid: feab0d83960f233479b23431946ef43e,
         type: 3}
+      propertyPath: inertiaFactor
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 7102014293633449745, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: accelerationFactor
+      value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7102014293633449745, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
       propertyPath: wheelRotationMultiplier
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7456416817425454063, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7456416817425454063, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7775752761938324472, guid: feab0d83960f233479b23431946ef43e,
         type: 3}
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 1890726247}
+    - target: {fileID: 7978343951842107100, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7978343951842107100, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8525782105735164490, guid: feab0d83960f233479b23431946ef43e,
         type: 3}
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 1890726247}
+    - target: {fileID: 9031918686566446437, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
