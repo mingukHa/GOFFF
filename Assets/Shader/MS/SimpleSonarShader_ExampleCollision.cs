@@ -47,6 +47,7 @@ public class SimpleSonarShader_ExampleCollision : MonoBehaviourPun
                 if (Physics.Raycast(ray, out hit))
                 {
                     par.StartSonarRing(hit.point, 1.4f, 0);
+                    Debug.Log($"{hit.point}입니다");
                 }
                 wasBPressed = true;
             }

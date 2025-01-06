@@ -8,7 +8,7 @@ public class f3PlayerMansger: MonoBehaviourPunCallbacks
     [SerializeField] private Transform[] spawnPoints;
     private bool hasSpawned = false;
     private void Start()
-    {
+    { 
         if (!PhotonNetwork.IsConnected)
         {
             Debug.Log("포톤 서버와 연결이 안 되었음 로비로 이동");
