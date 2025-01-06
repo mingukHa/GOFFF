@@ -27,7 +27,6 @@ public class SimpleSonarShader_PlayerMove : MonoBehaviourPun
 
         playerTransform = playerInstance.transform;
         lastPosition = playerTransform.position;
-        Debug.Log("Player를 찾았습니다.");
     }
 
     private void Update()
@@ -38,7 +37,7 @@ public class SimpleSonarShader_PlayerMove : MonoBehaviourPun
         Vector3 currentPosition = playerTransform.position;
         float speed = (currentPosition - lastPosition).magnitude / Time.deltaTime;
         lastPosition = currentPosition;
-        Debug.Log("Current Speed:" + speed);
+        Debug.Log("현재 속도:" + speed);
 
         // 속도가 임계값 이상일 때 Sonar 발동
         if (speed > speedThreshold && Time.time - lastSonarTime > sonarCooldown)
