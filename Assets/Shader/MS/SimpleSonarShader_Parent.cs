@@ -1,6 +1,4 @@
 ﻿// SimpleSonarShader scripts and shaders were written by Drew Okenfuss.
-
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -62,7 +60,6 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
         {
             if (r)
             {
-                //r.material.SetFloat("_RingTime", (float)timeSinceSceneLoadPhoton);
                 r.GetPropertyBlock(propertyBlock);
                 propertyBlock.SetFloat("_RingTime", timeSinceSceneLoadPhoton);
                 r.SetPropertyBlock(propertyBlock);
@@ -97,10 +94,6 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
                 block.SetVectorArray("_RingColor", ringColorsVec);
 
                 r.SetPropertyBlock(block);
-                //r.material.SetVectorArray("_hitPts", hitPtsVec);
-                //r.material.SetFloatArray("_Intensity", intensities);
-                //r.material.SetVectorArray("_RingColor", ringColorsVec);
-
             }
         }
     }
@@ -111,12 +104,9 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
 
         //position.w = Time.timeSinceLevelLoad;
         //position.w = (float)PhotonNetwork.Time;
-        Debug.Log(Time.timeSinceLevelLoad);
-        Debug.Log(PhotonNetwork.Time);
-        double timeSinceSceneLoadPhoton = PhotonNetwork.Time - sceneStartTimePhoton;
-        Debug.Log("Photon 서버 기준 씬 로드 시점의 경과 시간: " + timeSinceSceneLoadPhoton);
+        float timeSinceSceneLoadPhoton = (float)(PhotonNetwork.Time - sceneStartTimePhoton);
 
-        position.w = (float)timeSinceSceneLoadPhoton;
+        position.w = timeSinceSceneLoadPhoton;
         positionsQueue.Dequeue();
         positionsQueue.Enqueue(position);
 
@@ -135,94 +125,5 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
 
         photonView.RPC("UpdateSonarMaterial", RpcTarget.All, hitPts, intensities, ringColors);
     }
-
-    //[PunRPC]
-    //public void StartSonarRingRPC(Vector4 position, float intensity, int type)
-    //{
-    //    position.w = Time.timeSinceLevelLoad;
-    //    positionsQueue.Dequeue();
-    //    positionsQueue.Enqueue(position);
-
-    //    intensityQueue.Dequeue();
-    //    intensityQueue.Enqueue(intensity);
-
-    //    ringColor = type == 0 ? Color.white : Color.red; // 일반: 0, 몬스터: 1
-
-    //    colorQueue.Dequeue();
-    //    colorQueue.Enqueue(ringColor);
-
-
-    //    foreach (Renderer r in ObjectRenderers)
-    //    {
-    //        if (r)
-    //        {
-    //            MaterialPropertyBlock block = new MaterialPropertyBlock();
-    //            r.GetPropertyBlock(block);
-
-    //            block.SetVectorArray("_hitPts", positionsQueue.ToArray());
-    //            block.SetFloatArray("_Intensity", intensityQueue.ToArray());
-    //            //block.SetVectorArray("_RingColor", colorQueue.ToArray());
-    //            block.SetVectorArray("_RingColor", colorQueue.Select(c => (Vector4)c).ToArray());
-
-    //            block.SetInt("_Type", type); // 추가적인 구분 정보 전달
-    //            r.SetPropertyBlock(block);
-    //        }
-    //    }
-    //    Debug.Log("RPC 함수 실행 됨");
-    //}
-
-    //// 네트워크를 통해서 해당 RPC를 호출하는 메서드
-    //public void StartSonarRing(Vector4 position, float intensity, int type)
-    //{
-    //    Debug.Log("충돌됐음");
-    //    photonView.RPC("StartSonarRingRPC", RpcTarget.OthersBuffered, position, intensity, type);
-    //}
-
-    /// <summary>
-    /// Starts a sonar ring from this position with the given intensity.
-    /// </summary>
-    //public void StartSonarRing(Vector4 position, float intensity, bool monster)
-    //{
-    //    // Put values into the queue
-    //    position.w = Time.timeSinceLevelLoad;
-    //    positionsQueue.Dequeue();
-    //    positionsQueue.Enqueue(position);
-
-    //    intensityQueue.Dequeue();
-    //    intensityQueue.Enqueue(intensity);
-
-    //    //colorQueue.Dequeue();
-    //    //colorQueue.Enqueue(color);
-
-    //    if (monster)
-    //    {
-    //        ringColor = Color.red;
-
-    //        // Send updated queues to the shaders
-    //        foreach (Renderer r in ObjectRenderers)
-    //        {
-    //            if (r)
-    //            {
-    //                r.material.SetVectorArray("_hitPtsM", positionsQueue.ToArray());
-    //                r.material.SetFloatArray("_IntensityM", intensityQueue.ToArray());
-    //                r.material.SetColor("_RingColorM", ringColor);
-    //            }
-    //        }
-    //    }
-    //    else
-    //    {
-    //        ringColor = Color.white;
-    //        foreach (Renderer r in ObjectRenderers)
-    //        {
-    //            if (r)
-    //            {
-    //                r.material.SetVectorArray("_hitPts", positionsQueue.ToArray());
-    //                r.material.SetFloatArray("_Intensity", intensityQueue.ToArray());
-    //                r.material.SetColor("_RingColor", ringColor);
-    //            }
-    //        }
-    //    }
-
-    //}
 
 }
