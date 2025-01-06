@@ -3192,7 +3192,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e7c9b87dbe1b245a4029d3d666cf39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHolder: {fileID: 0}
   leftWheel: {fileID: 0}
   rightWheel: {fileID: 0}
   moveSpeed: 1
@@ -13104,6 +13103,11 @@ PrefabInstance:
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 1490348787}
+    - target: {fileID: 1357374513444131446, guid: e8af39bf2856db340837780d311816bb,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3379836766044174480, guid: e8af39bf2856db340837780d311816bb,
         type: 3}
       propertyPath: m_Name

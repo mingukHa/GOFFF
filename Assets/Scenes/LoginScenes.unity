@@ -6509,12 +6509,18 @@ PrefabInstance:
         type: 3}
       propertyPath: sfxSound
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1292676208}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0498ea16beabb0d49b0ab738a469d5b2, type: 3}
+--- !u!82 &1292676208 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 4432544049111833011, guid: 0498ea16beabb0d49b0ab738a469d5b2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1292676207}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1308062279
 PrefabInstance:
   m_ObjectHideFlags: 0
