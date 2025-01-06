@@ -9952,6 +9952,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 2e802c87-fca3-46b0-bda1-3258a9b9fce6
     m_ActionName: Grab/Right Grab Key
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c8fd409f-2563-4aef-8c4f-a8ec4964764a
+    m_ActionName: WalkieTalkie/Left Secondary Button
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a8ad0328-0b1b-4c79-b90e-1ad9fe5aa670
+    m_ActionName: WalkieTalkie/Right Secondary Button
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Move
@@ -10080,7 +10088,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 0
+  ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
   Synchronization: 3
@@ -10088,6 +10096,8 @@ MonoBehaviour:
   observableSearch: 0
   ObservedComponents:
   - {fileID: 3326424169088456771}
+  - {fileID: 7234891028662448440}
+  - {fileID: 3469203442369701424}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
