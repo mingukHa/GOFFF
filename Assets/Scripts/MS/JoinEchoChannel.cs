@@ -87,27 +87,4 @@ public class JoinEchoChannel : MonoBehaviour
             }
         }
     }
-
-    //private void Update()
-    //{
-    //    if (Input.GetKey(KeyCode.A))
-    //    {
-    //        // A 키를 누르고 있을 때만 언뮤트
-    //        if (isMuted)
-    //        {
-    //            Participant.UnmutePlayerLocally();
-    //            isMuted = false; // 언뮤트 상태로 변경
-    //        }
-    //    }
-    //    else
-    //    {
-    //        // A 키를 떼면 뮤트 상태로 되돌리기
-    //        if (!isMuted)
-    //        {
-    //            Participant.MutePlayerLocally();
-    //            isMuted = true; // 뮤트 상태로 변경
-    //        }
-    //    }
-    //}
-
 }
