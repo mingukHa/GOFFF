@@ -21,13 +21,6 @@ public class InElevatorManager : MonoBehaviourPunCallbacks
 
     [SerializeField] private Image fadeImage;
 
-    private PhotonView photonView;
-
-    private void Awake()
-    {
-        photonView = GetComponent<PhotonView>();
-    }
-
     // 버튼 선택 이벤트 연결
     public void OnButton1SelectEnter()
     {
@@ -67,7 +60,8 @@ public class InElevatorManager : MonoBehaviourPunCallbacks
         if (isButton1Pressed && isButton2Pressed && !isDoorsClosing)
         {
             isDoorsClosing = true; // 중복 호출 방지
-            photonView.RPC(nameof(CloseDoors), RpcTarget.AllBuffered);
+            //photonView.RPC(nameof(CloseDoors), RpcTarget.AllBuffered);
+            StartCoroutine(CloseDoorsCoroutine());
         }
     }
 
@@ -98,7 +92,8 @@ public class InElevatorManager : MonoBehaviourPunCallbacks
             door.localScale = closedScale;
         }
 
-        photonView.RPC(nameof(StartFadeOutAndLoadScene), RpcTarget.AllBuffered, "JHScenes2");
+        //photonView.RPC(nameof(StartFadeOutAndLoadScene), RpcTarget.AllBuffered, "JHScenes2");
+        StartCoroutine(FadeOutAndLoadScene("JHScenes2"));
     }
 
     // 페이드 아웃 후 장면 로드

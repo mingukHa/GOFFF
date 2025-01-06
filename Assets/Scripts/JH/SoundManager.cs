@@ -1,8 +1,8 @@
 using UnityEngine;
-using UnityEngine.UI;
+//using UnityEngine.UI;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
-using System.Collections;
+//using System.Collections;
 
 //본게임시 믹서, 슬라이더 주석해제
 public class Sound
@@ -159,6 +159,7 @@ public class SoundManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+    /*
     //FadeOut다룰 때 사용할 코루틴, 함수 
     //사용할 때 SoundManager.instance.FadeOutBGM(2.0f);  를 추가 // FadeOut2초 
     public void FadeOutBGM(float duration)
@@ -185,4 +186,5 @@ public class SoundManager : MonoBehaviour
         bgmSound.Stop();
         mixer.SetFloat("BGMsound", Mathf.Log10(startVolume) * 20); // 초기 볼륨 복원
     }
+    */
 }
