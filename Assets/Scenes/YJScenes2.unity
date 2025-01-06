@@ -390,7 +390,7 @@ GameObject:
   - component: {fileID: 694247429}
   - component: {fileID: 694247428}
   - component: {fileID: 694247427}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -790,6 +790,11 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4292619623845241322, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 5117189579281559636, guid: feab0d83960f233479b23431946ef43e,
         type: 3}
       propertyPath: m_InteractionManager
@@ -814,6 +819,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7102014293633449745, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: playerHolder
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7102014293633449745, guid: feab0d83960f233479b23431946ef43e,
         type: 3}

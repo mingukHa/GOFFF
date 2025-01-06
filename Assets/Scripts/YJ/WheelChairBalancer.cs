@@ -5,7 +5,7 @@ public class WheelChairBalancer : MonoBehaviour
     public Transform leftWheel; // 왼쪽 바퀴
     public Transform rightWheel; // 오른쪽 바퀴
     public Transform centerOfMass; // 휠체어의 중심
-    public Rigidbody wheelchairRigidbody; // 휠체어의 Rigidbody
+    private Rigidbody rb; // PlayerHolder의 Rigidbody
     public LayerMask groundLayer; // 지면 레이어
 
     public float recoveryForce = 10f; // 균형을 잡기 위한 힘
@@ -17,9 +17,11 @@ public class WheelChairBalancer : MonoBehaviour
 
     private void Start()
     {
-        if (wheelchairRigidbody != null && centerOfMass != null)
+        rb = GetComponent<Rigidbody>();
+
+        if (rb != null && centerOfMass != null)
         {
-            wheelchairRigidbody.centerOfMass = centerOfMass.localPosition;
+            rb.centerOfMass = centerOfMass.localPosition;
         }
 
         InvokeRepeating(nameof(CheckBalance), 0, balanceCheckInterval);
@@ -47,7 +49,7 @@ public class WheelChairBalancer : MonoBehaviour
             Vector3 currentUp = transform.up;
             Vector3 correctionTorque = Vector3.Cross(currentUp, uprightDirection) * recoveryForce;
 
-            wheelchairRigidbody.AddTorque(correctionTorque, ForceMode.Force);
+            rb.AddTorque(correctionTorque, ForceMode.Force);
 
             yield return null;
         }

@@ -4,7 +4,7 @@ using Photon.Pun;
 
 public class PlayerController : MonoBehaviourPun
 {
-    public Transform playerHolder; // 플레이어의 Transform
+    private Transform playerHolder; // 플레이어의 Transform
     public Transform leftWheel; // 휠체어 왼쪽 바퀴
     public Transform rightWheel; // 휠체어 오른쪽 바퀴
 
@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviourPun
 
     private void Start()
     {
+        playerHolder = GetComponent<Transform>();
+
         if (!photonView.IsMine)
         {
             // 다른 플레이어의 입력 및 컨트롤 비활성화
