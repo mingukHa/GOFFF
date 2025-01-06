@@ -70,24 +70,25 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
     [PunRPC]
     public void UpdateSonarMaterial(float[] hitPts, float[] intensities, float[] ringColor)
     {
+        // 받은 float[] 배열을 다시 Vector4로 변환
+        //Vector4[] hitPtsVec = new Vector4[hitPts.Length / 4];
+        for (int i = 0; i < hitPtsVec.Length; i++)
+        {
+            hitPtsVec[i] = new Vector4(hitPts[i * 4], hitPts[i * 4 + 1], hitPts[i * 4 + 2], hitPts[i * 4 + 3]);
+        }
+        //Vector4[] ringColorsVec = new Vector4[ringColor.Length / 4];
+        for (int i = 0; i < ringColorsVec.Length; i++)
+        {
+            ringColorsVec[i] = new Vector4(ringColor[i * 4], ringColor[i * 4 + 1], ringColor[i * 4 + 2], ringColor[i * 4 + 3]);
+        }
+
+        MaterialPropertyBlock block = new MaterialPropertyBlock();
+
         foreach (Renderer r in ObjectRenderers)
         {
             if (r)
             {
-                MaterialPropertyBlock block = new MaterialPropertyBlock();
                 r.GetPropertyBlock(block);
-
-                // 받은 float[] 배열을 다시 Vector4로 변환
-                //Vector4[] hitPtsVec = new Vector4[hitPts.Length / 4];
-                for (int i = 0; i < hitPtsVec.Length; i++)
-                {
-                    hitPtsVec[i] = new Vector4(hitPts[i * 4], hitPts[i * 4 + 1], hitPts[i * 4 + 2], hitPts[i * 4 + 3]);
-                }
-                //Vector4[] ringColorsVec = new Vector4[ringColor.Length / 4];
-                for (int i = 0; i < ringColorsVec.Length; i++)
-                {
-                    ringColorsVec[i] = new Vector4(ringColor[i * 4], ringColor[i * 4 + 1], ringColor[i * 4 + 2], ringColor[i * 4 + 3]);
-                }
 
                 block.SetVectorArray("_hitPts", hitPtsVec);
                 block.SetFloatArray("_Intensity", intensities);

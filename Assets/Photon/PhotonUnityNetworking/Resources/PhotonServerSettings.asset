@@ -50,13 +50,8 @@ MonoBehaviour:
   - StartSonarRingRPC
   - CloseDoors
   - UpdateSonarMaterial
-  - CheckButtonsAndCloseDoors
-  - CloseDoorsCoroutine
-  - OnButton1SelectEnter
-  - OnButton2SelectEnter
-  - RPC_OnButton1SelectEnter
-  - RPC_OnButton2SelectEnter
-  - StartFadeOutAndLoadScene
+  - RPCValveGrab
+  - RPCOnButton
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
