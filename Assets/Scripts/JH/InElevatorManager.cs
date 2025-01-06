@@ -17,6 +17,7 @@ public class InElevatorManager : MonoBehaviourPunCallbacks
 
     private bool isButton1Pressed = false;
     private bool isButton2Pressed = false;
+    private bool isDoorsClosing = false; // 문 닫힘 상태 체크
 
     [SerializeField] private Image fadeImage;
 
@@ -30,12 +31,18 @@ public class InElevatorManager : MonoBehaviourPunCallbacks
     // 버튼 선택 이벤트 연결
     public void OnButton1SelectEnter()
     {
-        photonView.RPC(nameof(RPC_OnButton1SelectEnter), RpcTarget.All);
+        if (!isButton1Pressed) // 중복 호출 방지
+        {
+            photonView.RPC(nameof(RPC_OnButton1SelectEnter), RpcTarget.AllBuffered);
+        }
     }
 
     public void OnButton2SelectEnter()
     {
-        photonView.RPC(nameof(RPC_OnButton2SelectEnter), RpcTarget.All);
+        if (!isButton2Pressed) // 중복 호출 방지
+        {
+            photonView.RPC(nameof(RPC_OnButton2SelectEnter), RpcTarget.AllBuffered);
+        }
     }
 
     // 버튼 1 눌림 처리
@@ -57,10 +64,10 @@ public class InElevatorManager : MonoBehaviourPunCallbacks
     // 두 버튼 모두 눌렸을 때 문 닫고, 페이드 아웃 시작
     private void CheckButtonsAndCloseDoors()
     {
-        if (isButton1Pressed && isButton2Pressed)
+        if (isButton1Pressed && isButton2Pressed && !isDoorsClosing)
         {
-            photonView.RPC(nameof(CloseDoors), RpcTarget.All);
-            StartCoroutine(FadeOutAndLoadScene("JHScenes2"));
+            isDoorsClosing = true; // 중복 호출 방지
+            photonView.RPC(nameof(CloseDoors), RpcTarget.AllBuffered);
         }
     }
 
@@ -78,21 +85,29 @@ public class InElevatorManager : MonoBehaviourPunCallbacks
         while (elapsedTime < closeDuration)
         {
             float t = elapsedTime / closeDuration;
-            for (int i = 0; i < elevatorDoors.Count; i++)
+            foreach (var door in elevatorDoors)
             {
-                elevatorDoors[i].localScale = Vector3.Lerp(openScale, closedScale, t);
+                door.localScale = Vector3.Lerp(openScale, closedScale, t);
             }
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        for (int i = 0; i < elevatorDoors.Count; i++)
+        foreach (var door in elevatorDoors)
         {
-            elevatorDoors[i].localScale = closedScale;
+            door.localScale = closedScale;
         }
+
+        photonView.RPC(nameof(StartFadeOutAndLoadScene), RpcTarget.AllBuffered, "JHScenes2");
     }
 
     // 페이드 아웃 후 장면 로드
+    [PunRPC]
+    private void StartFadeOutAndLoadScene(string sceneName)
+    {
+        StartCoroutine(FadeOutAndLoadScene(sceneName));
+    }
+
     private IEnumerator FadeOutAndLoadScene(string sceneName)
     {
         float fadeDuration = 1f;
@@ -105,6 +120,7 @@ public class InElevatorManager : MonoBehaviourPunCallbacks
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+
         fadeImage.color = new Color(0, 0, 0, 1);
         PhotonNetwork.LoadLevel("JHScenes2");
     }
