@@ -979,6 +979,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4669500502408384970, guid: 40bc9092f8d0e38439e5026cef08c9d5,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8432217743187542642, guid: 40bc9092f8d0e38439e5026cef08c9d5,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8720360924379389053, guid: 40bc9092f8d0e38439e5026cef08c9d5,
         type: 3}
       propertyPath: m_LocalPosition.x
