@@ -10,6 +10,7 @@
         _RingWidth("Ring Width", Float) = 0.1
         _RingIntensityScale("Ring Intensity Scale", Float) = 1
         _RingTex("Ring Texture", 2D) = "white" {}
+        //_RingColor("Ring Color" Color) = (1, 1, 1, 1)
         _OutlineColor("OutlineColor", Color) = (0, 0, 0, 1)
         _OutlineWidth("Outline Width", Float) = 0.02
         _DistanceFactor("Distance Factor", Float) = 0.1
@@ -22,11 +23,13 @@
         _RingFadeDuration("Ring Fade Duration", Float) = 2
 
         _Type("Type", int) = 0
+
+        _RingTime("Ring Time", Float) = 0.1
     }
 
     SubShader
     {
-        //Tags { "RenderType" = "Opaque" "Queue" = "Opaque" }
+        Tags { "RenderType" = "Transparent" "Queue" = "Transparent" }
         LOD 200
         Pass
         {
@@ -48,9 +51,15 @@
             float _RingIntensityScale;
             float _RingFadeDuration;
 
+            float _ringlength;
+
             float4 _hitPts[100];
             float _StartTime;
             float _Intensity[100];
+
+            float4 _RingColorW = float4(1, 1, 1, 1);
+
+            float _RingTime;
 
 
             struct Attributes
@@ -82,8 +91,7 @@
 
                 // float diffFromRingCol = abs(finalColor.r - _RingColor.r) +
                 //                         abs(finalColor.g - _RingColor.g) +
-                //                         abs(finalColor.b - _RingColor.b);
-
+                     
                 for (int idx = 0; idx < 100; idx++)
                 {
                     float diffFromRingCol = abs(finalColor.r - _RingColor[idx].r) +
@@ -95,8 +103,10 @@
                     float intensity = _Intensity[idx] * _RingIntensityScale;
 
                     float dist = distance(hitPos, i.worldPos);
-                    float ringStart = (_Time.y - hitTime) * _RingSpeed - _RingWidth;
-                    float ringEnd = (_Time.y - hitTime) * _RingSpeed;
+                    float ringStart = (_RingTime - hitTime) * _RingSpeed - _RingWidth;
+                    float ringEnd = (_RingTime - hitTime) * _RingSpeed;
+                    // float ringStart = (_RingTime * _RingSpeed - _RingWidth) * sin(_Time.y * 0.5) + 1.0;  // 시간에 따라 크기 변화
+                    // float ringEnd = (_RingTime * _RingSpeed) * sin(_Time.y * 0.5) + 1.0;  // 링 크기 변화를 계산
 
                     if (dist > ringStart && dist < ringEnd)
                     {
@@ -172,6 +182,8 @@
 
             int _Type;
 
+            float _RingTime;
+
             v2f vert(appdata v)
             {
                 v2f o;
@@ -218,8 +230,8 @@
                     float hitTime = _hitPts[idx].w;   // 파동의 시작 시간
 
                     float dist = distance(hitPos, i.originalWorldPos);  // 현재 픽셀과 파동의 거리
-                    float ringStart = (_Time.y - hitTime) * _OutlineRingSpeed - _OutlineRingWidth;
-                    float ringEnd = (_Time.y - hitTime) * _OutlineRingSpeed;
+                    float ringStart = (_RingTime - hitTime) * _OutlineRingSpeed - _OutlineRingWidth;
+                    float ringEnd = (_RingTime - hitTime) * _OutlineRingSpeed;
 
                     // 링이 이 픽셀을 지나간 경우
                     if ( ringStart -0.1f && ringEnd > dist && hitTime > mostRecentTime)
@@ -231,7 +243,7 @@
                 if (mostRecentTime > 0)
                 {
                     float fadeTime = _RingFadeDuration;
-                    float fadeProgress = 1 - ((_Time.y - mostRecentTime) / fadeTime);
+                    float fadeProgress = 1 - ((_RingTime - mostRecentTime) / fadeTime);
                     fadeProgress = saturate(fadeProgress); // 0~1로 제한
                     //col = _RingColor; // 링 색상 적용
                     float nonLinearFade = pow(fadeProgress, 0.6);

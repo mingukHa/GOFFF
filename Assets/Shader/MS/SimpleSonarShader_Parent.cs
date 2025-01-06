@@ -28,11 +28,18 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
     // These are kept in the same order as the positionsQueue.
     private Queue<float> intensityQueue = new Queue<float>(QueueSize);
 
-    //private Queue<Vector4> colorQueue = new Queue<Vector4>(QueueSize);
-    //private Color ringColor = Color.white;
+    private Queue<Vector4> colorQueue = new Queue<Vector4>(QueueSize);
+    private Color ringColor = Color.white;
+
+    private Vector4[] hitPtsVec = new Vector4[QueueSize];
+    private Vector4[] ringColorsVec = new Vector4[QueueSize];
+
+    private double sceneStartTimePhoton;
+    private double timeSinceSceneLoadPhoton;
 
     private void Start()
     {
+        sceneStartTimePhoton = PhotonNetwork.Time;
         // Get renderers that will have effect applied to them
         ObjectRenderers = GetComponentsInChildren<Renderer>();
 
@@ -41,12 +48,26 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
         {
             positionsQueue.Enqueue(GarbagePosition);
             intensityQueue.Enqueue(-5000f);
-            //colorQueue.Enqueue(GarbagePosition);
+            colorQueue.Enqueue(GarbagePosition);
+        }
+    }
+
+    private void Update()
+    {
+        // r로 전달이 안됨 다른방법을 써야하나? 코루틴을 써야할것 같음
+        foreach (Renderer r in ObjectRenderers)
+        {
+            if (r)
+            {
+                timeSinceSceneLoadPhoton = PhotonNetwork.Time - sceneStartTimePhoton;
+                r.material.SetFloat("_RingTime", (float)timeSinceSceneLoadPhoton);
+                //r.material.SetFloat("_RingIntensityScale", )
+            }
         }
     }
 
     [PunRPC]
-    public void UpdateSonarMaterial(float[] hitPts, float[] intensities, int type)
+    public void UpdateSonarMaterial(float[] hitPts, float[] intensities, float[] ringColor)
     {
         foreach (Renderer r in ObjectRenderers)
         {
@@ -56,20 +77,26 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
                 r.GetPropertyBlock(block);
 
                 // 받은 float[] 배열을 다시 Vector4로 변환
-                Vector4[] hitPtsVec = new Vector4[hitPts.Length / 4];
+                //Vector4[] hitPtsVec = new Vector4[hitPts.Length / 4];
                 for (int i = 0; i < hitPtsVec.Length; i++)
                 {
                     hitPtsVec[i] = new Vector4(hitPts[i * 4], hitPts[i * 4 + 1], hitPts[i * 4 + 2], hitPts[i * 4 + 3]);
                 }
+                //Vector4[] ringColorsVec = new Vector4[ringColor.Length / 4];
+                for (int i = 0; i < ringColorsVec.Length; i++)
+                {
+                    ringColorsVec[i] = new Vector4(ringColor[i * 4], ringColor[i * 4 + 1], ringColor[i * 4 + 2], ringColor[i * 4 + 3]);
+                }
 
                 block.SetVectorArray("_hitPts", hitPtsVec);
                 block.SetFloatArray("_Intensity", intensities);
-                //block.SetVectorArray("_RingColor", ringColorsVec);
-                block.SetInt("_Type", type);
+                block.SetVectorArray("_RingColor", ringColorsVec);
 
                 r.SetPropertyBlock(block);
-                
-                Debug.Log("_hitPtsRPC" + hitPtsVec.Length);
+                //r.material.SetVectorArray("_hitPts", hitPtsVec);
+                //r.material.SetFloatArray("_Intensity", intensities);
+                //r.material.SetVectorArray("_RingColor", ringColorsVec);
+
             }
         }
     }
@@ -78,13 +105,31 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
     {
         Debug.Log("충돌됐음");
 
+        //position.w = Time.timeSinceLevelLoad;
+        //position.w = (float)PhotonNetwork.Time;
+        Debug.Log(Time.timeSinceLevelLoad);
+        Debug.Log(PhotonNetwork.Time);
+        double timeSinceSceneLoadPhoton = PhotonNetwork.Time - sceneStartTimePhoton;
+        Debug.Log("Photon 서버 기준 씬 로드 시점의 경과 시간: " + timeSinceSceneLoadPhoton);
+
+        position.w = (float)timeSinceSceneLoadPhoton;
+        positionsQueue.Dequeue();
+        positionsQueue.Enqueue(position);
+
+        intensityQueue.Dequeue();
+        intensityQueue.Enqueue(intensity);
+
+        ringColor = type == 0 ? Color.white : Color.red; // 일반: 0, 몬스터: 1
+
+        colorQueue.Dequeue();
+        colorQueue.Enqueue(ringColor);
+
         // Vector4를 float[] 배열로 변환
         float[] hitPts = positionsQueue.SelectMany(v => new float[] { v.x, v.y, v.z, v.w }).ToArray();
         float[] intensities = intensityQueue.ToArray();
-        //float[] ringColors = colorQueue.SelectMany(c => new float[] { c.x, c.y, c.z, c.w }).ToArray();
+        float[] ringColors = colorQueue.SelectMany(c => new float[] { c.x, c.y, c.z, c.w }).ToArray();
 
-        Debug.Log("hitPts: " + hitPts.Length);
-        photonView.RPC("UpdateSonarMaterial", RpcTarget.All, hitPts, intensities, type);
+        photonView.RPC("UpdateSonarMaterial", RpcTarget.All, hitPts, intensities, ringColors);
     }
 
     //[PunRPC]

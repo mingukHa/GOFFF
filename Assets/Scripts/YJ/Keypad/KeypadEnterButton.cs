@@ -6,7 +6,7 @@ public class KeypadEnterButton : MonoBehaviour
 
     private void Start()
     {
-        keypadManager = FindFirstObjectByType<KeypadManager>();
+        keypadManager = FindObjectOfType<KeypadManager>();
     }
 
     public void OnPressed()

@@ -10,14 +10,13 @@ public class KeypadNumberButton : MonoBehaviour
 
     private void Start()
     {
-        keypadManager = FindFirstObjectByType<KeypadManager>();
+        keypadManager = FindObjectOfType<KeypadManager>();
     }
 
     public void OnPressed()
     {
         // 숫자 버튼을 눌렀을 때 동작
         GameObject displayedNumber = Instantiate(numberPrefab, screenDisplayPoint);
-        displayedNumber.transform.localScale = new Vector3(2, 2, 1); // x, y축으로 2배 크기 조정
         keypadManager.AddNumber(number);
     }
 }

@@ -5,7 +5,7 @@ public class KeypadManager : MonoBehaviour
     public Transform[] displayPoints; // 100자리, 10자리, 1자리 위치를 담은 배열
     public GameObject doorObject; // Door Object
     public string correctPassword = "346"; // 정답 비밀번호
-
+    public DoorController dc;
     private string enteredPassword = ""; // 입력된 비밀번호
     private GameObject[] displayedNumbers = new GameObject[3]; // 표시된 숫자 오브젝트
 
@@ -20,7 +20,7 @@ public class KeypadManager : MonoBehaviour
             int index = enteredPassword.Length - 1;
             GameObject numberPrefab = Resources.Load<GameObject>($"NumberPrefabs/{number}");
             displayedNumbers[index] = Instantiate(numberPrefab, displayPoints[index]);
-            displayedNumbers[index].transform.localScale = new Vector3(2, 2, 1);
+            displayedNumbers[index].transform.localScale = new Vector3(1, 1, 1);
         }
     }
 
@@ -36,7 +36,8 @@ public class KeypadManager : MonoBehaviour
         // 입력된 비밀번호 검증
         if (enteredPassword == correctPassword)
         {
-            doorObject.SetActive(false); // 문 비활성화
+            dc.isOpen = true;
+            //doorObject.SetActive(false); // 문 비활성화
             Debug.Log("Correct Password! Door is disabled.");
         }
         else
