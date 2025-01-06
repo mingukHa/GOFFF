@@ -150,7 +150,7 @@ public class MonsterTest : MonoBehaviour
             navAgent.enabled = false;
 
             // 플레이어 위치 가져오기
-            Vector3 targetPosition = detectedTarget.position;
+            Vector3 targetPosition = detectedTarget.position + Vector3.forward*2f;
 
             // NavMesh 위 좌표 보정
             NavMeshHit hit;
