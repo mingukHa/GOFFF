@@ -20,27 +20,46 @@ public class InElevatorManager : MonoBehaviourPunCallbacks
 
     [SerializeField] private Image fadeImage;
 
-    // 버튼 선택이벤트 연결
-    [PunRPC]
+    private PhotonView photonView;
+
+    private void Awake()
+    {
+        photonView = GetComponent<PhotonView>();
+    }
+
+    // 버튼 선택 이벤트 연결
     public void OnButton1SelectEnter()
+    {
+        photonView.RPC(nameof(RPC_OnButton1SelectEnter), RpcTarget.All);
+    }
+
+    public void OnButton2SelectEnter()
+    {
+        photonView.RPC(nameof(RPC_OnButton2SelectEnter), RpcTarget.All);
+    }
+
+    // 버튼 1 눌림 처리
+    [PunRPC]
+    private void RPC_OnButton1SelectEnter()
     {
         isButton1Pressed = true;
         CheckButtonsAndCloseDoors();
     }
+
+    // 버튼 2 눌림 처리
     [PunRPC]
-    public void OnButton2SelectEnter()
+    private void RPC_OnButton2SelectEnter()
     {
         isButton2Pressed = true;
         CheckButtonsAndCloseDoors();
     }
 
     // 두 버튼 모두 눌렸을 때 문 닫고, 페이드 아웃 시작
-    [PunRPC]
     private void CheckButtonsAndCloseDoors()
     {
         if (isButton1Pressed && isButton2Pressed)
         {
-            CloseDoors();
+            photonView.RPC(nameof(CloseDoors), RpcTarget.All);
             StartCoroutine(FadeOutAndLoadScene("JHScenes2"));
         }
     }
@@ -51,7 +70,7 @@ public class InElevatorManager : MonoBehaviourPunCallbacks
     {
         StartCoroutine(CloseDoorsCoroutine());
     }
-    [PunRPC]
+
     private IEnumerator CloseDoorsCoroutine()
     {
         float elapsedTime = 0f;
