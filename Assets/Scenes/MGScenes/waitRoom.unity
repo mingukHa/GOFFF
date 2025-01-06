@@ -2053,6 +2053,7 @@ GameObject:
   - component: {fileID: 885047002}
   - component: {fileID: 885047001}
   - component: {fileID: 885047000}
+  - component: {fileID: 885047005}
   - component: {fileID: 885047004}
   m_Layer: 0
   m_Name: Cube
@@ -2184,6 +2185,19 @@ MonoBehaviour:
   sceneViewId: 18
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &885047005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885046998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3692fbc9e58ba8441b6124d48d1d8e16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedThreshold: 1
 --- !u!1001 &896797605
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3705,10 +3719,23 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 1274301892}
   sceneViewId: 6
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &1274301892 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 768681091268862151, guid: baa8d2066558c9a4ebcd1853c4c3ac4e,
+    type: 3}
+  m_PrefabInstance: {fileID: 896797605}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274301877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1276388841
 PrefabInstance:
   m_ObjectHideFlags: 0
