@@ -35,13 +35,15 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
     private Vector4[] ringColorsVec = new Vector4[QueueSize];
 
     private double sceneStartTimePhoton;
-    private double timeSinceSceneLoadPhoton;
+    private float timeSinceSceneLoadPhoton;
+    private MaterialPropertyBlock propertyBlock;
 
     private void Start()
     {
         sceneStartTimePhoton = PhotonNetwork.Time;
         // Get renderers that will have effect applied to them
         ObjectRenderers = GetComponentsInChildren<Renderer>();
+        propertyBlock = new MaterialPropertyBlock();
 
         // Fill queues with starting values that are garbage values
         for (int i = 0; i < QueueSize; i++)
@@ -54,14 +56,16 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
 
     private void Update()
     {
+        timeSinceSceneLoadPhoton = (float)(PhotonNetwork.Time - sceneStartTimePhoton);
         // r로 전달이 안됨 다른방법을 써야하나? 코루틴을 써야할것 같음
         foreach (Renderer r in ObjectRenderers)
         {
             if (r)
             {
-                timeSinceSceneLoadPhoton = PhotonNetwork.Time - sceneStartTimePhoton;
-                r.material.SetFloat("_RingTime", (float)timeSinceSceneLoadPhoton);
-                //r.material.SetFloat("_RingIntensityScale", )
+                //r.material.SetFloat("_RingTime", (float)timeSinceSceneLoadPhoton);
+                r.GetPropertyBlock(propertyBlock);
+                propertyBlock.SetFloat("_RingTime", timeSinceSceneLoadPhoton);
+                r.SetPropertyBlock(propertyBlock);
             }
         }
     }
