@@ -6,7 +6,7 @@ public class PlayerControllerManager : MonoBehaviourPun
     private GameObject CameraOffset;
     
 
-    private void Start()
+    private void Awake()
     {
         CameraOffset = transform.Find("Cameras")?.gameObject;
 
