@@ -182,7 +182,7 @@
             "id": "f09c40d9-924f-40ab-be22-04bfb89e9b84",
             "actions": [
                 {
-                    "name": "Left Grab Key",
+                    "name": "Left Primary Button",
                     "type": "Button",
                     "id": "e41f4844-825f-4373-8601-cf0b7354d826",
                     "expectedControlType": "",
@@ -191,7 +191,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Right Grab Key",
+                    "name": "Right Primary Button",
                     "type": "Button",
                     "id": "2e802c87-fca3-46b0-bda1-3258a9b9fce6",
                     "expectedControlType": "",
@@ -208,7 +208,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Left Grab Key",
+                    "action": "Left Primary Button",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -219,7 +219,55 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Right Grab Key",
+                    "action": "Right Primary Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "WalkieTalkie",
+            "id": "bdd66747-09f7-43c6-81ef-eb8aeecd4a85",
+            "actions": [
+                {
+                    "name": "Left Secondary Button",
+                    "type": "Button",
+                    "id": "c8fd409f-2563-4aef-8c4f-a8ec4964764a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Right Secondary Button",
+                    "type": "Button",
+                    "id": "a8ad0328-0b1b-4c79-b90e-1ad9fe5aa670",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "439c8a55-5c93-45e8-a514-9018e289dfd8",
+                    "path": "<OculusTouchController>{LeftHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Left Secondary Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f269389f-c827-4360-9153-fd3a4d25a276",
+                    "path": "<OculusTouchController>{RightHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Right Secondary Button",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
