@@ -1,6 +1,7 @@
 using UnityEngine;
+using Photon.Pun;
 
-public class ValveButton : MonoBehaviour
+public class ValveButton : MonoBehaviourPun
 {
     [SerializeField]
     private Valve valve;
@@ -45,6 +46,13 @@ public class ValveButton : MonoBehaviour
         if(valve.IsAttached)
         {
             buttonPush = true;
+            photonView.RPC("RPCOnButton", RpcTarget.All, true);
         }
+    }
+
+    [PunRPC]
+    private void RPCOnButton(bool button)
+    {
+        buttonPush = button;
     }
 }

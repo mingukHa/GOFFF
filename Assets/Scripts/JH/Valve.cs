@@ -1,12 +1,11 @@
+using Photon.Pun;
 using System.Collections;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.XR.Content.Interaction;
-using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 // Valve 관련 스크립트
-public class Valve : MonoBehaviour
+public class Valve : MonoBehaviourPun
 {
     public BoxCollider cylinderCollider;
     public Transform cylinderAttachPoint;  // 밸브가 실린더에 붙을 위치 변수
@@ -118,13 +117,21 @@ public class Valve : MonoBehaviour
     public void OnSelectValve()
     {
         Debug.Log("Knob 밸브를 잡음");
-        isGrabed = true;
+        //isGrabed = true;
+        photonView.RPC("RPCValveGrab", RpcTarget.All, true);
     }
 
     public void OffSelectValve()
     {
         Debug.Log("Knob 밸브를 놓음");
-        isGrabed = false;
+        //isGrabed = false;
+        photonView.RPC("RPCValveGrab", RpcTarget.All, false);
+    }
+
+    [PunRPC]
+    private void RPCValveGrab(bool grabbed)
+    {
+        isGrabed = grabbed;
     }
 
 }
