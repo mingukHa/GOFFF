@@ -5,7 +5,7 @@ using UnityEngine;
 public class InElevator : MonoBehaviour
 {
     [SerializeField] private List<Transform> elevatorDoors; //엘리베이터 4개
-    public float closeDuration = 2f; //문 열리는 시간
+    public float closeDuration = 2f; //문 닫히는 시간
     private Vector3 closedScale = new Vector3(1, 1, 1); //닫힌 상태의 Scale
     private Vector3 openScale = new Vector3(0, 1, 1);   //열린 상태의 Scale
 
