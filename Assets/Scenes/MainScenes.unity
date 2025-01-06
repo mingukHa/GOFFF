@@ -3209,6 +3209,10 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 324705271430134021, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1817528668}
     - targetCorrespondingSourceObject: {fileID: 7942764199517027384, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
         type: 3}
       insertIndex: -1
@@ -3347,6 +3351,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569342628290058307, guid: e7180948943f9f4459722e3803881947,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569342628290058307, guid: e7180948943f9f4459722e3803881947,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnSelectEntered
       objectReference: {fileID: 0}
     - target: {fileID: 9021369848400705510, guid: e7180948943f9f4459722e3803881947,
         type: 3}
@@ -4661,6 +4675,9 @@ MonoBehaviour:
   - {fileID: 466653285}
   - {fileID: 633889603}
   - {fileID: 752339165}
+  - {fileID: 238953704}
+  - {fileID: 328946556}
+  - {fileID: 405961750}
   sceneViewId: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -10186,6 +10203,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4569342628290058307, guid: e7180948943f9f4459722e3803881947,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569342628290058307, guid: e7180948943f9f4459722e3803881947,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnSelectEntered
+      objectReference: {fileID: 0}
     - target: {fileID: 9021369848400705510, guid: e7180948943f9f4459722e3803881947,
         type: 3}
       propertyPath: sceneViewId
@@ -13994,6 +14021,28 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1811108241}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1817528665 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 324705271430134021, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
+    type: 3}
+  m_PrefabInstance: {fileID: 328946551}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1817528668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1817528665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &1872794809
 GameObject:
   m_ObjectHideFlags: 0
