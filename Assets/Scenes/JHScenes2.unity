@@ -12505,6 +12505,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 823104669343412892, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2080871421963820864, guid: feab0d83960f233479b23431946ef43e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12555,10 +12560,55 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2128511918386348633, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2128511918386348633, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[10].m_ActionId
+      value: c8fd409f-2563-4aef-8c4f-a8ec4964764a
+      objectReference: {fileID: 0}
+    - target: {fileID: 2128511918386348633, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[11].m_ActionId
+      value: a8ad0328-0b1b-4c79-b90e-1ad9fe5aa670
+      objectReference: {fileID: 0}
+    - target: {fileID: 2128511918386348633, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[10].m_ActionName
+      value: WalkieTalkie/Left Secondary Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 2128511918386348633, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[11].m_ActionName
+      value: WalkieTalkie/Right Secondary Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 2128511918386348633, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[10].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2128511918386348633, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[10].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2128511918386348633, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[10].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3116046014492116379, guid: feab0d83960f233479b23431946ef43e,
         type: 3}
       propertyPath: sceneViewId
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513844871933600036, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5983295875041255981, guid: feab0d83960f233479b23431946ef43e,
         type: 3}
