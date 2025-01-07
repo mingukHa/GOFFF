@@ -5,7 +5,7 @@ using UnityEngine.XR.Content.Interaction;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 // Valve 관련 스크립트
-public class Valve : MonoBehaviourPun
+public class Valve : MonoBehaviourPun/*, IPunObservable*/
 {
     public BoxCollider cylinderCollider;
     public Transform cylinderAttachPoint;  // 밸브가 실린더에 붙을 위치 변수
@@ -48,7 +48,7 @@ public class Valve : MonoBehaviourPun
         if (isGrabbed && photonView.IsMine)
         {
             // 현재 로컬 플레이어가 물체를 잡고 있는 경우에만 위치 업데이트
-            photonView.RPC("RPCUpdatePosition", RpcTarget.Others, transform.position, transform.rotation);
+            photonView.RPC("RPCUpdatePosition", RpcTarget.Others, grabValve.transform.localPosition, grabValve.transform.localRotation);
         }
         // Knob 밸브를 잡지 않고 있으면 자동으로 돌아가면서 
         // Valve 값이 0이 됨
@@ -151,9 +151,28 @@ public class Valve : MonoBehaviourPun
         // 네트워크에서 받은 위치와 회전값 적용
         if (!photonView.IsMine) // 다른 클라이언트에서만 적용
         {
-            transform.position = position;
-            transform.rotation = rotation;
+            grabValve.transform.position = position;
+            grabValve.transform.rotation = rotation;
         }
     }
 
+    //public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    //{
+    //    // stream - 데이터를 주고 받는 통로 
+    //    // 내가 데이터를 보내는 중이라면
+    //    if (stream.IsWriting)
+    //    {
+    //        // 이 방안에 있는 모든 사용자에게 브로드캐스트 
+    //        // - 내 포지션 값을 보내보자
+    //        stream.SendNext(grabValve.transform.position);
+    //        stream.SendNext(grabValve.transform.rotation);
+    //    }
+    //    // 내가 데이터를 받는 중이라면 
+    //    else
+    //    {
+    //        // 순서대로 보내면 순서대로 들어옴. 근데 타입캐스팅 해주어야 함
+    //        grabValve.transform.position = (Vector3)stream.ReceiveNext();
+    //        grabValve.transform.rotation = (Quaternion)stream.ReceiveNext();
+    //    }
+    //}
 }
