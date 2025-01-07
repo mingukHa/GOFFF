@@ -27,10 +27,16 @@ public class JoinEchoChannel : MonoBehaviourPun
     //private bool isMuted = true;
     private void Awake()
     {
-
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-
+        if (photonView.IsMine)
+        {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
     }
 
     private async void Start()
