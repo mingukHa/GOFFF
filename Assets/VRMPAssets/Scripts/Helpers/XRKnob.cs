@@ -1,3 +1,4 @@
+using ExitGames.Client.Photon;
 using System;
 using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -8,6 +9,7 @@ namespace UnityEngine.XR.Content.Interaction
     /// <summary>
     /// An interactable knob that follows the rotation of the interactor
     /// </summary>
+    
     public class XRKnob : UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable
     {
         const float k_ModeSwitchDeadZone = 0.1f; // Prevents rapid switching between the different rotation tracking modes
@@ -86,9 +88,9 @@ namespace UnityEngine.XR.Content.Interaction
         [Tooltip("The object that is visually grabbed and manipulated")]
         Transform m_Handle = null;
 
-        [SerializeField]
-        [Tooltip("The transform to snap the interactor to when holding the lever")]
-        Transform m_InteractorSnapTransform = null;
+        //[SerializeField]
+        //[Tooltip("The transform to snap the interactor to when holding the lever")]
+        //Transform m_InteractorSnapTransform = null;
 
         [SerializeField]
         [Tooltip("The value of the knob")]
@@ -119,9 +121,9 @@ namespace UnityEngine.XR.Content.Interaction
         [Tooltip("How much controller rotation ")]
         float m_TwistSensitivity = 1.5f;
 
-        [SerializeField]
+        //[SerializeField]
         [Tooltip("Events to trigger when the knob is rotated")]
-        ValueChangeEvent m_OnValueChange = new ValueChangeEvent();
+        public ValueChangeEvent m_OnValueChange = new ValueChangeEvent();
 
         UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor m_Interactor;
 
@@ -133,6 +135,11 @@ namespace UnityEngine.XR.Content.Interaction
         TrackedRotation m_ForwardVectorAngles = new TrackedRotation();
 
         float m_BaseKnobRotation = 0.0f;
+
+        public delegate void KnobValueDelegate(float value);
+        public KnobValueDelegate KnobValue;
+        public delegate void KnobRotationDelegate(float angle);
+        public KnobRotationDelegate KnobRotation;
 
         /// <summary>
         /// The object that is visually grabbed and manipulated
@@ -236,7 +243,8 @@ namespace UnityEngine.XR.Content.Interaction
 
         public override Transform GetAttachTransform(IXRInteractor interactor)
         {
-            return m_InteractorSnapTransform;
+            //return m_InteractorSnapTransform;
+            return m_Interactor.transform;
         }
 
         public override void ProcessInteractable(XRInteractionUpdateOrder.UpdatePhase updatePhase)
@@ -339,7 +347,7 @@ namespace UnityEngine.XR.Content.Interaction
             SetValue(knobValue);
         }
 
-        void SetKnobRotation(float angle)
+        public void SetKnobRotation(float angle)
         {
             if (m_AngleIncrement > 0)
             {
@@ -351,7 +359,7 @@ namespace UnityEngine.XR.Content.Interaction
                 m_Handle.localEulerAngles = new Vector3(0.0f, angle, 0.0f);
         }
 
-        void SetValue(float value)
+        public void SetValue(float value)
         {
             if (m_ClampedMotion)
                 value = Mathf.Clamp01(value);
@@ -368,7 +376,7 @@ namespace UnityEngine.XR.Content.Interaction
             m_OnValueChange.Invoke(m_Value);
         }
 
-        float ValueToRotation()
+        public float ValueToRotation()
         {
             return m_ClampedMotion ? Mathf.Lerp(m_MinAngle, m_MaxAngle, m_Value) : Mathf.LerpUnclamped(m_MinAngle, m_MaxAngle, m_Value);
         }
@@ -431,5 +439,23 @@ namespace UnityEngine.XR.Content.Interaction
 
             SetKnobRotation(ValueToRotation());
         }
+
+        //[PunRPC]
+        //void SyncKnobValue(float value)
+        //{
+        //    Photon.Pun
+        //    // 네트워크에서 받은 값을 설정
+        //    m_Value = value;
+        //    m_OnValueChange.Invoke(m_Value);
+        //    SetKnobRotation(ValueToRotation());  // 동기화된 값으로 회전도 업데이트
+        //}
+
+        //[PunRPC]
+        //void SyncKnobRotation(float angle)
+        //{
+        //    // 네트워크에서 받은 회전값을 설정
+        //    if (m_Handle != null)
+        //        m_Handle.localEulerAngles = new Vector3(0.0f, angle, 0.0f);
+        //}
     }
 }
