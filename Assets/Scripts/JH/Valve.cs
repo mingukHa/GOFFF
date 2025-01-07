@@ -48,7 +48,7 @@ public class Valve : MonoBehaviourPun/*, IPunObservable*/
         if (isGrabbed && photonView.IsMine)
         {
             // 현재 로컬 플레이어가 물체를 잡고 있는 경우에만 위치 업데이트
-            photonView.RPC("RPCUpdatePosition", RpcTarget.Others, grabValve.transform.position, grabValve.transform.rotation);
+            photonView.RPC("RPCUpdatePosition", RpcTarget.Others, grabValve.transform.localPosition, grabValve.transform.localRotation);
         }
         // Knob 밸브를 잡지 않고 있으면 자동으로 돌아가면서 
         // Valve 값이 0이 됨
