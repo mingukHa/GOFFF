@@ -1,11 +1,13 @@
-﻿using System;
+﻿using Photon.Pun;
+using System;
 using System.Threading.Tasks;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Vivox;
 using UnityEngine;
+using UnityEngine.XR;
 
-public class JoinEchoChannel : MonoBehaviour
+public class JoinEchoChannel : MonoBehaviourPun
 {
 
     public event Action OnLoginEndEvent;
@@ -16,8 +18,8 @@ public class JoinEchoChannel : MonoBehaviour
 
     private bool isMuted = true;
 
-    [SerializeField]
-    private WalkieAttach WalkieAttach = null;
+    private bool isBPressed = false;
+
 
     //private VivoxParticipant Participant;
 
@@ -66,9 +68,10 @@ public class JoinEchoChannel : MonoBehaviour
 
     private void Update()
     {
-        if (!WalkieAttach.IsSelected) return;
+        if (!photonView.IsMine) return;
 
-        if (Input.GetKey(KeyCode.A))
+        InputDevice leftController = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
+        if (leftController.TryGetFeatureValue(CommonUsages.secondaryButton, out isBPressed))
         {
             // A 키를 누르고 있을 때만 언뮤트
             if (isMuted)
