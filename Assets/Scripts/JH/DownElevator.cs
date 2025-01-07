@@ -1,27 +1,32 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Elevator : MonoBehaviour
+public class DownElevator : MonoBehaviour
 {
     [SerializeField] private List<Transform> elevatorDoors; //엘리베이터 4개
     public float openDuration = 2f; //문 열리는 시간
-    private Vector3 closedScale = new Vector3(1,1,1); //닫힌 상태의 Scale
-    private Vector3 openScale = new Vector3(0,1,1);   //열린 상태의 Scale
+    private Vector3 closedScale = new Vector3(1, 1, 1); //닫힌 상태의 Scale
+    private Vector3 openScale = new Vector3(0, 1, 1);   //열린 상태의 Scale
 
-    private bool isDoorOpening = false; //문이 열리는 중인지 확인
+    public bool isDownDoorOpening = false; //문이 열리는 중인지 확인
 
-    public void OpenDoors()
+    [PunRPC]
+    public void CmdOpenDoors()
     {
-        if (!isDoorOpening)
-        {
-            StartCoroutine(OpenDoorsCoroutine());
-        }
+        if (isDownDoorOpening) return;
+
+        isDownDoorOpening = true;
+        StartCoroutine(OpenDoorsCoroutine());
     }
 
     public IEnumerator OpenDoorsCoroutine()
     {
-        isDoorOpening = true;
+        yield return new WaitForSeconds(1f);
+
+        SoundManager.instance.SFXPlay("Elevator2_SFX");
+
         float elapsedTime = 0f;
 
         while (elapsedTime < openDuration)
@@ -34,6 +39,10 @@ public class Elevator : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;  //다음 프레임까지 대기
         }
+
+        yield return new WaitForSeconds(1f);
+
+        SoundManager.instance.SFXPlay("ElevatorDoor2_SFX");
 
         for (int i = 0; i < elevatorDoors.Count; i++)
         {

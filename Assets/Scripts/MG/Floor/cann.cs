@@ -1,70 +1,38 @@
 using Photon.Pun;
 using UnityEngine;
 
-public class GrabSync : MonoBehaviourPun, IPunObservable
+public class GrabSync : MonoBehaviourPun
 {
-    private bool isGrabbed = false; // 오브젝트가 잡혔는지 여부
-    private Transform grabber;     // 잡고 있는 플레이어의 Transform
-
-    void Update()
+    public void OnSelectEnter()
     {
-        // 로컬 플레이어만 상태 변경 가능
-        if (photonView.IsMine && isGrabbed && grabber != null)
+        if(!photonView.IsMine)
         {
-            // 오브젝트를 grabber(손)의 위치로 이동
-            transform.position = grabber.position;
-            transform.rotation = grabber.rotation;
+            photonView.RequestOwnership();
         }
+        Debug.Log("오브젝트를 집었음");
     }
-
-    // 오브젝트를 잡는 동작
-    public void Grab(Transform grabberTransform)
+    public void OnTriggerEnter(Collider other)
     {
-        if (photonView.IsMine)
+        if (!photonView.IsMine)
         {
-            isGrabbed = true;
-            grabber = grabberTransform;
-
-            Debug.Log("Object grabbed.");
+            photonView.RequestOwnership();
         }
+        Debug.Log("오브젝트를 집었음");
     }
-
-    // 오브젝트를 놓는 동작
-    public void Release()
+    public void Interact()
     {
-        if (photonView.IsMine)
+        // 소유권 요청
+        if (!photonView.IsMine)
         {
-            isGrabbed = false;
-            grabber = null;
-
-            Debug.Log("Object released.");
+            photonView.RequestOwnership();
         }
+
+        // 상호작용 상태 동기화
+        photonView.RPC("RpcHandleInteraction", RpcTarget.All, true);
     }
-
-    // Photon 동기화를 위한 메서드
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    [PunRPC]
+    public void RpcHandleInteraction(bool interactionState)
     {
-        if (stream.IsWriting) // 로컬 플레이어 데이터 전송
-        {
-            stream.SendNext(isGrabbed);
-            if (isGrabbed && grabber != null)
-            {
-                stream.SendNext(grabber.position);
-                stream.SendNext(grabber.rotation);
-            }
-        }
-        else // 원격 플레이어 데이터 수신
-        {
-            isGrabbed = (bool)stream.ReceiveNext();
-            if (isGrabbed)
-            {
-                Vector3 grabbedPosition = (Vector3)stream.ReceiveNext();
-                Quaternion grabbedRotation = (Quaternion)stream.ReceiveNext();
-
-                // 원격 데이터 적용
-                transform.position = grabbedPosition;
-                transform.rotation = grabbedRotation;
-            }
-        }
+        Debug.Log($"상호작용 상태: {interactionState}");
     }
 }

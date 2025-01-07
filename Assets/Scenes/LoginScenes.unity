@@ -2160,7 +2160,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1366962748}
+      objectReference: {fileID: 0}
     - target: {fileID: 87488946228774997, guid: a7719254242dd59499910883f1d39bc3,
         type: 3}
       propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -2200,7 +2200,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1366962748}
+      objectReference: {fileID: 0}
     - target: {fileID: 248254318171958783, guid: a7719254242dd59499910883f1d39bc3,
         type: 3}
       propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -2471,7 +2471,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1366962748}
+      objectReference: {fileID: 0}
     - target: {fileID: 2848244244754528406, guid: a7719254242dd59499910883f1d39bc3,
         type: 3}
       propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -2798,7 +2798,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1366962748}
+      objectReference: {fileID: 0}
     - target: {fileID: 8570676251360433107, guid: a7719254242dd59499910883f1d39bc3,
         type: 3}
       propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -6985,7 +6985,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1366962747}
-  - component: {fileID: 1366962748}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -7008,19 +7007,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1366962748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1366962745}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0711a25dca74fa4a8ba1c16cff223d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputFieldSelector: {fileID: 0}
 --- !u!1001 &1396442140
 PrefabInstance:
   m_ObjectHideFlags: 0

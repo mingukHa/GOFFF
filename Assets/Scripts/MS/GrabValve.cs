@@ -1,8 +1,9 @@
+using Photon.Pun;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
-public class GrabValve : MonoBehaviour
+public class GrabValve : MonoBehaviourPun
 {
     public delegate void grabValveDelegate(GameObject gameObject, Collider other);
     public grabValveDelegate grabValveTrigger;
@@ -27,6 +28,14 @@ public class GrabValve : MonoBehaviour
     {
         Debug.Log("밸브를 놓았습니다.");
         isGrabed = false;
+    }
+
+    public void OnSelectEnter()
+    {
+        if (!photonView.IsMine)
+        {
+            photonView.RequestOwnership();
+        }
     }
 
 }
