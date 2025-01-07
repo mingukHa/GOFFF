@@ -18,7 +18,8 @@ public class JoinEchoChannel : MonoBehaviourPun
 
     private bool isMuted = true;
 
-    private bool isBPressed = false;
+    private bool previousButtonState = false;
+
 
 
     //private VivoxParticipant Participant;
@@ -71,25 +72,34 @@ public class JoinEchoChannel : MonoBehaviourPun
     {
         if (!photonView.IsMine) return;
 
+        // 현재 상태 가져오기
         InputDevice leftController = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
-        if (leftController.TryGetFeatureValue(CommonUsages.secondaryButton, out isBPressed))
+        if (leftController.TryGetFeatureValue(CommonUsages.secondaryButton, out bool currentButtonState))
         {
-            Debug.Log("채팅 참여 키 누르고 있음");
-            // A 키를 누르고 있을 때만 언뮤트
-            if (isMuted)
+            // 버튼 상태가 이전 프레임과 동일하면 처리하지 않음
+            if (currentButtonState != previousButtonState)
             {
-                VivoxService.Instance.UnmuteOutputDevice();
-                isMuted = false; // 언뮤트 상태로 변경
+                if (currentButtonState) // 버튼이 눌렸을 때
+                {
+                    Debug.Log("채팅 참여 키 누르고 있음");
+                    if (isMuted)
+                    {
+                        VivoxService.Instance.UnmuteOutputDevice();
+                        isMuted = false; // 언뮤트 상태로 변경
+                    }
+                }
+                else // 버튼이 떼졌을 때
+                {
+                    if (!isMuted)
+                    {
+                        VivoxService.Instance.MuteOutputDevice();
+                        isMuted = true; // 뮤트 상태로 변경
+                    }
+                }
             }
-        }
-        else
-        {
-            // A 키를 떼면 뮤트 상태로 되돌리기
-            if (!isMuted)
-            {
-                VivoxService.Instance.MuteOutputDevice();
-                isMuted = true; // 뮤트 상태로 변경
-            }
+
+            // 버튼 상태 업데이트
+            previousButtonState = currentButtonState;
         }
     }
 }
