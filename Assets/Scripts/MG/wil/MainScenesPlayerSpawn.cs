@@ -12,36 +12,29 @@ public class MainScenesPlayerSpawn : MonoBehaviourPun
     private void Start()
     {
         if (!PhotonNetwork.IsConnected)
-        {
+        {//서버 연결 안 되어 있다면 로그인 씬으로 이동
             Debug.Log("포톤 서버와 연결이 안 되었음 로비로 이동");
             SceneManager.LoadScene("LoginScenes");
             return;
         }
 
         if (!PhotonNetwork.InRoom)
-        {
+        {//방 입장 실패시
             Debug.Log("현재 방에 입장하지 않았습니다. 방 입장을 기다립니다...");
             return;
         }
-
-        // 룸 준비 대기
+        //코루틴으로 룸 입장 대기
         StartCoroutine(WaitForRoomReady());
     }
 
+    //포톤 서버 연동을 기다린 후 플레이어를 생성
     private IEnumerator WaitForRoomReady()
     {
         yield return new WaitUntil(() => PhotonNetwork.IsConnected && PhotonNetwork.InRoom);
-        StartCoroutine(SpawnPlayerWithDelay());
-    }
-
-    private IEnumerator SpawnPlayerWithDelay()
-    {
-        float delay = (PhotonNetwork.LocalPlayer.ActorNumber - 1) * 2f;
-        Debug.Log($"플레이어 {PhotonNetwork.LocalPlayer.NickName} 생성 딜레이: {delay}초");
-        yield return new WaitForSeconds(delay);
-
         SpawnPlayer();
     }
+    //플레이어 프리팹을 일정 간격을 두고 생성
+    
 
     private void SpawnPlayer()
     {
@@ -57,6 +50,7 @@ public class MainScenesPlayerSpawn : MonoBehaviourPun
             return;
         }
 
+        // ActorNumber를 기반으로 스폰 포인트 선택
         int playerIndex = PhotonNetwork.LocalPlayer.ActorNumber - 1;
         Transform spawnPoint = spawnPoints[playerIndex % spawnPoints.Length];
 
@@ -67,40 +61,22 @@ public class MainScenesPlayerSpawn : MonoBehaviourPun
             spawnPoint.position = Vector3.zero;
         }
 
-        // RPC 호출로 Buffered 방식으로 동기화
-        photonView.RPC("CreatePlayer", RpcTarget.AllBuffered, playerPrefab.name, spawnPoint.position, spawnPoint.rotation);
-    }
-
-    [PunRPC]
-    private void CreatePlayer(string prefabName, Vector3 position, Quaternion rotation)
-    {
-        // 네트워크 플레이어 생성
-        GameObject player = PhotonNetwork.Instantiate(prefabName, position, rotation, 0);
+        // 플레이어 생성
+        GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, spawnPoint.position, spawnPoint.rotation);
 
         if (player != null)
         {
-            Debug.Log($"플레이어 {PhotonNetwork.LocalPlayer.NickName}이(가) 위치 {position}에 스폰되었습니다.");
+            Debug.Log($"플레이어 {PhotonNetwork.LocalPlayer.NickName}이(가) 위치 {spawnPoint.position}에 스폰되었습니다.");
             hasSpawned = true;
-
-            // Collider 활성화 코루틴 실행
-            StartCoroutine(ReenableCollider(player));
         }
         else
         {
             Debug.LogError("플레이어 프리팹 생성에 실패했습니다!");
         }
+
+       
     }
 
-    private IEnumerator ReenableCollider(GameObject player)
-    {
-        if (player == null) yield break;
+   
 
-        Collider collider = player.GetComponent<Collider>();
-        if (collider != null)
-        {
-            collider.enabled = false;
-            yield return new WaitForSeconds(1);
-            collider.enabled = true;
-        }
-    }
 }
