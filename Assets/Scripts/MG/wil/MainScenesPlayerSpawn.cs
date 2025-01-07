@@ -2,15 +2,13 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.SceneManagement;
 using System.Collections;
-using NUnit.Framework;
+
 public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private Transform[] spawnPoints;
-    public float randomTime = Random.Range(0f, 1f);
-
-
+    [SerializeField] private GameObject playerPrefab; // 플레이어 프리팹
+    [SerializeField] private Transform[] spawnPoints; // 스폰 위치 배열
     private bool hasSpawned = false;
+
     private void Start()
     {
         if (!PhotonNetwork.IsConnected)
@@ -19,25 +17,39 @@ public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
             SceneManager.LoadScene("LoginScenes");
             return;
         }
+
         if (!PhotonNetwork.InRoom)
         {
             Debug.Log("현재 방에 입장하지 않았습니다. 방 입장을 기다립니다...");
             return;
         }
+
         StartCoroutine(WaitForRoomReady());
     }
+
     public override void OnJoinedRoom()
     {
         Debug.Log($"방에 입장했습니다: {PhotonNetwork.CurrentRoom.Name}");
 
         if (!hasSpawned)
         {
-            Invoke("SpawnPlayer", randomTime);
+            StartCoroutine(SpawnPlayerWithDelay());
         }
     }
+
     private IEnumerator WaitForRoomReady()
     {
         yield return new WaitUntil(() => PhotonNetwork.IsConnected && PhotonNetwork.InRoom);
+        StartCoroutine(SpawnPlayerWithDelay());
+    }
+
+    private IEnumerator SpawnPlayerWithDelay()
+    {
+        // 각 플레이어의 ActorNumber를 기반으로 딜레이 설정
+        float delay = (PhotonNetwork.LocalPlayer.ActorNumber - 1) * 0.5f; // 0.5초 간격
+        Debug.Log($"플레이어 {PhotonNetwork.LocalPlayer.NickName} 생성 딜레이: {delay}초");
+        yield return new WaitForSeconds(delay); // 딜레이 후 생성
+
         SpawnPlayer();
     }
 
@@ -55,6 +67,7 @@ public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
             return;
         }
 
+        // ActorNumber를 기반으로 스폰 포인트 선택
         int playerIndex = PhotonNetwork.LocalPlayer.ActorNumber - 1;
         Transform spawnPoint = spawnPoints[playerIndex % spawnPoints.Length];
 
@@ -65,6 +78,7 @@ public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
             spawnPoint.position = Vector3.zero;
         }
 
+        // 플레이어 생성
         GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, spawnPoint.position, spawnPoint.rotation);
 
         if (player != null)
@@ -79,6 +93,7 @@ public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
 
         StartCoroutine(ReenableCollider(player));
     }
+
     private IEnumerator ReenableCollider(GameObject player)
     {
         if (player == null) yield break;
@@ -91,6 +106,7 @@ public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
             collider.enabled = true;
         }
     }
+
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
         Debug.Log($"플레이어 {newPlayer.NickName}이(가) 방에 입장했습니다.");
