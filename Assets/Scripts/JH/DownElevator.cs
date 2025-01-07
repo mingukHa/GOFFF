@@ -1,27 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode; // 또는 Mirror 등 사용하는 네트워크 라이브러리
 using UnityEngine;
 
-public class Elevator : MonoBehaviour
+public class DownElevator : NetworkBehaviour
 {
     [SerializeField] private List<Transform> elevatorDoors; //엘리베이터 4개
     public float openDuration = 2f; //문 열리는 시간
-    private Vector3 closedScale = new Vector3(1,1,1); //닫힌 상태의 Scale
-    private Vector3 openScale = new Vector3(0,1,1);   //열린 상태의 Scale
+    private Vector3 closedScale = new Vector3(1, 1, 1); //닫힌 상태의 Scale
+    private Vector3 openScale = new Vector3(0, 1, 1);   //열린 상태의 Scale
 
-    private bool isDoorOpening = false; //문이 열리는 중인지 확인
+    public bool isDownDoorOpening = false; //문이 열리는 중인지 확인
 
-    public void OpenDoors()
+    [Command]
+    public void CmdOpenDoors()
     {
-        if (!isDoorOpening)
-        {
-            StartCoroutine(OpenDoorsCoroutine());
-        }
+        if (isDownDoorOpening) return;
+
+        isDownDoorOpening = true;
+        StartCoroutine(OpenDoorsCoroutine());
     }
 
     public IEnumerator OpenDoorsCoroutine()
     {
-        isDoorOpening = true;
         float elapsedTime = 0f;
 
         while (elapsedTime < openDuration)
