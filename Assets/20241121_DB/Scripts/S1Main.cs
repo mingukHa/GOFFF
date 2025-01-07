@@ -102,7 +102,7 @@ public class S1Main : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log($"방에 입장했습니다: {PhotonNetwork.CurrentRoom.Name}");
-       SceneManager.LoadScene("waitRoom"); // 대기실 씬으로 이동
+        SceneManager.LoadScene("waitRoom"); // 대기실 씬으로 이동
     }
 
     private IEnumerator InitializeFirebase()
