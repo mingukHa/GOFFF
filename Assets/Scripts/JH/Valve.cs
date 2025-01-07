@@ -5,7 +5,7 @@ using UnityEngine.XR.Content.Interaction;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 // Valve 관련 스크립트
-public class Valve : MonoBehaviourPun, IPunObservable
+public class Valve : MonoBehaviourPun
 {
     public BoxCollider cylinderCollider;
     public Transform cylinderAttachPoint;  // 밸브가 실린더에 붙을 위치 변수
@@ -156,23 +156,31 @@ public class Valve : MonoBehaviourPun, IPunObservable
     //    }
     //}
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    //public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    //{
+    //    // stream - 데이터를 주고 받는 통로 
+    //    // 내가 데이터를 보내는 중이라면
+    //    if (stream.IsWriting && isGrabbed)
+    //    {
+    //        // 이 방안에 있는 모든 사용자에게 브로드캐스트 
+    //        // - 내 포지션 값을 보내보자
+    //        stream.SendNext(grabValve.transform.position);
+    //        stream.SendNext(grabValve.transform.rotation);
+    //    }
+    //    // 내가 데이터를 받는 중이라면 
+    //    else if (isGrabbed)
+    //    {
+    //        // 순서대로 보내면 순서대로 들어옴. 근데 타입캐스팅 해주어야 함
+    //        grabValve.transform.position = (Vector3)stream.ReceiveNext();
+    //        grabValve.transform.rotation = (Quaternion)stream.ReceiveNext();
+    //    }
+    //}
+
+    public void OnSelectEnter()
     {
-        // stream - 데이터를 주고 받는 통로 
-        // 내가 데이터를 보내는 중이라면
-        if (stream.IsWriting && isGrabbed)
+        if (!photonView.IsMine)
         {
-            // 이 방안에 있는 모든 사용자에게 브로드캐스트 
-            // - 내 포지션 값을 보내보자
-            stream.SendNext(grabValve.transform.position);
-            stream.SendNext(grabValve.transform.rotation);
-        }
-        // 내가 데이터를 받는 중이라면 
-        else if (isGrabbed)
-        {
-            // 순서대로 보내면 순서대로 들어옴. 근데 타입캐스팅 해주어야 함
-            grabValve.transform.position = (Vector3)stream.ReceiveNext();
-            grabValve.transform.rotation = (Quaternion)stream.ReceiveNext();
+            photonView.RequestOwnership();
         }
     }
 }
