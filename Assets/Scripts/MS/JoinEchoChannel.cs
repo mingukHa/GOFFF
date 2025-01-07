@@ -76,8 +76,6 @@ public class JoinEchoChannel : MonoBehaviourPun
 
     private void Update()
     {
-        if (!photonView.IsMine) return;
-
         // 현재 상태 가져오기
         InputDevice leftController = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
         if (leftController.TryGetFeatureValue(CommonUsages.secondaryButton, out bool currentButtonState))
@@ -86,6 +84,10 @@ public class JoinEchoChannel : MonoBehaviourPun
             // 버튼 상태가 이전 프레임과 동일하면 처리하지 않음
             if (currentButtonState != previousButtonState)
             {
+                if (!photonView.IsMine)
+                {
+                    photonView.RequestOwnership();
+                }
                 if (currentButtonState) // 버튼이 눌렸을 때
                 {
                     if (isMuted)

@@ -63,7 +63,9 @@ MonoBehaviour:
   - CloseDoorsRPC
   - CmdOpenDoors
   - RpcHandleInteraction
-  - RotateDoorRPC
+  - NotifyReady
+  - RPCGrabbed
+  - RPCknobValvefalse
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

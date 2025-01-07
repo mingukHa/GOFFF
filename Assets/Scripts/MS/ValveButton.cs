@@ -57,4 +57,12 @@ public class ValveButton : MonoBehaviourPun
     {
         buttonPush = button;
     }
+
+    public void OnSelectEnter()
+    {
+        if (!photonView.IsMine)
+        {
+            photonView.RequestOwnership();
+        }
+    }
 }
