@@ -1,9 +1,9 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Netcode; // 또는 Mirror 등 사용하는 네트워크 라이브러리
 using UnityEngine;
 
-public class UpElevator : NetworkBehaviour
+public class UpElevator : MonoBehaviour
 {
     [SerializeField] private List<Transform> elevatorDoors; //엘리베이터 4개
     public float openDuration = 2f; //문 열리는 시간
@@ -12,7 +12,7 @@ public class UpElevator : NetworkBehaviour
 
     public bool isUpDoorOpening = false; //문이 열리는 중인지 확인
 
-    [Command]
+    [PunRPC]
     public void CmdOpenDoors()
     {
         if (isUpDoorOpening) return;
