@@ -2,10 +2,14 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using NUnit.Framework;
 public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
 {
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private Transform[] spawnPoints;
+    public float randomTime = Random.Range(0f, 1f);
+
+
     private bool hasSpawned = false;
     private void Start()
     {
@@ -28,7 +32,7 @@ public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
 
         if (!hasSpawned)
         {
-            SpawnPlayer();
+            Invoke("SpawnPlayer", randomTime);
         }
     }
     private IEnumerator WaitForRoomReady()
