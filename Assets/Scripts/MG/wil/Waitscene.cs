@@ -11,8 +11,7 @@ public class Waitscene : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject button2;
 
     private bool hasSpawned = false;
-    private int readyPlayerCount = 0; // 준비 완료된 플레이어 수
-    
+
     private void Start()
     {
         if (!PhotonNetwork.IsConnected)
@@ -100,22 +99,17 @@ public class Waitscene : MonoBehaviourPunCallbacks
     // 버튼 클릭 시 호출되는 메서드
     public void OnButtonPressed()
     {
-        photonView.RPC("PlayerReady", RpcTarget.AllBuffered); // 모든 클라이언트에 플레이어 준비 상태 전달
-        Debug.Log("버튼이 눌렸습니다");
+        Debug.Log("로컬 플레이어 준비 완료: 다음 씬으로 이동합니다.");
+        photonView.RPC("NotifyReady", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber); // 모든 클라이언트에 알림
     }
 
     [PunRPC]
-    public void PlayerReady()
+    public void NotifyReady(int actorNumber)
     {
-        readyPlayerCount++;
-
-        Debug.Log($"현재 준비된 플레이어 수: {readyPlayerCount}/{PhotonNetwork.CurrentRoom.PlayerCount}");
-
-        // 모든 플레이어가 준비되었을 경우 다음 씬으로 전환
-        if (readyPlayerCount >= 1)
+        if (PhotonNetwork.LocalPlayer.ActorNumber == actorNumber)
         {
-            Debug.Log("2명 준비 완료! 다음 씬으로 이동합니다.");
-            SceneManager.LoadScene("MainScenes"); // 전환할 씬 이름으로 변경
+            Debug.Log($"로컬 플레이어 {actorNumber} 준비 완료: MainScenes로 이동합니다.");
+            SceneManager.LoadScene("MainScenes"); // 로컬 플레이어만 씬 이동
         }
     }
 
