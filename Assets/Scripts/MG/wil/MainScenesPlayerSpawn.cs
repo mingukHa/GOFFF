@@ -8,7 +8,11 @@ public class MainScenesPlayerSpawn : MonoBehaviourPun
     [SerializeField] private GameObject playerPrefab; // 플레이어 프리팹
     [SerializeField] private Transform[] spawnPoints; // 스폰 위치 배열
     private bool hasSpawned = false;
-    private bool isReinitializing = false;
+
+    //private void Awake()
+    //{
+    //    PhotonNetwork.AutomaticallySyncScene = true; // 씬 자동 동기화 활성화
+    //}
 
     private void Start()
     {
@@ -25,7 +29,7 @@ public class MainScenesPlayerSpawn : MonoBehaviourPun
             return;
         }
 
-        // 룸 입장을 기다린 뒤 플레이어 스폰
+        // 룸 준비 대기
         StartCoroutine(WaitForRoomReady());
     }
 
@@ -37,10 +41,9 @@ public class MainScenesPlayerSpawn : MonoBehaviourPun
 
     private IEnumerator SpawnPlayerWithDelay()
     {
-        // ActorNumber를 기반으로 딜레이 설정
         float delay = (PhotonNetwork.LocalPlayer.ActorNumber - 1) * 2f;
         Debug.Log($"플레이어 {PhotonNetwork.LocalPlayer.NickName} 생성 딜레이: {delay}초");
-        yield return new WaitForSeconds(delay); // 딜레이 후 생성
+        yield return new WaitForSeconds(delay);
 
         SpawnPlayer();
     }
@@ -59,7 +62,6 @@ public class MainScenesPlayerSpawn : MonoBehaviourPun
             return;
         }
 
-        // ActorNumber를 기반으로 스폰 포인트 선택
         int playerIndex = PhotonNetwork.LocalPlayer.ActorNumber - 1;
         Transform spawnPoint = spawnPoints[playerIndex % spawnPoints.Length];
 
@@ -70,8 +72,8 @@ public class MainScenesPlayerSpawn : MonoBehaviourPun
             spawnPoint.position = Vector3.zero;
         }
 
-        // 플레이어 생성
-        GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, spawnPoint.position, spawnPoint.rotation);
+        // 네트워크 플레이어 생성
+        GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, spawnPoint.position, spawnPoint.rotation, 0);
 
         if (player != null)
         {
@@ -97,42 +99,5 @@ public class MainScenesPlayerSpawn : MonoBehaviourPun
             yield return new WaitForSeconds(1);
             collider.enabled = true;
         }
-    }
-
-    // 재초기화 기능
-    public void ReinitializePlayer()
-    {
-        if (isReinitializing) return; // 중복 실행 방지
-
-        Debug.Log("플레이어 재초기화 시작...");
-        isReinitializing = true;
-
-        // 현재 플레이어 오브젝트 제거
-        RemoveLocalPlayer();
-
-        // 초기화 대기 후 새로 생성
-        StartCoroutine(Reinitialize());
-    }
-
-    private void RemoveLocalPlayer()
-    {
-        if (photonView.IsMine)
-        {
-            Debug.Log("로컬 플레이어 오브젝트 삭제 중...");
-            PhotonNetwork.Destroy(photonView.gameObject);
-        }
-    }
-
-    private IEnumerator Reinitialize()
-    {
-        // 약간의 딜레이를 두어 안정성 확보
-        yield return new WaitForSeconds(1f);
-
-        Debug.Log("새 플레이어 생성 중...");
-        SpawnPlayer();
-
-        // 초기화 완료
-        isReinitializing = false;
-        Debug.Log("플레이어 재초기화 완료.");
     }
 }
