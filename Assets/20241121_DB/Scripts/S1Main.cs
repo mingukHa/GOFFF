@@ -50,10 +50,7 @@ public class S1Main : MonoBehaviourPunCallbacks
         Eclosebt.onClick.AddListener(() => Eclose(false));
     }
 
-    private void Awake()
-    {
-        PhotonNetwork.AutomaticallySyncScene = true;
-    }
+   
 
     public void ConnectToRandomRoom()
     {
