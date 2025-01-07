@@ -563,7 +563,7 @@ PrefabInstance:
     - target: {fileID: 717091738879041149, guid: 80ed50e620526ab439314c9e73df9294,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7361389579535921439, guid: 80ed50e620526ab439314c9e73df9294,
         type: 3}
@@ -4627,6 +4627,41 @@ PrefabInstance:
       propertyPath: valve
       value: 
       objectReference: {fileID: 328946555}
+    - target: {fileID: 7152064677340688084, guid: ed131a0f10700ad42904789c55dd3c7b,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7152064677340688084, guid: ed131a0f10700ad42904789c55dd3c7b,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7152064677340688084, guid: ed131a0f10700ad42904789c55dd3c7b,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 328946555}
+    - target: {fileID: 7152064677340688084, guid: ed131a0f10700ad42904789c55dd3c7b,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7152064677340688084, guid: ed131a0f10700ad42904789c55dd3c7b,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnSelectEnter
+      objectReference: {fileID: 0}
+    - target: {fileID: 7152064677340688084, guid: ed131a0f10700ad42904789c55dd3c7b,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Valve, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7152064677340688084, guid: ed131a0f10700ad42904789c55dd3c7b,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5091,6 +5126,7 @@ Transform:
   - {fileID: 561940485}
   - {fileID: 405961748}
   - {fileID: 180211346}
+  - {fileID: 1925849502}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &466653282
@@ -15163,12 +15199,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1925849501}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 466653281}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1925849503
 MonoBehaviour:
@@ -16714,4 +16750,3 @@ SceneRoots:
   - {fileID: 2917420}
   - {fileID: 117744945}
   - {fileID: 1889995185}
-  - {fileID: 1925849502}

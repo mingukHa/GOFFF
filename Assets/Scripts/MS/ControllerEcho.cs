@@ -20,6 +20,7 @@ public class ControllerEcho : MonoBehaviourPun
         // Secondary Button (B 버튼) 상태 읽기
         if (rightController.TryGetFeatureValue(CommonUsages.secondaryButton, out isBPressed) && isBPressed)
         {
+            Debug.Log("파동 입력을 받고 있음");
             if (!wasBPressed)
             {
                 // B 버튼이 눌렸을 때 동작
