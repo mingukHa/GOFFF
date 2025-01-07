@@ -10,7 +10,7 @@ public class ControllerEcho : MonoBehaviourPun
 
     private void Start()
     {
-        par = GetComponent<SimpleSonarShader_Parent>();
+        par = GetComponentInParent<SimpleSonarShader_Parent>();
     }
     private void Update()
     {
