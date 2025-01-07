@@ -42,6 +42,7 @@ public class MainScenesPlayerSpawn : MonoBehaviourPun
         yield return new WaitForSeconds(delay); // 딜레이 후 생성
 
         SpawnPlayer();
+        photonView.RPC("SpawnPlayer", RpcTarget.AllBuffered);
     }
 
     private void SpawnPlayer()
