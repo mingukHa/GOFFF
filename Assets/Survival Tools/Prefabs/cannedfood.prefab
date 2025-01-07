@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 7957761540170711841}
   - component: {fileID: 458213059294872327}
   - component: {fileID: 1577418934226270911}
-  - component: {fileID: 2105544259287102082}
+  - component: {fileID: 823778743699983216}
   m_Layer: 0
   m_Name: cannedfood
   m_TagString: Object
@@ -195,7 +195,7 @@ MonoBehaviour:
   observableSearch: 0
   ObservedComponents:
   - {fileID: 768681091268862151}
-  sceneViewId: 0
+  sceneViewId: 32
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!54 &7957761540170711841
@@ -368,7 +368,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.29691967, y: 0.47266236, z: 0.28946233}
   m_Center: {x: -0.0014959726, y: 0, z: 0}
---- !u!114 &2105544259287102082
+--- !u!114 &823778743699983216
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -377,17 +377,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1896720402374228}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Script: {fileID: 11500000, guid: ec1858340010d3e439c8aa56a88e0f78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 768681091268862151}
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0

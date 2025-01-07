@@ -2567,6 +2567,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5973563370648584627, guid: a7719254242dd59499910883f1d39bc3,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6288946922717217631, guid: a7719254242dd59499910883f1d39bc3,
         type: 3}
       propertyPath: m_Colors.m_PressedColor.b
@@ -2652,7 +2657,7 @@ PrefabInstance:
     - target: {fileID: 6963354150573667627, guid: a7719254242dd59499910883f1d39bc3,
         type: 3}
       propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6963354150573667627, guid: a7719254242dd59499910883f1d39bc3,
         type: 3}
@@ -2663,7 +2668,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1366962748}
+      objectReference: {fileID: 0}
     - target: {fileID: 6963354150573667627, guid: a7719254242dd59499910883f1d39bc3,
         type: 3}
       propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -2682,7 +2687,7 @@ PrefabInstance:
     - target: {fileID: 6963354150573667627, guid: a7719254242dd59499910883f1d39bc3,
         type: 3}
       propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ShowKeyboard
+      value: SetActive
       objectReference: {fileID: 0}
     - target: {fileID: 6963354150573667627, guid: a7719254242dd59499910883f1d39bc3,
         type: 3}
@@ -2707,7 +2712,7 @@ PrefabInstance:
     - target: {fileID: 6963354150573667627, guid: a7719254242dd59499910883f1d39bc3,
         type: 3}
       propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: VRKeyboardManager, Assembly-CSharp
+      value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6963354150573667627, guid: a7719254242dd59499910883f1d39bc3,
         type: 3}
@@ -2716,9 +2721,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6963354150573667627, guid: a7719254242dd59499910883f1d39bc3,
         type: 3}
+      propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6963354150573667627, guid: a7719254242dd59499910883f1d39bc3,
+        type: 3}
       propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 1568504651}
+      objectReference: {fileID: 0}
     - target: {fileID: 6963354150573667627, guid: a7719254242dd59499910883f1d39bc3,
         type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -2727,7 +2737,7 @@ PrefabInstance:
     - target: {fileID: 6963354150573667627, guid: a7719254242dd59499910883f1d39bc3,
         type: 3}
       propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: TMPro.TMP_InputField, Unity.TextMeshPro
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6963354150573667627, guid: a7719254242dd59499910883f1d39bc3,
         type: 3}
@@ -2818,6 +2828,7 @@ PrefabInstance:
     - {fileID: 4653727169053081724, guid: a7719254242dd59499910883f1d39bc3, type: 3}
     m_RemovedGameObjects:
     - {fileID: 4983340862626321409, guid: a7719254242dd59499910883f1d39bc3, type: 3}
+    - {fileID: -6088876570138902841, guid: a7719254242dd59499910883f1d39bc3, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5640092974825071322, guid: a7719254242dd59499910883f1d39bc3,
@@ -2832,6 +2843,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1568504650}
+    - targetCorrespondingSourceObject: {fileID: 8717251455072226211, guid: a7719254242dd59499910883f1d39bc3,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1568504654}
     - targetCorrespondingSourceObject: {fileID: 4088360109912719793, guid: a7719254242dd59499910883f1d39bc3,
         type: 3}
       insertIndex: -1
@@ -8170,18 +8185,51 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 995.7, y: 97.4, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1568504651 stripped
+--- !u!114 &1568504654
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6963354150573667627, guid: a7719254242dd59499910883f1d39bc3,
-    type: 3}
-  m_PrefabInstance: {fileID: 443957694}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1568504645}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f17a1b36fcb274449d030ef08f66941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Text: 
+  m_CurrentInputField: {fileID: 0}
+  m_OnTextSubmitted:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnTextUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnKeyPressed:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnShifted:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnLayoutChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnClosed:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnFocusChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnCharacterLimitReached:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SubmitOnEnter: 1
+  m_CloseOnSubmit: 0
+  m_DoubleClickInterval: 2
+  m_SubsetLayout: []
 --- !u!1 &1576092010
 GameObject:
   m_ObjectHideFlags: 0
