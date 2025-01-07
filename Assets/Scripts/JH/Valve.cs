@@ -27,7 +27,6 @@ public class Valve : MonoBehaviourPun
     private float valveDuration = 3f;
 
     private float valveVelocity = 0f;
-    private float bridgeVelocity = 0f;
 
     private IEnumerator Delay;
 

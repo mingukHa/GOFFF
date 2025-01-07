@@ -73,6 +73,7 @@ public class JoinEchoChannel : MonoBehaviourPun
         InputDevice leftController = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
         if (leftController.TryGetFeatureValue(CommonUsages.secondaryButton, out isBPressed))
         {
+            Debug.Log("채팅 참여 키 누르고 있음");
             // A 키를 누르고 있을 때만 언뮤트
             if (isMuted)
             {
