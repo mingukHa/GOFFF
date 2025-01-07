@@ -10,7 +10,7 @@ public class ControllerEcho : MonoBehaviourPun
 
     private void Start()
     {
-        par = GetComponent<SimpleSonarShader_Parent>();
+        par = GetComponentInParent<SimpleSonarShader_Parent>();
     }
     private void Update()
     {
@@ -20,6 +20,7 @@ public class ControllerEcho : MonoBehaviourPun
         // Secondary Button (B 버튼) 상태 읽기
         if (rightController.TryGetFeatureValue(CommonUsages.secondaryButton, out isBPressed) && isBPressed)
         {
+            Debug.Log("파동 입력을 받고 있음");
             if (!wasBPressed)
             {
                 // B 버튼이 눌렸을 때 동작
