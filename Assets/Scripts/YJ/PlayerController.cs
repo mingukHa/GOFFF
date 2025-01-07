@@ -166,6 +166,7 @@ public class PlayerController : MonoBehaviourPun
             if (leftDeltaPosition.z > movementThreshold) // Z값 양수는 Forward 방향
             {
                 float rotationInput = leftDeltaPosition.z; // 왼손 컨트롤러의 Z축 움직임
+                Debug.Log($"{rotationInput}");
                 ApplyRotation(rotationInput); // 시계 방향으로 회전
             }
         }
@@ -180,6 +181,7 @@ public class PlayerController : MonoBehaviourPun
             {
                 float rotationInput = -rightDeltaPosition.z; // 오른손 컨트롤러의 Z축 움직임
                 ApplyRotation(rotationInput); // 반시계 방향으로 회전
+                Debug.Log($"{rotationInput}");
             }
         }
 
