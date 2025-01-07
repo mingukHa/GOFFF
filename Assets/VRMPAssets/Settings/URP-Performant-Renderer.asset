@@ -63,9 +63,17 @@ MonoBehaviour:
     ringWidth: 0.1
     ringIntensityScale: 1
     ringFadeDuration: 2
-    ringColor: {r: 1, g: 1, b: 1, a: 0}
+    ringColor:
+      r: 1
+      g: 1
+      b: 1
+      a: 0
     outlineWidth: 0.02
-    outlineColor: {r: 0, g: 0, b: 0, a: 1}
+    outlineColor:
+      r: 0
+      g: 0
+      b: 0
+      a: 1
     outlineAlpha: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -94,10 +102,9 @@ MonoBehaviour:
     probeSamplingDebugTexture: {fileID: 0}
     probeVolumeBlendStatesCS: {fileID: 0}
   m_RendererFeatures:
-  - {fileID: -875476086000855172}
   - {fileID: -4357567336760396003}
   - {fileID: 1493324586199311882}
-  m_RendererFeatureMap: 7cd7916423afd9f31d378d3798cf86c30a66c496cc5ab914
+  m_RendererFeatureMap: 1d378d3798cf86c30a66c496cc5ab914
   m_UseNativeRenderPass: 0
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
   postProcessData: {fileID: 0}
