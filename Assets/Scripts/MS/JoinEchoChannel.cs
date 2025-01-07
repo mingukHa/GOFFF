@@ -35,7 +35,7 @@ public class JoinEchoChannel : MonoBehaviourPun
 
     private async void Start()
     {
-        if (photonView.IsMine) return;
+        if (!photonView.IsMine) return;
         await UnityServices.InitializeAsync();
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
         await VivoxService.Instance.InitializeAsync();
@@ -64,8 +64,8 @@ public class JoinEchoChannel : MonoBehaviourPun
     {
 
         //음성채팅 채널에 접속
-        await VivoxService.Instance.JoinGroupChannelAsync(channelName, ChatCapability.AudioOnly);
-        //await VivoxService.Instance.JoinEchoChannelAsync(channelName, ChatCapability.AudioOnly);
+        //await VivoxService.Instance.JoinGroupChannelAsync(channelName, ChatCapability.AudioOnly);
+        await VivoxService.Instance.JoinEchoChannelAsync(channelName, ChatCapability.AudioOnly);
     }
 
     private void Update()
