@@ -9,11 +9,6 @@ public class MainScenesPlayerSpawn : MonoBehaviourPun
     [SerializeField] private Transform[] spawnPoints; // 스폰 위치 배열
     private bool hasSpawned = false;
 
-    //private void Awake()
-    //{
-    //    PhotonNetwork.AutomaticallySyncScene = true; // 씬 자동 동기화 활성화
-    //}
-
     private void Start()
     {
         if (!PhotonNetwork.IsConnected)
@@ -72,20 +67,28 @@ public class MainScenesPlayerSpawn : MonoBehaviourPun
             spawnPoint.position = Vector3.zero;
         }
 
+        // RPC 호출로 Buffered 방식으로 동기화
+        photonView.RPC("CreatePlayer", RpcTarget.AllBuffered, playerPrefab.name, spawnPoint.position, spawnPoint.rotation);
+    }
+
+    [PunRPC]
+    private void CreatePlayer(string prefabName, Vector3 position, Quaternion rotation)
+    {
         // 네트워크 플레이어 생성
-        GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, spawnPoint.position, spawnPoint.rotation, 0);
+        GameObject player = PhotonNetwork.Instantiate(prefabName, position, rotation, 0);
 
         if (player != null)
         {
-            Debug.Log($"플레이어 {PhotonNetwork.LocalPlayer.NickName}이(가) 위치 {spawnPoint.position}에 스폰되었습니다.");
+            Debug.Log($"플레이어 {PhotonNetwork.LocalPlayer.NickName}이(가) 위치 {position}에 스폰되었습니다.");
             hasSpawned = true;
+
+            // Collider 활성화 코루틴 실행
+            StartCoroutine(ReenableCollider(player));
         }
         else
         {
             Debug.LogError("플레이어 프리팹 생성에 실패했습니다!");
         }
-
-        StartCoroutine(ReenableCollider(player));
     }
 
     private IEnumerator ReenableCollider(GameObject player)
