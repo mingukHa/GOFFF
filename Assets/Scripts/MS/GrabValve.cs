@@ -8,26 +8,29 @@ public class GrabValve : MonoBehaviourPun
     public delegate void grabValveDelegate(GameObject gameObject, Collider other);
     public grabValveDelegate grabValveTrigger;
 
-    private bool isGrabed = false;
+    private bool isGrabbed = false;
 
 
     // 다른 Collider가 이 밸브와 충돌했을 때 호출되는 메서드
     private void OnTriggerEnter(Collider other)
     {
-        if(!isGrabed)
+        if(!isGrabbed)
             grabValveTrigger?.Invoke(gameObject,other);
     }
 
     public void SelectOn()
     {
         Debug.Log("밸브를 잡았습니다.");
-        isGrabed = true;
+        isGrabbed = true;
+        photonView.RPC("RPCGrabbed", RpcTarget.OthersBuffered, true);
+
     }
 
     public void SelectOff()
     {
         Debug.Log("밸브를 놓았습니다.");
-        isGrabed = false;
+        isGrabbed = false;
+        photonView.RPC("RPCGrabbed", RpcTarget.OthersBuffered, false);
     }
 
     public void OnSelectEnter()
@@ -36,6 +39,12 @@ public class GrabValve : MonoBehaviourPun
         {
             photonView.RequestOwnership();
         }
+    }
+
+    [PunRPC]
+    private void RPCGrabbed(bool Grabbed)
+    {
+        isGrabbed = Grabbed;
     }
 
 }

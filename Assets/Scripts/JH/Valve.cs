@@ -93,6 +93,7 @@ public class Valve : MonoBehaviourPun
         StartCoroutine(Delay);
 
         knobValve.SetActive(false);
+        photonView.RPC("RPCknobValvefalse", RpcTarget.OthersBuffered);
         grabValve.transform.position = cylinderAttachPoint.position;  // 밸브의 위치를 AttachPoint 위치로 설정
         grabValve.transform.rotation = cylinderAttachPoint.rotation;  // 밸브의 회전을 AttachPoint 회전으로 설정
         Rigidbody grabValveRb = grabValve.GetComponent<Rigidbody>();
@@ -142,6 +143,12 @@ public class Valve : MonoBehaviourPun
             // 물체를 잡은 플레이어가 주인이 됨
             photonView.TransferOwnership(PhotonNetwork.LocalPlayer);
         }
+    }
+
+    [PunRPC]
+    private void RPCknobValvefalse()
+    {
+        knobValve.SetActive(false);
     }
 
     //[PunRPC]

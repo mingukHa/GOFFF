@@ -22,12 +22,14 @@ public class ValveButton : MonoBehaviourPun
 
     private void Update()
     {
-        if(buttonPush && valve.IsAttached)
+        if(buttonPush)
         {
-            Debug.Log("버튼이 눌렸음");
-
-            buttonPositionY = Mathf.SmoothDamp(buttonPositionY, buttonDownValue, ref velocity, smoothTime);
-            transform.localPosition = new Vector3(0, buttonPositionY, 0);
+            if (valve.knobValve.activeSelf)
+            {
+                Debug.Log("버튼이 눌렸음");
+                buttonPositionY = Mathf.SmoothDamp(buttonPositionY, buttonDownValue, ref velocity, smoothTime);
+                transform.localPosition = new Vector3(0, buttonPositionY, 0);
+            }
         }
 
         if(buttonPositionY < 0.010)
@@ -46,7 +48,7 @@ public class ValveButton : MonoBehaviourPun
         if(valve.IsAttached)
         {
             buttonPush = true;
-            photonView.RPC("RPCOnButton", RpcTarget.All, true);
+            photonView.RPC("RPCOnButton", RpcTarget.Others, true);
         }
     }
 
