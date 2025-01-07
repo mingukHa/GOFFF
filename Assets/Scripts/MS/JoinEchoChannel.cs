@@ -76,12 +76,12 @@ public class JoinEchoChannel : MonoBehaviourPun
         InputDevice leftController = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
         if (leftController.TryGetFeatureValue(CommonUsages.secondaryButton, out bool currentButtonState))
         {
+            Debug.Log("채팅 참여 키 누르고 있음");
             // 버튼 상태가 이전 프레임과 동일하면 처리하지 않음
             if (currentButtonState != previousButtonState)
             {
                 if (currentButtonState) // 버튼이 눌렸을 때
                 {
-                    Debug.Log("채팅 참여 키 누르고 있음");
                     if (isMuted)
                     {
                         VivoxService.Instance.UnmuteOutputDevice();
