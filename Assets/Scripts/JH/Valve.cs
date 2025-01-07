@@ -21,7 +21,7 @@ public class Valve : MonoBehaviourPun
     public Transform grabTr;
 
     private bool isAttached = false;  // 밸브가 실린더에 붙었는지 판별하는 변수
-    private bool isGrabed = false;
+    private bool isGrabbed = false;
 
     private XRKnob knob;
     private float valveDuration = 3f;
@@ -45,9 +45,14 @@ public class Valve : MonoBehaviourPun
 
     private void Update()
     {
+        if (isGrabbed && photonView.IsMine)
+        {
+            // 현재 로컬 플레이어가 물체를 잡고 있는 경우에만 위치 업데이트
+            photonView.RPC("RPCUpdatePosition", RpcTarget.Others, transform.position, transform.rotation);
+        }
         // Knob 밸브를 잡지 않고 있으면 자동으로 돌아가면서 
         // Valve 값이 0이 됨
-        if(!isGrabed && knobValve.activeSelf)
+        if (!isGrabbed && knobValve.activeSelf)
         {
             float duration = valveDuration * knob.value;
             knob.value = Mathf.SmoothDamp(knob.value, 0f, ref valveVelocity, duration);
@@ -131,7 +136,24 @@ public class Valve : MonoBehaviourPun
     [PunRPC]
     private void RPCValveGrab(bool grabbed)
     {
-        isGrabed = grabbed;
+        isGrabbed = grabbed;
+
+        if (grabbed)
+        {
+            // 물체를 잡은 플레이어가 주인이 됨
+            photonView.TransferOwnership(PhotonNetwork.LocalPlayer);
+        }
+    }
+
+    [PunRPC]
+    private void RPCUpdatePosition(Vector3 position, Quaternion rotation)
+    {
+        // 네트워크에서 받은 위치와 회전값 적용
+        if (!photonView.IsMine) // 다른 클라이언트에서만 적용
+        {
+            transform.position = position;
+            transform.rotation = rotation;
+        }
     }
 
 }
