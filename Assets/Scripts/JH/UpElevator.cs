@@ -23,6 +23,10 @@ public class UpElevator : MonoBehaviour
 
     public IEnumerator OpenDoorsCoroutine()
     {
+        yield return new WaitForSeconds(1f);
+
+        SoundManager.instance.SFXPlay("Elevator2_SFX");
+
         float elapsedTime = 0f;
 
         while (elapsedTime < openDuration)
@@ -35,6 +39,10 @@ public class UpElevator : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;  //다음 프레임까지 대기
         }
+
+        yield return new WaitForSeconds(1f);
+
+        SoundManager.instance.SFXPlay("ElevatorDoor2_SFX");
 
         for (int i = 0; i < elevatorDoors.Count; i++)
         {

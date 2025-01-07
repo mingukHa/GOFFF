@@ -39,6 +39,10 @@ public class InElevator : MonoBehaviourPunCallbacks
             yield break; // 함수 종료, 문 닫기 및 이후 코드 실행 안 함
         }
 
+        yield return new WaitForSeconds(1f);
+
+        SoundManager.instance.SFXPlay("ElevatorDoor2_SFX");
+
         float elapsedTime = 0f;
 
         while (elapsedTime < closeDuration)
