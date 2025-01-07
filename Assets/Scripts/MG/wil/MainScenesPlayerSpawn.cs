@@ -31,10 +31,18 @@ public class MainScenesPlayerSpawn : MonoBehaviourPun
     private IEnumerator WaitForRoomReady()
     {
         yield return new WaitUntil(() => PhotonNetwork.IsConnected && PhotonNetwork.InRoom);
-        SpawnPlayer();
+        StartCoroutine(SpawnPlayerWithDelay());
     }
     //플레이어 프리팹을 일정 간격을 두고 생성
-    
+    private IEnumerator SpawnPlayerWithDelay()
+    {
+        // 각 플레이어의 ActorNumber를 기반으로 딜레이 설정
+        float delay = (PhotonNetwork.LocalPlayer.ActorNumber - 1) * 2f;
+        Debug.Log($"플레이어 {PhotonNetwork.LocalPlayer.NickName} 생성 딜레이: {delay}초");
+        yield return new WaitForSeconds(delay); // 딜레이 후 생성
+
+        SpawnPlayer();
+    }
 
     private void SpawnPlayer()
     {
@@ -74,9 +82,20 @@ public class MainScenesPlayerSpawn : MonoBehaviourPun
             Debug.LogError("플레이어 프리팹 생성에 실패했습니다!");
         }
 
-       
+        StartCoroutine(ReenableCollider(player));
     }
 
-   
+    private IEnumerator ReenableCollider(GameObject player)
+    {
+        if (player == null) yield break;
+
+        Collider collider = player.GetComponent<Collider>();
+        if (collider != null)
+        {
+            collider.enabled = false;
+            yield return new WaitForSeconds(1);
+            collider.enabled = true;
+        }
+    }
 
 }
