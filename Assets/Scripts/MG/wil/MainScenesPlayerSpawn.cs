@@ -46,7 +46,7 @@ public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
     private IEnumerator SpawnPlayerWithDelay()
     {
         // 각 플레이어의 ActorNumber를 기반으로 딜레이 설정
-        float delay = (PhotonNetwork.LocalPlayer.ActorNumber - 1) * 0.5f; // 0.5초 간격
+        float delay = (PhotonNetwork.LocalPlayer.ActorNumber - 1) * 1f; // 0.5초 간격
         Debug.Log($"플레이어 {PhotonNetwork.LocalPlayer.NickName} 생성 딜레이: {delay}초");
         yield return new WaitForSeconds(delay); // 딜레이 후 생성
 
