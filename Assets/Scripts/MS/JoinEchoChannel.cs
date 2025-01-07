@@ -82,7 +82,7 @@ public class JoinEchoChannel : MonoBehaviourPun
         InputDevice leftController = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
         if (leftController.TryGetFeatureValue(CommonUsages.secondaryButton, out bool currentButtonState))
         {
-            Debug.Log("채팅 참여 키 누르고 있음");
+            //Debug.Log("채팅 참여 키 누르고 있음");
             // 버튼 상태가 이전 프레임과 동일하면 처리하지 않음
             if (currentButtonState != previousButtonState)
             {

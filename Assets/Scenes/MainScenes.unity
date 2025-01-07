@@ -4671,9 +4671,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7152064677340688084, guid: ed131a0f10700ad42904789c55dd3c7b,
         type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 328946555}
+    - target: {fileID: 7152064677340688084, guid: ed131a0f10700ad42904789c55dd3c7b,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 405961751}
     - target: {fileID: 7152064677340688084, guid: ed131a0f10700ad42904789c55dd3c7b,
         type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
@@ -4681,13 +4686,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7152064677340688084, guid: ed131a0f10700ad42904789c55dd3c7b,
         type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnSelectEnter
       objectReference: {fileID: 0}
     - target: {fileID: 7152064677340688084, guid: ed131a0f10700ad42904789c55dd3c7b,
         type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SelectOnButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 7152064677340688084, guid: ed131a0f10700ad42904789c55dd3c7b,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: Valve, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7152064677340688084, guid: ed131a0f10700ad42904789c55dd3c7b,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: ValveButton, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7152064677340688084, guid: ed131a0f10700ad42904789c55dd3c7b,
         type: 3}
@@ -4731,6 +4746,18 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &405961751 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6655989394332091040, guid: ed131a0f10700ad42904789c55dd3c7b,
+    type: 3}
+  m_PrefabInstance: {fileID: 405961747}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405961749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aa05b75c4b1f204fba4bf8b11439d8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &426075716
 PrefabInstance:
   m_ObjectHideFlags: 0
