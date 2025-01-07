@@ -12,21 +12,21 @@ public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
     private void Start()
     {
         if (!PhotonNetwork.IsConnected)
-        {
+        {//서버 연결 안 되어 있다면 로그인 씬으로 이동
             Debug.Log("포톤 서버와 연결이 안 되었음 로비로 이동");
             SceneManager.LoadScene("LoginScenes");
             return;
         }
 
         if (!PhotonNetwork.InRoom)
-        {
+        {//방 입장 실패시
             Debug.Log("현재 방에 입장하지 않았습니다. 방 입장을 기다립니다...");
             return;
         }
-
+        //코루틴으로 룸 입장 대기
         StartCoroutine(WaitForRoomReady());
     }
-
+    //플레이어 입장 시 플레이어 프리팹을 생성
     public override void OnJoinedRoom()
     {
         Debug.Log($"방에 입장했습니다: {PhotonNetwork.CurrentRoom.Name}");
@@ -36,23 +36,23 @@ public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
             StartCoroutine(SpawnPlayerWithDelay());
         }
     }
-
+    //포톤 서버 연동을 기다린 후 플레이어를 생성
     private IEnumerator WaitForRoomReady()
     {
         yield return new WaitUntil(() => PhotonNetwork.IsConnected && PhotonNetwork.InRoom);
         StartCoroutine(SpawnPlayerWithDelay());
     }
-
+    //플레이어 프리팹을 일정 간격을 두고 생성
     private IEnumerator SpawnPlayerWithDelay()
     {
         // 각 플레이어의 ActorNumber를 기반으로 딜레이 설정
-        float delay = (PhotonNetwork.LocalPlayer.ActorNumber - 1) * 1f; // 0.5초 간격
+        float delay = (PhotonNetwork.LocalPlayer.ActorNumber - 1) * 2f; 
         Debug.Log($"플레이어 {PhotonNetwork.LocalPlayer.NickName} 생성 딜레이: {delay}초");
         yield return new WaitForSeconds(delay); // 딜레이 후 생성
 
         SpawnPlayer();
     }
-
+    
     private void SpawnPlayer()
     {
         if (playerPrefab == null)
