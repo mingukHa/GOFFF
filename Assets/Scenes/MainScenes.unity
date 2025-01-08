@@ -243,6 +243,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &27864405 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7309779081113282178, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
+    type: 3}
+  m_PrefabInstance: {fileID: 328946551}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &57467691
 Mesh:
   m_ObjectHideFlags: 0
@@ -3510,7 +3516,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Handle
       value: 
-      objectReference: {fileID: 1198552519}
+      objectReference: {fileID: 27864405}
     - target: {fileID: 905732214313701033, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
         type: 3}
       propertyPath: m_InteractionManager
@@ -5435,10 +5441,10 @@ MonoBehaviour:
   - {fileID: 466653285}
   - {fileID: 633889603}
   - {fileID: 752339165}
-  - {fileID: 238953704}
   - {fileID: 1817528668}
+  - {fileID: 1111849193}
   - {fileID: 328946556}
-  - {fileID: 0}
+  - {fileID: 1111849191}
   sceneViewId: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -11693,12 +11699,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_FirstSelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1111849190}
+      objectReference: {fileID: 1111849194}
     - target: {fileID: 905732214313701033, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
         type: 3}
       propertyPath: m_FirstSelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1111849190}
+      objectReference: {fileID: 0}
     - target: {fileID: 905732214313701033, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
         type: 3}
       propertyPath: m_FirstSelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -11737,7 +11743,7 @@ PrefabInstance:
     - target: {fileID: 905732214313701033, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
         type: 3}
       propertyPath: m_FirstSelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Valve, Assembly-CSharp
+      value: Valve2, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 905732214313701033, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
         type: 3}
@@ -11864,6 +11870,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ValveController (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7942764199517027384, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
+        type: 3}
+      propertyPath: m_Name
+      value: Valve2
+      objectReference: {fileID: 0}
     - target: {fileID: 8447241642620575213, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
         type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -11884,7 +11895,8 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.091
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6002914783750477543, guid: 7db2f81b991fe7d44aee75b9d14bcb22, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -11923,18 +11935,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1111849186}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1111849190 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6002914783750477543, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
-    type: 3}
-  m_PrefabInstance: {fileID: 1111849186}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 307977627}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b41b3329ce1e7a438513695b3b205cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1111849191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12649,12 +12649,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65a8500fa86faa04596fb5f9d40efeae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &1198552519 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7309779081113282178, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
-    type: 3}
-  m_PrefabInstance: {fileID: 1111849186}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1210413916
 PrefabInstance:
   m_ObjectHideFlags: 0
