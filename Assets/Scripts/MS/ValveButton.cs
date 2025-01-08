@@ -24,23 +24,32 @@ public class ValveButton : MonoBehaviourPun
     {
         if(buttonPush)
         {
-            //if (valve.knobValve.activeSelf)
+            if (buttonPositionY >= 0.010)
             {
                 Debug.Log("버튼이 눌렸음");
                 buttonPositionY = Mathf.SmoothDamp(buttonPositionY, buttonDownValue, ref velocity, smoothTime);
                 transform.localPosition = new Vector3(0, buttonPositionY, 0);
             }
+            else
+            {
+                Debug.Log("버튼이 눌리고 Y가 일정 값 이하로 떨어졌기 때문에 밸브가 떨어짐");
+                valve.DetachFromCylinder();
+                Debug.Log("버튼 false가 실행됨");
+                buttonPush = false;
+                transform.localPosition = currentPosition;
+                buttonPositionY = currentPosition.y;
+            }
         }
 
-        if(buttonPositionY < 0.010)
-        {
-            Debug.Log("버튼이 눌리고 Y가 일정 값 이하로 떨어졌기 때문에 밸브가 떨어짐");
-            valve.DetachFromCylinder();
-            Debug.Log("버튼 false가 실행됨");
-            buttonPush = false;
-            transform.localPosition = currentPosition;
-            buttonPositionY = currentPosition.y;
-        }
+        //if(buttonPositionY < 0.010)
+        //{
+        //    Debug.Log("버튼이 눌리고 Y가 일정 값 이하로 떨어졌기 때문에 밸브가 떨어짐");
+        //    valve.DetachFromCylinder();
+        //    Debug.Log("버튼 false가 실행됨");
+        //    buttonPush = false;
+        //    transform.localPosition = currentPosition;
+        //    buttonPositionY = currentPosition.y;
+        //}
     }
 
     public void SelectOnButton()

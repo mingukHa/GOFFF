@@ -42,7 +42,6 @@ public class Valve : MonoBehaviourPun
         Delay = ColliderDelay(2f);
 
         grabScript.grabValveTrigger = grabValveTriggerHandle;
-        photonTransformView = GetComponent<PhotonTransformView>();
     }
 
     private void Update()
@@ -81,9 +80,10 @@ public class Valve : MonoBehaviourPun
         //cylinder.SetActive(false);
 
         isAttached = true;
-        //photonTransformView.enabled = false;
+        PhotonTransformView transformView = grabValve.GetComponent<PhotonTransformView>();
+        transformView.enabled = false;
         grabValve.transform.position = grabTr.position;
-        //photonTransformView.enabled = true;
+        transformView.enabled = true;
         Rigidbody grabValveRb = grabValve.GetComponent<Rigidbody>();
         grabValveRb.linearVelocity = Vector3.zero;
         grabValveRb.angularVelocity = Vector3.zero;
@@ -93,7 +93,7 @@ public class Valve : MonoBehaviourPun
     // 실린더에서 밸브를 떼는 메서드
     public void DetachFromCylinder()
     {
-        if (isAttached)
+        if (!isAttached)
         {
             Debug.Log("밸브가 달려있지 않습니다.");
             return;
@@ -106,13 +106,14 @@ public class Valve : MonoBehaviourPun
         StartCoroutine(Delay);
 
         knobValve.SetActive(false);
-        photonView.RPC("RPCknobValvefalse", RpcTarget.Others);
+        //photonView.RPC("RPCknobValvefalse", RpcTarget.Others);
         Debug.Log("Detach 크놉 밸브가 꺼짐");
 
-        //photonTransformView.enabled = false;
-        grabValve.transform.position = currentCylinder.transform.position;  // 밸브의 위치를 AttachPoint 위치로 설정
+        PhotonTransformView transformView = grabValve.GetComponent<PhotonTransformView>();
+        transformView.enabled = false;
+        grabValve.transform.position = currentCylinder.transform.position + new Vector3(0.013f,0f,0f);  // 밸브의 위치를 AttachPoint 위치로 설정
         grabValve.transform.rotation = currentCylinder.transform.rotation;  // 밸브의 회전을 AttachPoint 회전으로 설정
-        //photonTransformView.enabled = true;
+        transformView.enabled = true;
 
         Rigidbody grabValveRb = grabValve.GetComponent<Rigidbody>();
         grabValveRb.linearVelocity = Vector3.zero;
