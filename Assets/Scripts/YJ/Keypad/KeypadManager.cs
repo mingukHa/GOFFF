@@ -9,7 +9,8 @@ public class KeypadManager : MonoBehaviourPun
     private string correctPassword = "346"; // 정답 비밀번호
     private string enteredPassword = ""; // 입력된 비밀번호
     private GameObject[] displayedNumbers = new GameObject[3]; // 표시된 숫자 오브젝트
-    
+    private bool isDoorOpened = false; // 문이 이미 열렸는지 여부를 체크하는 변수
+
     [PunRPC]
     public void AddNumber(int number)
     {
@@ -37,12 +38,13 @@ public class KeypadManager : MonoBehaviourPun
         }
 
         // 입력된 비밀번호 검증
-        if (enteredPassword == correctPassword)
+        if (!isDoorOpened && enteredPassword == correctPassword)
         {
             doorController.OpenDoor();
             Debug.Log("올바른 비밀번호입니다. 문이 열렸습니다.");
+            isDoorOpened = true;
         }
-        else
+        else if (enteredPassword != correctPassword)
         {
             Debug.Log("잘못된 비밀번호입니다.");
         }

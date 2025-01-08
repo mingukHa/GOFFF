@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 2318633104019941249}
   - component: {fileID: 2746070840560066581}
   - component: {fileID: 1785329424710079185}
+  - component: {fileID: 5996528353205564662}
   m_Layer: 0
   m_Name: Torus.001
   m_TagString: Untagged
@@ -96,7 +97,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -3846018093981099296, guid: ae93ac8bb7684a547a63b6527fea62fc, type: 3}
+  - {fileID: 2100000, guid: d6af9ac4f3a4af7429c97c60d34b49a0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -118,6 +119,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &5996528353205564662
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3603641798427351518}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.024027165, y: 0.019591767, z: 0.0035732684}
+  m_Center: {x: -8.271806e-25, y: 0.0019638191, z: 1.1641542e-10}
 --- !u!1 &6528625853184986062
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,6 +151,7 @@ GameObject:
   - component: {fileID: 3441484133845220661}
   - component: {fileID: 709947217925725301}
   - component: {fileID: 1015701903350791836}
+  - component: {fileID: 20460834454146186}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -183,8 +206,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4874126678125670354, guid: ae93ac8bb7684a547a63b6527fea62fc, type: 3}
-  - {fileID: -6922793697723135513, guid: ae93ac8bb7684a547a63b6527fea62fc, type: 3}
+  - {fileID: 2100000, guid: d6af9ac4f3a4af7429c97c60d34b49a0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -206,3 +228,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &20460834454146186
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6528625853184986062}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.02, y: 0.037421506, z: 0.020115882}
+  m_Center: {x: 0.000000059604645, y: -0.00038346477, z: -0.00005795063}
