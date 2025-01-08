@@ -18,6 +18,6 @@ public class KeypadEnterButton : MonoBehaviour
 
 
         PhotonView photonView = PhotonView.Get(keypadManager);
-        photonView.RPC("OnEnterButtonPressed", RpcTarget.All);
+        photonView.RPC("OnEnterButtonPressed", RpcTarget.Others);
     }
 }
