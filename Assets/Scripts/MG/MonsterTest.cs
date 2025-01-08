@@ -31,6 +31,7 @@ public class MonsterTest : MonoBehaviour
     {
         originalPosition = transform.position;
         GroundCollision.OnObjectHitGround += HandleGroundCollision;
+        SimpleSonarShader_PlayerMove.PlayerMove += HandlePlayerCollision;
     }
 
     private void Update()
@@ -78,6 +79,12 @@ public class MonsterTest : MonoBehaviour
         SetTargetPosition(collisionPoint);
         currentState = MonsterState.Walking;
     }
+    private void HandlePlayerCollision(Vector3 collisionPoints)
+    {
+        SetTargetPosition(collisionPoints);
+        Debug.Log($"{collisionPoints}전달 받은 좌표");
+        currentState = MonsterState.Walking;
+    }
 
     private void DetectTargetsInView()
     {
@@ -106,6 +113,7 @@ public class MonsterTest : MonoBehaviour
 
     private void MoveToTarget()
     {
+        SoundManager.instance.SFXPlay("Wheel2_SFX");
         if (targetPosition != Vector3.zero)
         {
             NavMeshHit hit;
