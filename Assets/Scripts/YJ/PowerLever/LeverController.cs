@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 using Photon.Pun;
 
-
 public class LeverController : MonoBehaviourPun
 {
     // 핸들, 엘리베이터 오브젝트
