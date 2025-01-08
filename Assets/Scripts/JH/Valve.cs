@@ -77,13 +77,13 @@ public class Valve : MonoBehaviourPun
         }
 
         currentCylinder = cylinder;
-        cylinder.GetComponent<BoxCollider>().enabled = false;
+        currentCylinder.GetComponent<BoxCollider>().enabled = false;
         //cylinder.SetActive(false);
 
         isAttached = true;
-        photonTransformView.enabled = false;
+        //photonTransformView.enabled = false;
         grabValve.transform.position = grabTr.position;
-        photonTransformView.enabled = true;
+        //photonTransformView.enabled = true;
         Rigidbody grabValveRb = grabValve.GetComponent<Rigidbody>();
         grabValveRb.linearVelocity = Vector3.zero;
         grabValveRb.angularVelocity = Vector3.zero;
@@ -109,10 +109,10 @@ public class Valve : MonoBehaviourPun
         photonView.RPC("RPCknobValvefalse", RpcTarget.Others);
         Debug.Log("Detach 크놉 밸브가 꺼짐");
 
-        photonTransformView.enabled = false;
+        //photonTransformView.enabled = false;
         grabValve.transform.position = currentCylinder.transform.position;  // 밸브의 위치를 AttachPoint 위치로 설정
         grabValve.transform.rotation = currentCylinder.transform.rotation;  // 밸브의 회전을 AttachPoint 회전으로 설정
-        photonTransformView.enabled = true;
+        //photonTransformView.enabled = true;
 
         Rigidbody grabValveRb = grabValve.GetComponent<Rigidbody>();
         grabValveRb.linearVelocity = Vector3.zero;
