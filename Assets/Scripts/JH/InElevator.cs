@@ -32,15 +32,6 @@ public class InElevator : MonoBehaviourPunCallbacks
 
     public IEnumerator CloseDoorsCoroutine()
     {
-        // 두 명 이상의 플레이어가 있을 경우 문 닫기, 텔레포트, 씬 이동 제한
-        if (IsMultiplePlayersOnElevator())
-        {
-            Debug.Log("두 명 이상의 플레이어가 탑승 중입니다. 기능이 제한됩니다.");
-            yield break; // 함수 종료, 문 닫기 및 이후 코드 실행 안 함
-        }
-
-        yield return new WaitForSeconds(1f);
-
         SoundManager.instance.SFXPlay("ElevatorDoor2_SFX");
 
         float elapsedTime = 0f;
@@ -69,13 +60,6 @@ public class InElevator : MonoBehaviourPunCallbacks
 
     private void CheckElevatorConditions()
     {
-        // 두 명 이상의 플레이어가 있을 경우 씬 이동, 텔레포트 방지
-        if (IsMultiplePlayersOnElevator())
-        {
-            Debug.Log("두 명 이상의 플레이어가 탑승 중입니다. 기능이 제한됩니다.");
-            return; // 씬 이동 및 텔레포트 진행하지 않음
-        }
-
         // UpElevator의 isUpDoorOpening이 true일 때 다음 씬으로 이동
         if (upElevator != null && upElevator.isUpDoorOpening)
         {
@@ -119,43 +103,6 @@ public class InElevator : MonoBehaviourPunCallbacks
         else
         {
             Debug.LogError("Player 오브젝트를 찾을 수 없습니다!");
-        }
-    }
-
-    private bool IsMultiplePlayersOnElevator()
-    {
-        // Photon 네트워크에서 엘리베이터 바닥에 있는 플레이어 수 체크
-        int playerCount = 0;
-
-        foreach (Photon.Realtime.Player player in PhotonNetwork.PlayerList)
-        {
-            GameObject playerObject = player.TagObject as GameObject;
-            if (playerObject != null && playerObject.GetComponent<Collider>().
-                bounds.Intersects(elevatorBottom.GetComponent<Collider>().bounds))
-            {
-                playerCount++;
-            }
-        }
-
-        return playerCount > 1; // 두 명 이상의 플레이어가 있으면 true
-    }
-
-    // 엘리베이터 바닥과 충돌 감지 (지속적으로 플레이어 상태 확인)
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            isPlayerOnElevator = true;
-            Debug.Log("플레이어가 엘리베이터 바닥에 탑승 중입니다.");
-        }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            isPlayerOnElevator = false;
-            Debug.Log("플레이어가 엘리베이터 바닥에서 내렸습니다.");
         }
     }
 }
