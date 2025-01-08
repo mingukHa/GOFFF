@@ -124,6 +124,10 @@ public class Valve : MonoBehaviourPun
     {
         Debug.Log("Knob 밸브를 잡음");
         //isGrabed = true;
+        if (!photonView.IsMine)
+        {
+            photonView.RequestOwnership();
+        }
         photonView.RPC("RPCValveGrab", RpcTarget.All, true);
     }
 
@@ -138,12 +142,6 @@ public class Valve : MonoBehaviourPun
     private void RPCValveGrab(bool grabbed)
     {
         isGrabbed = grabbed;
-
-        if (grabbed)
-        {
-            // 물체를 잡은 플레이어가 주인이 됨
-            photonView.TransferOwnership(PhotonNetwork.LocalPlayer);
-        }
     }
 
     [PunRPC]
