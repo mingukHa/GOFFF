@@ -5,7 +5,7 @@ using System.Collections;
 
 public class Waitscene : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private GameObject[] playerPrefab;
     [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private GameObject button1;
     [SerializeField] private GameObject button2;
@@ -69,12 +69,15 @@ public class Waitscene : MonoBehaviourPunCallbacks
             spawnPoint.position = Vector3.zero;
         }
 
-        GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, spawnPoint.position, spawnPoint.rotation);
+        GameObject player = PhotonNetwork.Instantiate(playerPrefab[playerIndex].name, spawnPoint.position, spawnPoint.rotation);
 
         if (player != null)
         {
             Debug.Log($"플레이어 {PhotonNetwork.LocalPlayer.NickName}이(가) 위치 {spawnPoint.position}에 스폰되었습니다.");
             hasSpawned = true;
+
+            // 플레이어 오브젝트를 TagObject에 저장
+            PhotonNetwork.LocalPlayer.TagObject = player;
         }
         else
         {
