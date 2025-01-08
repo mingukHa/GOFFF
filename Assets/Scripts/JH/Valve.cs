@@ -1,6 +1,7 @@
 using Photon.Pun;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.XR.Content.Interaction;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
@@ -76,7 +77,8 @@ public class Valve : MonoBehaviourPun
         }
 
         currentCylinder = cylinder;
-        cylinder.SetActive(false);
+        cylinder.GetComponent<BoxCollider>().enabled = false;
+        //cylinder.SetActive(false);
 
         isAttached = true;
         photonTransformView.enabled = false;
@@ -120,7 +122,8 @@ public class Valve : MonoBehaviourPun
     private IEnumerator ColliderDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        currentCylinder.SetActive(true);
+        currentCylinder.GetComponent<BoxCollider>().enabled = true;
+
 
         Debug.Log("실린더 콜라이더 활성화");
     }
