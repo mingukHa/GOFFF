@@ -42,9 +42,14 @@ public class GrabValve : MonoBehaviourPun
     }
 
     [PunRPC]
-    private void RPCGrabbed(bool Grabbed)
+    private void RPCGrabbed(bool grabbed)
     {
-        isGrabbed = Grabbed;
+        isGrabbed = grabbed;
+        Rigidbody grabValveRD = transform.GetComponent<Rigidbody>();
+        if (grabValveRD != null)
+        {
+            grabValveRD.isKinematic = grabbed;
+        }
     }
 
 }
