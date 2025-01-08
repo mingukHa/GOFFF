@@ -22,7 +22,7 @@ public class GrabValve : MonoBehaviourPun
     {
         Debug.Log("밸브를 잡았습니다.");
         isGrabbed = true;
-        photonView.RPC("RPCGrabbed", RpcTarget.OthersBuffered, true);
+        photonView.RPC("RPCGrabbed", RpcTarget.Others, true);
 
     }
 
@@ -30,7 +30,7 @@ public class GrabValve : MonoBehaviourPun
     {
         Debug.Log("밸브를 놓았습니다.");
         isGrabbed = false;
-        photonView.RPC("RPCGrabbed", RpcTarget.OthersBuffered, false);
+        photonView.RPC("RPCGrabbed", RpcTarget.Others, false);
     }
 
     public void OnSelectEnter()
