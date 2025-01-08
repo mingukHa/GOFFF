@@ -1,42 +1,61 @@
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine.SceneManagement;
-using System.Collections;
+
 public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
 {
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private Transform[] spawnPoints;
-    private bool hasSpawned = false;
+
+    private bool hasSpawned = false; // 중복 생성 방지
+
     private void Start()
     {
         if (!PhotonNetwork.IsConnected)
         {
-            Debug.Log("포톤 서버와 연결이 안 되었음 로비로 이동");
+            Debug.Log("Photon 서버와 연결되지 않았습니다. 로비로 이동합니다.");
             SceneManager.LoadScene("LoginScenes");
             return;
         }
+
         if (!PhotonNetwork.InRoom)
         {
-            Debug.Log("현재 방에 입장하지 않았습니다. 방 입장을 기다립니다...");
+            Debug.Log("현재 방에 입장하지 않았습니다.");
             return;
         }
-        StartCoroutine(WaitForRoomReady());
-    }
-    public override void OnJoinedRoom()
-    {
-        Debug.Log($"방에 입장했습니다: {PhotonNetwork.CurrentRoom.Name}");
 
-        if (!hasSpawned)
+        Debug.Log("마스터 클라이언트가 인원을 확인하여 플레이어를 생성합니다.");
+        CheckAndSpawnPlayers();
+    }
+
+    private void CheckAndSpawnPlayers()
+    {
+        if (PhotonNetwork.IsMasterClient) // 현재 클라이언트가 마스터 클라이언트인지 확인
         {
-            SpawnPlayer();
+            Debug.Log("마스터 클라이언트가 인원을 확인 중...");
+            if (PhotonNetwork.CurrentRoom.PlayerCount == 2) // 방 인원이 2명일 경우
+            {
+                Debug.Log("방 인원이 2명입니다. 플레이어를 생성합니다.");
+                SpawnPlayersForAll();
+            }
+            else
+            {
+                Debug.Log("인원이 부족합니다. 기다립니다...");
+            }
         }
     }
-    private IEnumerator WaitForRoomReady()
+
+    private void SpawnPlayersForAll()
     {
-        yield return new WaitUntil(() => PhotonNetwork.IsConnected && PhotonNetwork.InRoom);
-        SpawnPlayer();
+        if (hasSpawned) return; // 중복 생성 방지
+
+        // 모든 클라이언트에서 플레이어를 생성하도록 RPC 호출
+        photonView.RPC("SpawnPlayer", RpcTarget.All);
+        hasSpawned = true;
     }
 
+    [PunRPC]
     private void SpawnPlayer()
     {
         if (playerPrefab == null)
@@ -51,44 +70,33 @@ public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
             return;
         }
 
-        int playerIndex = PhotonNetwork.LocalPlayer.ActorNumber - 1;
+        int playerIndex = PhotonNetwork.LocalPlayer.ActorNumber - 1; // ActorNumber 기반으로 스폰 위치 결정
         Transform spawnPoint = spawnPoints[playerIndex % spawnPoints.Length];
-
-        if (spawnPoint == null)
-        {
-            Debug.LogWarning($"스폰 포인트가 null입니다! Index: {playerIndex}. 기본 위치를 사용합니다.");
-            spawnPoint = new GameObject("FallbackSpawn").transform;
-            spawnPoint.position = Vector3.zero;
-        }
 
         GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, spawnPoint.position, spawnPoint.rotation);
 
         if (player != null)
         {
-            Debug.Log($"플레이어 {PhotonNetwork.LocalPlayer.NickName}이(가) 위치 {spawnPoint.position}에 스폰되었습니다.");
-            hasSpawned = true;
+            Debug.Log($"플레이어 {PhotonNetwork.LocalPlayer.NickName}이(가) 위치 {spawnPoint.position}에 생성되었습니다.");
         }
         else
         {
             Debug.LogError("플레이어 프리팹 생성에 실패했습니다!");
         }
-
-        StartCoroutine(ReenableCollider(player));
     }
-    private IEnumerator ReenableCollider(GameObject player)
-    {
-        if (player == null) yield break;
 
-        Collider collider = player.GetComponent<Collider>();
-        if (collider != null)
-        {
-            collider.enabled = false;
-            yield return new WaitForSeconds(1);
-            collider.enabled = true;
-        }
-    }
-    public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
+    public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.Log($"플레이어 {newPlayer.NickName}이(가) 방에 입장했습니다.");
+
+        if (PhotonNetwork.IsMasterClient) // 마스터 클라이언트만 인원 확인
+        {
+            CheckAndSpawnPlayers();
+        }
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        Debug.Log($"플레이어 {otherPlayer.NickName}이(가) 방에서 나갔습니다.");
     }
 }
