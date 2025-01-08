@@ -77,7 +77,7 @@ public class Waitscene : MonoBehaviourPunCallbacks
             hasSpawned = true;
 
             // 플레이어 오브젝트를 TagObject에 저장
-            PhotonNetwork.LocalPlayer.TagObject = player;
+            // PhotonNetwork.LocalPlayer.TagObject = player;
         }
         else
         {
