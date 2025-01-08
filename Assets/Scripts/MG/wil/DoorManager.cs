@@ -5,6 +5,7 @@ public class DoorController : MonoBehaviour
     public bool isOpen = false; // 문 상태 (열림/닫힘)
     public float openAngle = -90f; // 문이 열릴 각도 (예: 90도 또는 -90도)
     public float animationTime = 1f; // 문 열림/닫힘 애니메이션 시간
+    public SoundManager soundManager;
 
     private Quaternion closedRotation; // 닫힌 상태의 회전값
     private Quaternion openRotation; // 열린 상태의 회전값
