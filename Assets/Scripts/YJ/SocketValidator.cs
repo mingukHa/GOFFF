@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
+using Photon.Pun;
 
-public class SocketValidator : MonoBehaviour
+public class SocketValidator : MonoBehaviourPun
 {
     public string expectedObjectName; // 이 Socket에 배치되어야 할 Object의 이름
     private XRSocketInteractor socketInteractor;
@@ -38,7 +39,7 @@ public class SocketValidator : MonoBehaviour
         }
 
         // 퍼즐 상태 확인
-        puzzleManager?.CheckPuzzleStatus();
+        photonView.RPC("UpdatePuzzleStatus", RpcTarget.All);
     }
 
     public void OnObjectRemoved(SelectExitEventArgs args)
@@ -47,6 +48,12 @@ public class SocketValidator : MonoBehaviour
         placedObject = null;
 
         // 퍼즐 상태 확인
+        photonView.RPC("UpdatePuzzleStatus", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void UpdatePuzzleStatus()
+    {
         puzzleManager?.CheckPuzzleStatus();
     }
 

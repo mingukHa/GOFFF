@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 
 public class KeypadEnterButton : MonoBehaviour
@@ -11,6 +12,7 @@ public class KeypadEnterButton : MonoBehaviour
 
     public void OnPressed()
     {
-        keypadManager.OnEnterButtonPressed();
+        PhotonView photonView = PhotonView.Get(keypadManager);
+        photonView.RPC("OnEnterButtonPressed", RpcTarget.All);
     }
 }

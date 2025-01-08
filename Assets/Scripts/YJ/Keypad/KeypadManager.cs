@@ -1,6 +1,7 @@
 using UnityEngine;
+using Photon.Pun;
 
-public class KeypadManager : MonoBehaviour
+public class KeypadManager : MonoBehaviourPun
 {
     public Transform[] displayPoints; // 100자리, 10자리, 1자리 위치를 담은 배열
     public GameObject doorObject; // Door Object
@@ -9,6 +10,7 @@ public class KeypadManager : MonoBehaviour
     private string enteredPassword = ""; // 입력된 비밀번호
     private GameObject[] displayedNumbers = new GameObject[3]; // 표시된 숫자 오브젝트
 
+    [PunRPC]
     public void AddNumber(int number)
     {
         if (enteredPassword.Length < 3)
@@ -24,6 +26,7 @@ public class KeypadManager : MonoBehaviour
         }
     }
 
+    [PunRPC]
     public void OnEnterButtonPressed()
     {
         // 표시된 숫자 오브젝트 제거
@@ -38,11 +41,11 @@ public class KeypadManager : MonoBehaviour
         {
             dc.isOpen = true;
             //doorObject.SetActive(false); // 문 비활성화
-            Debug.Log("Correct Password! Door is disabled.");
+            Debug.Log("올바른 비밀번호입니다. 문이 열렸습니다.");
         }
         else
         {
-            Debug.Log("Incorrect Password!");
+            Debug.Log("잘못된 비밀번호입니다.");
         }
 
         // 상태 초기화
