@@ -4,12 +4,12 @@ using Photon.Pun;
 public class KeypadManager : MonoBehaviourPun
 {
     public Transform[] displayPoints; // 100자리, 10자리, 1자리 위치를 담은 배열
-    public GameObject doorObject; // Door Object
-    public string correctPassword = "346"; // 정답 비밀번호
-    public DoorController dc;
+    public DoorController doorController; // 문에 연결된 DoorController
+    [SerializeField]
+    private string correctPassword = "346"; // 정답 비밀번호
     private string enteredPassword = ""; // 입력된 비밀번호
     private GameObject[] displayedNumbers = new GameObject[3]; // 표시된 숫자 오브젝트
-
+    
     [PunRPC]
     public void AddNumber(int number)
     {
@@ -39,8 +39,7 @@ public class KeypadManager : MonoBehaviourPun
         // 입력된 비밀번호 검증
         if (enteredPassword == correctPassword)
         {
-            dc.isOpen = true;
-            //doorObject.SetActive(false); // 문 비활성화
+            doorController.OpenDoor();
             Debug.Log("올바른 비밀번호입니다. 문이 열렸습니다.");
         }
         else
