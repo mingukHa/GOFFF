@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private GameObject[] playerPrefab; // 프리팹 배열
+    [SerializeField] private GameObject playerPrefab; // 프리팹 배열
     [SerializeField] private Transform[] spawnPoints;   // 스폰 위치
     private bool hasSpawned = false;                   // 스폰 확인용
 
@@ -42,23 +42,23 @@ public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
         }
     }
 
-   public override void OnJoinedRoom()
-   {
-       // 자신이 방에 입장했을 때 호출
-       Debug.Log($"방에 입장했습니다: {PhotonNetwork.CurrentRoom.Name}. 현재 플레이어 수: {PhotonNetwork.CurrentRoom.PlayerCount}");
+    public override void OnJoinedRoom()
+    {
+        // 자신이 방에 입장했을 때 호출
+        Debug.Log($"방에 입장했습니다: {PhotonNetwork.CurrentRoom.Name}. 현재 플레이어 수: {PhotonNetwork.CurrentRoom.PlayerCount}");
 
-       // 이미 방에 2명이 있다면 스폰 (다른 클라이언트가 먼저 들어와 있는 경우)
-       if (PhotonNetwork.CurrentRoom.PlayerCount == 2 && !hasSpawned)
-       {
-           Debug.Log("모든 플레이어가 입장했습니다. 플레이어를 스폰합니다.");
-           SpawnPlayer();
-       }
-   }
+        // 이미 방에 2명이 있다면 스폰 (다른 클라이언트가 먼저 들어와 있는 경우)
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 2 && !hasSpawned)
+        {
+            Debug.Log("모든 플레이어가 입장했습니다. 플레이어를 스폰합니다.");
+            SpawnPlayer();
+        }
+    }
 
     private void SpawnPlayer()
     {
         // 플레이어 프리팹 배열이 설정되지 않은 경우
-        if (playerPrefab == null || playerPrefab.Length == 0)
+        if (playerPrefab == null)
         {
             Debug.LogError("Player Prefab이 설정되지 않았습니다!");
             return;
@@ -76,7 +76,7 @@ public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
         Transform spawnPoint = spawnPoints[playerIndex % spawnPoints.Length];
 
         // 네트워크 상에서 플레이어 생성
-        GameObject player = PhotonNetwork.Instantiate(playerPrefab[playerIndex].name, spawnPoint.position, spawnPoint.rotation);
+        GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, spawnPoint.position, spawnPoint.rotation);
 
         if (player != null)
         {
