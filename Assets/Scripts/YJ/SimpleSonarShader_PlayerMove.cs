@@ -13,6 +13,9 @@ public class SimpleSonarShader_PlayerMove : MonoBehaviourPun
     private float sonarCooldown = 1.0f; // Sonar 효과 쿨다운 시간
     private float lastSonarTime = -1.0f;
 
+    public delegate void CollisionEvent(Vector3 collisionPoint);
+    public static event CollisionEvent PlayerMove;
+
     private IEnumerator Start()
     {
         par = GetComponentInParent<SimpleSonarShader_Parent>();
@@ -37,7 +40,7 @@ public class SimpleSonarShader_PlayerMove : MonoBehaviourPun
         Vector3 currentPosition = playerTransform.position;
         float speed = (currentPosition - lastPosition).magnitude / Time.deltaTime;
         lastPosition = currentPosition;
-        //Debug.Log("현재 속도:" + speed);
+        Debug.Log("현재 속도:" + speed);
 
         // 속도가 임계값 이상일 때 Sonar 발동
         if (speed > speedThreshold && Time.time - lastSonarTime > sonarCooldown)
@@ -55,28 +58,14 @@ public class SimpleSonarShader_PlayerMove : MonoBehaviourPun
 
             // PlayerHolder를 중심으로 Sonar 효과 발동
             par.StartSonarRing(sonarOrigin, 1.4f, 0);
-
-            // Sonar 효과 발생 위치 주변 충돌 탐지
-            float detectionRadius = 0.1f; // 탐지 반경 설정
-            Collider[] hitColliders = Physics.OverlapSphere(sonarOrigin, detectionRadius);
-
-            foreach (var hitCollider in hitColliders)
-            {
-                // 충돌한 오브젝트 처리
-                Debug.Log("충돌한 오브젝트: " + hitCollider.name);
-
-                //// OnCollisionEnter와 유사한 동작을 호출 (예: 충돌한 오브젝트에 특수 효과 적용)
-                //if (par)
-                //{
-                //    par.StartSonarRing(hitCollider.ClosestPoint(sonarOrigin), 1.4f, 0);
-                //}
-            }
+            PlayerMove?.Invoke(sonarOrigin);
+            photonView.RPC("RPCPlayerMove", RpcTarget.Others);
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    [PunRPC]
+    private void RPCPlayerMove(Vector3 sonarOrigin)
     {
-        // 충돌 시 Sonar 효과
-        if (par) par.StartSonarRing(collision.contacts[0].point, collision.impulse.magnitude / 10.0f, 0);
+        PlayerMove?.Invoke(sonarOrigin);
     }
 }
