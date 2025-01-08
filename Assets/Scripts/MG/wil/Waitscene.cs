@@ -5,7 +5,7 @@ using System.Collections;
 
 public class Waitscene : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private GameObject[] playerPrefab;
     [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private GameObject button1;
     [SerializeField] private GameObject button2;
@@ -69,7 +69,7 @@ public class Waitscene : MonoBehaviourPunCallbacks
             spawnPoint.position = Vector3.zero;
         }
 
-        GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, spawnPoint.position, spawnPoint.rotation);
+        GameObject player = PhotonNetwork.Instantiate(playerPrefab[playerIndex].name, spawnPoint.position, spawnPoint.rotation);
 
         if (player != null)
         {
