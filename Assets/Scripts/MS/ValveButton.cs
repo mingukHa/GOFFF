@@ -47,8 +47,7 @@ public class ValveButton : MonoBehaviourPun
     {
         if(valve.IsAttached)
         {
-            buttonPush = true;
-            photonView.RPC("RPCOnButton", RpcTarget.Others, true);
+            photonView.RPC("RPCOnButton", RpcTarget.AllBuffered, true);
         }
     }
 
