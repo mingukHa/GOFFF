@@ -27,7 +27,7 @@ public class PuzzleManager : MonoBehaviourPunCallbacks
             }
         }
         Debug.Log("퍼즐이 풀렸습니다!");
-        photonView.RPC("SolvePuzzle", RpcTarget.All);
+        photonView.RPC("SolvePuzzle", RpcTarget.Others);
     }
 
     [PunRPC]
@@ -44,6 +44,7 @@ public class PuzzleManager : MonoBehaviourPunCallbacks
         }
 
         // 몬스터 스폰 호출
+        Debug.Log("좀비가 생성 됨");
         MonsterSpawn();
     }
 
@@ -57,6 +58,7 @@ public class PuzzleManager : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsMasterClient)
         {
+            Debug.Log("마스터가 좀비를 생성");
             // PhotonNetwork.Instantiate를 통해 몬스터 스폰
             PhotonNetwork.Instantiate(Monster.name, spawnpoint.transform.position, spawnpoint.transform.rotation);
         }

@@ -124,7 +124,7 @@ public class Waitscene : MonoBehaviourPunCallbacks
         if (readyPlayerCount >= 2)
         {
             Debug.Log("2명 준비 완료! 다음 씬으로 이동합니다.");
-            PhotonNetwork.LoadLevel("JHScenes2"); // 전환할 씬 이름으로 변경
+            PhotonNetwork.LoadLevel("MainScenes"); // 전환할 씬 이름으로 변경
         }
         Debug.Log("버튼이 눌렸습니다");
     }
