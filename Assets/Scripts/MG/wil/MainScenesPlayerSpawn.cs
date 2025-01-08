@@ -15,31 +15,42 @@ public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
             SceneManager.LoadScene("LoginScenes");
             return;
         }
+
         if (!PhotonNetwork.InRoom)
         {
             Debug.Log("현재 방에 입장하지 않았습니다. 방 입장을 기다립니다...");
             return;
         }
+
         StartCoroutine(WaitForRoomReady());
     }
+
     public override void OnJoinedRoom()
     {
         Debug.Log($"방에 입장했습니다: {PhotonNetwork.CurrentRoom.Name}");
 
         if (!hasSpawned)
         {
-            SpawnPlayer();
+            // 자신의 플레이어를 스폰
+            SpawnPlayer(PhotonNetwork.LocalPlayer.ActorNumber);
+            // RPC로 모든 클라이언트에 플레이어 스폰 동기화
+            photonView.RPC("SpawnPlayer", RpcTarget.OthersBuffered, PhotonNetwork.LocalPlayer.ActorNumber);
         }
     }
+
     private IEnumerator WaitForRoomReady()
     {
         yield return new WaitUntil(() => PhotonNetwork.IsConnected && PhotonNetwork.InRoom);
-        SpawnPlayer();
+        SpawnPlayer(PhotonNetwork.LocalPlayer.ActorNumber);
     }
 
-    private void SpawnPlayer()
-    {       
-        int playerIndex = PhotonNetwork.LocalPlayer.ActorNumber - 1;
+    [PunRPC]
+    private void SpawnPlayer(int actorNumber)
+    {
+        // 이미 스폰된 경우 중복 생성 방지
+        if (hasSpawned) return;
+
+        int playerIndex = actorNumber - 1; // ActorNumber 기반으로 스폰 위치 선택
         Transform spawnPoint = spawnPoints[playerIndex % spawnPoints.Length];
 
         GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, spawnPoint.position, spawnPoint.rotation);
@@ -56,6 +67,7 @@ public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
 
         StartCoroutine(ReenableCollider(player));
     }
+
     private IEnumerator ReenableCollider(GameObject player)
     {
         if (player == null) yield break;
@@ -67,9 +79,5 @@ public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
             yield return new WaitForSeconds(1);
             collider.enabled = true;
         }
-    }
-    public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
-    {
-        Debug.Log($"플레이어 {newPlayer.NickName}이(가) 방에 입장했습니다.");
     }
 }
