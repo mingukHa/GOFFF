@@ -123,25 +123,30 @@ public class Valve : MonoBehaviourPun
     public void OnSelectValve()
     {
         Debug.Log("Knob πÎ∫Í∏¶ ¿‚¿Ω");
-        //isGrabed = true;
+        isGrabbed = true;
         if (!photonView.IsMine)
         {
             photonView.RequestOwnership();
         }
-        photonView.RPC("RPCValveGrab", RpcTarget.All, true);
+        photonView.RPC("RPCValveGrab", RpcTarget.Others, true);
     }
 
     public void OffSelectValve()
     {
         Debug.Log("Knob πÎ∫Í∏¶ ≥ı¿Ω");
-        //isGrabed = false;
-        photonView.RPC("RPCValveGrab", RpcTarget.All, false);
+        isGrabbed = false;
+        photonView.RPC("RPCValveGrab", RpcTarget.Others, false);
     }
 
     [PunRPC]
     private void RPCValveGrab(bool grabbed)
     {
         isGrabbed = grabbed;
+        Rigidbody grabValveRD= grabValve.GetComponent<Rigidbody>();
+        if (grabValveRD != null)
+        {
+            grabValveRD.isKinematic = grabbed;
+        }
     }
 
     [PunRPC]
