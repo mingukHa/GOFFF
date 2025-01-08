@@ -2,11 +2,13 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.SceneManagement;
 using System.Collections;
+
 public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
 {
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private Transform[] spawnPoints;
     private bool hasSpawned = false;
+
     private void Start()
     {
         if (!PhotonNetwork.IsConnected)
@@ -15,25 +17,41 @@ public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
             SceneManager.LoadScene("LoginScenes");
             return;
         }
+
         if (!PhotonNetwork.InRoom)
         {
             Debug.Log("현재 방에 입장하지 않았습니다. 방 입장을 기다립니다...");
             return;
         }
+
         StartCoroutine(WaitForRoomReady());
     }
+
     public override void OnJoinedRoom()
     {
         Debug.Log($"방에 입장했습니다: {PhotonNetwork.CurrentRoom.Name}");
 
         if (!hasSpawned)
         {
-            SpawnPlayer();
+            StartCoroutine(SpawnPlayerWithDelay());
         }
     }
+
     private IEnumerator WaitForRoomReady()
     {
         yield return new WaitUntil(() => PhotonNetwork.IsConnected && PhotonNetwork.InRoom);
+        StartCoroutine(SpawnPlayerWithDelay());
+    }
+
+    private IEnumerator SpawnPlayerWithDelay()
+    {
+        // ActorNumber를 기반으로 생성 지연 시간 계산
+        int playerIndex = PhotonNetwork.LocalPlayer.ActorNumber - 1;
+        float spawnDelay = playerIndex * 1.0f; // 각 플레이어마다 1초 지연
+
+        Debug.Log($"플레이어 {PhotonNetwork.LocalPlayer.NickName}이(가) {spawnDelay}초 후 스폰됩니다.");
+        yield return new WaitForSeconds(spawnDelay);
+
         SpawnPlayer();
     }
 
@@ -75,6 +93,7 @@ public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
 
         StartCoroutine(ReenableCollider(player));
     }
+
     private IEnumerator ReenableCollider(GameObject player)
     {
         if (player == null) yield break;
@@ -87,6 +106,7 @@ public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
             collider.enabled = true;
         }
     }
+
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
         Debug.Log($"플레이어 {newPlayer.NickName}이(가) 방에 입장했습니다.");
