@@ -51,11 +51,11 @@ public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
 
         Debug.Log($"플레이어 {PhotonNetwork.LocalPlayer.NickName}이(가) {spawnDelay}초 후 스폰됩니다.");
         yield return new WaitForSeconds(spawnDelay);
-
-        SpawnPlayer();
+        SpawnPlayer(PhotonNetwork.LocalPlayer.ActorNumber-1);
+        photonView.RPC("SpawnPlayer", RpcTarget.OthersBuffered, PhotonNetwork.LocalPlayer.ActorNumber);
     }
-
-    private void SpawnPlayer()
+    [PunRPC]
+    private void SpawnPlayer(int actorNumber)
     {
         if (playerPrefab == null)
         {
