@@ -95,12 +95,12 @@ public class Valve : MonoBehaviourPun
 
         knobValve.SetActive(false);
         photonView.RPC("RPCknobValvefalse", RpcTarget.Others);
+        Debug.Log("Detach 크놉 밸브가 꺼짐");
         grabValve.transform.position = cylinderAttachPoint.position;  // 밸브의 위치를 AttachPoint 위치로 설정
         grabValve.transform.rotation = cylinderAttachPoint.rotation;  // 밸브의 회전을 AttachPoint 회전으로 설정
         Rigidbody grabValveRb = grabValve.GetComponent<Rigidbody>();
         grabValveRb.linearVelocity = Vector3.zero;
         grabValveRb.angularVelocity = Vector3.zero;
-
     }
 
     private IEnumerator ColliderDelay(float delay)
