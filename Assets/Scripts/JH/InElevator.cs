@@ -16,6 +16,21 @@ public class InElevator : MonoBehaviour
     public UpElevator upElevator;   //위로 버튼을 눌렀는지 확인하기 위해
     public DownElevator downElevator;   //아래로 버튼을 눌렀는지 확인하기 위해
 
+    private void OnCollisionEnter(Collision collision)   //엘리베이터 안에 있는 Tag 플레이어만 보내기용
+    {
+        // Collider로 감지된 오브젝트가 플레이어인지 확인
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            GameObject player = collision.gameObject;
+
+            if (player == PhotonNetwork.LocalPlayer.TagObject as GameObject)
+            {
+                Debug.Log("로컬 플레이어가 엘리베이터에 들어왔습니다.");
+                CheckElevatorConditions();
+            }
+        }
+    }
+
     [PunRPC]
     public void CloseDoorsRPC()
     {
