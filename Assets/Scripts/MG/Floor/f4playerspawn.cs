@@ -7,11 +7,16 @@ public class f4playerspawn : MonoBehaviour
     private void Awake()
     {
         // PlayerPos1, PlayerPos2 위치 찾기
-        GameObject playerPos1 = GameObject.Find("PlayerPos1");
-        GameObject playerPos2 = GameObject.Find("PlayerPos2");
-        if (playerPos1 == null || playerPos2 == null)
+        GameObject playerPos1 = GameObject.Find("PlayerHolder(Clone)");
+        GameObject playerPos2 = GameObject.Find("PlayerHolder(Clone)");
+        if (playerPos1 == null)
         {
-            Debug.LogError("PlayerPos1 또는 PlayerPos2가 씬에 없습니다!");
+            Debug.LogError($"{playerPos1} 씬에 없습니다!");
+            return;
+        }
+        if (playerPos2 == null)
+        {
+            Debug.LogError($"{playerPos2} 씬에 없습니다!");
             return;
         }
         // 로컬 플레이어의 ActorNumber를 기준으로 위치 설정
