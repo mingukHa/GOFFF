@@ -7,8 +7,11 @@ public class Waitscene : MonoBehaviourPunCallbacks
 {
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private Transform[] spawnPoints;
+    [SerializeField] private GameObject button1;
+    [SerializeField] private GameObject button2;
 
     private bool hasSpawned = false;
+    private int readyPlayerCount = 0; // 준비 완료된 플레이어 수
 
     private void Start()
     {
@@ -18,13 +21,11 @@ public class Waitscene : MonoBehaviourPunCallbacks
             SceneManager.LoadScene("LoginScenes");
             return;
         }
-
         if (!PhotonNetwork.InRoom)
         {
             Debug.Log("현재 방에 입장하지 않았습니다. 방 입장을 기다립니다...");
             return;
         }
-
         StartCoroutine(WaitForRoomReady());
     }
 
@@ -61,6 +62,13 @@ public class Waitscene : MonoBehaviourPunCallbacks
         int playerIndex = PhotonNetwork.LocalPlayer.ActorNumber - 1;
         Transform spawnPoint = spawnPoints[playerIndex % spawnPoints.Length];
 
+        if (spawnPoint == null)
+        {
+            Debug.LogWarning($"스폰 포인트가 null입니다! Index: {playerIndex}. 기본 위치를 사용합니다.");
+            spawnPoint = new GameObject("FallbackSpawn").transform;
+            spawnPoint.position = Vector3.zero;
+        }
+
         GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, spawnPoint.position, spawnPoint.rotation);
 
         if (player != null)
@@ -92,8 +100,23 @@ public class Waitscene : MonoBehaviourPunCallbacks
     // 버튼 클릭 시 호출되는 메서드
     public void OnButtonPressed()
     {
-        Debug.Log($"{PhotonNetwork.LocalPlayer.NickName}이(가) 준비 완료. 다음 씬으로 이동합니다.");
-        PhotonNetwork.LoadLevel("MainScenes"); // 로드할 씬 이름
+        photonView.RPC("PlayerReady", RpcTarget.AllBuffered); // 모든 클라이언트에 플레이어 준비 상태 전달
+        Debug.Log("버튼이 눌렸습니다");
+    }
+
+    [PunRPC]
+    public void PlayerReady()
+    {
+        readyPlayerCount++;
+
+        Debug.Log($"현재 준비된 플레이어 수: {readyPlayerCount}/{PhotonNetwork.CurrentRoom.PlayerCount}");
+
+        // 모든 플레이어가 준비되었을 경우 다음 씬으로 전환
+        if (readyPlayerCount >= 2)
+        {
+            Debug.Log("2명 준비 완료! 다음 씬으로 이동합니다.");
+            PhotonNetwork.LoadLevel("MainScenes"); // 전환할 씬 이름으로 변경
+        }
     }
 
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
