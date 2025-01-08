@@ -3,7 +3,7 @@ using Photon.Pun;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
+public class F3Spawn : MonoBehaviourPunCallbacks
 {
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private Transform[] spawnPoints;
@@ -94,6 +94,8 @@ public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
             Debug.LogError("플레이어 프리팹 생성에 실패했습니다!");
         }
     }
+
+    
 
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
