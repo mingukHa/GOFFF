@@ -12,10 +12,7 @@ public class Waitscene : MonoBehaviourPunCallbacks
 
     private bool hasSpawned = false;
     private int readyPlayerCount = 0; // 준비 완료된 플레이어 수
-    private void Awake()
-    {
-        PhotonNetwork.AutomaticallySyncScene = true;
-    }
+
     private void Start()
     {
         if (!PhotonNetwork.IsConnected)
