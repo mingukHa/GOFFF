@@ -67,7 +67,7 @@ public class Valve : MonoBehaviourPun
     private void AttachToCylinder(GameObject cylinder, GameObject grabValve)
     {
         if (isAttached) return;
-
+        Debug.Log("밸브가 어태치 되었습니다.");
         if (Delay != null)
         {
             StopCoroutine(Delay);
@@ -89,6 +89,7 @@ public class Valve : MonoBehaviourPun
         isAttached = false;  // 밸브가 실린더에서 떨어졌다고 표시
 
 
+        Debug.Log("Detach 실린더 함수가 실행됨");
         Delay = ColliderDelay(2f); // 코루틴이 계속 활성화되지 않도록 새로운 코루틴을 할당
         StartCoroutine(Delay);
 
