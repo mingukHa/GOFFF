@@ -16,8 +16,6 @@ public class InElevator : MonoBehaviour
     public UpElevator upElevator;   //위로 버튼을 눌렀는지 확인하기 위해
     public DownElevator downElevator;   //아래로 버튼을 눌렀는지 확인하기 위해
 
-    private bool isPlayerOnElevator = false; // 플레이어가 엘리베이터 바닥에 있는지 확인
-
     [PunRPC]
     public void CloseDoorsRPC()
     {
@@ -46,10 +44,7 @@ public class InElevator : MonoBehaviour
             elevatorDoors[i].localScale = closedScale;
         }
 
-        if (isPlayerOnElevator)
-        {
-            CheckElevatorConditions();
-        }
+        CheckElevatorConditions();
     }
 
     private void CheckElevatorConditions()
