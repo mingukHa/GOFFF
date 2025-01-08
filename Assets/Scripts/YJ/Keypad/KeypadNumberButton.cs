@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 
 public class KeypadNumberButton : MonoBehaviour
@@ -15,8 +16,10 @@ public class KeypadNumberButton : MonoBehaviour
 
     public void OnPressed()
     {
-        // 숫자 버튼을 눌렀을 때 동작
-        GameObject displayedNumber = Instantiate(numberPrefab, screenDisplayPoint);
-        keypadManager.AddNumber(number);
+        Debug.Log(number + "번 버튼을 눌렀습니다.");
+
+        // RPC를 통해 숫자 추가 동작을 동기화
+        PhotonView photonView = PhotonView.Get(keypadManager);
+        photonView.RPC("AddNumber", RpcTarget.All, number);
     }
 }
