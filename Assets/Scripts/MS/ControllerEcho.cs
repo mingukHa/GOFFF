@@ -40,6 +40,7 @@ public class ControllerEcho : MonoBehaviourPun
             wasBPressed = false;
     }
 
+    [PunRPC]
     private void RPCSonarRing(Vector3 point)
     {
         par.StartSonarRing(point, 1.4f, 0);
