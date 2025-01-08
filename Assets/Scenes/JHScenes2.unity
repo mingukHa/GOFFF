@@ -3152,6 +3152,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorController: {fileID: 1972674955}
+--- !u!114 &349629960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349629950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 2
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &351405643
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3653,7 +3675,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7daba2e8e9bfc074d9a13c2d2ac69068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  expectedObjectName: Book (1)
+  expectedObjectName: Book
   puzzleManager: {fileID: 911210325}
 --- !u!23 &395747500
 MeshRenderer:
@@ -5715,7 +5737,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: e939c908829affc41a50bdaedc6629b5,
         type: 3}
       propertyPath: m_Name
-      value: Book (2)
+      value: Book
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10625,6 +10647,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Circle.001
       objectReference: {fileID: 0}
+    - target: {fileID: 7049805764741760131, guid: 53763f48ce029bc4997aa4d972ee0c62,
+        type: 3}
+      propertyPath: m_TagString
+      value: Key
+      objectReference: {fileID: 0}
     - target: {fileID: 7745442523410026067, guid: 53763f48ce029bc4997aa4d972ee0c62,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10633,7 +10660,7 @@ PrefabInstance:
     - target: {fileID: 7745442523410026067, guid: 53763f48ce029bc4997aa4d972ee0c62,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.032
+      value: 0.156
       objectReference: {fileID: 0}
     - target: {fileID: 7745442523410026067, guid: 53763f48ce029bc4997aa4d972ee0c62,
         type: 3}
@@ -10860,7 +10887,7 @@ MonoBehaviour:
   m_SnapToColliderVolume: 1
   m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
-  m_MovementType: 2
+  m_MovementType: 0
   m_VelocityDamping: 1
   m_VelocityScale: 1
   m_AngularVelocityDamping: 1
@@ -10928,7 +10955,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!65 &823384493
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10948,8 +10975,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.019675624, y: 0.046697244, z: 0.0028765874}
-  m_Center: {x: -0.0000009792857, y: -0.013511774, z: -0.0014255951}
+  m_Size: {x: 0.019912869, y: 0.046697244, z: 0.01048719}
+  m_Center: {x: -0.00011960069, y: -0.013511777, z: -0.005230932}
 --- !u!1001 &842107590
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14100,7 +14127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7daba2e8e9bfc074d9a13c2d2ac69068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  expectedObjectName: Book (1)
+  expectedObjectName: Book
   puzzleManager: {fileID: 911210325}
 --- !u!23 &1052217189
 MeshRenderer:
@@ -17282,57 +17309,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1326384174}
   m_CullTransparentMesh: 1
---- !u!1 &1334914292 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2771171600879929811, guid: 4319f0d3774cfa348b0e3277879a07ab,
-    type: 3}
-  m_PrefabInstance: {fileID: 255624916059098649}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1334914293 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6970367368166859768, guid: 4319f0d3774cfa348b0e3277879a07ab,
     type: 3}
   m_PrefabInstance: {fileID: 255624916059098649}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1334914295
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1334914292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
---- !u!114 &1334914296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1334914292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 1334914295}
-  sceneViewId: 31
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1001 &1337692973
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23538,7 +23520,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: e939c908829affc41a50bdaedc6629b5,
         type: 3}
       propertyPath: m_Name
-      value: Book (1)
+      value: Book
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -26185,14 +26167,10 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2771171600879929811, guid: 4319f0d3774cfa348b0e3277879a07ab,
+    - targetCorrespondingSourceObject: {fileID: 6528625853184986062, guid: 4319f0d3774cfa348b0e3277879a07ab,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1334914296}
-    - targetCorrespondingSourceObject: {fileID: 2771171600879929811, guid: 4319f0d3774cfa348b0e3277879a07ab,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1334914295}
+      addedObject: {fileID: 349629960}
     - targetCorrespondingSourceObject: {fileID: 6528625853184986062, guid: 4319f0d3774cfa348b0e3277879a07ab,
         type: 3}
       insertIndex: -1
