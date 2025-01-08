@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private GameObject playerPrefab; // 프리팹 배열
+    [SerializeField] private GameObject[] playerPrefab; // 프리팹 배열
     [SerializeField] private Transform[] spawnPoints;   // 스폰 위치
     private bool hasSpawned = false;                   // 스폰 확인용
 
@@ -58,7 +58,7 @@ public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
     private void SpawnPlayer()
     {
         // 플레이어 프리팹 배열이 설정되지 않은 경우
-        if (playerPrefab == null)
+        if (playerPrefab == null || playerPrefab.Length == 0)
         {
             Debug.LogError("Player Prefab이 설정되지 않았습니다!");
             return;
@@ -76,7 +76,7 @@ public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
         Transform spawnPoint = spawnPoints[playerIndex % spawnPoints.Length];
 
         // 네트워크 상에서 플레이어 생성
-        GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, spawnPoint.position, spawnPoint.rotation);
+        GameObject player = PhotonNetwork.Instantiate(playerPrefab[playerIndex].name, spawnPoint.position, spawnPoint.rotation);
 
         if (player != null)
         {

@@ -42,18 +42,18 @@ public class f1Manager : MonoBehaviourPunCallbacks
         }
     }
 
-    //public override void OnJoinedRoom()
-    //{
-    //    // 자신이 방에 입장했을 때 호출
-    //    Debug.Log($"방에 입장했습니다: {PhotonNetwork.CurrentRoom.Name}. 현재 플레이어 수: {PhotonNetwork.CurrentRoom.PlayerCount}");
+   public override void OnJoinedRoom()
+   {
+       // 자신이 방에 입장했을 때 호출
+       Debug.Log($"방에 입장했습니다: {PhotonNetwork.CurrentRoom.Name}. 현재 플레이어 수: {PhotonNetwork.CurrentRoom.PlayerCount}");
 
-    //    // 이미 방에 2명이 있다면 스폰 (다른 클라이언트가 먼저 들어와 있는 경우)
-    //    if (PhotonNetwork.CurrentRoom.PlayerCount == 2 && !hasSpawned)
-    //    {
-    //        Debug.Log("모든 플레이어가 입장했습니다. 플레이어를 스폰합니다.");
-    //        SpawnPlayer();
-    //    }
-    //}
+       // 이미 방에 2명이 있다면 스폰 (다른 클라이언트가 먼저 들어와 있는 경우)
+       if (PhotonNetwork.CurrentRoom.PlayerCount == 2 && !hasSpawned)
+       {
+           Debug.Log("모든 플레이어가 입장했습니다. 플레이어를 스폰합니다.");
+           SpawnPlayer();
+       }
+   }
 
     private void SpawnPlayer()
     {
