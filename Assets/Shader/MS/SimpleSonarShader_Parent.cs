@@ -104,22 +104,22 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
     {
         Debug.Log("충돌됐음");
 
-        //float timeSinceSceneLoadPhoton = (float)(PhotonNetwork.Time - sceneStartTimePhoton);
+        float timeSinceSceneLoadPhoton = (float)(PhotonNetwork.Time - sceneStartTimePhoton);
 
-        //position.w = timeSinceSceneLoadPhoton;
-        //positionsQueue.Dequeue();
-        //positionsQueue.Enqueue(position);
+        position.w = timeSinceSceneLoadPhoton;
+        positionsQueue.Dequeue();
+        positionsQueue.Enqueue(position);
 
-        //intensityQueue.Dequeue();
-        //intensityQueue.Enqueue(intensity);
+        intensityQueue.Dequeue();
+        intensityQueue.Enqueue(intensity);
 
         ringColor = type == 0 ? Color.white : Color.red; // 일반: 0, 몬스터: 1
 
-        //colorQueue.Dequeue();
-        //colorQueue.Enqueue(ringColor);
+        colorQueue.Dequeue();
+        colorQueue.Enqueue(ringColor);
 
-        float[] positionArray = new float[] { position.x, position.y, position.z, position.w };
-        photonView.RPC("RPCSonarRing", RpcTarget.AllBuffered, positionArray, intensity);
+        //float[] positionArray = new float[] { position.x, position.y, position.z, position.w };
+        //photonView.RPC("RPCSonarRing", RpcTarget.AllBuffered, positionArray, intensity);
 
         // Vector4를 float[] 배열로 변환
         float[] hitPts = positionsQueue.SelectMany(v => new float[] { v.x, v.y, v.z, v.w }).ToArray();
@@ -129,21 +129,21 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
         photonView.RPC("UpdateSonarMaterial", RpcTarget.All, hitPts, intensities, ringColors);
     }
 
-    [PunRPC]
-    private void RPCSonarRingQueue(float[] positionArray, float intensity)
-    {
-        float timeSinceSceneLoadPhoton = (float)(PhotonNetwork.Time - sceneStartTimePhoton);
+    //[PunRPC]
+    //private void RPCSonarRingQueue(float[] positionArray, float intensity)
+    //{
+    //    float timeSinceSceneLoadPhoton = (float)(PhotonNetwork.Time - sceneStartTimePhoton);
 
-        Vector4 position = new Vector4(positionArray[0], positionArray[1], positionArray[2], positionArray[3]);
+    //    Vector4 position = new Vector4(positionArray[0], positionArray[1], positionArray[2], positionArray[3]);
 
-        position.w = timeSinceSceneLoadPhoton;
-        positionsQueue.Dequeue();
-        positionsQueue.Enqueue(position);
+    //    position.w = timeSinceSceneLoadPhoton;
+    //    positionsQueue.Dequeue();
+    //    positionsQueue.Enqueue(position);
 
-        intensityQueue.Dequeue();
-        intensityQueue.Enqueue(intensity);
+    //    intensityQueue.Dequeue();
+    //    intensityQueue.Enqueue(intensity);
 
-        colorQueue.Dequeue();
-        colorQueue.Enqueue(ringColor);
-    }
+    //    colorQueue.Dequeue();
+    //    colorQueue.Enqueue(ringColor);
+    //}
 }
