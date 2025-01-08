@@ -67,7 +67,11 @@ MonoBehaviour:
   - RotateDoorRPC
   - RPCGrabbed
   - RPCknobValvefalse
-  - ReStart
+  - OnPressed
+  - AddNumber
+  - OnEnterButtonPressed
+  - UpdatePuzzleStatus
+  - SolvePuzzle
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
