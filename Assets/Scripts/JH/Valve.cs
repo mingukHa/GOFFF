@@ -7,8 +7,10 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 // Valve 관련 스크립트
 public class Valve : MonoBehaviourPun
 {
-    public BoxCollider cylinderCollider;
-    public Transform cylinderAttachPoint;  // 밸브가 실린더에 붙을 위치 변수
+    public BoxCollider cylinderColliderA;
+    public Transform cylinderAttachPointA;  // 밸브가 실린더에 붙을 위치 변수
+    public BoxCollider cylinderColliderB;
+    public Transform cylinderAttachPointB;  // 밸브가 실린더에 붙을 위치 변수
 
     public GameObject knobValve;
     public GameObject grabValve;
@@ -30,6 +32,8 @@ public class Valve : MonoBehaviourPun
 
     private IEnumerator Delay;
 
+    private PhotonTransformView photonTransformView;
+
     public bool IsAttached { get { return isAttached; } }
 
     private void Start()
@@ -40,6 +44,7 @@ public class Valve : MonoBehaviourPun
         Delay = ColliderDelay(2f);
 
         grabScript.grabValveTrigger = grabValveTriggerHandle;
+        photonTransformView = GetComponent<PhotonTransformView>();
     }
 
     private void Update()
@@ -73,10 +78,12 @@ public class Valve : MonoBehaviourPun
             StopCoroutine(Delay);
         }
 
-        cylinderCollider.enabled = false;
+        cylinder.SetActive(false);
 
         isAttached = true;
+        photonTransformView.enabled = false;
         grabValve.transform.position = grabTr.position;
+        photonTransformView.enabled = true;
         Rigidbody grabValveRb = grabValve.GetComponent<Rigidbody>();
         grabValveRb.linearVelocity = Vector3.zero;
         grabValveRb.angularVelocity = Vector3.zero;
@@ -86,6 +93,11 @@ public class Valve : MonoBehaviourPun
     // 실린더에서 밸브를 떼는 메서드
     public void DetachFromCylinder()
     {
+        if (isAttached)
+        {
+            Debug.Log("밸브가 달려있지 않습니다.");
+            return;
+        }
         isAttached = false;  // 밸브가 실린더에서 떨어졌다고 표시
 
 
@@ -96,8 +108,12 @@ public class Valve : MonoBehaviourPun
         knobValve.SetActive(false);
         photonView.RPC("RPCknobValvefalse", RpcTarget.Others);
         Debug.Log("Detach 크놉 밸브가 꺼짐");
-        grabValve.transform.position = cylinderAttachPoint.position;  // 밸브의 위치를 AttachPoint 위치로 설정
-        grabValve.transform.rotation = cylinderAttachPoint.rotation;  // 밸브의 회전을 AttachPoint 회전으로 설정
+
+        photonTransformView.enabled = false;
+        grabValve.transform.position = cylinderAttachPointA.position;  // 밸브의 위치를 AttachPoint 위치로 설정
+        grabValve.transform.rotation = cylinderAttachPointA.rotation;  // 밸브의 회전을 AttachPoint 회전으로 설정
+        photonTransformView.enabled = true;
+
         Rigidbody grabValveRb = grabValve.GetComponent<Rigidbody>();
         grabValveRb.linearVelocity = Vector3.zero;
         grabValveRb.angularVelocity = Vector3.zero;
@@ -106,7 +122,8 @@ public class Valve : MonoBehaviourPun
     private IEnumerator ColliderDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        cylinderCollider.enabled = true;
+        cylinderColliderA.enabled = true;
+        cylinderColliderB.enabled = true;
 
         Debug.Log("실린더 콜라이더 활성화");
     }

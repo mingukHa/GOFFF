@@ -46,9 +46,8 @@ public class ValveButton : MonoBehaviourPun
     public void SelectOnButton()
     {
         Debug.Log("버튼이 선택됨");
-        if(valve.IsAttached)
+        //if(valve.IsAttached)
         {
-            Debug.Log("밸브가 어태치된 상태에서 버튼이 눌러짐");
             buttonPush = true;
             photonView.RPC("RPCOnButton", RpcTarget.Others, true);
         }
@@ -57,6 +56,7 @@ public class ValveButton : MonoBehaviourPun
     [PunRPC]
     private void RPCOnButton(bool button)
     {
+        Debug.Log("밸브가 어태치된 상태에서 버튼이 눌러짐");
         buttonPush = button;
     }
 
