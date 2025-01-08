@@ -82,7 +82,7 @@ public class f1Manager : MonoBehaviourPunCallbacks
         {
             Debug.Log($"플레이어 {PhotonNetwork.LocalPlayer.NickName}이(가) 위치 {spawnPoint.position}에 스폰되었습니다.");
             hasSpawned = true; // 중복 생성 방지
-            DontDestroyOnLoad(player);
+            
         }
         else
         {
