@@ -22,6 +22,6 @@ public class KeypadNumberButton : MonoBehaviour
 
         // RPC를 통해 숫자 추가 동작을 동기화
         PhotonView photonView = PhotonView.Get(keypadManager);
-        photonView.RPC("AddNumber", RpcTarget.All, number);
+        photonView.RPC("AddNumber", RpcTarget.Others, number);
     }
 }
