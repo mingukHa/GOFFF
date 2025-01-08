@@ -103,8 +103,6 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
     {
         Debug.Log("충돌됐음");
 
-        //position.w = Time.timeSinceLevelLoad;
-        //position.w = (float)PhotonNetwork.Time;
         float timeSinceSceneLoadPhoton = (float)(PhotonNetwork.Time - sceneStartTimePhoton);
 
         position.w = timeSinceSceneLoadPhoton;
@@ -126,5 +124,4 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
 
         photonView.RPC("UpdateSonarMaterial", RpcTarget.All, hitPts, intensities, ringColors);
     }
-
 }

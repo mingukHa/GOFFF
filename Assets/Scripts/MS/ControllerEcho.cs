@@ -30,6 +30,7 @@ public class ControllerEcho : MonoBehaviourPun
                 if (Physics.Raycast(ray, out hit))
                 {
                     par.StartSonarRing(hit.point, 1.4f, 0);
+                    photonView.RPC("RPCSonarRing", RpcTarget.Others, hit.point);
                     Debug.Log($"{hit.point}¿‘¥œ¥Ÿ");
                 }
                 wasBPressed = true;
@@ -37,5 +38,10 @@ public class ControllerEcho : MonoBehaviourPun
         }
         else
             wasBPressed = false;
+    }
+
+    private void RPCSonarRing(Vector3 point)
+    {
+        par.StartSonarRing(point, 1.4f, 0);
     }
 }
