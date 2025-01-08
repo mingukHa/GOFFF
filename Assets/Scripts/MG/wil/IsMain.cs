@@ -15,6 +15,7 @@ public class PlayerControllerManager : MonoBehaviourPun
         if (!photonView.IsMine)
         {
             DisableControllers();
+            photonView.RequestOwnership();
             Disablehand();
         }
         else
