@@ -68,7 +68,7 @@ public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
         GameObject selectedPrefab = playerPrefab[playerIndex % playerPrefab.Length];
         Transform spawnPoint = spawnPoints[playerIndex % spawnPoints.Length];
 
-        GameObject player = PhotonNetwork.Instantiate(selectedPrefab.name, spawnPoint.position, spawnPoint.rotation);
+        GameObject player = PhotonNetwork.Instantiate(playerPrefab[playerIndex].name, spawnPoint.position, spawnPoint.rotation);
 
         if (player != null)
         {
