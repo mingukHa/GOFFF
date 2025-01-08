@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 using Photon.Pun; // Photon 관련 라이브러리 추가
 
-public class InElevator : MonoBehaviourPunCallbacks
+public class InElevator : MonoBehaviour
 {
     [SerializeField] private List<Transform> elevatorDoors; //할당된 엘리베이터 문 2개
     [SerializeField] private Transform elevatorBottom;    //엘리베이터 바닥
@@ -17,12 +17,6 @@ public class InElevator : MonoBehaviourPunCallbacks
     public DownElevator downElevator;   //아래로 버튼을 눌렀는지 확인하기 위해
 
     private bool isPlayerOnElevator = false; // 플레이어가 엘리베이터 바닥에 있는지 확인
-
-    [PunRPC]
-    public void CloseDoors()
-    {
-        photonView.RPC("CloseDoorsRPC", Photon.Pun.RpcTarget.All); // 모든 클라이언트에서 문을 닫도록 RPC 호출
-    }
 
     [PunRPC]
     public void CloseDoorsRPC()
