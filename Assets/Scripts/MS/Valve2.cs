@@ -41,7 +41,7 @@ public class Valve2 : MonoBehaviourPun
 
         Delay = ColliderDelay(2f);
 
-        grabScript.grabValveTrigger = grabValveTriggerHandle;
+        grabScript.grabValve2Trigger = grabValve2TriggerHandle;
     }
 
     private void Update()
@@ -129,7 +129,7 @@ public class Valve2 : MonoBehaviourPun
         Debug.Log("실린더 콜라이더 활성화");
     }
 
-    private void grabValveTriggerHandle(GameObject grabValve, Collider other)
+    private void grabValve2TriggerHandle(GameObject grabValve, Collider other)
     {
         if (other.CompareTag("Cylinder") && !isAttached)
         {
