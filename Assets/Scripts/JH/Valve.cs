@@ -1,17 +1,13 @@
 using Photon.Pun;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.XR.Content.Interaction;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 // Valve 관련 스크립트
 public class Valve : MonoBehaviourPun
-{
-    public BoxCollider cylinderColliderA;
-    public Transform cylinderAttachPointA;  // 밸브가 실린더에 붙을 위치 변수
-    public BoxCollider cylinderColliderB;
-    public Transform cylinderAttachPointB;  // 밸브가 실린더에 붙을 위치 변수
-
+{ 
     public GameObject knobValve;
     public GameObject grabValve;
 
@@ -29,6 +25,8 @@ public class Valve : MonoBehaviourPun
     private float valveDuration = 3f;
 
     private float valveVelocity = 0f;
+
+    private GameObject currentCylinder;
 
     private IEnumerator Delay;
 
@@ -78,12 +76,14 @@ public class Valve : MonoBehaviourPun
             StopCoroutine(Delay);
         }
 
-        cylinder.SetActive(false);
+        currentCylinder = cylinder;
+        currentCylinder.GetComponent<BoxCollider>().enabled = false;
+        //cylinder.SetActive(false);
 
         isAttached = true;
-        photonTransformView.enabled = false;
+        //photonTransformView.enabled = false;
         grabValve.transform.position = grabTr.position;
-        photonTransformView.enabled = true;
+        //photonTransformView.enabled = true;
         Rigidbody grabValveRb = grabValve.GetComponent<Rigidbody>();
         grabValveRb.linearVelocity = Vector3.zero;
         grabValveRb.angularVelocity = Vector3.zero;
@@ -109,10 +109,10 @@ public class Valve : MonoBehaviourPun
         photonView.RPC("RPCknobValvefalse", RpcTarget.Others);
         Debug.Log("Detach 크놉 밸브가 꺼짐");
 
-        photonTransformView.enabled = false;
-        grabValve.transform.position = cylinderAttachPointA.position;  // 밸브의 위치를 AttachPoint 위치로 설정
-        grabValve.transform.rotation = cylinderAttachPointA.rotation;  // 밸브의 회전을 AttachPoint 회전으로 설정
-        photonTransformView.enabled = true;
+        //photonTransformView.enabled = false;
+        grabValve.transform.position = currentCylinder.transform.position;  // 밸브의 위치를 AttachPoint 위치로 설정
+        grabValve.transform.rotation = currentCylinder.transform.rotation;  // 밸브의 회전을 AttachPoint 회전으로 설정
+        //photonTransformView.enabled = true;
 
         Rigidbody grabValveRb = grabValve.GetComponent<Rigidbody>();
         grabValveRb.linearVelocity = Vector3.zero;
@@ -122,8 +122,8 @@ public class Valve : MonoBehaviourPun
     private IEnumerator ColliderDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        cylinderColliderA.enabled = true;
-        cylinderColliderB.enabled = true;
+        currentCylinder.GetComponent<BoxCollider>().enabled = true;
+
 
         Debug.Log("실린더 콜라이더 활성화");
     }

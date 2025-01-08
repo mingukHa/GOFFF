@@ -41,7 +41,6 @@ public class JoinEchoChannel : MonoBehaviourPun
 
     private async void Start()
     {
-        if (!photonView.IsMine) return;
         await UnityServices.InitializeAsync();
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
         await VivoxService.Instance.InitializeAsync();
