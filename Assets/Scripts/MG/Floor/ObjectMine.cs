@@ -16,7 +16,7 @@ public class ObjectMain : MonoBehaviourPun
     }
     public void OnSelectFalse()
     {
-        Debug.Log("밸브를 놓았습니다.");
+        Debug.Log("물체를 놓았습니다.");
         isGrabbed = false;
         photonView.RPC("RPCGrabbed", RpcTarget.Others, false);
     }
@@ -35,7 +35,7 @@ public class ObjectMain : MonoBehaviourPun
         Rigidbody grabValveRD = transform.GetComponent<Rigidbody>();
         if (grabValveRD != null)
         {
-            grabValveRD.isKinematic = grabbed;
+            grabValveRD.useGravity = !grabbed;
         }
     }
 
