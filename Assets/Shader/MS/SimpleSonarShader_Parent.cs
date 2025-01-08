@@ -119,13 +119,13 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
         //colorQueue.Enqueue(ringColor);
 
         float[] positionArray = new float[] { position.x, position.y, position.z, position.w };
+        photonView.RPC("RPCSonarRing", RpcTarget.AllBuffered, positionArray, intensity);
 
         // Vector4를 float[] 배열로 변환
         float[] hitPts = positionsQueue.SelectMany(v => new float[] { v.x, v.y, v.z, v.w }).ToArray();
         float[] intensities = intensityQueue.ToArray();
         float[] ringColors = colorQueue.SelectMany(c => new float[] { c.x, c.y, c.z, c.w }).ToArray();
 
-        photonView.RPC("RPCSonarRing", RpcTarget.AllBuffered, positionArray, intensity);
         photonView.RPC("UpdateSonarMaterial", RpcTarget.All, hitPts, intensities, ringColors);
     }
 
