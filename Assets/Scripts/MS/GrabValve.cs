@@ -1,12 +1,16 @@
 using Photon.Pun;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class GrabValve : MonoBehaviourPun
 {
     public delegate void grabValveDelegate(GameObject gameObject, Collider other);
     public grabValveDelegate grabValveTrigger;
+    public delegate void grabValve2Delegate(GameObject gameObject, Collider other);
+    public grabValveDelegate grabValve2Trigger;
+
 
     private bool isGrabbed = false;
 
@@ -14,8 +18,17 @@ public class GrabValve : MonoBehaviourPun
     // 다른 Collider가 이 밸브와 충돌했을 때 호출되는 메서드
     private void OnTriggerEnter(Collider other)
     {
-        if(!isGrabbed)
-            grabValveTrigger?.Invoke(gameObject,other);
+        if (!isGrabbed)
+        {
+            if (other.name == "CylinderA")
+            {
+                grabValveTrigger?.Invoke(gameObject, other);
+            }
+            else
+            {
+                grabValve2Trigger?.Invoke(gameObject, other);
+            }
+        }
     }
 
     public void SelectOn()
