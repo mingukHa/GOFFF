@@ -1,17 +1,11 @@
 using UnityEngine;
 
-public class keyboard : MonoBehaviour
+public class InputFieldClickHandler : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject input;
-    [SerializeField]
-    private GameObject keyboards; 
-    public void OnSelect()
+    public GameObject targetObject; // 활성화할 대상 오브젝트
+
+    public void OnInputFieldClicked()
     {
-        input.SetActive(true);
-    }
-    public void OnClose()
-    {
-        keyboards.SetActive(false);
+        targetObject.SetActive(true); // 오브젝트 활성화
     }
 }
