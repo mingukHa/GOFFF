@@ -15,7 +15,7 @@ public class InElevator : MonoBehaviour
 
     public UpElevator upElevator;   //위로 버튼을 눌렀는지 확인하기 위해
     public DownElevator downElevator;   //아래로 버튼을 눌렀는지 확인하기 위해
-
+    private int isButtonOn = 0;
     private void OnTriggerEnter(Collider other)
     {
         // Collider로 감지된 오브젝트가 플레이어인지 확인
@@ -35,6 +35,7 @@ public class InElevator : MonoBehaviour
     public void CloseDoorsRPC()
     {
         StartCoroutine(CloseDoorsCoroutine());
+        ++isButtonOn;
     }
 
     public IEnumerator CloseDoorsCoroutine()
@@ -51,6 +52,7 @@ public class InElevator : MonoBehaviour
                 elevatorDoors[i].localScale = Vector3.Lerp(openScale, closedScale, t);
             }
             elapsedTime += Time.deltaTime;
+            
             yield return null;  //다음 프레임까지 대기
         }
 
@@ -70,10 +72,10 @@ public class InElevator : MonoBehaviour
             LoadNextScene();
         }
         // DownElevator의 isDownDoorOpening이 true일 때 텔레포트
-        else if (downElevator != null && downElevator.isDownDoorOpening)
-        {
-            TeleportPlayerToOrigin();
-        }
+        //else if (downElevator != null && downElevator.isDownDoorOpening)
+        //{
+        //    TeleportPlayerToOrigin();
+        //}
         else
         {
             Debug.Log("엘리베이터 상태가 유효하지 않습니다.");
@@ -84,29 +86,31 @@ public class InElevator : MonoBehaviour
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex; // 현재 씬의 빌드 인덱스 가져오기
         int nextSceneIndex = currentSceneIndex + 1;                       // 다음 씬 인덱스 계산
-
-        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)      // 빌드 세팅 안에 씬이 존재하는지 확인
+        if (isButtonOn == 2)
         {
-            SceneManager.LoadScene(nextSceneIndex);                       // 다음 씬 로드
-        }
-        else
-        {
-            Debug.Log("마지막 씬입니다. 더 이상 씬이 없습니다.");
-        }
-    }
-
-    private void TeleportPlayerToOrigin()
-    {
-        GameObject player = PhotonNetwork.LocalPlayer.TagObject as GameObject; // Photon에서 현재 로컬 플레이어 찾기
-
-        if (player != null)
-        {
-            player.transform.position = new Vector3(0, 0, 0); // 월드 좌표계 기준으로 (0, 0, 0) 위치로 텔레포트
-            Debug.Log("플레이어를 (0, 0, 0) 위치로 텔레포트 시켰습니다.");
-        }
-        else
-        {
-            Debug.LogError("Player 오브젝트를 찾을 수 없습니다!");
+            if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)      // 빌드 세팅 안에 씬이 존재하는지 확인
+            {
+                PhotonNetwork.LoadLevel(nextSceneIndex);                       // 다음 씬 로드
+            }
+            else
+            {
+                Debug.Log("마지막 씬입니다. 더 이상 씬이 없습니다.");
+            }
         }
     }
+
+    //private void TeleportPlayerToOrigin()
+    //{
+    //    GameObject player = PhotonNetwork.LocalPlayer.TagObject as GameObject; // Photon에서 현재 로컬 플레이어 찾기
+
+    //    if (player != null)
+    //    {
+    //        player.transform.position = new Vector3(0, 0, 0); // 월드 좌표계 기준으로 (0, 0, 0) 위치로 텔레포트
+    //        Debug.Log("플레이어를 (0, 0, 0) 위치로 텔레포트 시켰습니다.");
+    //    }
+    //    else
+    //    {
+    //        Debug.LogError("Player 오브젝트를 찾을 수 없습니다!");
+    //    }
+    //}
 }
