@@ -82,6 +82,20 @@ public class Waitscene : MonoBehaviourPunCallbacks
         }
 
         StartCoroutine(ReenableCollider(player));
+
+        // 모든 클라이언트에 DontDestroyOnLoad 적용
+        photonView.RPC("SetDontDestroyOnLoad", RpcTarget.AllBuffered, player.GetComponent<PhotonView>().ViewID);
+    }
+
+    [PunRPC]
+    private void SetDontDestroyOnLoad(int viewID)
+    {
+        PhotonView targetView = PhotonView.Find(viewID);
+        if (targetView != null && targetView.gameObject != null)
+        {
+            DontDestroyOnLoad(targetView.gameObject);
+            Debug.Log("모든 PlayerHolder에 DontDestroyOnLoad 적용 완료.");
+        }
     }
 
     private IEnumerator ReenableCollider(GameObject player)
