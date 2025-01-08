@@ -76,8 +76,8 @@ public class Waitscene : MonoBehaviourPunCallbacks
             Debug.Log($"플레이어 {PhotonNetwork.LocalPlayer.NickName}이(가) 위치 {spawnPoint.position}에 스폰되었습니다.");
             hasSpawned = true;
 
-            DontDestroyOnLoad(player);
-            Debug.Log($"{player}파괴방지");
+            //DontDestroyOnLoad(player);
+            //Debug.Log($"{player}파괴방지");
         }
         else
         {
