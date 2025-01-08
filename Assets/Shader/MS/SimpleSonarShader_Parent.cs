@@ -130,7 +130,7 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
     }
 
     [PunRPC]
-    private void RPCSonarRing(float[] positionArray, float intensity)
+    private void RPCSonarRingQueue(float[] positionArray, float intensity)
     {
         float timeSinceSceneLoadPhoton = (float)(PhotonNetwork.Time - sceneStartTimePhoton);
 
