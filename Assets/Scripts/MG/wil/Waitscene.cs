@@ -2,6 +2,7 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.SceneManagement;
 using System.Collections;
+
 public class Waitscene : MonoBehaviourPunCallbacks
 {
     [SerializeField] private GameObject[] playerPrefab;
@@ -10,9 +11,7 @@ public class Waitscene : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject button2;
 
     private bool hasSpawned = false;
-    private int readyPlayerCount = 0;
-
-    private GameObject playerInstance; // 플레이어 인스턴스 저장
+    private int readyPlayerCount = 0; // 준비 완료된 플레이어 수
 
     private void Start()
     {
@@ -22,23 +21,22 @@ public class Waitscene : MonoBehaviourPunCallbacks
             SceneManager.LoadScene("LoginScenes");
             return;
         }
-
         if (!PhotonNetwork.InRoom)
         {
             Debug.Log("현재 방에 입장하지 않았습니다. 방 입장을 기다립니다...");
             return;
         }
-
         StartCoroutine(WaitForRoomReady());
-
-        // 씬 로드 이벤트 구독
-        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    private void OnDestroy()
+    public override void OnJoinedRoom()
     {
-        // 씬 로드 이벤트 구독 해제
-        SceneManager.sceneLoaded -= OnSceneLoaded;
+        Debug.Log($"방에 입장했습니다: {PhotonNetwork.CurrentRoom.Name}");
+
+        if (!hasSpawned)
+        {
+            SpawnPlayer();
+        }
     }
 
     private IEnumerator WaitForRoomReady()
@@ -64,61 +62,57 @@ public class Waitscene : MonoBehaviourPunCallbacks
         int playerIndex = PhotonNetwork.LocalPlayer.ActorNumber - 1;
         Transform spawnPoint = spawnPoints[playerIndex % spawnPoints.Length];
 
-        playerInstance = PhotonNetwork.Instantiate(playerPrefab[playerIndex % playerPrefab.Length].name, spawnPoint.position, spawnPoint.rotation);
+        if (spawnPoint == null)
+        {
+            Debug.LogWarning($"스폰 포인트가 null입니다! Index: {playerIndex}. 기본 위치를 사용합니다.");
+            spawnPoint = new GameObject("FallbackSpawn").transform;
+            spawnPoint.position = Vector3.zero;
+        }
 
-        if (playerInstance != null)
+        GameObject player = PhotonNetwork.Instantiate(playerPrefab[playerIndex].name, spawnPoint.position, spawnPoint.rotation);
+
+        if (player != null)
         {
             Debug.Log($"플레이어 {PhotonNetwork.LocalPlayer.NickName}이(가) 위치 {spawnPoint.position}에 스폰되었습니다.");
             hasSpawned = true;
 
-            DontDestroyOnLoad(playerInstance);
-            Debug.Log($"{playerInstance.name} 파괴방지 설정 완료");
+            DontDestroyOnLoad(player);
+            Debug.Log($"{player}파괴방지");
         }
         else
         {
             Debug.LogError("플레이어 프리팹 생성에 실패했습니다!");
         }
+
+        StartCoroutine(ReenableCollider(player));
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    private IEnumerator ReenableCollider(GameObject player)
     {
-        Debug.Log($"씬 로드 완료: {scene.name}. 플레이어 동기화 시작.");
+        if (player == null) yield break;
 
-        if (playerInstance != null)
+        Collider collider = player.GetComponent<Collider>();
+        if (collider != null)
         {
-            photonView.RPC("SyncPlayer", RpcTarget.OthersBuffered, playerInstance.transform.position, playerInstance.transform.rotation);
+            collider.enabled = false;
+            yield return new WaitForSeconds(1);
+            collider.enabled = true;
         }
     }
 
-    [PunRPC]
-    private void SyncPlayer(Vector3 position, Quaternion rotation)
-    {
-        if (playerInstance == null)
-        {
-            // 로컬에서 플레이어를 재생성
-            playerInstance = PhotonNetwork.Instantiate(playerPrefab[0].name, position, rotation);
-            DontDestroyOnLoad(playerInstance);
-            Debug.Log("동기화된 플레이어 생성 완료.");
-        }
-        else
-        {
-            // 기존 플레이어의 위치 및 회전값 동기화
-            playerInstance.transform.position = position;
-            playerInstance.transform.rotation = rotation;
-            Debug.Log("플레이어 위치 및 회전 동기화 완료.");
-        }
-    }
-
+    // 버튼 클릭 시 호출되는 메서드
     public void OnButtonPressed()
     {
-        photonView.RPC("PlayerReady", RpcTarget.AllBuffered);
+        photonView.RPC("PlayerReady", RpcTarget.AllBuffered); // 모든 클라이언트에 플레이어 준비 상태 전달
         Debug.Log($"현재 준비된 플레이어 수: {readyPlayerCount}/{PhotonNetwork.CurrentRoom.PlayerCount}");
 
+        // 모든 플레이어가 준비되었을 경우 다음 씬으로 전환
         if (readyPlayerCount >= 2)
         {
             Debug.Log("2명 준비 완료! 다음 씬으로 이동합니다.");
-            PhotonNetwork.LoadLevel("JHScenes3");
+            PhotonNetwork.LoadLevel("MainScenes"); // 전환할 씬 이름으로 변경
         }
+        Debug.Log("버튼이 눌렸습니다");
     }
 
     [PunRPC]
@@ -131,4 +125,5 @@ public class Waitscene : MonoBehaviourPunCallbacks
     {
         Debug.Log($"플레이어 {newPlayer.NickName}이(가) 방에 입장했습니다.");
     }
+
 }
