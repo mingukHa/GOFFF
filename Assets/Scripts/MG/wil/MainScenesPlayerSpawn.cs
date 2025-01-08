@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private GameObject[] playerPrefab;
     [SerializeField] private Transform[] spawnPoints;
     private bool hasSpawned = false;
     private void Start()
@@ -61,7 +61,7 @@ public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
             spawnPoint.position = Vector3.zero;
         }
 
-        GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, spawnPoint.position, spawnPoint.rotation);
+        GameObject player = PhotonNetwork.Instantiate(playerPrefab[playerIndex].name, spawnPoint.position, spawnPoint.rotation);
 
         if (player != null)
         {
