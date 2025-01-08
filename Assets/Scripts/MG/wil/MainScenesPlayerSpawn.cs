@@ -38,28 +38,9 @@ public class MainScenesPlayerSpawn : MonoBehaviourPunCallbacks
     }
 
     private void SpawnPlayer()
-    {
-        if (playerPrefab == null)
-        {
-            Debug.LogError("Player Prefab이 설정되지 않았습니다!");
-            return;
-        }
-
-        if (spawnPoints == null || spawnPoints.Length == 0)
-        {
-            Debug.LogError("스폰 위치가 설정되지 않았습니다!");
-            return;
-        }
-
+    {       
         int playerIndex = PhotonNetwork.LocalPlayer.ActorNumber - 1;
         Transform spawnPoint = spawnPoints[playerIndex % spawnPoints.Length];
-
-        if (spawnPoint == null)
-        {
-            Debug.LogWarning($"스폰 포인트가 null입니다! Index: {playerIndex}. 기본 위치를 사용합니다.");
-            spawnPoint = new GameObject("FallbackSpawn").transform;
-            spawnPoint.position = Vector3.zero;
-        }
 
         GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, spawnPoint.position, spawnPoint.rotation);
 
