@@ -117,7 +117,6 @@ public class Waitscene : MonoBehaviourPunCallbacks
     // 버튼 클릭 시 호출되는 메서드
     public void OnButtonPressed()
     {
-        if (PhotonNetwork.IsMasterClient)
         {
             photonView.RPC("PlayerReady", RpcTarget.AllBuffered); // 모든 클라이언트에 플레이어 준비 상태 전달
             Debug.Log($"현재 준비된 플레이어 수: {readyPlayerCount}/{PhotonNetwork.CurrentRoom.PlayerCount}");
