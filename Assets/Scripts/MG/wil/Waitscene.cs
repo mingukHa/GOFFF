@@ -115,30 +115,17 @@ public class Waitscene : MonoBehaviourPunCallbacks
         }
     }
 
-    // 버튼 클릭 시 호출되는 메서드
-    public void OnButtonPressed()
+    public void UpdateReadyCount(int change)
     {
-        photonView.RPC("PlayerReady", RpcTarget.AllBuffered); // 모든 클라이언트에 플레이어 준비 상태 전달
+        readyPlayerCount += change;
         Debug.Log($"현재 준비된 플레이어 수: {readyPlayerCount}/{PhotonNetwork.CurrentRoom.PlayerCount}");
 
-        // 모든 플레이어가 준비되었을 경우 다음 씬으로 전환
+        // 모든 플레이어가 준비되었을 경우 씬 전환
         if (readyPlayerCount >= playerStart)
         {
             Debug.Log("2명 준비 완료! 다음 씬으로 이동합니다.");
             PhotonNetwork.LoadLevel("MainScenes"); // 전환할 씬 이름으로 변경
         }
-        Debug.Log("버튼이 눌렸습니다");
-    }
-
-    [PunRPC]
-    public void OnTriggerEnter(Collider other)
-    {  
-        readyPlayerCount++;
-    }
-    [PunRPC]
-    public void OnTriggerExit(Collider other)
-    {
-        readyPlayerCount--;
     }
 
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)

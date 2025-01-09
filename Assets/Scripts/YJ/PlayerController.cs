@@ -181,7 +181,7 @@ public class PlayerController : MonoBehaviourPun
             {
                 float rotationInput = -rightDeltaPosition.z; // 오른손 컨트롤러의 Z축 움직임
                 ApplyRotation(rotationInput); // 반시계 방향으로 회전
-                Debug.Log($"{rotationInput}");
+                //Debug.Log($"{rotationInput}");
             }
         }
 
