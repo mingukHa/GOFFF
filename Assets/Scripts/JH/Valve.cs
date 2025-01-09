@@ -62,12 +62,12 @@ public class Valve : MonoBehaviourPun
             bridgeMinous.rotation = Quaternion.Euler(new Vector3(minusRotation, 0f, 0f));
         }
 
-        // 마스터 클라이언트에서 값 동기화
-        if (PhotonNetwork.IsMasterClient)
-        {
-            photonView.RPC("RPCSyncKnobValue", RpcTarget.Others, knob.value);
-            photonView.RPC("RPCSyncBridgeRotation", RpcTarget.Others, bridgePlus.rotation.eulerAngles.x, bridgeMinous.rotation.eulerAngles.x);
-        }
+        //// 마스터 클라이언트에서 값 동기화
+        //if (PhotonNetwork.IsMasterClient)
+        //{
+        //    photonView.RPC("RPCSyncKnobValue", RpcTarget.Others, knob.value);
+        //    photonView.RPC("RPCSyncBridgeRotation", RpcTarget.Others, bridgePlus.rotation.eulerAngles.x, bridgeMinous.rotation.eulerAngles.x);
+        //}
     }
 
     // knob.value 동기화
