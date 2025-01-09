@@ -60,8 +60,11 @@ public class Valve2 : MonoBehaviourPun
 
         }
 
-        bridgePlus.rotation = Quaternion.Euler(new Vector3(Mathf.Lerp(90f, 0f, knob.value), 0f, 0f));
-        bridgeMinous.rotation = Quaternion.Euler(new Vector3(Mathf.Lerp(-90f, 0f, knob.value), 0f, 0f));
+        if (isAttached)
+        {
+            bridgePlus.rotation = Quaternion.Euler(new Vector3(Mathf.Lerp(90f, 0f, knob.value), 0f, 0f));
+            bridgeMinous.rotation = Quaternion.Euler(new Vector3(Mathf.Lerp(-90f, 0f, knob.value), 0f, 0f));
+        }
 
     }
 
