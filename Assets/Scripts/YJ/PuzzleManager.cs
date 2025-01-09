@@ -4,7 +4,7 @@ using UnityEngine;
 public class PuzzleManager : MonoBehaviourPunCallbacks
 {
     public SocketValidator[] socketValidators; // 도플갱어 방에 있는 모든 SocketValidator
-    //public GameObject jailBar; // 감옥 쇠창살 오브젝트
+    public GameObject jailBar; // 감옥 쇠창살 오브젝트
     [SerializeField]
     private GameObject Monster; // 몬스터 Prefab (Resources 폴더에 있어야 함)
     [SerializeField]
