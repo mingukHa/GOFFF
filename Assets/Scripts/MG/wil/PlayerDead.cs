@@ -11,11 +11,11 @@ public class PlayerDead : MonoBehaviourPun
             isDead = true;
         Invoke("ReStart", 5f);
     }
-    public void Deadzone()
-    {
-        isDead = true;
-        Invoke("ReStart", 1f);
-    }
+    //public void Deadzone()
+    //{
+    //    isDead = true;
+    //    Invoke("ReStart", 1f);
+    //}
     
 
     [PunRPC]
