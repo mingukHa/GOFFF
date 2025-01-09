@@ -121,14 +121,20 @@ public class Waitscene : MonoBehaviourPunCallbacks
         Debug.Log($"현재 준비된 플레이어 수: {readyPlayerCount}/{PhotonNetwork.CurrentRoom.PlayerCount}");
 
         // 모든 플레이어가 준비되었을 경우 다음 씬으로 전환
-        if (readyPlayerCount >= 2)
+        if (readyPlayerCount == 2)
         {
+            
             Debug.Log("2명 준비 완료! 다음 씬으로 이동합니다.");
             PhotonNetwork.LoadLevel("JHScenes3"); // 전환할 씬 이름으로 변경
+            
+        }
+        else
+        {
+            return;
         }
         Debug.Log("버튼이 눌렸습니다");
     }
-    //JHScenes2 , JHScenes3 , MainScenes
+    //JHScenes2 , JHScenes3 , MainScenes 
     [PunRPC]
     public void PlayerReady()
     {
