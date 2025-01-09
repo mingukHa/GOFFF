@@ -4,9 +4,20 @@ using UnityEngine;
 public class Domwaiterfood : MonoBehaviour
 {
     public Transform[] ovenbottom;
-    public GameObject telpobtn;
 
     private bool isButtonPressed = false;
+
+    public void OnButtonPressed()
+    {
+        isButtonPressed = true;
+        telpo();
+    }
+
+    // XR Simple Interactable의 Select Exit 이벤트에 연결할 메서드
+    public void OnButtonReleased()
+    {
+        isButtonPressed = false;
+    }
 
     public void telpo()
     {
@@ -15,22 +26,19 @@ public class Domwaiterfood : MonoBehaviour
 
     private IEnumerator Telpoburgur()
     {
-        // 버튼이 눌렸는지 확인
         if (isButtonPressed)
         {
-            // 2번 박스(ovenbottom[0])의 위치에서 충돌한 모든 오브젝트 찾기
-            Collider[] colliders = Physics.OverlapBox(
-                ovenbottom[0].position,
-                ovenbottom[0].localScale / 2,
-                Quaternion.identity
-            );
+            // ovenbottom[0]의 충돌 박스 크기를 설정
+            Vector3 boxSize = new Vector3(1f, 1f, 1f); // 원하는 크기로 조절
 
+            // ovenbottom[0]의 박스 충돌체 안에 있는 모든 오브젝트 검색
+            Collider[] colliders = Physics.OverlapBox(ovenbottom[0].position, boxSize / 2);
+
+            // 검색된 모든 오브젝트를 ovenbottom[1] 위치로 이동
             foreach (Collider col in colliders)
             {
-                // 충돌한 오브젝트가 버튼이 아닌 경우
-                if (col.gameObject != telpobtn)
+                if (col.CompareTag("Food")) // 특정 태그의 오브젝트만 이동
                 {
-                    // 오브젝트를 ovenbottom[1] 위치로 이동
                     col.transform.position = ovenbottom[1].position;
                 }
             }
@@ -39,21 +47,14 @@ public class Domwaiterfood : MonoBehaviour
         }
     }
 
-    // 버튼이 눌렸을 때 isButtonPressed를 true로 설정
-    private void OnCollisionEnter(Collision collision)
+    // 충돌 박스를 시각화하여 확인할 수 있도록 OnDrawGizmos 추가
+    private void OnDrawGizmos()
     {
-        if (collision.gameObject == telpobtn) // 버튼이 눌리면
+        if (ovenbottom != null && ovenbottom.Length > 0)
         {
-            isButtonPressed = true;
-        }
-    }
-
-    // 버튼이 떼어졌을 때 isButtonPressed를 false로 설정
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject == telpobtn)
-        {
-            isButtonPressed = false;
+            Gizmos.color = Color.red;
+            Vector3 boxSize = new Vector3(1f, 1f, 1f);
+            Gizmos.DrawWireCube(ovenbottom[0].position, boxSize);
         }
     }
 }
