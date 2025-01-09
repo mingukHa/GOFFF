@@ -62,28 +62,28 @@ public class Valve2 : MonoBehaviourPun
             bridgeMinous.rotation = Quaternion.Euler(new Vector3(minusRotation, 0f, 0f));
         }
 
-        // 마스터 클라이언트에서 값 동기화
-        if (PhotonNetwork.IsMasterClient)
-        {
-            photonView.RPC("RPCSyncKnobValue2", RpcTarget.Others, knob.value);
-            photonView.RPC("RPCSyncBridgeRotation2", RpcTarget.Others, bridgePlus.rotation.eulerAngles.x, bridgeMinous.rotation.eulerAngles.x);
-        }
+        //// 마스터 클라이언트에서 값 동기화
+        //if (PhotonNetwork.IsMasterClient)
+        //{
+        //    photonView.RPC("RPCSyncKnobValue2", RpcTarget.Others, knob.value);
+        //    photonView.RPC("RPCSyncBridgeRotation2", RpcTarget.Others, bridgePlus.rotation.eulerAngles.x, bridgeMinous.rotation.eulerAngles.x);
+        //}
     }
 
-    // knob.value 동기화
-    [PunRPC]
-    private void RPCSyncKnobValue2(float syncedValue)
-    {
-        knob.value = syncedValue;
-    }
+    //// knob.value 동기화
+    //[PunRPC]
+    //private void RPCSyncKnobValue2(float syncedValue)
+    //{
+    //    knob.value = syncedValue;
+    //}
 
-    // 다리 회전 값 동기화
-    [PunRPC]
-    private void RPCSyncBridgeRotation2(float plusRotation, float minusRotation)
-    {
-        bridgePlus.rotation = Quaternion.Euler(new Vector3(plusRotation, 0f, 0f));
-        bridgeMinous.rotation = Quaternion.Euler(new Vector3(minusRotation, 0f, 0f));
-    }
+    //// 다리 회전 값 동기화
+    //[PunRPC]
+    //private void RPCSyncBridgeRotation2(float plusRotation, float minusRotation)
+    //{
+    //    bridgePlus.rotation = Quaternion.Euler(new Vector3(plusRotation, 0f, 0f));
+    //    bridgeMinous.rotation = Quaternion.Euler(new Vector3(minusRotation, 0f, 0f));
+    //}
 
     // 실린더에 밸브를 붙이는 메서드
     private void AttachToCylinder(GameObject cylinder, GameObject grabValve)
