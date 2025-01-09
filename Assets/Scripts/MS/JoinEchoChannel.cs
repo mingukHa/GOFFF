@@ -48,8 +48,6 @@ public class JoinEchoChannel : MonoBehaviourPun
         Debug.Log("보이스 채널 접속이 됐습니다.");
 
         VivoxService.Instance.MuteOutputDevice();
-
-
     }
 
     private async Task LoginAsync()
@@ -80,10 +78,10 @@ public class JoinEchoChannel : MonoBehaviourPun
             // 버튼 상태가 이전 프레임과 동일하면 처리하지 않음
             if (currentButtonState != previousButtonState)
             {
-                if (!photonView.IsMine)
-                {
-                    photonView.RequestOwnership();
-                }
+                //if (!photonView.IsMine)
+                //{
+                //    photonView.RequestOwnership();
+                //}
                 if (currentButtonState) // 버튼이 눌렸을 때
                 {
                     if (isMuted)
