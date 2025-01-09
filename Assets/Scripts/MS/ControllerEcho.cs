@@ -31,7 +31,6 @@ public class ControllerEcho : MonoBehaviourPun
                 {
                     par.StartSonarRing(hit.point, 1.4f, 0);
                     photonView.RPC("RPCSonarRing", RpcTarget.Others, hit.point);
-                    Debug.Log($"{hit.point}¿‘¥œ¥Ÿ");
                 }
                 wasBPressed = true;
             }
