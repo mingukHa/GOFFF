@@ -5,17 +5,20 @@ using UnityEngine.SceneManagement;
 
 using Photon.Pun; // Photon 관련 라이브러리 추가
 
-public class InElevator : MonoBehaviour
+public class InElevator : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private List<Transform> elevatorDoors; //할당된 엘리베이터 문 2개
-    [SerializeField] private Transform elevatorBottom;    //엘리베이터 바닥
-    public float closeDuration = 2f; //문 닫히는 시간
-    private Vector3 closedScale = new Vector3(1, 1, 1); //닫힌 상태의 Scale
-    private Vector3 openScale = new Vector3(0, 1, 1);   //열린 상태의 Scale
+    [SerializeField] private List<Transform> elevatorDoors; // 할당된 엘리베이터 문 2개
+    [SerializeField] private Transform elevatorBottom;    // 엘리베이터 바닥
+    public float closeDuration = 2f; // 문 닫히는 시간
+    private Vector3 closedScale = new Vector3(1, 1, 1); // 닫힌 상태의 Scale
+    private Vector3 openScale = new Vector3(0, 1, 1);   // 열린 상태의 Scale
 
-    public UpElevator upElevator;   //위로 버튼을 눌렀는지 확인하기 위해
-    public DownElevator downElevator;   //아래로 버튼을 눌렀는지 확인하기 위해
-    private int isButtonOn = 0;
+    public UpElevator upElevator;   // 위로 버튼을 눌렀는지 확인하기 위해
+    public DownElevator downElevator;   // 아래로 버튼을 눌렀는지 확인하기 위해
+
+    private bool isClosing = false; // 문이 닫히는 중인지 확인
+    private int isButtonOn = 0; // 버튼 상태를 로컬에서 관리
+
     private void OnTriggerEnter(Collider other)
     {
         // Collider로 감지된 오브젝트가 플레이어인지 확인
@@ -26,7 +29,7 @@ public class InElevator : MonoBehaviour
             if (player == PhotonNetwork.LocalPlayer.TagObject as GameObject)
             {
                 Debug.Log("로컬 플레이어가 엘리베이터에 들어왔습니다.");
-                CheckElevatorConditions();
+                photonView.RPC("CheckElevatorConditions", RpcTarget.All);
             }
         }
     }
@@ -34,8 +37,9 @@ public class InElevator : MonoBehaviour
     [PunRPC]
     public void CloseDoorsRPC()
     {
+        if (isClosing) return; // 문이 닫히는 중이면 중복 호출 방지
+        isClosing = true;
         StartCoroutine(CloseDoorsCoroutine());
-        ++isButtonOn;
     }
 
     public IEnumerator CloseDoorsCoroutine()
@@ -46,71 +50,57 @@ public class InElevator : MonoBehaviour
 
         while (elapsedTime < closeDuration)
         {
-            float t = elapsedTime / closeDuration;   //보간 비율 0 ~ 1 사이 값 계산
-            for (int i = 0; i < elevatorDoors.Count; i++)
+            float t = elapsedTime / closeDuration;   // 보간 비율 0 ~ 1 사이 값 계산
+            foreach (var door in elevatorDoors)
             {
-                elevatorDoors[i].localScale = Vector3.Lerp(openScale, closedScale, t);
+                door.localScale = Vector3.Lerp(openScale, closedScale, t);
             }
             elapsedTime += Time.deltaTime;
-            
-            yield return null;  //다음 프레임까지 대기
+
+            yield return null;  // 다음 프레임까지 대기
         }
 
-        for (int i = 0; i < elevatorDoors.Count; i++)
+        foreach (var door in elevatorDoors)
         {
-            elevatorDoors[i].localScale = closedScale;
+            door.localScale = closedScale;
         }
 
-        CheckElevatorConditions();
+        Debug.Log("문이 닫혔습니다.");
+        isClosing = false; // 문 닫기 완료
+        photonView.RPC("CheckElevatorConditions", RpcTarget.All); // 모든 클라이언트에 조건 확인 요청
     }
 
-    private void CheckElevatorConditions()
+    [PunRPC]
+    public void CheckElevatorConditions()
     {
         // UpElevator의 isUpDoorOpening이 true일 때 다음 씬으로 이동
         if (upElevator != null && upElevator.isUpDoorOpening)
         {
-            LoadNextScene();
+            photonView.RPC("LoadNextScene", RpcTarget.AllBuffered); // 씬 전환 호출
         }
-        // DownElevator의 isDownDoorOpening이 true일 때 텔레포트
-        //else if (downElevator != null && downElevator.isDownDoorOpening)
-        //{
-        //    TeleportPlayerToOrigin();
-        //}
         else
         {
             Debug.Log("엘리베이터 상태가 유효하지 않습니다.");
         }
     }
 
-    private void LoadNextScene()
+    [PunRPC]
+    public void LoadNextScene()
     {
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex; // 현재 씬의 빌드 인덱스 가져오기
-        int nextSceneIndex = currentSceneIndex + 1;                       // 다음 씬 인덱스 계산
-        if (isButtonOn == 2)
+        if (isButtonOn >= 2) return; // 씬이 이미 로드되었는지 확인
+
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int nextSceneIndex = currentSceneIndex + 1;
+
+        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
         {
-            if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)      // 빌드 세팅 안에 씬이 존재하는지 확인
-            {
-                PhotonNetwork.LoadLevel(nextSceneIndex);                       // 다음 씬 로드
-            }
-            else
-            {
-                Debug.Log("마지막 씬입니다. 더 이상 씬이 없습니다.");
-            }
+            Debug.Log("다음 씬으로 이동합니다.");
+            isButtonOn++; // 버튼 상태 업데이트
+            PhotonNetwork.LoadLevel(nextSceneIndex);
+        }
+        else
+        {
+            Debug.Log("마지막 씬입니다. 더 이상 씬이 없습니다.");
         }
     }
-
-    //private void TeleportPlayerToOrigin()
-    //{
-    //    GameObject player = PhotonNetwork.LocalPlayer.TagObject as GameObject; // Photon에서 현재 로컬 플레이어 찾기
-
-    //    if (player != null)
-    //    {
-    //        player.transform.position = new Vector3(0, 0, 0); // 월드 좌표계 기준으로 (0, 0, 0) 위치로 텔레포트
-    //        Debug.Log("플레이어를 (0, 0, 0) 위치로 텔레포트 시켰습니다.");
-    //    }
-    //    else
-    //    {
-    //        Debug.LogError("Player 오브젝트를 찾을 수 없습니다!");
-    //    }
-    //}
 }

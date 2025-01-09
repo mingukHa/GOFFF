@@ -7,12 +7,7 @@ public class Waitscene : MonoBehaviourPunCallbacks
 {
     [SerializeField] private GameObject[] playerPrefab;
     [SerializeField] private Transform[] spawnPoints;
-    [SerializeField] private Collider[] colliders;
-
-
     private bool hasSpawned = false;
-    private int readyPlayerCount = 0; // 준비 완료된 플레이어 수
-    public int playerStart = 2;
 
     private void Start()
     {
@@ -112,19 +107,6 @@ public class Waitscene : MonoBehaviourPunCallbacks
             collider.enabled = false;
             yield return new WaitForSeconds(1);
             collider.enabled = true;
-        }
-    }
-
-    public void UpdateReadyCount(int change)
-    {
-        readyPlayerCount += change;
-        Debug.Log($"현재 준비된 플레이어 수: {readyPlayerCount}/{PhotonNetwork.CurrentRoom.PlayerCount}");
-
-        // 모든 플레이어가 준비되었을 경우 씬 전환
-        if (playerStart >= readyPlayerCount)
-        {   
-            Debug.Log("2명 준비 완료! 다음 씬으로 이동합니다.");
-            PhotonNetwork.LoadLevel("MainScenes"); // 전환할 씬 이름으로 변경
         }
     }
 
