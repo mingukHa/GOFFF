@@ -11,18 +11,12 @@ public class PlayerDead : MonoBehaviourPun
             isDead = true;
         Invoke("ReStart", 5f);
     }
-    private void FixedUpdate()
+    public void Deadzone()
     {
-        hight();
+        isDead = true;
+        ReStart();
     }
-    private void hight()
-    {
-        if (transform.position.y <= -10f)
-        {
-            isDead = true;
-            Invoke("ReStart", 1f);
-        }
-    }
+    
 
     [PunRPC]
     private void ReStart()
