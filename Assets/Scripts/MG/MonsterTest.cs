@@ -40,18 +40,22 @@ public class MonsterTest : MonoBehaviour
         {
             case MonsterState.Idle:
                 HandleIdleState();
+                //SoundManager.instance.SFXPlay("ZomWalk_SFX");
                 break;
             case MonsterState.Walking:
                 MoveToTarget();
+                SoundManager.instance.SFXPlay("ZomWalk_SFX");
                 break;
             case MonsterState.LookingAround:
                 LookAround();
                 break;
             case MonsterState.Detect:
                 HandleDetectState();
+                SoundManager.instance.SFXPlay("ZomShout_SFX");
                 break;
             case MonsterState.Attack:
                 AttackTarget();
+                SoundManager.instance.SFXPlay("GameOver_SFX");
                 break;
         }
     }

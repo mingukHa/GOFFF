@@ -1,92 +1,51 @@
-using UnityEngine;
 using Photon.Pun;
-using UnityEngine.SceneManagement;
+using UnityEngine;
 
-public class f1Manager : MonoBehaviourPunCallbacks
+public class f1layerspawn : MonoBehaviour
 {
-    [SerializeField] private GameObject[] playerPrefab; // 프리팹 배열
-    [SerializeField] private Transform[] spawnPoints;   // 스폰 위치
-    private bool hasSpawned = false;                   // 스폰 확인용
+    public Transform[] TagObject; // 배열에 PlayerPos1, PlayerPos2 위치 설정
 
-    private void Start()
+    private void Awake()
     {
-        // 포톤 네트워크 연결 확인
-        if (!PhotonNetwork.IsConnected)
+        // PlayerPos1, PlayerPos2 위치 찾기
+        GameObject playerPos1 = GameObject.Find("PlayerHolder(Clone)");
+        GameObject playerPos2 = GameObject.Find("PlayerHolder1(Clone)");
+
+        if (playerPos1 == null)
         {
-            Debug.Log("포톤 서버와 연결이 안 되었음 로비로 이동");
-            SceneManager.LoadScene("LoginScenes");
+            Debug.LogError("PlayerPos1이 씬에 없습니다!");
+            return;
+        }
+        if (playerPos2 == null)
+        {
+            Debug.LogError("PlayerPos2가 씬에 없습니다!");
             return;
         }
 
-        // 방 입장 여부 확인
-        if (!PhotonNetwork.InRoom)
+        // 로컬 플레이어의 ActorNumber를 기준으로 위치 설정
+        int playerIndex = PhotonNetwork.LocalPlayer.ActorNumber;
+
+        if (playerIndex < 1 || playerIndex > TagObject.Length)
         {
-            Debug.Log("현재 방에 입장하지 않았습니다. 방 입장을 기다립니다...");
+            Debug.LogError($"잘못된 플레이어 인덱스: {playerIndex}. TagObject 배열의 크기를 확인하세요.");
             return;
         }
 
-        // 입장이 완료되면 플레이어 입장 대기
-        Debug.Log("현재 방에 입장했습니다. 다른 플레이어를 기다립니다...");
-    }
-
-    public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
-    {
-        // 다른 플레이어가 방에 입장했을 때 호출
-        Debug.Log($"플레이어 {newPlayer.NickName}이(가) 방에 입장했습니다. 현재 플레이어 수: {PhotonNetwork.CurrentRoom.PlayerCount}");
-
-        // 방에 플레이어가 2명이 되면 스폰
-        if (PhotonNetwork.CurrentRoom.PlayerCount == 2 && !hasSpawned)
+        if (playerIndex == 1)
         {
-            Debug.Log("모든 플레이어가 입장했습니다. 플레이어를 스폰합니다.");
-            SpawnPlayer();
+            // 첫 번째 플레이어는 PlayerPos1 위치로 이동
+            playerPos1.transform.position = TagObject[playerIndex - 1].position; // 인덱스 보정
+            Debug.Log("플레이어 1이 PlayerPos1으로 이동되었습니다.");
         }
-    }
-
-   public override void OnJoinedRoom()
-   {
-       // 자신이 방에 입장했을 때 호출
-       Debug.Log($"방에 입장했습니다: {PhotonNetwork.CurrentRoom.Name}. 현재 플레이어 수: {PhotonNetwork.CurrentRoom.PlayerCount}");
-
-       // 이미 방에 2명이 있다면 스폰 (다른 클라이언트가 먼저 들어와 있는 경우)
-       if (PhotonNetwork.CurrentRoom.PlayerCount == 2 && !hasSpawned)
-       {
-           Debug.Log("모든 플레이어가 입장했습니다. 플레이어를 스폰합니다.");
-           SpawnPlayer();
-       }
-   }
-
-    private void SpawnPlayer()
-    {
-        // 플레이어 프리팹 배열이 설정되지 않은 경우
-        if (playerPrefab == null || playerPrefab.Length == 0)
+        else if (playerIndex == 2)
         {
-            Debug.LogError("Player Prefab이 설정되지 않았습니다!");
-            return;
-        }
-
-        // 스폰 포인트 배열이 설정되지 않은 경우
-        if (spawnPoints == null || spawnPoints.Length == 0)
-        {
-            Debug.LogError("스폰 위치가 설정되지 않았습니다!");
-            return;
-        }
-
-        // 플레이어의 고유 ActorNumber를 기반으로 스폰 위치 계산
-        int playerIndex = PhotonNetwork.LocalPlayer.ActorNumber - 1;
-        Transform spawnPoint = spawnPoints[playerIndex % spawnPoints.Length];
-
-        // 네트워크 상에서 플레이어 생성
-        GameObject player = PhotonNetwork.Instantiate(playerPrefab[playerIndex].name, spawnPoint.position, spawnPoint.rotation);
-        
-        if (player != null)
-        {
-            Debug.Log($"플레이어 {PhotonNetwork.LocalPlayer.NickName}이(가) 위치 {spawnPoint.position}에 스폰되었습니다.");
-            hasSpawned = true; // 중복 생성 방지
-            
+            // 두 번째 플레이어는 PlayerPos2 위치로 이동
+            playerPos2.transform.position = TagObject[playerIndex - 1].position; // 인덱스 보정
+            Debug.Log("플레이어 2가 PlayerPos2로 이동되었습니다.");
         }
         else
         {
-            Debug.LogError("플레이어 프리팹 생성에 실패했습니다!");
+            Debug.LogWarning("지원되지 않는 플레이어 인덱스입니다.");
         }
     }
 }

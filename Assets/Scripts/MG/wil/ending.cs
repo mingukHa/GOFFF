@@ -6,13 +6,13 @@ public class ending : MonoBehaviour
 
     public void OnButtonPress()
     {
-        StartCoroutine(TransitionToScene());
+        SceneManager.LoadScene("MainScenes");
     }
 
-    private IEnumerator TransitionToScene()
-    {
-        yield return new WaitForSeconds(1f); // 1초 대기
-        SceneManager.LoadScene("MainScenes");  // 지정된 씬으로 전환
-    }
+    //private IEnumerator TransitionToScene()
+    //{
+    //    SceneManager.LoadScene("MainScenes");  // 지정된 씬으로 전환
+    //    yield break;
+    //}
 }
 
