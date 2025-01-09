@@ -1,5 +1,6 @@
 using Photon.Pun;
 using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
@@ -14,6 +15,24 @@ public class GrabValve : MonoBehaviourPun
 
     private bool isGrabbed = false;
 
+    private Vector3 currentTR = Vector3.zero;
+
+    private void Start()
+    {
+        currentTR = transform.position;
+    }
+
+    private void Update()
+    {
+        if(-15f>transform.position.y)
+        {
+            Rigidbody ValveRD=transform.GetComponent<Rigidbody>();
+            ValveRD.angularVelocity = Vector3.zero;
+            ValveRD.linearVelocity = Vector3.zero;
+            transform.position = currentTR;
+            transform.rotation = Quaternion.identity;
+        }
+    }
 
     // 다른 Collider가 이 밸브와 충돌했을 때 호출되는 메서드
     private void OnTriggerEnter(Collider other)
