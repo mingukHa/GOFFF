@@ -11,18 +11,18 @@ public class PlayerDead : MonoBehaviourPun
             isDead = true;
         Invoke("ReStart", 5f);
     }
-    //private void FixedUpdate()
-    //{
-    //    hight();
-    //}
-    //private void hight()
-    //{
-    //    if (transform.position.y >= -10f)
-    //    {
-    //        isDead = true;
-    //        Invoke("ReStart", 1f);
-    //    }
-    //}
+    private void FixedUpdate()
+    {
+        hight();
+    }
+    private void hight()
+    {
+        if (transform.position.y <= -10f)
+        {
+            isDead = true;
+            Invoke("ReStart", 1f);
+        }
+    }
 
     [PunRPC]
     private void ReStart()
