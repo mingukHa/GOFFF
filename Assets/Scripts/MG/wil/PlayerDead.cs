@@ -14,7 +14,7 @@ public class PlayerDead : MonoBehaviourPun
     private void SendRestartRPC()
     {
         // 모든 클라이언트에 씬 리로드 요청
-        photonView.RPC("ReStart", RpcTarget.All);
+        photonView.RPC("ReStart", RpcTarget.Others);
     }
 
     [PunRPC]

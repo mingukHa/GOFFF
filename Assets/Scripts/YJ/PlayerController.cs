@@ -147,7 +147,7 @@ public class PlayerController : MonoBehaviourPun
         playerHolder.position += finalMovement;
 
         // 바퀴 회전 처리
-        HandleWheelRotation(finalMovement.magnitude);
+        HandleWheelRotation(finalMovement, finalMovement.magnitude);
 
         // Photon 동기화
         photonView.RPC("SyncWheelRotation", RpcTarget.Others, finalMovement.magnitude);
@@ -211,14 +211,21 @@ public class PlayerController : MonoBehaviourPun
         playerHolder.Rotate(Vector3.up, rotationAmount);
     }
 
-    private void HandleWheelRotation(float movementMagnitude)
+    private void HandleWheelRotation(Vector3 finalMovement, float movementMagnitude)
     {
-        // 이동 방향에 따른 회전 방향 설정
-        float wheelRotation = movementMagnitude * wheelRotationMultiplier;
+        // 월드 좌표계 이동 벡터를 로컬 좌표계로 변환
+        Vector3 localMovement = playerHolder.InverseTransformDirection(finalMovement);
 
-        // 회전 중인지 확인
-        float rotationAmount = (isLGripTriggerPressed || isRGripTriggerPressed) ? rotationSpeed * Time.deltaTime : 0;
+        // Z축 이동 방향에 따라 움직임의 방향 결정 (전진/후진)
+        float direction = localMovement.z < 0 ? -1f : 1f;
 
+        // 회전 크기 계산
+        float wheelRotation = movementMagnitude * wheelRotationMultiplier * direction;
+
+        // 디버깅
+        Debug.Log($"로컬 이동 방향: {localMovement}, 최종 이동 방향: {movementMagnitude * direction}");
+
+        // 바퀴 회전 처리
         if (isLGripTriggerPressed && !isRGripTriggerPressed) // 우회전
         {
             leftWheel.Rotate(Vector3.right, wheelRotation);
