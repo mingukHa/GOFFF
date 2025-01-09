@@ -3472,6 +3472,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 905732214313701033, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
         type: 3}
+      propertyPath: m_Value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 905732214313701033, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
+        type: 3}
       propertyPath: m_Handle
       value: 
       objectReference: {fileID: 27864405}
@@ -3488,7 +3493,7 @@ PrefabInstance:
     - target: {fileID: 905732214313701033, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
         type: 3}
       propertyPath: m_OnValueChange.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 905732214313701033, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
         type: 3}
@@ -3538,12 +3543,12 @@ PrefabInstance:
     - target: {fileID: 905732214313701033, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
         type: 3}
       propertyPath: m_OnValueChange.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: HandleSyncKnobRotation
+      value: HandleSyncKnobValue
       objectReference: {fileID: 0}
     - target: {fileID: 905732214313701033, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
         type: 3}
       propertyPath: m_OnValueChange.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: HandleSyncKnobValue
+      value: HandleSyncKnobRotation
       objectReference: {fileID: 0}
     - target: {fileID: 905732214313701033, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
         type: 3}
@@ -3709,6 +3714,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ValveController
+      objectReference: {fileID: 0}
+    - target: {fileID: 7309779081113282178, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7309779081113282178, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.00000008742278
       objectReference: {fileID: 0}
     - target: {fileID: 8447241642620575213, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
         type: 3}
@@ -5390,6 +5405,8 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 466653285}
+  - {fileID: 1171824164}
+  - {fileID: 1635789784}
   - {fileID: 633889603}
   - {fileID: 752339165}
   - {fileID: 1817528668}
@@ -11753,7 +11770,7 @@ PrefabInstance:
     - target: {fileID: 905732214313701033, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
         type: 3}
       propertyPath: m_OnValueChange.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 905732214313701033, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
         type: 3}
@@ -11803,7 +11820,7 @@ PrefabInstance:
     - target: {fileID: 905732214313701033, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
         type: 3}
       propertyPath: m_OnValueChange.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: HandleSyncKnobRotation
+      value: HandleSyncKnobValue
       objectReference: {fileID: 0}
     - target: {fileID: 905732214313701033, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
         type: 3}
