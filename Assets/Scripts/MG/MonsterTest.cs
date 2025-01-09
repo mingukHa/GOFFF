@@ -40,7 +40,6 @@ public class MonsterTest : MonoBehaviour
         {
             case MonsterState.Idle:
                 HandleIdleState();
-                //SoundManager.instance.SFXPlay("ZomWalk_SFX");
                 break;
             case MonsterState.Walking:
                 MoveToTarget();                
@@ -58,7 +57,10 @@ public class MonsterTest : MonoBehaviour
                 break;
         }
     }
-
+    private void Idel()
+    {
+        SoundManager.instance.SFXPlay("ZomBreathing_SFX");
+    }
     private void HandleIdleState()
     {
         DetectTargetsInView();
