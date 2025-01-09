@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
-public class f1Button : MonoBehaviour
+using Photon.Pun;
+public class f1Button : MonoBehaviourPun
 {
     public float MoveSpeed = 5f; // 이동 속도
     public GameObject door;
@@ -15,11 +16,12 @@ public class f1Button : MonoBehaviour
         {
             StopCoroutine(moveCoroutine);
         }
-
+        
         // 새로운 Coroutine 시작
         moveCoroutine = StartCoroutine(MoveDoor());
+        photonView.RPC("ButtonMove", RpcTarget.Others);
     }
-
+    
     private IEnumerator MoveDoor()
     {
         while (Vector3.Distance(door.transform.position, target.transform.position) > 0.01f)

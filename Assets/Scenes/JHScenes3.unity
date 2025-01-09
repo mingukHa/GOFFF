@@ -1668,7 +1668,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
+  m_SynchronizeScale: 1
   m_UseLocal: 1
 --- !u!114 &554478153
 MonoBehaviour:
@@ -4060,10 +4060,45 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 24
       objectReference: {fileID: 0}
+    - target: {fileID: 6910357855150115383, guid: 64f41f77b73d8a1429e3061b37a36756,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910357855150115383, guid: 64f41f77b73d8a1429e3061b37a36756,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910357855150115383, guid: 64f41f77b73d8a1429e3061b37a36756,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910357855150115383, guid: 64f41f77b73d8a1429e3061b37a36756,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910357855150115383, guid: 64f41f77b73d8a1429e3061b37a36756,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910357855150115383, guid: 64f41f77b73d8a1429e3061b37a36756,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
     - target: {fileID: 7855704281668436539, guid: 64f41f77b73d8a1429e3061b37a36756,
         type: 3}
       propertyPath: sceneViewId
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8311837418414909696, guid: 64f41f77b73d8a1429e3061b37a36756,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 449.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4547,6 +4582,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1380712629}
+  - component: {fileID: 1380712630}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -4569,6 +4605,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1380712630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380712628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 25
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1403414784
 GameObject:
   m_ObjectHideFlags: 0
