@@ -43,19 +43,18 @@ public class MonsterTest : MonoBehaviour
                 //SoundManager.instance.SFXPlay("ZomWalk_SFX");
                 break;
             case MonsterState.Walking:
-                MoveToTarget();
-                SoundManager.instance.SFXPlay("ZomWalk_SFX");
+                MoveToTarget();                
                 break;
             case MonsterState.LookingAround:
                 LookAround();
                 break;
             case MonsterState.Detect:
                 HandleDetectState();
-                SoundManager.instance.SFXPlay("ZomShout_SFX");
+                
                 break;
             case MonsterState.Attack:
                 AttackTarget();
-                SoundManager.instance.SFXPlay("GameOver_SFX");
+                
                 break;
         }
     }
@@ -64,7 +63,14 @@ public class MonsterTest : MonoBehaviour
     {
         DetectTargetsInView();
     }
-
+    public void Attack()
+    {
+        SoundManager.instance.SFXPlay("GameOver_SFX");
+    }
+    public void Detect()
+    {
+        SoundManager.instance.SFXPlay("ZomShout_SFX");
+    }
     private void HandleDetectState()
     {
         detectTime += Time.deltaTime;
@@ -77,7 +83,10 @@ public class MonsterTest : MonoBehaviour
             animator.SetBool("isDetecting", false);
         }
     }
-
+    public void Walk()
+    {
+        SoundManager.instance.SFXPlay("ZomWalk_SFX");
+    }
     private void HandleGroundCollision(Vector3 collisionPoint)
     {
         SetTargetPosition(collisionPoint);
