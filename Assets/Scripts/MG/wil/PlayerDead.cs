@@ -14,7 +14,7 @@ public class PlayerDead : MonoBehaviourPun
     public void Deadzone()
     {
         isDead = true;
-        ReStart();
+        Invoke("ReStart", 1f);
     }
     
 
