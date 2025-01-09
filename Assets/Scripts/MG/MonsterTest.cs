@@ -10,7 +10,7 @@ public class MonsterTest : MonoBehaviour
     [SerializeField] private float idleTimeLimit = 10f;
     [SerializeField] private float arrivalThreshold = 1.5f;
     [SerializeField] private NavMeshAgent navAgent;
-
+    private PlayerDead pd;
     private Animator animator;
 
     private enum MonsterState { Idle, Walking, LookingAround, Attack, Returning, Detect }
