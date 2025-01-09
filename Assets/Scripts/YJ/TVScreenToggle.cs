@@ -23,6 +23,7 @@ public class TVScreenToggle : MonoBehaviourPun
         else
         {
             // 네트워크가 아닌 로컬에서만 동작
+            isScreen1Active = !isScreen1Active;
             UpdateScreen(!isScreen1Active);
         }
     }
