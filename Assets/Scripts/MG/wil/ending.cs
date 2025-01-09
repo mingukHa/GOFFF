@@ -6,7 +6,7 @@ public class ending : MonoBehaviour
 
     public void OnButtonPress()
     {
-        SceneManager.LoadScene("MainScenes");
+        SceneManager.LoadScene("JHScenes2");
     }
 
     //private IEnumerator TransitionToScene()
