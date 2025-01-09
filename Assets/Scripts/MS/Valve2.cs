@@ -59,7 +59,7 @@ public class Valve2 : MonoBehaviourPun
             knob.value = Mathf.SmoothDamp(knob.value, 0f, ref valveVelocity, duration);
 
         }
-        if (isAttached)
+        if (isGrabbed && isAttached)
         {
             bridgePlus.rotation = Quaternion.Euler(new Vector3(Mathf.Lerp(90f, 0f, knob.value), 0f, 0f));
             bridgeMinous.rotation = Quaternion.Euler(new Vector3(Mathf.Lerp(-90f, 0f, knob.value), 0f, 0f));
