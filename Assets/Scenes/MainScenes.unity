@@ -12863,6 +12863,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1171824163}
+  - component: {fileID: 1171824164}
   m_Layer: 0
   m_Name: Bridge (1)
   m_TagString: Untagged
@@ -12886,6 +12887,22 @@ Transform:
   - {fileID: 1519759176}
   m_Father: {fileID: 466653281}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &1171824164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1171824162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!114 &1198552518 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 905732214313701033, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
@@ -16854,6 +16871,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1635789783}
+  - component: {fileID: 1635789784}
   m_Layer: 0
   m_Name: Bridge (2)
   m_TagString: Untagged
@@ -16877,6 +16895,22 @@ Transform:
   - {fileID: 1986936119}
   m_Father: {fileID: 466653281}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &1635789784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1635789782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1001 &1641814130
 PrefabInstance:
   m_ObjectHideFlags: 0
