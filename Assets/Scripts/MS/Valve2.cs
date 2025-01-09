@@ -59,8 +59,7 @@ public class Valve2 : MonoBehaviourPun
             knob.value = Mathf.SmoothDamp(knob.value, 0f, ref valveVelocity, duration);
 
         }
-
-        if (isAttached)
+        else if (isAttached)
         {
             bridgePlus.rotation = Quaternion.Euler(new Vector3(Mathf.Lerp(90f, 0f, knob.value), 0f, 0f));
             bridgeMinous.rotation = Quaternion.Euler(new Vector3(Mathf.Lerp(-90f, 0f, knob.value), 0f, 0f));
@@ -138,7 +137,14 @@ public class Valve2 : MonoBehaviourPun
         {
             Debug.Log("게임 오브젝트 : " + grabValve.name + "콜라이더" + other.name);
             AttachToCylinder(other.gameObject, grabValve);
+            photonView.RPC("RPCAttachToCylinder2", RpcTarget.Others, other.gameObject, grabValve);
         }
+    }
+
+    [PunRPC]
+    private void RPCAttachToCylinder2(Collider other, GameObject garbValve)
+    {
+        AttachToCylinder(other.gameObject, grabValve);
     }
 
     public void OnSelectValve()

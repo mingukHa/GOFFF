@@ -92,14 +92,27 @@ public class InElevator : MonoBehaviourPun
     public void CheckElevatorConditions()
     {
         // UpElevator의 isUpDoorOpening이 true일 때 다음 씬으로 이동
-        if (upElevator != null && upElevator.isUpDoorOpening)
+        //if (upElevator != null && upElevator.isUpDoorOpening)
+        if(PhotonNetwork.IsMasterClient) 
         {
-            photonView.RPC("LoadNextScene", RpcTarget.OthersBuffered); // 씬 전환 호출
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            int nextSceneIndex = currentSceneIndex + 1;
+            Debug.Log($"{currentSceneIndex}인덱스 씬{nextSceneIndex}다음씬");
+
+            if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+            {
+                Debug.Log("다음 씬으로 이동합니다.");
+                PhotonNetwork.LoadLevel(nextSceneIndex);
+            }
+            else
+            {
+                Debug.Log("마지막 씬입니다. 더 이상 씬이 없습니다.");
+            }
         }
-        else
-        {
-            Debug.Log("엘리베이터 상태가 유효하지 않습니다.");
-        }
+        //else
+        //{
+        //    Debug.Log("엘리베이터 상태가 유효하지 않습니다.");
+        //}
     }
 
     [PunRPC]

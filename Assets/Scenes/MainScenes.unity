@@ -1397,8 +1397,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.426379, y: 3.291846, z: 4.5011024}
-  m_Center: {x: -0.3614185, y: 0.69092584, z: -0.03632927}
+  m_Size: {x: 2.8, y: 2.4, z: 3.26}
+  m_Center: {x: -0.3614185, y: 0.5821307, z: -0.03632927}
 --- !u!33 &217030954
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -2278,7 +2278,7 @@ PrefabInstance:
     - target: {fileID: 3683110131871306169, guid: e8af39bf2856db340837780d311816bb,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 412
+      value: 415
       objectReference: {fileID: 0}
     - target: {fileID: 3877436094035758442, guid: e8af39bf2856db340837780d311816bb,
         type: 3}
@@ -2288,7 +2288,7 @@ PrefabInstance:
     - target: {fileID: 3877436094035758442, guid: e8af39bf2856db340837780d311816bb,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 412
+      value: 415
       objectReference: {fileID: 0}
     - target: {fileID: 3936867865136954754, guid: e8af39bf2856db340837780d311816bb,
         type: 3}
@@ -2308,7 +2308,7 @@ PrefabInstance:
     - target: {fileID: 4527569900220124962, guid: e8af39bf2856db340837780d311816bb,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 532
+      value: 535
       objectReference: {fileID: 0}
     - target: {fileID: 4585026638570733893, guid: e8af39bf2856db340837780d311816bb,
         type: 3}
@@ -2318,7 +2318,7 @@ PrefabInstance:
     - target: {fileID: 4585026638570733893, guid: e8af39bf2856db340837780d311816bb,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 412
+      value: 415
       objectReference: {fileID: 0}
     - target: {fileID: 5934382727041631186, guid: e8af39bf2856db340837780d311816bb,
         type: 3}
@@ -7163,6 +7163,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 784350096}
+    - target: {fileID: 727961838895833821, guid: cf973262d4d6a23418d88bedeb9a7491,
+        type: 3}
+      propertyPath: m_VersionIndex
+      value: 862
+      objectReference: {fileID: 0}
     - target: {fileID: 1052769080193176663, guid: cf973262d4d6a23418d88bedeb9a7491,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7233,6 +7238,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1572864637}
+    - target: {fileID: 8003776401712611861, guid: cf973262d4d6a23418d88bedeb9a7491,
+        type: 3}
+      propertyPath: m_VersionIndex
+      value: 859
+      objectReference: {fileID: 0}
     - target: {fileID: 8424772776415226385, guid: cf973262d4d6a23418d88bedeb9a7491,
         type: 3}
       propertyPath: m_Name
@@ -13578,7 +13588,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.426379, y: 3.291846, z: 4.5011024}
+  m_Size: {x: 2.4, y: 2.8, z: 3.26}
   m_Center: {x: -0.3614185, y: 0.69092584, z: -0.03632927}
 --- !u!33 &1383708945
 MeshFilter:
