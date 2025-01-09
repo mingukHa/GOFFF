@@ -19,10 +19,10 @@ public class SyncKnob2 : MonoBehaviourPun
     //    xrKnob.onValueChange.RemoveListener(HandleSyncKnobValue);
     //}
 
-    public void HandleSyncKnobValue(float value)
+    public void HandleSyncKnobValue2()
     {
         if (isSyncing) return;
-        photonView.RPC("SyncKnobValue2", RpcTarget.Others, value);
+        photonView.RPC("SyncKnobValue2", RpcTarget.Others, xrKnob.value);
     }
 
     //public void HandleSyncKnobRotation(float angle)
