@@ -93,6 +93,7 @@ public class InElevator : MonoBehaviourPun
     {
         // UpElevator의 isUpDoorOpening이 true일 때 다음 씬으로 이동
         //if (upElevator != null && upElevator.isUpDoorOpening)
+        if(PhotonNetwork.IsMasterClient) 
         {
             int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
             int nextSceneIndex = currentSceneIndex + 1;
