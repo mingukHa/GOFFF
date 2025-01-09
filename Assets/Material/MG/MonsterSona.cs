@@ -3,13 +3,13 @@ using System.Collections;
 
 public class MonsterSona : MonoBehaviour
 {
-    [SerializeField]
     private SimpleSonarShader_Parent par; // Inspector에서 직접 설정
     //private bool monster = true;
 
     private void Start()
     {
         // 코루틴 시작
+        par = FindFirstObjectByType<SimpleSonarShader_Parent>();
         StartCoroutine(Monstersona());
     }
 
