@@ -9,7 +9,7 @@ public class Waitscene : MonoBehaviourPunCallbacks
     [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private GameObject button1;
     [SerializeField] private GameObject button2;
-
+    public string Scene = "MainScenes";
     private bool hasSpawned = false;
     private int readyPlayerCount = 0; // 준비 완료된 플레이어 수
 
@@ -127,7 +127,7 @@ public class Waitscene : MonoBehaviourPunCallbacks
             {
 
                 Debug.Log("2명 준비 완료! 다음 씬으로 이동합니다.");
-                PhotonNetwork.LoadLevel("MainScenes"); // 전환할 씬 이름으로 변경
+                PhotonNetwork.LoadLevel(Scene); // 전환할 씬 이름으로 변경
 
             }
             else
