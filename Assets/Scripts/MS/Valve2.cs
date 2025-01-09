@@ -55,14 +55,19 @@ public class Valve2 : MonoBehaviourPun
         // Valve °ªÀÌ 0ÀÌ µÊ
         if (!isGrabbed && knobValve.activeSelf)
         {
-            float duration = valveDuration * knob.value;
-            knob.value = Mathf.SmoothDamp(knob.value, 0f, ref valveVelocity, duration);
-
+            if (PhotonNetwork.IsMasterClient)
+            {
+                float duration = valveDuration * knob.value;
+                knob.value = Mathf.SmoothDamp(knob.value, 0f, ref valveVelocity, duration);
+            }
         }
-        if (isGrabbed && isAttached)
+        if (isAttached)
         {
-            bridgePlus.rotation = Quaternion.Euler(new Vector3(Mathf.Lerp(90f, 0f, knob.value), 0f, 0f));
-            bridgeMinous.rotation = Quaternion.Euler(new Vector3(Mathf.Lerp(-90f, 0f, knob.value), 0f, 0f));
+            if (PhotonNetwork.IsMasterClient)
+            {
+                bridgePlus.rotation = Quaternion.Euler(new Vector3(Mathf.Lerp(90f, 0f, knob.value), 0f, 0f));
+                bridgeMinous.rotation = Quaternion.Euler(new Vector3(Mathf.Lerp(-90f, 0f, knob.value), 0f, 0f));
+            }
         }
 
     }
