@@ -46,31 +46,46 @@ public class Valve : MonoBehaviourPun
 
     private void Update()
     {
-        //if (isGrabbed && photonView.IsMine)
-        //{
-        //    // 현재 로컬 플레이어가 물체를 잡고 있는 경우에만 위치 업데이트
-        //    photonView.RPC("RPCUpdatePosition", RpcTarget.Others, grabValve.transform.localPosition, grabValve.transform.localRotation);
-        //}
-        // Knob 밸브를 잡지 않고 있으면 자동으로 돌아가면서 
-        // Valve 값이 0이 됨
-        if (!isGrabbed && knobValve.activeSelf)
+        // 마스터 클라이언트에서 계산
+        if (PhotonNetwork.IsMasterClient)
         {
-            if (PhotonNetwork.IsMasterClient)
+            if (!isGrabbed && knobValve.activeSelf)
             {
                 float duration = valveDuration * knob.value;
                 knob.value = Mathf.SmoothDamp(knob.value, 0f, ref valveVelocity, duration);
+
+                // RPC로 knob.value 동기화
+                photonView.RPC("RPCSyncKnobValue", RpcTarget.Others, knob.value);
             }
-        }
-        if (isAttached)
-        {
-            if (PhotonNetwork.IsMasterClient)
+
+            if (isAttached)
             {
-                bridgePlus.rotation = Quaternion.Euler(new Vector3(Mathf.Lerp(90f, 0f, knob.value), 0f, 0f));
-                bridgeMinous.rotation = Quaternion.Euler(new Vector3(Mathf.Lerp(-90f, 0f, knob.value), 0f, 0f));
+                float plusRotation = Mathf.Lerp(90f, 0f, knob.value);
+                float minusRotation = Mathf.Lerp(-90f, 0f, knob.value);
+
+                bridgePlus.rotation = Quaternion.Euler(new Vector3(plusRotation, 0f, 0f));
+                bridgeMinous.rotation = Quaternion.Euler(new Vector3(minusRotation, 0f, 0f));
+
+                // RPC로 회전 값 동기화
+                photonView.RPC("RPCSyncBridgeRotation", RpcTarget.Others, plusRotation, minusRotation);
             }
         }
     }
 
+    // knob.value 동기화
+    [PunRPC]
+    private void RPCSyncKnobValue(float syncedValue)
+    {
+        knob.value = syncedValue;
+    }
+
+    // 다리 회전 값 동기화
+    [PunRPC]
+    private void RPCSyncBridgeRotation(float plusRotation, float minusRotation)
+    {
+        bridgePlus.rotation = Quaternion.Euler(new Vector3(plusRotation, 0f, 0f));
+        bridgeMinous.rotation = Quaternion.Euler(new Vector3(minusRotation, 0f, 0f));
+    }
     // 실린더에 밸브를 붙이는 메서드
     private void AttachToCylinder(GameObject cylinder, GameObject grabValve)
     {

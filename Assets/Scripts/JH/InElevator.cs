@@ -118,7 +118,7 @@ public class InElevator : MonoBehaviourPun
     [PunRPC]
     public void LoadNextScene()
     {
-        if (isButtonOn >= 2) return; // 씬이 이미 로드되었는지 확인
+        //if (isButtonOn >= 2) return; // 씬이 이미 로드되었는지 확인
 
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         int nextSceneIndex = currentSceneIndex + 1;
