@@ -46,42 +46,40 @@ public class Valve2 : MonoBehaviourPun
 
     private void Update()
     {
-        // 마스터 클라이언트에서 계산
+        // 모든 클라이언트에서 계산
+        if (!isGrabbed && knobValve.activeSelf)
+        {
+            float duration = valveDuration * knob.value;
+            knob.value = Mathf.SmoothDamp(knob.value, 0f, ref valveVelocity, duration);
+        }
+
+        if (isAttached)
+        {
+            float plusRotation = Mathf.Lerp(90f, 0f, knob.value);
+            float minusRotation = Mathf.Lerp(-90f, 0f, knob.value);
+
+            bridgePlus.rotation = Quaternion.Euler(new Vector3(plusRotation, 0f, 0f));
+            bridgeMinous.rotation = Quaternion.Euler(new Vector3(minusRotation, 0f, 0f));
+        }
+
+        // 마스터 클라이언트에서 값 동기화
         if (PhotonNetwork.IsMasterClient)
         {
-            if (!isGrabbed && knobValve.activeSelf)
-            {
-                float duration = valveDuration * knob.value;
-                knob.value = Mathf.SmoothDamp(knob.value, 0f, ref valveVelocity, duration);
-
-                // RPC로 knob.value 동기화
-                photonView.RPC("RPCSyncKnobValue", RpcTarget.Others, knob.value);
-            }
-
-            if (isAttached)
-            {
-                float plusRotation = Mathf.Lerp(90f, 0f, knob.value);
-                float minusRotation = Mathf.Lerp(-90f, 0f, knob.value);
-
-                bridgePlus.rotation = Quaternion.Euler(new Vector3(plusRotation, 0f, 0f));
-                bridgeMinous.rotation = Quaternion.Euler(new Vector3(minusRotation, 0f, 0f));
-
-                // RPC로 회전 값 동기화
-                photonView.RPC("RPCSyncBridgeRotation", RpcTarget.Others, plusRotation, minusRotation);
-            }
+            photonView.RPC("RPCSyncKnobValue2", RpcTarget.Others, knob.value);
+            photonView.RPC("RPCSyncBridgeRotation2", RpcTarget.Others, bridgePlus.rotation.eulerAngles.x, bridgeMinous.rotation.eulerAngles.x);
         }
     }
 
     // knob.value 동기화
     [PunRPC]
-    private void RPCSyncKnobValue(float syncedValue)
+    private void RPCSyncKnobValue2(float syncedValue)
     {
         knob.value = syncedValue;
     }
 
     // 다리 회전 값 동기화
     [PunRPC]
-    private void RPCSyncBridgeRotation(float plusRotation, float minusRotation)
+    private void RPCSyncBridgeRotation2(float plusRotation, float minusRotation)
     {
         bridgePlus.rotation = Quaternion.Euler(new Vector3(plusRotation, 0f, 0f));
         bridgeMinous.rotation = Quaternion.Euler(new Vector3(minusRotation, 0f, 0f));
