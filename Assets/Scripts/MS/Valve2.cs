@@ -46,26 +46,44 @@ public class Valve2 : MonoBehaviourPun
 
     private void Update()
     {
-        //if (isGrabbed && photonView.IsMine)
-        //{
-        //    // 현재 로컬 플레이어가 물체를 잡고 있는 경우에만 위치 업데이트
-        //    photonView.RPC("RPCUpdatePosition", RpcTarget.Others, grabValve.transform.localPosition, grabValve.transform.localRotation);
-        //}
-        // Knob 밸브를 잡지 않고 있으면 자동으로 돌아가면서 
-        // Valve 값이 0이 됨
+        // 모든 클라이언트에서 계산
         if (!isGrabbed && knobValve.activeSelf)
         {
             float duration = valveDuration * knob.value;
             knob.value = Mathf.SmoothDamp(knob.value, 0f, ref valveVelocity, duration);
-
         }
-        else if (isAttached)
+
+        if (isAttached)
         {
-            bridgePlus.rotation = Quaternion.Euler(new Vector3(Mathf.Lerp(90f, 0f, knob.value), 0f, 0f));
-            bridgeMinous.rotation = Quaternion.Euler(new Vector3(Mathf.Lerp(-90f, 0f, knob.value), 0f, 0f));
+            float plusRotation = Mathf.Lerp(90f, 0f, knob.value);
+            float minusRotation = Mathf.Lerp(-90f, 0f, knob.value);
+
+            bridgePlus.rotation = Quaternion.Euler(new Vector3(plusRotation, 0f, 0f));
+            bridgeMinous.rotation = Quaternion.Euler(new Vector3(minusRotation, 0f, 0f));
         }
 
+        //// 마스터 클라이언트에서 값 동기화
+        //if (PhotonNetwork.IsMasterClient)
+        //{
+        //    photonView.RPC("RPCSyncKnobValue2", RpcTarget.Others, knob.value);
+        //    photonView.RPC("RPCSyncBridgeRotation2", RpcTarget.Others, bridgePlus.rotation.eulerAngles.x, bridgeMinous.rotation.eulerAngles.x);
+        //}
     }
+
+    //// knob.value 동기화
+    //[PunRPC]
+    //private void RPCSyncKnobValue2(float syncedValue)
+    //{
+    //    knob.value = syncedValue;
+    //}
+
+    //// 다리 회전 값 동기화
+    //[PunRPC]
+    //private void RPCSyncBridgeRotation2(float plusRotation, float minusRotation)
+    //{
+    //    bridgePlus.rotation = Quaternion.Euler(new Vector3(plusRotation, 0f, 0f));
+    //    bridgeMinous.rotation = Quaternion.Euler(new Vector3(minusRotation, 0f, 0f));
+    //}
 
     // 실린더에 밸브를 붙이는 메서드
     private void AttachToCylinder(GameObject cylinder, GameObject grabValve)
@@ -137,7 +155,7 @@ public class Valve2 : MonoBehaviourPun
         {
             Debug.Log("게임 오브젝트 : " + grabValve.name + "콜라이더" + other.name);
             AttachToCylinder(other.gameObject, grabValve);
-            photonView.RPC("RPCAttachToCylinder2", RpcTarget.Others, other.gameObject, grabValve);
+            //photonView.RPC("RPCAttachToCylinder2", RpcTarget.Others, other.gameObject, grabValve);
         }
     }
 

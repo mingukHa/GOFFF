@@ -19,17 +19,17 @@ public class SyncKnob : MonoBehaviourPun
     //    xrKnob.onValueChange.RemoveListener(HandleSyncKnobValue);
     //}
 
-    public void HandleSyncKnobValue(float value)
+    public void HandleSyncKnobValue()
     {
         if (isSyncing) return;
-        photonView.RPC("SyncKnobValue", RpcTarget.Others, value);
+        photonView.RPC("SyncKnobValue", RpcTarget.Others, xrKnob.value);
     }
 
-    public void HandleSyncKnobRotation(float angle)
-    {
-        if (isSyncing) return;
-        photonView.RPC("SyncKnobRotation", RpcTarget.Others, angle);
-    }
+    //public void HandleSyncKnobRotation(float angle)
+    //{
+    //    if (isSyncing) return;
+    //    photonView.RPC("SyncKnobRotation", RpcTarget.Others, angle);
+    //}
 
     [PunRPC]
     void SyncKnobValue(float value)
@@ -39,11 +39,11 @@ public class SyncKnob : MonoBehaviourPun
         isSyncing = false;
     }
 
-    [PunRPC]
-    void SyncKnobRotation(float angle)
-    {
-        isSyncing = true;
-        xrKnob.SetKnobRotation(angle);
-        isSyncing = false;
-    }
+    //[PunRPC]
+    //void SyncKnobRotation(float angle)
+    //{
+    //    isSyncing = true;
+    //    xrKnob.SetKnobRotation(angle);
+    //    isSyncing = false;
+    //}
 }

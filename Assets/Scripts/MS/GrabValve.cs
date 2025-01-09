@@ -12,7 +12,6 @@ public class GrabValve : MonoBehaviourPun
     public delegate void grabValve2Delegate(GameObject gameObject, Collider other);
     public grabValveDelegate grabValve2Trigger;
 
-
     private bool isGrabbed = false;
 
     private Vector3 currentTR = Vector3.zero;
@@ -42,12 +41,26 @@ public class GrabValve : MonoBehaviourPun
             if (other.name == "CylinderA")
             {
                 grabValveTrigger?.Invoke(gameObject, other);
+                photonView.RPC("RPCTrigger", RpcTarget.Others ,other);
             }
             else
             {
                 grabValve2Trigger?.Invoke(gameObject, other);
+                photonView.RPC("RPCTrigger2", RpcTarget.Others, other);
             }
         }
+    }
+
+    [PunRPC]
+    private void RPCTrigger(Collider other)
+    {
+        grabValveTrigger?.Invoke(gameObject, other);
+    }
+
+    [PunRPC]
+    private void RPCTrigger2(Collider other)
+    {
+        grabValve2Trigger?.Invoke(gameObject, other);
     }
 
     public void SelectOn()
