@@ -12,11 +12,9 @@ public class f4elevators : MonoBehaviourPunCallbacks
 
     public void OnButtonPressed()
     {
-
         if (PhotonNetwork.IsMasterClient)
         {
-            readyPlayerCount++;
-            photonView.RPC("PlayerReady1", RpcTarget.OthersBuffered); // 모든 클라이언트에 플레이어 준비 상태 전달
+            photonView.RPC("PlayerReady1", RpcTarget.AllBuffered); // 모든 클라이언트에 플레이어 준비 상태 전달
             Debug.Log($"현재 준비된 플레이어 수: {readyPlayerCount}/{PhotonNetwork.CurrentRoom.PlayerCount}");
 
             // 모든 플레이어가 준비되었을 경우 다음 씬으로 전환
