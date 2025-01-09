@@ -19,28 +19,46 @@ public class InElevator : MonoBehaviourPun
     private bool isClosing = false; // 문이 닫히는 중인지 확인
     private int isButtonOn = 0; // 버튼 상태를 로컬에서 관리
 
-    private void OnTriggerEnter(Collider other)
-    {
-        // Collider로 감지된 오브젝트가 플레이어인지 확인
-        if (other.gameObject.CompareTag("Player"))
-        {
-            GameObject player = other.gameObject;
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    // Collider로 감지된 오브젝트가 플레이어인지 확인
+    //    if (other.gameObject.CompareTag("Player"))
+    //    {
+    //        GameObject player = other.gameObject;
 
-            if (player == PhotonNetwork.LocalPlayer.TagObject as GameObject)
-            {
-                Debug.Log("로컬 플레이어가 엘리베이터에 들어왔습니다.");
-                photonView.RPC("CheckElevatorConditions", RpcTarget.All);
-            }
-        }
-    }
+    //        if (player == PhotonNetwork.LocalPlayer.TagObject as GameObject)
+    //        {
+    //            Debug.Log("로컬 플레이어가 엘리베이터에 들어왔습니다.");
+    //            photonView.RPC("CheckElevatorConditions", RpcTarget.All);
+    //        }
+    //    }
+    //}
 
-    [PunRPC]
+    //[PunRPC]
     public void CloseDoorsRPC()
     {
-        if (isClosing) return; // 문이 닫히는 중이면 중복 호출 방지
+        isButtonOn++;
+        photonView.RPC("RPCIsButtonOn", RpcTarget.Others);
+
+        if (isClosing && isButtonOn < 2) return; // 문이 닫히는 중이면 중복 호출 방지
         isClosing = true;
-        StartCoroutine(CloseDoorsCoroutine());
+        if (PhotonNetwork.IsMasterClient)
+        {
+            StartCoroutine(CloseDoorsCoroutine());
+        }
     }
+    [PunRPC]
+    public void RPCIsButtonOn()
+    {
+        isButtonOn++;
+    }
+
+    //[PunRPC]
+    //private void RPCDoorsCoroutine()
+    //{
+    //    StartCoroutine(CloseDoorsCoroutine());
+    //}
+
 
     public IEnumerator CloseDoorsCoroutine()
     {
