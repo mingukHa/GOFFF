@@ -7657,6 +7657,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 720231617}
+    - targetCorrespondingSourceObject: {fileID: 8164078558771037576, guid: 746f2897692a0af49af959f6f7cb016c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 720231619}
   m_SourcePrefab: {fileID: 100100000, guid: 746f2897692a0af49af959f6f7cb016c, type: 3}
 --- !u!4 &720231615 stripped
 Transform:
@@ -7718,7 +7722,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 720231616}
         m_TargetAssemblyTypeName: 
         m_MethodName: 
         m_Mode: 1
@@ -7775,6 +7779,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.78644025, y: 0.5847657, z: 0.5651097}
   m_Center: {x: 0.0031016022, y: 0.29108346, z: -0.023216859}
+--- !u!114 &720231619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 720231616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ced405ac285a0d14fb73c83ef7e4a1c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  screen1: {fileID: 1326384174}
+  screen2: {fileID: 1513525173}
 --- !u!1001 &745015441
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17959,7 +17977,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1326384175
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22056,7 +22074,7 @@ PrefabInstance:
     - target: {fileID: 3683110131871306169, guid: e8af39bf2856db340837780d311816bb,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 406
+      value: 409
       objectReference: {fileID: 0}
     - target: {fileID: 3877436094035758442, guid: e8af39bf2856db340837780d311816bb,
         type: 3}
@@ -22066,7 +22084,7 @@ PrefabInstance:
     - target: {fileID: 3877436094035758442, guid: e8af39bf2856db340837780d311816bb,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 406
+      value: 409
       objectReference: {fileID: 0}
     - target: {fileID: 3936867865136954754, guid: e8af39bf2856db340837780d311816bb,
         type: 3}
@@ -22081,7 +22099,7 @@ PrefabInstance:
     - target: {fileID: 4527569900220124962, guid: e8af39bf2856db340837780d311816bb,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 409
+      value: 412
       objectReference: {fileID: 0}
     - target: {fileID: 4585026638570733893, guid: e8af39bf2856db340837780d311816bb,
         type: 3}
@@ -22091,7 +22109,7 @@ PrefabInstance:
     - target: {fileID: 4585026638570733893, guid: e8af39bf2856db340837780d311816bb,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 406
+      value: 409
       objectReference: {fileID: 0}
     - target: {fileID: 4832166023689534060, guid: e8af39bf2856db340837780d311816bb,
         type: 3}
