@@ -160,7 +160,7 @@ public class PlayerController : MonoBehaviourPun
         // 왼손 Grip Trigger로 우회전
         if (isLGripTriggerPressed)
         {
-            Vector3 leftDeltaPosition = leftPosition - lastLeftPosition;
+            Vector3 leftDeltaPosition = lastLeftPosition - leftPosition;
 
             // Forward 방향으로 충분히 움직였을 때만 우회전 허용
             if (leftDeltaPosition.z > movementThreshold) // Z값 양수는 Forward 방향
@@ -174,7 +174,7 @@ public class PlayerController : MonoBehaviourPun
         // 오른손 Grip Trigger로 좌회전
         if (isRGripTriggerPressed)
         {
-            Vector3 rightDeltaPosition = rightPosition - lastRightPosition;
+            Vector3 rightDeltaPosition = lastRightPosition - rightPosition;
 
             // Forward 방향으로 충분히 움직였을 때만 좌회전 허용
             if (rightDeltaPosition.z > movementThreshold) // Z값 양수는 Forward 방향
