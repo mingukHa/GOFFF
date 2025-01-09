@@ -14830,7 +14830,7 @@ GameObject:
   - component: {fileID: 1390154834}
   - component: {fileID: 1390154833}
   m_Layer: 14
-  m_Name: GameObject
+  m_Name: DeadZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14863,7 +14863,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -14878,7 +14878,7 @@ Transform:
   m_GameObject: {fileID: 1390154832}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -33.891853, y: -6.20503, z: -36.129356}
+  m_LocalPosition: {x: -33.891853, y: -12.27, z: -36.129356}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
