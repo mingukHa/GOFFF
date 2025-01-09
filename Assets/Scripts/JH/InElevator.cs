@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using Photon.Realtime;
 using Photon.Pun; // Photon 관련 라이브러리 추가
 
-public class InElevator : MonoBehaviourPunCallbacks
+public class InElevator : MonoBehaviourPun
 {
     [SerializeField] private List<Transform> elevatorDoors; // 할당된 엘리베이터 문 2개
     [SerializeField] private Transform elevatorBottom;    // 엘리베이터 바닥
@@ -76,7 +76,7 @@ public class InElevator : MonoBehaviourPunCallbacks
         // UpElevator의 isUpDoorOpening이 true일 때 다음 씬으로 이동
         if (upElevator != null && upElevator.isUpDoorOpening)
         {
-            photonView.RPC("LoadNextScene", RpcTarget.AllBuffered); // 씬 전환 호출
+            photonView.RPC("LoadNextScene", RpcTarget.OthersBuffered); // 씬 전환 호출
         }
         else
         {
@@ -91,11 +91,11 @@ public class InElevator : MonoBehaviourPunCallbacks
 
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         int nextSceneIndex = currentSceneIndex + 1;
-
+        Debug.Log($"{currentSceneIndex}인덱스 씬{nextSceneIndex}다음씬");
+        
         if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
         {
-            Debug.Log("다음 씬으로 이동합니다.");
-            isButtonOn++; // 버튼 상태 업데이트
+            Debug.Log("다음 씬으로 이동합니다.");           
             PhotonNetwork.LoadLevel(nextSceneIndex);
         }
         else
