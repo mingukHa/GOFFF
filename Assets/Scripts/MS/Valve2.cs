@@ -155,7 +155,7 @@ public class Valve2 : MonoBehaviourPun
         {
             Debug.Log("게임 오브젝트 : " + grabValve.name + "콜라이더" + other.name);
             AttachToCylinder(other.gameObject, grabValve);
-            photonView.RPC("RPCAttachToCylinder2", RpcTarget.Others, other.gameObject, grabValve);
+            //photonView.RPC("RPCAttachToCylinder2", RpcTarget.Others, other.gameObject, grabValve);
         }
     }
 
