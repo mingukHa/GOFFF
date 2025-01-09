@@ -11,8 +11,9 @@ public class f1Trigger : MonoBehaviourPunCallbacks
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("트리거 활성화");
-        Destroy(ironcage);
-        Destroy(ironcage2);
+        PhotonNetwork.Destroy(ironcage);
+
+        PhotonNetwork.Destroy(ironcage2);
     }
     private void Ironcage()
     {
