@@ -35,7 +35,7 @@ public class DoorController : MonoBehaviour
     // ¹® ¿­±â
     public void OpenDoor()
     {
-        SoundManager.instance.SFXPlay("OpenDoor2_SFX");
+        SoundManager.instance.SFXPlay("OpenDoor_SFX");
         StopAllCoroutines();
         StartCoroutine(AnimateDoor(openRotation));
         isOpen = true;
