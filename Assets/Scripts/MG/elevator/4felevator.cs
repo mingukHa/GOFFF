@@ -12,8 +12,8 @@ public class f4elevators : MonoBehaviourPunCallbacks
 
     public void OnButtonPressed()
     {
-        //if (PhotonNetwork.IsMasterClient)
-       // {
+        if (PhotonNetwork.IsMasterClient)
+        {
             photonView.RPC("PlayerReady", RpcTarget.AllBuffered); // 모든 클라이언트에 플레이어 준비 상태 전달
             Debug.Log($"현재 준비된 플레이어 수: {readyPlayerCount}/{PhotonNetwork.CurrentRoom.PlayerCount}");
 
@@ -29,7 +29,7 @@ public class f4elevators : MonoBehaviourPunCallbacks
             {
                 return;
             }
-      //  }
+        }
         Debug.Log("버튼이 눌렸습니다");
     }
     //JHScenes2 , JHScenes3 , MainScenes 
