@@ -32,10 +32,10 @@ public class SyncKnob2 : MonoBehaviourPun
     //}
 
     [PunRPC]
-    void SyncKnobValue2(float value)
+    void SyncKnobValue2(float syncvalue)
     {
         isSyncing = true;
-        xrKnob.SetValue(value);
+        xrKnob.SetValue(syncvalue);
         isSyncing = false;
     }
 

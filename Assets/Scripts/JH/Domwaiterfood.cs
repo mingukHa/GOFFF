@@ -1,60 +1,30 @@
-using System.Collections;
 using UnityEngine;
+using Photon.Pun;
 
-public class Domwaiterfood : MonoBehaviour
+public class Domwaiterfood : MonoBehaviourPun
 {
-    public Transform[] ovenbottom;
-
-    private bool isButtonPressed = false;
+    [SerializeField] private DomwaiterOven triggerZone0;   // 주황색 박스 [0]
+    [SerializeField] private Transform targetPosition;  // 주황색 박스 [1]
 
     public void OnButtonPressed()
     {
-        isButtonPressed = true;
-        telpo();
-    }
+        /*  멀티가 아닌 상황에서 로컬 로직
+        
+        // 주황색 박스[0]dptj 충돌된 모든 오브젝트 가져오기
+        var objectsToMove = triggerZone0.GetObjectsInZone();
 
-    // XR Simple Interactable의 Select Exit 이벤트에 연결할 메서드
-    public void OnButtonReleased()
-    {
-        isButtonPressed = false;
-    }
-
-    public void telpo()
-    {
-        StartCoroutine(Telpoburgur());
-    }
-
-    private IEnumerator Telpoburgur()
-    {
-        if (isButtonPressed)
+        // 모든 오브젝트를 주황색 박스[1] 위치로 이동
+        foreach (GameObject obj in objectsToMove)
         {
-            // ovenbottom[0]의 충돌 박스 크기를 설정
-            Vector3 boxSize = new Vector3(1f, 1f, 1f); // 원하는 크기로 조절
-
-            // ovenbottom[0]의 박스 충돌체 안에 있는 모든 오브젝트 검색
-            Collider[] colliders = Physics.OverlapBox(ovenbottom[0].position, boxSize / 2);
-
-            // 검색된 모든 오브젝트를 ovenbottom[1] 위치로 이동
-            foreach (Collider col in colliders)
-            {
-                if (col.CompareTag("Food")) // 특정 태그의 오브젝트만 이동
-                {
-                    col.transform.position = ovenbottom[1].position;
-                }
-            }
-
-            yield return null;
+            obj.transform.position = targetPosition.position;
         }
-    }
 
-    // 충돌 박스를 시각화하여 확인할 수 있도록 OnDrawGizmos 추가
-    private void OnDrawGizmos()
-    {
-        if (ovenbottom != null && ovenbottom.Length > 0)
+        */
+
+        if (photonView.IsMine) // 이 버튼을 누른 플레이어만 아이템 전송 요청을 보냄
         {
-            Gizmos.color = Color.red;
-            Vector3 boxSize = new Vector3(1f, 1f, 1f);
-            Gizmos.DrawWireCube(ovenbottom[0].position, boxSize);
+            // 주황색 박스[0]에서 아이템을 전송
+            triggerZone0.SendItemsToTarget(targetPosition);
         }
     }
 }
