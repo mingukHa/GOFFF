@@ -5488,8 +5488,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 466653285}
-  - {fileID: 1171824164}
-  - {fileID: 1635789784}
+  - {fileID: 401462383}
   - {fileID: 633889603}
   - {fileID: 752339165}
   - {fileID: 1817528668}
@@ -19519,6 +19518,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1925849502}
   - component: {fileID: 1925849503}
+  - component: {fileID: 1925849504}
   m_Layer: 0
   m_Name: ControllerEcho
   m_TagString: Untagged
@@ -19553,6 +19553,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d62fac4ac1b09945ae6f64cc578a37c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1925849504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925849501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 25
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &1935350462
 PrefabInstance:
   m_ObjectHideFlags: 0

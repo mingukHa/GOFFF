@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: cc4d5ae045505d84a87d236e81aec6ae, type: 2}
+  m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -1345,7 +1345,6 @@ GameObject:
   - component: {fileID: 885047002}
   - component: {fileID: 885047001}
   - component: {fileID: 885047000}
-  - component: {fileID: 885047005}
   - component: {fileID: 885047004}
   - component: {fileID: 885047006}
   m_Layer: 0
@@ -1479,19 +1478,6 @@ MonoBehaviour:
   sceneViewId: 18
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &885047005
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 885046998}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3692fbc9e58ba8441b6124d48d1d8e16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speedThreshold: 1
 --- !u!114 &885047006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2829,7 +2815,6 @@ GameObject:
   - component: {fileID: 1516655058}
   - component: {fileID: 1516655057}
   - component: {fileID: 1516655056}
-  - component: {fileID: 1516655055}
   - component: {fileID: 1516655054}
   - component: {fileID: 1516655053}
   m_Layer: 0
@@ -2893,19 +2878,6 @@ MonoBehaviour:
   sceneViewId: 21
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &1516655055
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1516655051}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3692fbc9e58ba8441b6124d48d1d8e16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speedThreshold: 1
 --- !u!114 &1516655056
 MonoBehaviour:
   m_ObjectHideFlags: 0
