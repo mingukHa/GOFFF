@@ -18,7 +18,7 @@ public class GrabValve : MonoBehaviourPun
 
     private void Start()
     {
-        currentTR = transform.position;
+        currentTR = new Vector3(-30f, 0, -27f);
     }
 
     private void Update()

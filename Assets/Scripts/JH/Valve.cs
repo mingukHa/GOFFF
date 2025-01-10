@@ -57,7 +57,7 @@ public class Valve : MonoBehaviourPun
 
         if (isAttached)
         {
-            if (!knobValve.GetPhotonView().IsMine) return;
+            //if (!knobValve.GetPhotonView().IsMine) return;
 
             float plusRotation = Mathf.Lerp(90f, 0f, knob.value);
             float minusRotation = Mathf.Lerp(-90f, 0f, knob.value);
