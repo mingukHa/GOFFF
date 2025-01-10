@@ -7,7 +7,7 @@ public class ending : MonoBehaviourPun
 {
     public void OnButtonPress()
     {       
-        SceneManager.LoadScene("JHScenes2");
+        SceneManager.LoadScene("MainScenes");
     }
 }
 
