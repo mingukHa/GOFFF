@@ -9,7 +9,7 @@ public class BasketHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.CompareTag("Grabbable"))
+        if (collider.CompareTag("Grabbable") || collider.CompareTag("Key"))
         {
             XRGrabInteractable grabInteractable = collider.GetComponent<XRGrabInteractable>();
             if (grabInteractable != null && !grabInteractable.isSelected) // Grab 중이 아닐 때만 처리
@@ -21,7 +21,7 @@ public class BasketHandler : MonoBehaviour
 
     private void OnTriggerExit(Collider collider)
     {
-        if (collider.CompareTag("Grabbable"))
+        if (collider.CompareTag("Grabbable") || collider.CompareTag("Key"))
         {
             XRGrabInteractable grabInteractable = collider.GetComponent<XRGrabInteractable>();
             if (grabInteractable != null && !grabInteractable.isSelected) // Grab 중이 아닐 때만 처리

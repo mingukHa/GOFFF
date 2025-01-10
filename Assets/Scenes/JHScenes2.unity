@@ -540,6 +540,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 881844398}
     m_Modifications:
+    - target: {fileID: -8700617353114198275, guid: 871c0676e7565754c954d1ef120f6385,
+        type: 3}
+      propertyPath: m_TagString
+      value: Grabbable
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 871c0676e7565754c954d1ef120f6385,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -614,6 +619,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Lamp
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 871c0676e7565754c954d1ef120f6385,
+        type: 3}
+      propertyPath: m_TagString
+      value: Grabbable
       objectReference: {fileID: 0}
     - target: {fileID: 5100068591777345685, guid: 871c0676e7565754c954d1ef120f6385,
         type: 3}
@@ -2187,6 +2197,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Augustus
+      objectReference: {fileID: 0}
+    - target: {fileID: 3149967805404602706, guid: 25cd552f4dd68674f9dcb286d099c75a,
+        type: 3}
+      propertyPath: m_TagString
+      value: Grabbable
+      objectReference: {fileID: 0}
+    - target: {fileID: 3316698799428806431, guid: 25cd552f4dd68674f9dcb286d099c75a,
+        type: 3}
+      propertyPath: m_TagString
+      value: Grabbable
       objectReference: {fileID: 0}
     - target: {fileID: 6126407198002468966, guid: 25cd552f4dd68674f9dcb286d099c75a,
         type: 3}
@@ -5696,94 +5716,6 @@ Transform:
   - {fileID: 1940448851}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &548544327
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: -8122503245164215546, guid: feab0d83960f233479b23431946ef43e,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 38
-      objectReference: {fileID: 0}
-    - target: {fileID: 1751600551065602641, guid: feab0d83960f233479b23431946ef43e,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 37
-      objectReference: {fileID: 0}
-    - target: {fileID: 2080871421963820864, guid: feab0d83960f233479b23431946ef43e,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -4.438315
-      objectReference: {fileID: 0}
-    - target: {fileID: 2080871421963820864, guid: feab0d83960f233479b23431946ef43e,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.00000047683716
-      objectReference: {fileID: 0}
-    - target: {fileID: 2080871421963820864, guid: feab0d83960f233479b23431946ef43e,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -3.4077427
-      objectReference: {fileID: 0}
-    - target: {fileID: 2080871421963820864, guid: feab0d83960f233479b23431946ef43e,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2080871421963820864, guid: feab0d83960f233479b23431946ef43e,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2080871421963820864, guid: feab0d83960f233479b23431946ef43e,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2080871421963820864, guid: feab0d83960f233479b23431946ef43e,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2080871421963820864, guid: feab0d83960f233479b23431946ef43e,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2080871421963820864, guid: feab0d83960f233479b23431946ef43e,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2080871421963820864, guid: feab0d83960f233479b23431946ef43e,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4719809538008419565, guid: feab0d83960f233479b23431946ef43e,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 35
-      objectReference: {fileID: 0}
-    - target: {fileID: 5983295875041255981, guid: feab0d83960f233479b23431946ef43e,
-        type: 3}
-      propertyPath: m_Name
-      value: PlayerHolder
-      objectReference: {fileID: 0}
-    - target: {fileID: 8232062182999511224, guid: feab0d83960f233479b23431946ef43e,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 39
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: feab0d83960f233479b23431946ef43e, type: 3}
 --- !u!1 &561850990 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -6600120427922619290, guid: e2f8c8f533ec5c941a320d19cc7ccf1e,
@@ -6312,6 +6244,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Book
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e939c908829affc41a50bdaedc6629b5,
+        type: 3}
+      propertyPath: m_TagString
+      value: Grabbable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -23608,10 +23545,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: WoodCarving
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 90fe0e74a8ccf7d41ab8bbe00b7272f6,
+        type: 3}
+      propertyPath: m_TagString
+      value: Grabbable
+      objectReference: {fileID: 0}
     - target: {fileID: 6116135715605674401, guid: 90fe0e74a8ccf7d41ab8bbe00b7272f6,
         type: 3}
       propertyPath: m_Name
       value: WoodCarving
+      objectReference: {fileID: 0}
+    - target: {fileID: 6116135715605674401, guid: 90fe0e74a8ccf7d41ab8bbe00b7272f6,
+        type: 3}
+      propertyPath: m_TagString
+      value: Grabbable
       objectReference: {fileID: 0}
     - target: {fileID: 8728019119769295065, guid: 90fe0e74a8ccf7d41ab8bbe00b7272f6,
         type: 3}
@@ -25246,6 +25193,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Book
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e939c908829affc41a50bdaedc6629b5,
+        type: 3}
+      propertyPath: m_TagString
+      value: Grabbable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -29983,4 +29935,3 @@ SceneRoots:
   - {fileID: 573278653}
   - {fileID: 974120112}
   - {fileID: 1551533272}
-  - {fileID: 548544327}
