@@ -1,7 +1,6 @@
 using Photon.Pun;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.XR.Content.Interaction;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
@@ -47,19 +46,22 @@ public class Valve : MonoBehaviourPun
     private void Update()
     {
         // 모든 클라이언트에서 계산
-        if (!isGrabbed && knobValve.activeSelf)
-        {
-            float duration = valveDuration * knob.value;
-            knob.value = Mathf.SmoothDamp(knob.value, 0f, ref valveVelocity, duration);
-        }
+        //if (!isGrabbed && knobValve.activeSelf)
+        //{
+        //    //float duration = valveDuration * knob.value;
+        //    //knob.value = Mathf.SmoothDamp(knob.value, 0f, ref valveVelocity, duration);
+        //    photonView.RPC("RequestStartKnobValue", RpcTarget.MasterClient);
+        //}
 
         if (isAttached)
         {
-            float plusRotation = Mathf.Lerp(90f, 0f, knob.value);
-            float minusRotation = Mathf.Lerp(-90f, 0f, knob.value);
+            //float plusRotation = Mathf.Lerp(90f, 0f, knob.value);
+            //float minusRotation = Mathf.Lerp(-90f, 0f, knob.value);
 
-            bridgePlus.rotation = Quaternion.Euler(new Vector3(plusRotation, 0f, 0f));
-            bridgeMinous.rotation = Quaternion.Euler(new Vector3(minusRotation, 0f, 0f));
+            //bridgePlus.rotation = Quaternion.Euler(new Vector3(plusRotation, 0f, 0f));
+            //bridgeMinous.rotation = Quaternion.Euler(new Vector3(minusRotation, 0f, 0f));
+            photonView.RPC("RequestStartKnobValue", RpcTarget.MasterClient);
+            photonView.RPC("RequestStartBridgeRotation", RpcTarget.MasterClient);
         }
 
         //// 마스터 클라이언트에서 값 동기화
@@ -69,6 +71,26 @@ public class Valve : MonoBehaviourPun
         //    photonView.RPC("RPCSyncBridgeRotation", RpcTarget.Others, bridgePlus.rotation.eulerAngles.x, bridgeMinous.rotation.eulerAngles.x);
         //}
     }
+    [PunRPC]
+    private void RequestStartKnobValue()
+    {
+        if (!PhotonNetwork.IsMasterClient)
+            return; // 마스터 클라이언트가 아니면 무시
+        float syncedValue = 0f;
+
+        // 그랩 했을 때
+        if (isGrabbed)
+        {
+            syncedValue = knob.value;
+        }
+        else
+        {
+            float duration = valveDuration * knob.value;
+            syncedValue = Mathf.SmoothDamp(knob.value, 0f, ref valveVelocity, duration);
+        }
+
+        photonView.RPC("RPCSyncKnobValue", RpcTarget.All, syncedValue);
+    }
 
     // knob.value 동기화
     [PunRPC]
@@ -77,13 +99,27 @@ public class Valve : MonoBehaviourPun
         knob.value = syncedValue;
     }
 
+    [PunRPC]
+    private void RequestStartBridgeRotation()
+    {
+        if (!PhotonNetwork.IsMasterClient)
+            return; // 마스터 클라이언트가 아니면 무시
+
+        float plusRotation = Mathf.Lerp(90f, 0f, knob.value);
+        float minusRotation = Mathf.Lerp(-90f, 0f, knob.value);
+
+        // 클라이언트 전체에게 보내는 회전 실행 RPC
+        photonView.RPC("RPCSyncBridgeRotation", RpcTarget.All, plusRotation, minusRotation);
+    }
+
     // 다리 회전 값 동기화
     [PunRPC]
     private void RPCSyncBridgeRotation(float plusRotation, float minusRotation)
-    {
+    { 
         bridgePlus.rotation = Quaternion.Euler(new Vector3(plusRotation, 0f, 0f));
         bridgeMinous.rotation = Quaternion.Euler(new Vector3(minusRotation, 0f, 0f));
     }
+
     // 실린더에 밸브를 붙이는 메서드
     private void AttachToCylinder(GameObject cylinder, GameObject grabValve)
     {
@@ -194,37 +230,6 @@ public class Valve : MonoBehaviourPun
     {
         knobValve.SetActive(false);
     }
-
-    //[PunRPC]
-    //private void RPCUpdatePosition(Vector3 position, Quaternion rotation)
-    //{
-    //    // 네트워크에서 받은 위치와 회전값 적용
-    //    if (!photonView.IsMine) // 다른 클라이언트에서만 적용
-    //    {
-    //        grabValve.transform.position = position;
-    //        grabValve.transform.rotation = rotation;
-    //    }
-    //}
-
-    //public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    //{
-    //    // stream - 데이터를 주고 받는 통로 
-    //    // 내가 데이터를 보내는 중이라면
-    //    if (stream.IsWriting && isGrabbed)
-    //    {
-    //        // 이 방안에 있는 모든 사용자에게 브로드캐스트 
-    //        // - 내 포지션 값을 보내보자
-    //        stream.SendNext(grabValve.transform.position);
-    //        stream.SendNext(grabValve.transform.rotation);
-    //    }
-    //    // 내가 데이터를 받는 중이라면 
-    //    else if (isGrabbed)
-    //    {
-    //        // 순서대로 보내면 순서대로 들어옴. 근데 타입캐스팅 해주어야 함
-    //        grabValve.transform.position = (Vector3)stream.ReceiveNext();
-    //        grabValve.transform.rotation = (Quaternion)stream.ReceiveNext();
-    //    }
-    //}
 
     public void OnSelectEnter()
     {
