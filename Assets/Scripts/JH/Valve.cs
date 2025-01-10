@@ -46,79 +46,43 @@ public class Valve : MonoBehaviourPun
     private void Update()
     {
         // 모든 클라이언트에서 계산
-        //if (!isGrabbed && knobValve.activeSelf)
-        //{
-        //    //float duration = valveDuration * knob.value;
-        //    //knob.value = Mathf.SmoothDamp(knob.value, 0f, ref valveVelocity, duration);
-        //    photonView.RPC("RequestStartKnobValue", RpcTarget.MasterClient);
-        //}
+        if (!isGrabbed && knobValve.activeSelf)
+        {
+            float duration = valveDuration * knob.value;
+            knob.value = Mathf.SmoothDamp(knob.value, 0f, ref valveVelocity, duration);
+        }
 
         if (isAttached)
         {
-            //float plusRotation = Mathf.Lerp(90f, 0f, knob.value);
-            //float minusRotation = Mathf.Lerp(-90f, 0f, knob.value);
+            float plusRotation = Mathf.Lerp(90f, 0f, knob.value);
+            float minusRotation = Mathf.Lerp(-90f, 0f, knob.value);
 
-            //bridgePlus.rotation = Quaternion.Euler(new Vector3(plusRotation, 0f, 0f));
-            //bridgeMinous.rotation = Quaternion.Euler(new Vector3(minusRotation, 0f, 0f));
-            photonView.RPC("RequestStartKnobValue", RpcTarget.MasterClient);
-            photonView.RPC("RequestStartBridgeRotation", RpcTarget.MasterClient);
+            bridgePlus.rotation = Quaternion.Euler(new Vector3(plusRotation, 0f, 0f));
+            bridgeMinous.rotation = Quaternion.Euler(new Vector3(minusRotation, 0f, 0f));
         }
 
         //// 마스터 클라이언트에서 값 동기화
         //if (PhotonNetwork.IsMasterClient)
         //{
-        //    photonView.RPC("RPCSyncKnobValue", RpcTarget.Others, knob.value);
-        //    photonView.RPC("RPCSyncBridgeRotation", RpcTarget.Others, bridgePlus.rotation.eulerAngles.x, bridgeMinous.rotation.eulerAngles.x);
+        //    photonView.RPC("RPCSyncKnobValue2", RpcTarget.Others, knob.value);
+        //    photonView.RPC("RPCSyncBridgeRotation2", RpcTarget.Others, bridgePlus.rotation.eulerAngles.x, bridgeMinous.rotation.eulerAngles.x);
         //}
     }
-    [PunRPC]
-    private void RequestStartKnobValue()
-    {
-        if (!PhotonNetwork.IsMasterClient)
-            return; // 마스터 클라이언트가 아니면 무시
-        float syncedValue = 0f;
 
-        // 그랩 했을 때
-        if (isGrabbed)
-        {
-            syncedValue = knob.value;
-        }
-        else
-        {
-            float duration = valveDuration * knob.value;
-            syncedValue = Mathf.SmoothDamp(knob.value, 0f, ref valveVelocity, duration);
-        }
+    //// knob.value 동기화
+    //[PunRPC]
+    //private void RPCSyncKnobValue2(float syncedValue)
+    //{
+    //    knob.value = syncedValue;
+    //}
 
-        photonView.RPC("RPCSyncKnobValue", RpcTarget.All, syncedValue);
-    }
-
-    // knob.value 동기화
-    [PunRPC]
-    private void RPCSyncKnobValue(float syncedValue)
-    {
-        knob.value = syncedValue;
-    }
-
-    [PunRPC]
-    private void RequestStartBridgeRotation()
-    {
-        if (!PhotonNetwork.IsMasterClient)
-            return; // 마스터 클라이언트가 아니면 무시
-
-        float plusRotation = Mathf.Lerp(90f, 0f, knob.value);
-        float minusRotation = Mathf.Lerp(-90f, 0f, knob.value);
-
-        // 클라이언트 전체에게 보내는 회전 실행 RPC
-        photonView.RPC("RPCSyncBridgeRotation", RpcTarget.All, plusRotation, minusRotation);
-    }
-
-    // 다리 회전 값 동기화
-    [PunRPC]
-    private void RPCSyncBridgeRotation(float plusRotation, float minusRotation)
-    { 
-        bridgePlus.rotation = Quaternion.Euler(new Vector3(plusRotation, 0f, 0f));
-        bridgeMinous.rotation = Quaternion.Euler(new Vector3(minusRotation, 0f, 0f));
-    }
+    //// 다리 회전 값 동기화
+    //[PunRPC]
+    //private void RPCSyncBridgeRotation2(float plusRotation, float minusRotation)
+    //{
+    //    bridgePlus.rotation = Quaternion.Euler(new Vector3(plusRotation, 0f, 0f));
+    //    bridgeMinous.rotation = Quaternion.Euler(new Vector3(minusRotation, 0f, 0f));
+    //}
 
     // 실린더에 밸브를 붙이는 메서드
     private void AttachToCylinder(GameObject cylinder, GameObject grabValve)
