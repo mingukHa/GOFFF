@@ -1,78 +1,38 @@
-using System.Collections;
 using UnityEngine;
-using Photon.Pun;
+using System.Collections;
 
-public class Domwaiter : MonoBehaviourPunCallbacks
+public class Domwaiter : MonoBehaviour
 {
-    // 핸들, 엘리베이터 오브젝트
-    public Transform handle;
-    public Transform DomwaiterBottom;
+    public Transform ovenDoor;  // 오븐 문 오브젝트
+    private bool isOpen = false;
+    private bool isRotating = false; // 회전 중이면 추가 트리거를 방지
+    public float rotationDuration = 1f;  // 문이 회전하는 시간 (인스펙터에서 조정 가능)
 
-    // 문 열림/닫힘 각도
-    public float openAngle = -90f; // 열린 문 회전값
-
-    // 레버 올리는 동작
-    private Vector3 openrotation;
-    private Vector3 closerotation = Vector3.zero;   // 닫힌 문 회전값
-
-    private float rotationDuration = 1.0f; // 문이 돌아가는 시간
-
-    // 레버가 올라갔는지 여부 확인
-    private bool isOpened = false;
-
-    private Quaternion localRotation;   // 문의 회전
-
-    private void Start()
+    // 문 상태 변경 함수
+    public void ToggleDoor()
     {
-        // 열린 문 각도 초기화
-        openrotation = new Vector3(0, 0, openAngle);
+        if (isRotating) return;  // 문이 회전 중이면 토글하지 않음
+        StartCoroutine(RotateDoor(isOpen ? 0f : 90f));  // 열려 있으면 닫기, 아니면 열기
     }
 
-    public void Activatehandle()
+    // 문 회전 코루틴
+    private IEnumerator RotateDoor(float targetRotation)
     {
-        if (isOpened)
+        isRotating = true;
+
+        Quaternion startRotation = ovenDoor.localRotation;
+        Quaternion endRotation = Quaternion.Euler(0f, targetRotation, 0f);
+        float timeElapsed = 0f;
+
+        while (timeElapsed < rotationDuration)
         {
-            isOpened = false;
-            // 로컬에서 문을 열려있으면 닫고, 네트워크에서도 동기화
-            RotateDoorLocally(closerotation); // 로컬에서 문 닫기
-            photonView.RPC("RotateDoorRPC", RpcTarget.All, closerotation);
-        }
-        else
-        {
-            isOpened = true;
-            // 로컬에서 문을 닫혀있으면 열고, 네트워크에서도 동기화
-            RotateDoorLocally(openrotation); // 로컬에서 문 닫기
-            photonView.RPC("RotateDoorRPC", RpcTarget.All, openrotation);
-        }
-    }
-
-    private void RotateDoorLocally(Vector3 targetRotation)
-    {
-        StartCoroutine(RotateDoor(targetRotation));
-    }
-
-    [PunRPC]
-    public void RotateDoorRPC(Vector3 targetRotation)
-    {
-        RotateDoorLocally(targetRotation);
-    }
-
-    private IEnumerator RotateDoor(Vector3 targetRotation)
-    {
-        float elapsedTime = 0f;
-        Quaternion initialRotation = transform.rotation;
-        Quaternion targetQuaternion = Quaternion.Euler(targetRotation);
-
-        while (elapsedTime < rotationDuration)
-        {
-            float t = Mathf.SmoothStep(0, 1, elapsedTime / rotationDuration);
-            transform.rotation = Quaternion.Lerp(initialRotation, targetQuaternion, t);
-
-            elapsedTime += Time.deltaTime;
-            yield return null;
+            ovenDoor.localRotation = Quaternion.Slerp(startRotation, endRotation, timeElapsed / rotationDuration);
+            timeElapsed += Time.deltaTime;
+            yield return null;  // 한 프레임 대기
         }
 
-        // 코루틴이 끝난 후 최종 회전 값 설정
-        transform.rotation = targetQuaternion;
+        ovenDoor.localRotation = endRotation;  // 최종 회전값 적용
+        isRotating = false;  // 회전 완료
+        isOpen = !isOpen;  // 상태 변경을 회전 완료 후에 수행
     }
 }
