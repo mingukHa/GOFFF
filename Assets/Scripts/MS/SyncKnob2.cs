@@ -6,30 +6,6 @@ public class SyncKnob2 : MonoBehaviourPun
 {
     public XRKnob xrKnob;
     private bool isSyncing = false;
-    public Valve2 valve;
-    public void OnSelectValve()
-    {
-        Debug.Log("Knob πÎ∫Í∏¶ ¿‚¿Ω");
-        valve.IsGrabbed = true;
-        if (!photonView.IsMine)
-        {
-            photonView.RequestOwnership();
-        }
-        photonView.RPC("RPCValveGrab2", RpcTarget.Others, true);
-    }
-
-    public void OffSelectValve()
-    {
-        Debug.Log("Knob πÎ∫Í∏¶ ≥ı¿Ω");
-        valve.IsGrabbed = false;
-        photonView.RPC("RPCValveGrab2", RpcTarget.Others, false);
-    }
-
-    [PunRPC]
-    private void RPCValveGrab2(bool grabbed)
-    {
-        valve.IsGrabbed = grabbed;
-    }
 
     //private void OnEnable()
     //{
@@ -56,10 +32,10 @@ public class SyncKnob2 : MonoBehaviourPun
     //}
 
     [PunRPC]
-    void SyncKnobValue2(float syncvalue)
+    void SyncKnobValue2(float value)
     {
         isSyncing = true;
-        xrKnob.SetValue(syncvalue);
+        xrKnob.SetValue(value);
         isSyncing = false;
     }
 

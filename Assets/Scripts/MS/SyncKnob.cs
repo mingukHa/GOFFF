@@ -5,32 +5,7 @@ using UnityEngine.XR.Content.Interaction;
 public class SyncKnob : MonoBehaviourPun
 {
     public XRKnob xrKnob;
-    public Valve valve;
     private bool isSyncing = false;
-
-    public void OnSelectValve()
-    {
-        Debug.Log("Knob πÎ∫Í∏¶ ¿‚¿Ω");
-        valve.IsGrabbed = true;
-        if (!photonView.IsMine)
-        {
-            photonView.RequestOwnership();
-        }
-        photonView.RPC("RPCValveGrab", RpcTarget.Others, true);
-    }
-
-    public void OffSelectValve()
-    {
-        Debug.Log("Knob πÎ∫Í∏¶ ≥ı¿Ω");
-        valve.IsGrabbed = false;
-        photonView.RPC("RPCValveGrab", RpcTarget.Others, false);
-    }
-
-    [PunRPC]
-    private void RPCValveGrab(bool grabbed)
-    {
-        valve.IsGrabbed = grabbed;
-    }
 
     //private void OnEnable()
     //{
@@ -57,10 +32,10 @@ public class SyncKnob : MonoBehaviourPun
     //}
 
     [PunRPC]
-    void SyncKnobValue(float syncvalue)
+    void SyncKnobValue(float value)
     {
         isSyncing = true;
-        xrKnob.SetValue(syncvalue);
+        xrKnob.SetValue(value);
         isSyncing = false;
     }
 
@@ -71,6 +46,4 @@ public class SyncKnob : MonoBehaviourPun
     //    xrKnob.SetKnobRotation(angle);
     //    isSyncing = false;
     //}
-
-
 }
