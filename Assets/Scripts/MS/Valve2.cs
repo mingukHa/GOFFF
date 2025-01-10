@@ -51,7 +51,7 @@ public class Valve2 : MonoBehaviourPun
         // 모든 클라이언트에서 계산
         if (!isGrabbed && knobValve.activeSelf)
         {
-            if (!knobValve.GetPhotonView().IsMine) return;
+            //if (!knobValve.GetPhotonView().IsMine) return;
 
             float duration = valveDuration * knob.value;
             knob.value = Mathf.SmoothDamp(knob.value, 0f, ref valveVelocity, duration);
