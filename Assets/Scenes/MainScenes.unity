@@ -3549,7 +3549,7 @@ PrefabInstance:
     - target: {fileID: 905732214313701033, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
         type: 3}
       propertyPath: m_OnValueChange.m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 905732214313701033, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
         type: 3}
@@ -3575,7 +3575,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnValueChange.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 180211345}
+      objectReference: {fileID: 1817528671}
     - target: {fileID: 905732214313701033, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
         type: 3}
       propertyPath: m_OnValueChange.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -3840,14 +3840,6 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 324705271430134021, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1817528668}
-    - targetCorrespondingSourceObject: {fileID: 324705271430134021, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1817528670}
     - targetCorrespondingSourceObject: {fileID: 324705271430134021, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
         type: 3}
       insertIndex: -1
@@ -11985,7 +11977,7 @@ PrefabInstance:
     - target: {fileID: 905732214313701033, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
         type: 3}
       propertyPath: m_OnValueChange.m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 905732214313701033, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
         type: 3}
@@ -12011,7 +12003,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnValueChange.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 180211348}
+      objectReference: {fileID: 1198552520}
     - target: {fileID: 905732214313701033, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
         type: 3}
       propertyPath: m_OnValueChange.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -12289,14 +12281,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 324705271430134021, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1111849193}
-    - targetCorrespondingSourceObject: {fileID: 324705271430134021, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1198552519}
-    - targetCorrespondingSourceObject: {fileID: 324705271430134021, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1198552520}
     - targetCorrespondingSourceObject: {fileID: 7942764199517027384, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
         type: 3}
@@ -12353,22 +12337,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1111849193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1111849189}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!114 &1111849194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13056,30 +13024,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65a8500fa86faa04596fb5f9d40efeae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1198552519
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1111849189}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 1
-  OwnershipTransfer: 1
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 1111849193}
-  - {fileID: 1111849191}
-  sceneViewId: 26
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!114 &1198552520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19154,22 +19098,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 328946551}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1817528668
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1817528665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!114 &1817528669 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 905732214313701033, guid: 7db2f81b991fe7d44aee75b9d14bcb22,
@@ -19182,30 +19110,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65a8500fa86faa04596fb5f9d40efeae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1817528670
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1817528665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 1
-  OwnershipTransfer: 1
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 1817528668}
-  - {fileID: 328946556}
-  sceneViewId: 25
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!114 &1817528671
 MonoBehaviour:
   m_ObjectHideFlags: 0
