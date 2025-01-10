@@ -247,7 +247,7 @@ Transform:
   m_GameObject: {fileID: 30577248}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -35.277794, y: 1.171, z: 41.078297}
+  m_LocalPosition: {x: -35.277794, y: 1.299, z: 41.078297}
   m_LocalScale: {x: 2, y: 0.174832, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -875,7 +875,7 @@ Transform:
   m_GameObject: {fileID: 136566147}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -35.277794, y: 0.95, z: 41.078297}
+  m_LocalPosition: {x: -35.277794, y: 0.939, z: 41.078297}
   m_LocalScale: {x: 2, y: 0.4, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4397,6 +4397,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 760106116}
+    - targetCorrespondingSourceObject: {fileID: 3124572688761022004, guid: 524300b41524848988f06b131d209b79,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 760106118}
   m_SourcePrefab: {fileID: 100100000, guid: 524300b41524848988f06b131d209b79, type: 3}
 --- !u!1 &760106111 stripped
 GameObject:
@@ -4499,7 +4503,19 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 760106118}
+        m_TargetAssemblyTypeName: burgerGrab, Assembly-CSharp
+        m_MethodName: OnSelectBurger
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls: []
@@ -4605,7 +4621,7 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 3
+  Synchronization: 1
   OwnershipTransfer: 0
   observableSearch: 0
   ObservedComponents:
@@ -4613,6 +4629,18 @@ MonoBehaviour:
   sceneViewId: 6
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &760106118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 760106111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91be5feccca6bd244a344209b063de08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &830805239 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1803340176568896145, guid: d5f9d31939f283e4088c7d5e529827b3,
