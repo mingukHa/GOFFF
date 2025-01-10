@@ -150,7 +150,7 @@ public class PlayerController : MonoBehaviourPun
         HandleWheelRotation(finalMovement, finalMovement.magnitude);
 
         //// Photon 동기화
-        //photonView.RPC("SyncWheelRotation", RpcTarget.Others, finalMovement.magnitude);
+        photonView.RPC("SyncWheelRotation", RpcTarget.Others, finalMovement.magnitude);
     }
 
     private void HandleRotation()
@@ -245,14 +245,14 @@ public class PlayerController : MonoBehaviourPun
     }
 
 
-    //[PunRPC]
-    //private void SyncWheelRotation(float movementMagnitude)
-    //{
-    //    float wheelRotation = movementMagnitude * wheelRotationMultiplier;
-    //
-    //    leftWheel.Rotate(Vector3.right, wheelRotation);
-    //    rightWheel.Rotate(Vector3.right, wheelRotation);
-    //}
+    [PunRPC]
+    private void SyncWheelRotation(float movementMagnitude)
+    {
+        float wheelRotation = movementMagnitude * wheelRotationMultiplier;
+    
+        leftWheel.Rotate(Vector3.right, wheelRotation);
+        rightWheel.Rotate(Vector3.right, wheelRotation);
+    }
 
     // SAVE POINT
 }
