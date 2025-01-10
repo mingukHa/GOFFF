@@ -177,18 +177,18 @@ public class Valve2 : MonoBehaviourPun
         {
             knobValve.GetPhotonView().RequestOwnership();
         }
-        photonView.RPC("RPCValveGrab", RpcTarget.Others, true);
+        photonView.RPC("RPCValveGrab2", RpcTarget.Others, true);
     }
 
     public void OffSelectValve()
     {
         Debug.Log("Knob πÎ∫Í∏¶ ≥ı¿Ω");
         isGrabbed = false;
-        photonView.RPC("RPCValveGrab", RpcTarget.Others, false);
+        photonView.RPC("RPCValveGrab2", RpcTarget.Others, false);
     }
 
     [PunRPC]
-    private void RPCValveGrab(bool grabbed)
+    private void RPCValveGrab2(bool grabbed)
     {
         isGrabbed = grabbed;
     }
