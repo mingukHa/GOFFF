@@ -32,6 +32,7 @@ public class Valve : MonoBehaviourPun
     private PhotonTransformView photonTransformView;
 
     public bool IsAttached { get { return isAttached; } }
+    public bool IsGrabbed { get { return isGrabbed; } set { isGrabbed = value; } }
 
     private void Start()
     {
@@ -187,11 +188,11 @@ public class Valve : MonoBehaviourPun
         knobValve.GetPhotonView().RPC("RPCValveGrab", RpcTarget.Others, false);
     }
 
-    [PunRPC]
-    private void RPCValveGrab(bool grabbed)
-    {
-        isGrabbed = grabbed;
-    }
+    //[PunRPC]
+    //private void RPCValveGrab(bool grabbed)
+    //{
+    //    isGrabbed = grabbed;
+    //}
 
     [PunRPC]
     private void RPCknobValvefalse()
