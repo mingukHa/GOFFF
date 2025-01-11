@@ -5,7 +5,7 @@ public class PuzzleManager : MonoBehaviourPunCallbacks
 {
     public SocketValidator[] socketValidators; // 도플갱어 방에 있는 모든 SocketValidator
     public GameObject jailBar; // 감옥 쇠창살 오브젝트
-    
+    public GameObject Monster;
     [SerializeField]
     private GameObject spawnpoint; // 몬스터가 생성될 위치
 
@@ -44,15 +44,6 @@ public class PuzzleManager : MonoBehaviourPunCallbacks
 
         // 몬스터 스폰 호출
         Debug.Log("좀비가 생성 됨");
-        MonsterSpawn();
-    }
-
-    private void MonsterSpawn()
-    {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            // PhotonNetwork.Instantiate를 통해 몬스터 스폰
-            PhotonNetwork.Destroy(jailBar);
-        }
-    }
+        Monster.SetActive(true);
+    }   
 }
