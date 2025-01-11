@@ -8,23 +8,17 @@ public class Domwaiterfood : MonoBehaviourPun
 
     public void OnButtonPressed()
     {
-        /*  멀티가 아닌 상황에서 로컬 로직
-        
-        // 주황색 박스[0]dptj 충돌된 모든 오브젝트 가져오기
-        var objectsToMove = triggerZone0.GetObjectsInZone();
-
-        // 모든 오브젝트를 주황색 박스[1] 위치로 이동
-        foreach (GameObject obj in objectsToMove)
+        if (photonView.IsMine) // 이 버튼을 누른 플레이어만 RPC 호출
         {
-            obj.transform.position = targetPosition.position;
+            // RPC 호출을 통해 모든 클라이언트에 아이템 전송 이벤트를 전달
+            photonView.RPC("SendItemsRPC", RpcTarget.All);
         }
+    }
 
-        */
-
-        if (photonView.IsMine) // 이 버튼을 누른 플레이어만 아이템 전송 요청을 보냄
-        {
-            // 주황색 박스[0]에서 아이템을 전송
-            triggerZone0.SendItemsToTarget(targetPosition);
-        }
+    [PunRPC]
+    void SendItemsRPC()
+    {
+        // 주황색 박스[0]에서 아이템을 주황색 박스[1]으로 이동
+        triggerZone0.SendItemsToTarget(targetPosition);
     }
 }
