@@ -150,7 +150,7 @@ public class PlayerController : MonoBehaviourPun
         HandleWheelRotation(finalMovement, finalMovement.magnitude);
 
         //// Photon 동기화
-        photonView.RPC("SyncWheelRotation", RpcTarget.Others, finalMovement.magnitude);
+        //photonView.RPC("SyncWheelRotation", RpcTarget.Others, finalMovement.magnitude);
     }
 
     private void HandleRotation()
@@ -170,7 +170,7 @@ public class PlayerController : MonoBehaviourPun
                 //Debug.Log($"{rotationInput}");
 
                 // 네트워크에 회전 정보 동기화
-                photonView.RPC("SyncRotation", RpcTarget.Others, rotationInput);
+                //photonView.RPC("SyncRotation", RpcTarget.Others, rotationInput);
             }
         }
 
@@ -187,7 +187,7 @@ public class PlayerController : MonoBehaviourPun
                 //Debug.Log($"{rotationInput}");
 
                 // 네트워크에 회전 정보 동기화
-                photonView.RPC("SyncRotation", RpcTarget.Others, rotationInput);
+                //photonView.RPC("SyncRotation", RpcTarget.Others, rotationInput);
             }
         }
 
