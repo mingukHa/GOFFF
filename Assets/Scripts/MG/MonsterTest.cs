@@ -128,7 +128,7 @@ public class MonsterTest : MonoBehaviour
 
     private void MoveToTarget()
     {
-        SoundManager.instance.SFXPlay("Wheel2_SFX");
+        //SoundManager.instance.SFXPlay("Wheel2_SFX");
         if (targetPosition != Vector3.zero)
         {
             NavMeshHit hit;

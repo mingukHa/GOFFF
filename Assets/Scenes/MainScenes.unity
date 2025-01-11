@@ -21272,40 +21272,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1308197757660023761, guid: 73f549b46e14531439f12aa8447cfb8d,
-        type: 3}
-      propertyPath: viewAngle
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 1308197757660023761, guid: 73f549b46e14531439f12aa8447cfb8d,
-        type: 3}
-      propertyPath: visionDistance
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2590986580191163034, guid: 73f549b46e14531439f12aa8447cfb8d,
-        type: 3}
-      propertyPath: m_Speed
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4541089904230920694, guid: 73f549b46e14531439f12aa8447cfb8d,
         type: 3}
       propertyPath: sceneViewId
       value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5786613870069466283, guid: 73f549b46e14531439f12aa8447cfb8d,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5786613870069466283, guid: 73f549b46e14531439f12aa8447cfb8d,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5786613870069466283, guid: 73f549b46e14531439f12aa8447cfb8d,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5786613870069466283, guid: 73f549b46e14531439f12aa8447cfb8d,
         type: 3}
@@ -21357,11 +21327,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5786613870069466283, guid: 73f549b46e14531439f12aa8447cfb8d,
-        type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6558927757334978065, guid: 73f549b46e14531439f12aa8447cfb8d,
         type: 3}
       propertyPath: m_Name
@@ -21370,8 +21335,45 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6558927757334978065, guid: 73f549b46e14531439f12aa8447cfb8d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2109973267}
   m_SourcePrefab: {fileID: 100100000, guid: 73f549b46e14531439f12aa8447cfb8d, type: 3}
+--- !u!195 &2109973265 stripped
+NavMeshAgent:
+  m_CorrespondingSourceObject: {fileID: 2590986580191163034, guid: 73f549b46e14531439f12aa8447cfb8d,
+    type: 3}
+  m_PrefabInstance: {fileID: 2109973264}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2109973266 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6558927757334978065, guid: 73f549b46e14531439f12aa8447cfb8d,
+    type: 3}
+  m_PrefabInstance: {fileID: 2109973264}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2109973267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109973266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5cb4b9c1d9f2524699253fa42b10add, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionRadius: 10
+  viewAngle: 60
+  detectionLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  visionDistance: 5
+  idleTimeLimit: 10
+  arrivalThreshold: 1.5
+  navAgent: {fileID: 2109973265}
 --- !u!1001 &2110493252
 PrefabInstance:
   m_ObjectHideFlags: 0
