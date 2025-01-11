@@ -8,11 +8,11 @@ public class DeadZone : MonoBehaviourPun
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            photonView.RPC("RestartLevel", RpcTarget.All);
+            photonView.RPC("RestartLevels", RpcTarget.All);
         }
     }
-
-    private void RestartLevel()
+    [PunRPC]
+    private void RestartLevels()
     {
         if (PhotonNetwork.IsMasterClient)
         {

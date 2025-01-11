@@ -13,6 +13,7 @@ public class f1Trigger : MonoBehaviourPunCallbacks
         Ironcage();
         photonView.RPC("Ironcage", RpcTarget.Others);
     }
+    [PunRPC]
     private void Ironcage()
     {
         PhotonNetwork.Destroy(ironcage);
