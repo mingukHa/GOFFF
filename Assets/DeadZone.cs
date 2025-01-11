@@ -1,13 +1,23 @@
+using Photon.Pun;
 using UnityEngine;
 
-public class DeadZone : MonoBehaviour
-{
-    private PlayerDead pd;
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if(collision.gameObject.CompareTag("Player"))
-    //    {
-    //        pd.Deadzone();
-    //    }
-    //}
+public class DeadZone : MonoBehaviourPun
+{   
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            photonView.RPC("RestartLevel", RpcTarget.All);
+        }
+    }
+
+    private void RestartLevel()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            string sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+            PhotonNetwork.LoadLevel(sceneName);
+        }
+    }
 }
