@@ -8,7 +8,7 @@ public class MonsterTest : MonoBehaviour
     [SerializeField] private LayerMask detectionLayer;
     [SerializeField] private float visionDistance = 5f;
     [SerializeField] private float idleTimeLimit = 10f;
-    [SerializeField] private float arrivalThreshold = 1.5f;
+    [SerializeField] private float arrivalThreshold = 2f;
     [SerializeField] private NavMeshAgent navAgent;
     private PlayerDead pd;
     private Animator animator;
