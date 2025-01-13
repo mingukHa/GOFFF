@@ -11,7 +11,7 @@ public class GameSceneController : MonoBehaviour
 
     private void Awake()
     {
-        //JoinEchoChannel.Instance.JoinVoiceChannel(channelName);
+        JoinEchoChannel.Instance.JoinVoiceChannel(channelName);
     }
 
     private void Start()

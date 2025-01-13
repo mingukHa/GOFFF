@@ -67,8 +67,6 @@ public class SimpleSonarShader_PlayerMove : MonoBehaviourPun
     [PunRPC]
     private void RPCPlayerMove(Vector3 sonarOrigin)
     {
-        SoundManager.instance.SFXPlay("Wheel_SFX");
-
         PlayerMove?.Invoke(sonarOrigin);
     }
 }

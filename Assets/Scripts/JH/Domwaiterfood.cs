@@ -3,24 +3,28 @@ using Photon.Pun;
 
 public class Domwaiterfood : MonoBehaviourPun
 {
-    [SerializeField] private DomwaiterOven triggerZone0;   // 박스[0]
-    [SerializeField] private Transform targetPosition;  // 박스[1]
+    [SerializeField] private DomwaiterOven triggerZone0;   // 주황색 박스 [0]
+    [SerializeField] private Transform targetPosition;  // 주황색 박스 [1]
 
     public void OnButtonPressed()
     {
-        SoundManager.instance.SFXPlay("Button_SFX");
+        /*  멀티가 아닌 상황에서 로컬 로직
+        
+        // 주황색 박스[0]dptj 충돌된 모든 오브젝트 가져오기
+        var objectsToMove = triggerZone0.GetObjectsInZone();
 
-        if (photonView.IsMine) // 이 버튼을 누른 플레이어만 RPC 호출
+        // 모든 오브젝트를 주황색 박스[1] 위치로 이동
+        foreach (GameObject obj in objectsToMove)
         {
-            // RPC 호출을 통해 모든 클라이언트에 아이템 전송 이벤트를 전달
-            photonView.RPC("SendItemsRPC", RpcTarget.All);
+            obj.transform.position = targetPosition.position;
         }
-    }
 
-    [PunRPC]
-    public void SendItemsRPC()
-    {
-        // 지하3층 오븐박스[0]에서 아이템을 지하2층 오븐박스[1]으로 이동
-        triggerZone0.SendItemsToTarget(targetPosition);
+        */
+
+        if (photonView.IsMine) // 이 버튼을 누른 플레이어만 아이템 전송 요청을 보냄
+        {
+            // 주황색 박스[0]에서 아이템을 전송
+            triggerZone0.SendItemsToTarget(targetPosition);
+        }
     }
 }
