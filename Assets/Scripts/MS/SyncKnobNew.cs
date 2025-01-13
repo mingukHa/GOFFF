@@ -23,7 +23,6 @@ public class SyncKnobNew : MonoBehaviourPun
 
     public void HandleSyncKnobValue()
     {
-        if (isSyncing) return;
         if (photonView.IsMine && valve.IsGrabbed)
         {
             photonView.RPC("SyncKnobValue", RpcTarget.Others, xrKnob.value);
