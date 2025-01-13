@@ -8327,12 +8327,25 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 1
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 684278273}
   sceneViewId: 17
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &684278273 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7434923508884160685, guid: 6d76f31c3bba9e54db53536d7ae131df,
+    type: 3}
+  m_PrefabInstance: {fileID: 684278270}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 684278271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &688938680
 GameObject:
   m_ObjectHideFlags: 0
