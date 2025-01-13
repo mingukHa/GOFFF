@@ -15,6 +15,7 @@ public class PlayerControllerManager : MonoBehaviourPun
         {
             if(!obj.GetPhotonView().IsMine)
             {
+                Debug.Log("상대방 카메라를 끔");
                 obj.SetActive(false);
             }
         }
@@ -22,6 +23,7 @@ public class PlayerControllerManager : MonoBehaviourPun
         {
             if(!obj.GetPhotonView().IsMine)
             {
+                Debug.Log("상대방 컨트롤러를 끔");
                 obj.SetActive(false);
             }
         }
