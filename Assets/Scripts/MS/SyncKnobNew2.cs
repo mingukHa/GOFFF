@@ -27,7 +27,7 @@ public class SyncKnobNew2 : MonoBehaviourPun
         if (photonView.IsMine)
         {
             Debug.Log("IsMine°ú IsGrabbed°¡ Åë°úµÊ");
-            photonView.RPC("SyncKnobValue", RpcTarget.Others, xrKnob.value);
+            photonView.RPC("SyncKnobValueNew2", RpcTarget.Others, xrKnob.value);
         }
     }
 
