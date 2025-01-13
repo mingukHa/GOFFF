@@ -8,7 +8,7 @@ public class Domwaiterfood : MonoBehaviourPun
 
     public void OnButtonPressed()
     {
-        SoundManager.instance.SFXPlay("");
+        SoundManager.instance.SFXPlay("Button_SFX");
 
         if (photonView.IsMine) // 이 버튼을 누른 플레이어만 RPC 호출
         {
