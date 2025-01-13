@@ -57,7 +57,7 @@ public class MonsterTest : MonoBehaviour
                 break;
         }
     }
-    private void Idel()
+    public void Idel()
     {
         SoundManager.instance.SFXPlay("ZomBreathing_SFX");
     }
