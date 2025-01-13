@@ -1,20 +1,22 @@
 using UnityEngine;
 using Photon.Pun;
 
-public class PlayerControllerManager : MonoBehaviourPun
+public class PlayerControllerManager : MonoBehaviourPunCallbacks
 {
     private GameObject[] CameraOffset;
     private GameObject[] handOffset;
 
 
-    private void Awake()
+    public override void OnJoinedRoom()
     {
+        base.OnJoinedRoom();
         CameraOffset = GameObject.FindGameObjectsWithTag("PlayerCamera");
         handOffset = GameObject.FindGameObjectsWithTag("PlayerController");
         foreach(GameObject obj in CameraOffset)
         {
             if(!obj.GetPhotonView().IsMine)
             {
+                Debug.Log("상대방 카메라를 끔");
                 obj.SetActive(false);
             }
         }
@@ -22,6 +24,7 @@ public class PlayerControllerManager : MonoBehaviourPun
         {
             if(!obj.GetPhotonView().IsMine)
             {
+                Debug.Log("상대방 컨트롤러를 끔");
                 obj.SetActive(false);
             }
         }

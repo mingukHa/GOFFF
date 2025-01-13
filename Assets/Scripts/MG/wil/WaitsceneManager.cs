@@ -73,16 +73,33 @@ public class Waitscene : MonoBehaviourPunCallbacks
 
         if (player != null)
         {
-            Debug.Log($"플레이어 {PhotonNetwork.LocalPlayer.NickName}이(가) 위치 {spawnPoint.position}에 스폰되었습니다.");
-            hasSpawned = true;
+            //Debug.Log($"플레이어 {PhotonNetwork.LocalPlayer.NickName}이(가) 위치 {spawnPoint.position}에 스폰되었습니다.");
+            //hasSpawned = true;
 
-            // 플레이어 오브젝트를 TagObject에 저장
-            // PhotonNetwork.LocalPlayer.TagObject = player;
+            //// 플레이어 오브젝트를 TagObject에 저장
+            //// PhotonNetwork.LocalPlayer.TagObject = player;
+            if (player.GetComponent<PhotonView>().IsMine)
+            {
+                // 내 플레이어의 카메라만 활성화
+                var cameras = player.GetComponentsInChildren<Camera>(true); // true는 비활성화된 카메라도 찾음
+                foreach (var camera in cameras)
+                {
+                    camera.gameObject.SetActive(true);
+                }
+            }
         }
         else
         {
             Debug.LogError("플레이어 프리팹 생성에 실패했습니다!");
+
+            // 다른 플레이어의 카메라는 비활성화
+            var cameras = player.GetComponentsInChildren<Camera>(true);
+            foreach (var camera in cameras)
+            {
+                camera.gameObject.SetActive(false);
+            }
         }
+        hasSpawned = true;
 
         StartCoroutine(ReenableCollider(player));
 
