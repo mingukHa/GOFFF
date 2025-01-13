@@ -87,18 +87,19 @@ public class Waitscene : MonoBehaviourPunCallbacks
                     camera.gameObject.SetActive(true);
                 }
             }
-        }
-        else
-        {
-            Debug.LogError("플레이어 프리팹 생성에 실패했습니다!");
-
-            // 다른 플레이어의 카메라는 비활성화
-            var cameras = player.GetComponentsInChildren<Camera>(true);
-            foreach (var camera in cameras)
+            else
             {
-                camera.gameObject.SetActive(false);
+                Debug.LogError("플레이어 프리팹 생성에 실패했습니다!");
+
+                // 다른 플레이어의 카메라는 비활성화
+                var cameras = player.GetComponentsInChildren<Camera>(true);
+                foreach (var camera in cameras)
+                {
+                    camera.gameObject.SetActive(false);
+                }
             }
         }
+        
         hasSpawned = true;
 
         StartCoroutine(ReenableCollider(player));
