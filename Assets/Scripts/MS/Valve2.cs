@@ -171,10 +171,10 @@ public class Valve2 : MonoBehaviourPun
     {
         Debug.Log("Knob 밸브를 잡음");
         isGrabbed = true;
-        if (!knobValve.GetPhotonView().IsMine)
+        if (!photonView.IsMine)
         {
             Debug.Log("소유권이 양도됨");
-            knobValve.GetPhotonView().RequestOwnership();
+            photonView.RequestOwnership();
         }
         photonView.RPC("RPCValveGrab2", RpcTarget.Others, true);
     }
