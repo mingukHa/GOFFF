@@ -6,6 +6,7 @@ public class SyncKnobNew : MonoBehaviourPun
 {
     public XRKnob xrKnob;
     public Valve valve;
+    public GameObject knob;
     private bool isSyncing = false;
     private bool isAutoRotating = false; // 자동 회전 중인지 확인하는 플래그
 
@@ -24,10 +25,10 @@ public class SyncKnobNew : MonoBehaviourPun
     public void HandleSyncKnobValue()
     {
         Debug.Log("Onchanged value가 실행됨");
-        if (photonView.IsMine && valve.IsGrabbed)
+        if (knob.GetPhotonView().IsMine && valve.IsGrabbed)
         {
             Debug.Log("IsMine과 IsGrabbed가 통과됨");
-            photonView.RPC("SyncKnobValue", RpcTarget.Others, xrKnob.value);
+            knob.GetPhotonView().RPC("SyncKnobValue", RpcTarget.Others, xrKnob.value);
         }
     }
 
