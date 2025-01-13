@@ -88,7 +88,7 @@ public class PlayerController : MonoBehaviourPun
         isRGripTriggerPressed = context.ReadValue<float>() > 0.5f;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         // 이전 프레임과 비교해 이동 거리 계산
         Vector3 leftDelta = leftVelocity - lastLeftPosition;
@@ -134,15 +134,14 @@ public class PlayerController : MonoBehaviourPun
         // 회전 처리
         HandleRotation();
 
-        Vector3 finalMovement = movement * Time.deltaTime;
+        Vector3 finalMovement = movement * Time.fixedDeltaTime;
 
         // 최대 속도 제한
         if (finalMovement.magnitude > maxSpeed)
         {
             finalMovement = finalMovement.normalized * maxSpeed;
         }
-
-
+        
         // 카메라 리그 이동
         playerHolder.position += finalMovement;
 
@@ -229,7 +228,7 @@ public class PlayerController : MonoBehaviourPun
         float wheelRotation = movementMagnitude * wheelRotationMultiplier * direction;
 
         // 디버깅
-        Debug.Log($"로컬 이동 방향: {localMovement}, 최종 이동 방향: {movementMagnitude * direction}");
+        //Debug.Log($"로컬 이동 방향: {localMovement}, 최종 이동 방향: {movementMagnitude * direction}");
 
         // 바퀴 회전 처리
         if (isLGripTriggerPressed && !isRGripTriggerPressed) // 우회전
