@@ -35,7 +35,9 @@ public class DomwaiterOven : MonoBehaviourPun
     {
         foreach (GameObject obj in objectsInZone)
         {
-            obj.transform.position = targetPosition.position;
+            // 전송하는 아이템의 회전, 위치값 유지
+            obj.transform.SetPositionAndRotation
+                (targetPosition.position, targetPosition.rotation);
         }
         objectsInZone.Clear();//박스[0]에서 아이템 비우기
     }
