@@ -1,52 +1,85 @@
-using Photon.Pun;
 using UnityEngine;
+using Photon.Pun;
 
 public class PlayerControllerManager : MonoBehaviourPun
 {
-    private GameObject CameraOffset;
-    private GameObject handOffset;
+    private GameObject[] CameraOffset;
+    private GameObject[] handOffset;
 
-    private void Start()
-    {
-        CameraOffset = transform.Find("Cameras")?.gameObject;
-        handOffset = transform.Find("handOffset")?.gameObject;
-    }
 
-    private void OnPhotonInstantiate(PhotonMessageInfo info)
+    private void Awake()
     {
-        if (photonView.IsMine)
+        CameraOffset = GameObject.FindGameObjectsWithTag("PlayerCamera");
+        handOffset = GameObject.FindGameObjectsWithTag("PlayerController");
+        foreach(GameObject obj in CameraOffset)
         {
-            EnableControllers();
-            Enablehand();
+            if(!obj.GetPhotonView().IsMine)
+            {
+                obj.SetActive(false);
+            }
         }
-        else
+        foreach(GameObject obj in handOffset)
         {
-            DisableControllers();
-            Disablehand();
+            if(!obj.GetPhotonView().IsMine)
+            {
+                obj.SetActive(false);
+            }
         }
+        //handOffset = transform.Find("handOffset")?.gameObject;
+
+
+        //if (!photonView.IsMine)
+        //{
+        //    DisableControllers();
+        //    //photonView.RequestOwnership();
+        //    Disablehand();
+        //}
+        //else
+        //{
+        //    EnableControllers();
+        //    Enablehand();
+        //}
     }
 
-    private void DisableControllers()
-    {
-        if (CameraOffset != null) CameraOffset.SetActive(false);
-        Debug.Log("비활성화 했슈");
-    }
+    //private void Start()
+    //{
+    //    if (!photonView.IsMine)
+    //    {
+    //        // 다른 플레이어의 컨트롤러는 렌더링 및 상호작용 비활성화
+    //        foreach (var renderer in GetComponentsInChildren<Renderer>())
+    //        {
+    //            renderer.enabled = false;
+    //        }
 
-    private void EnableControllers()
-    {
-        if (CameraOffset != null) CameraOffset.SetActive(true);
-        Debug.Log("활성화 했슈");
-    }
+    //        foreach (var collider in GetComponentsInChildren<Collider>())
+    //        {
+    //            collider.enabled = false;
+    //        }
+    //    }
+    //}
 
-    private void Disablehand()
-    {
-        if (handOffset != null) handOffset.SetActive(false);
-        Debug.Log("비활성화 했슈");
-    }
+    //private void DisableControllers()
+    //{
+    //    if (CameraOffset != null) CameraOffset.SetActive(false);
 
-    private void Enablehand()
-    {
-        if (handOffset != null) handOffset.SetActive(true);
-        Debug.Log("활성화 했슈");
-    }
+    //    Debug.Log("비활성화 했슈");
+    //}
+
+    //private void EnableControllers()
+    //{
+    //    if (CameraOffset != null) CameraOffset.SetActive(true);
+    //    Debug.Log("활성화 했슈");
+    //}
+    //private void Disablehand()
+    //{
+    //    if (CameraOffset != null) CameraOffset.SetActive(false);
+
+    //    Debug.Log("비활성화 했슈");
+    //}
+
+    //private void Enablehand()
+    //{
+    //    if (CameraOffset != null) CameraOffset.SetActive(true);
+    //    Debug.Log("활성화 했슈");
+    //}
 }
