@@ -25,30 +25,34 @@ public class CopyRoomWatcher : MonoBehaviour
 
     private IEnumerator WatchCoroutine()
     {
-        objectsAtTarget = 0; // 매 프레임마다 초기화
-
-        for(int i = 0;  i < objects.Length; i++)
+        while (true)
         {
-            if (objects[i] == null) continue; // 오브젝트가 없으면 무시
+            objectsAtTarget = 0; // 매 프레임마다 초기화
 
-            // 오브젝트와 목표 위치 간 거리 계산
-            float distance = Vector3.Distance(objects[i].position, targetsTr[i].position);
-
-            if (distance <= checkRadius)
+            for (int i = 0; i < objects.Length; i++)
             {
-                objectsAtTarget++; // 목표 위치에 도달한 오브젝트 개수 증가
+                if (objects[i] == null) continue; // 오브젝트가 없으면 무시
+
+                // 오브젝트와 목표 위치 간 거리 계산
+                float distance = Vector3.Distance(objects[i].position, targetsTr[i].position);
+
+                if (distance <= checkRadius)
+                {
+                    objectsAtTarget++; // 목표 위치에 도달한 오브젝트 개수 증가
+                    Debug.Log("물체 거리" + distance);
+                }
             }
-        }
 
-        // 조건 성립 확인
-        if (objectsAtTarget >= 5)
-        {
-            Debug.Log("5개의 오브젝트가 목표 위치에 도달했습니다!");
-            // 조건 성립 시 추가 동작 수행
-            StopCoroutine(watch);
-            buttoncollider.enabled = true;
-        }
+            // 조건 성립 확인
+            if (objectsAtTarget >= 5)
+            {
+                Debug.Log("5개의 오브젝트가 목표 위치에 도달했습니다!");
+                // 조건 성립 시 추가 동작 수행
+                StopCoroutine(watch);
+                buttoncollider.enabled = true;
+            }
 
-        yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(1f);
+        }
     }
 }
