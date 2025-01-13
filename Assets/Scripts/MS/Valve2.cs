@@ -171,9 +171,9 @@ public class Valve2 : MonoBehaviourPun
     {
         Debug.Log("Knob πÎ∫Í∏¶ ¿‚¿Ω");
         isGrabbed = true;
-        if (!photonView.IsMine)
+        if (!knobValve.GetPhotonView().IsMine)
         {
-            photonView.RequestOwnership();
+            knobValve.GetPhotonView().RequestOwnership();
         }
         photonView.RPC("RPCValveGrab2", RpcTarget.Others, true);
     }
