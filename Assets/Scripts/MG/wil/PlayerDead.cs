@@ -5,24 +5,29 @@ public class PlayerDead : MonoBehaviourPun
 {
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Monster")) //콜라이더가 몬스터에 닿으며
+        if (collision.gameObject.CompareTag("Monster"))
         {
-            photonView.RPC(nameof(NotifyDeath), RpcTarget.All); //모두에게 RPC를 쏜다
+            Invoke(nameof(SendRestartRPC), 2f); // 2초 뒤 RPC 호출
         }
+    }
+
+    private void SendRestartRPC()
+    {
+        // 모든 클라이언트에 씬 리로드 요청
+        photonView.RPC("ReStart", RpcTarget.Others);
     }
 
     [PunRPC]
-    public void NotifyDeath()
+    private void ReStart()
     {
-        if (PhotonNetwork.IsMasterClient)  //마스터 클라이어트면
+        if (PhotonNetwork.IsMasterClient)
         {
-            Invoke(nameof(RestartLevel), 2f); //2초 뒤 함수 실행
+            string SceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+            PhotonNetwork.LoadLevel(SceneName);
         }
-    }
-
-    private void RestartLevel()
-    {
-        string sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name; //현재 씬 이름을 저장하고
-        PhotonNetwork.LoadLevel(sceneName); //씬을 불러온다
+        else
+        {
+            Debug.Log("씬 로드는 마스터 클라이언트에서 처리됩니다.");
+        }
     }
 }

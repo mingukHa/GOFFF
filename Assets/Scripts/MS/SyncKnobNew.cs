@@ -5,10 +5,7 @@ using UnityEngine.XR.Content.Interaction;
 public class SyncKnobNew : MonoBehaviourPun
 {
     public XRKnob xrKnob;
-    public Valve valve;
-    public GameObject knob;
     private bool isSyncing = false;
-    private bool isAutoRotating = false; // 자동 회전 중인지 확인하는 플래그
 
     //private void OnEnable()
     //{
@@ -24,11 +21,10 @@ public class SyncKnobNew : MonoBehaviourPun
 
     public void HandleSyncKnobValue()
     {
-        Debug.Log("Onchanged value가 실행됨");
-        if (knob.GetPhotonView().IsMine && valve.IsGrabbed)
+        if (isSyncing) return;
+        if (photonView.IsMine)
         {
-            Debug.Log("IsMine과 IsGrabbed가 통과됨");
-            knob.GetPhotonView().RPC("SyncKnobValue", RpcTarget.Others, xrKnob.value);
+            photonView.RPC("SyncKnobValue", RpcTarget.Others, xrKnob.value);
         }
     }
 
@@ -44,11 +40,6 @@ public class SyncKnobNew : MonoBehaviourPun
         isSyncing = true;
         xrKnob.SetValue(value);
         isSyncing = false;
-    }
-
-    public void SetAutoRotating(bool autoRotating)
-    {
-        isAutoRotating = autoRotating;
     }
 
     //[PunRPC]

@@ -1,7 +1,6 @@
-using Photon.Pun;
 using UnityEngine;
 
-public class DoorController : MonoBehaviourPun
+public class DoorController : MonoBehaviour
 {
     public bool isOpen = false; // 문 상태 (열림/닫힘)
     public float openAngle = -90f; // 문이 열릴 각도 (예: 90도 또는 -90도)
@@ -24,7 +23,6 @@ public class DoorController : MonoBehaviourPun
         if (isOpen)
         {
             CloseDoor();
-            photonView.RPC("CloseDoor", RpcTarget.Others);
             Debug.Log("닫힘");
         }
         else
@@ -34,7 +32,7 @@ public class DoorController : MonoBehaviourPun
         }
     }
 
-    [PunRPC]
+    // 문 열기
     public void OpenDoor()
     {
         SoundManager.instance.SFXPlay("OpenDoor_SFX");

@@ -42,8 +42,6 @@ public class ControllerEcho : MonoBehaviourPun
     [PunRPC]
     private void RPCSonarRing(Vector3 point)
     {
-        SoundManager.instance.SFXPlay("SuperSound_SFX");
-
         par.StartSonarRing(point, 1.4f, 0);
     }
 }

@@ -1,18 +1,15 @@
 using Photon.Pun;
 using UnityEngine;
-using System.Collections;
 
-public class f4realplayerspawn : MonoBehaviour
+public class f1layerspawn : MonoBehaviour
 {
     public Transform[] TagObject; // 배열에 PlayerPos1, PlayerPos2 위치 설정
-    private GameObject handOffset; //컨트롤러
+
     private void Awake()
     {
         // PlayerPos1, PlayerPos2 위치 찾기
         GameObject playerPos1 = GameObject.Find("PlayerHolder(Clone)");
         GameObject playerPos2 = GameObject.Find("PlayerHolder1(Clone)");
-        handOffset = GameObject.Find("handOffset") ?? transform.Find("handOffset")?.gameObject; //컨트롤러 찾기
-
 
         if (playerPos1 == null)
         {
@@ -51,41 +48,4 @@ public class f4realplayerspawn : MonoBehaviour
             Debug.LogWarning("지원되지 않는 플레이어 인덱스입니다.");
         }
     }
-    private void Start()
-    {
-        StartCoroutine(FindAndToggleHandOffset());
-    }
-    private IEnumerator FindAndToggleHandOffset()
-    {
-        // handOffset GameObject를 찾아 대기 (최대 1초 대기)
-        float timeout = 1f;
-        float elapsedTime = 0f;
-
-        while (handOffset == null && elapsedTime < timeout)
-        {
-            handOffset = GameObject.Find("handOffset");
-            elapsedTime += Time.deltaTime;
-            yield return null; // 다음 프레임까지 대기
-        }
-
-        if (handOffset == null)
-        {
-            Debug.LogError("handOffset GameObject를 찾을 수 없습니다.");
-            yield break; // 코루틴 종료
-        }
-
-        Debug.Log("handOffset GameObject를 찾았습니다.");
-
-        // handOffset GameObject 비활성화
-        handOffset.SetActive(false);
-        Debug.Log("handOffset 비활성화됨.");
-
-        // 0.5초 대기
-        yield return new WaitForSeconds(0.5f);
-
-        // handOffset GameObject 활성화
-        handOffset.SetActive(true);
-        Debug.Log("handOffset 활성화됨.");
-    }
 }
-
