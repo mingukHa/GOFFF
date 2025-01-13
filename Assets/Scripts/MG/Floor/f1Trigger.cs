@@ -10,13 +10,14 @@ public class f1Trigger : MonoBehaviourPunCallbacks
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("트리거 활성화");
+        Ironcage();
+        photonView.RPC("Ironcage", RpcTarget.Others);
+    }
+    [PunRPC]
+    private void Ironcage()
+    {
         PhotonNetwork.Destroy(ironcage);
 
         PhotonNetwork.Destroy(ironcage2);
-    }
-    private void Ironcage()
-    {
-        PhotonNetwork.Destroy(gameObject);
     }
 }
