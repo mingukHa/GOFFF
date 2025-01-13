@@ -24,17 +24,17 @@ public class MonsterSona : MonoBehaviour
         switch (currentState)
         {
             case MonsterState.Idle:
-                StartCoroutine(MonstersonaIdle(1,1));
+                //StartCoroutine(MonstersonaIdle(1,1));
                 break;
             case MonsterState.Walking:
-                StartCoroutine(MonstersonaIdle(0.5f,2));
+                //StartCoroutine(MonstersonaIdle(0.5f,2));
                 break;
             case MonsterState.LookingAround:
                 
                 break;
             case MonsterState.Detect:
 
-                StartCoroutine(MonstersonaIdle(0.5f, 3));
+                //StartCoroutine(MonstersonaIdle(0.5f, 3));
                 break;
             case MonsterState.Attack:
                 
