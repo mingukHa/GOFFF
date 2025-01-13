@@ -188,6 +188,7 @@ public class Valve2 : MonoBehaviourPun
     [PunRPC]
     private void RPCValveGrab2(bool grabbed)
     {
+        Debug.Log("RPC Knob ¹ëºê Àü¼ÛµÊ");
         isGrabbed = grabbed;
     }
 
