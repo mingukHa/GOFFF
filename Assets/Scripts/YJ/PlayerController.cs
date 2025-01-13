@@ -228,7 +228,7 @@ public class PlayerController : MonoBehaviourPun
         float wheelRotation = movementMagnitude * wheelRotationMultiplier * direction;
 
         // 디버깅
-        //Debug.Log($"로컬 이동 방향: {localMovement}, 최종 이동 방향: {movementMagnitude * direction}");
+        Debug.Log($"로컬 이동 방향: {localMovement}, 최종 이동 방향: {movementMagnitude * direction}");
 
         // 바퀴 회전 처리
         if (isLGripTriggerPressed && !isRGripTriggerPressed) // 우회전
