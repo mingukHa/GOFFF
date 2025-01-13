@@ -35,10 +35,21 @@ public class DomwaiterOven : MonoBehaviourPun
     {
         foreach (GameObject obj in objectsInZone)
         {
-            // 전송하는 아이템의 회전, 위치값 유지
-            obj.transform.SetPositionAndRotation
-                (targetPosition.position, targetPosition.rotation);
+            //PhotonView를 통해 모든 플레이어에게 RPC 호출
+            photonView.RPC("MoveItemToTarget", RpcTarget.All,
+                obj.GetPhotonView().ViewID, targetPosition.position);
         }
-        objectsInZone.Clear();//박스[0]에서 아이템 비우기
+
+        objectsInZone.Clear();  //박스[0]에서 아이템 비우기
+    }
+
+    [PunRPC]
+    private void MoveItemToTarget(int viewID, Vector3 targetPosition)
+    {
+        PhotonView itemView = PhotonView.Find(viewID);
+        if (itemView != null)
+        {
+            itemView.transform.position = targetPosition;
+        }
     }
 }

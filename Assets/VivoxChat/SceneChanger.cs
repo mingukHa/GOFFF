@@ -7,7 +7,7 @@ public class SceneChanger : MonoBehaviour
     private void Start()
     {
 
-        //JoinEchoChannel.Instance.OnLoginEndEvent += HandleLoginEnd;
+        JoinEchoChannel.Instance.OnLoginEndEvent += HandleLoginEnd;
 
     }
 

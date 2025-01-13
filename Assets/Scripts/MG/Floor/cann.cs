@@ -3,28 +3,28 @@ using UnityEngine;
 
 public class GrabSync : MonoBehaviourPun
 {
-    public void OnSelectEnter() //집으면 호출 되는 이벤트
+    public void OnSelectEnter()
     {
-        if(!photonView.IsMine) //내꺼가 아니면
+        if(!photonView.IsMine)
         {
-            photonView.RequestOwnership(); //권한 요청
+            photonView.RequestOwnership();
         }
         Debug.Log("오브젝트를 집었음");
     }
-    public void OnTriggerEnter(Collider other) //콜라이더에 닿으면
+    public void OnTriggerEnter(Collider other)
     {
-        if (!photonView.IsMine) //내꺼가 아니면
+        if (!photonView.IsMine)
         {
-            photonView.RequestOwnership(); //권한 요청
+            photonView.RequestOwnership();
         }
         Debug.Log("오브젝트를 집었음");
     }
-    public void Interact() //물건을 잡었을 때
+    public void Interact()
     {
         // 소유권 요청
-        if (!photonView.IsMine) //내 꺼가 아니면
+        if (!photonView.IsMine)
         {
-            photonView.RequestOwnership(); //권한 요청
+            photonView.RequestOwnership();
         }
 
         // 상호작용 상태 동기화

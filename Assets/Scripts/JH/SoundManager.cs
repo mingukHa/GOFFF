@@ -107,10 +107,6 @@ public class SoundManager : MonoBehaviour
         {
             GameObject go = new GameObject(sfxName + "Sound"); //사운드파일 가져옴
             AudioSource audiosource = go.AddComponent<AudioSource>();   //AudioSource컴퍼넌트 추가
-            audiosource.spatialBlend = 1.0f;  // 0 = 2D, 1 = 3D
-            audiosource.minDistance = 1.0f;   // 최소 거리 (이 거리 안에서는 볼륨이 최대)
-            audiosource.maxDistance = 20.0f;  // 최대 거리 (이 거리 밖에서는 볼륨이 감소)
-            audiosource.rolloffMode = AudioRolloffMode.Linear;  // 거리별 볼륨 감소 방식
             audiosource.outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0]; //SFX 믹서 추가
             audiosource.clip = clip;   //clip 파일
             audiosource.volume = 1f;    //volume값
