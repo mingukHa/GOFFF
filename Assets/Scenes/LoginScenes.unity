@@ -4117,6 +4117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbba0f997c33fc04ea8ec3059cf4c756, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetObject: {fileID: 0}
 --- !u!1001 &545632769
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5312,7 +5313,7 @@ PrefabInstance:
         type: 3}
       propertyPath: 'ObservedComponents.Array.data[0]'
       value: 
-      objectReference: {fileID: 1974477660}
+      objectReference: {fileID: 0}
     - target: {fileID: -8122503245164215546, guid: feab0d83960f233479b23431946ef43e,
         type: 3}
       propertyPath: 'ObservedComponents.Array.data[1]'
@@ -5322,6 +5323,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1226149312870438545, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1232482300967069045, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2080871421963820864, guid: feab0d83960f233479b23431946ef43e,
         type: 3}
@@ -20857,18 +20868,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 10
---- !u!114 &1974477660 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1247741627738711319, guid: feab0d83960f233479b23431946ef43e,
-    type: 3}
-  m_PrefabInstance: {fileID: 723187193}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1974477653}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1975782126
 GameObject:
   m_ObjectHideFlags: 0
