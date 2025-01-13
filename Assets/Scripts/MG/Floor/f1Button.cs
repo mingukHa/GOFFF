@@ -8,7 +8,7 @@ public class f1Button : MonoBehaviourPun
     public GameObject target;
 
     private Coroutine moveCoroutine; // 이동 Coroutine 참조
-
+    [PunRPC]
     public void ButtonMove()
     {
         // 이미 실행 중인 Coroutine이 있다면 멈춤
