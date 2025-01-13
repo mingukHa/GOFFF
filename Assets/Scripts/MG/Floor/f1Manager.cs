@@ -5,13 +5,13 @@ using System.Collections;
 public class f4realplayerspawn : MonoBehaviour
 {
     public Transform[] TagObject; // 배열에 PlayerPos1, PlayerPos2 위치 설정
-    private GameObject handOffset;
+    private GameObject handOffset; //컨트롤러
     private void Awake()
     {
         // PlayerPos1, PlayerPos2 위치 찾기
         GameObject playerPos1 = GameObject.Find("PlayerHolder(Clone)");
         GameObject playerPos2 = GameObject.Find("PlayerHolder1(Clone)");
-        handOffset = GameObject.Find("handOffset") ?? transform.Find("handOffset")?.gameObject;
+        handOffset = GameObject.Find("handOffset") ?? transform.Find("handOffset")?.gameObject; //컨트롤러 찾기
 
 
         if (playerPos1 == null)
