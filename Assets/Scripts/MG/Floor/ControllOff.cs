@@ -30,25 +30,24 @@ public class ControllOff : MonoBehaviourPun
         private void DisableRemoteController()
         {
             // 렌더링 비활성화
-            foreach (var renderer in GetComponentsInChildren<Renderer>())
+            foreach (var renderer in GetComponentsInChildren<Renderer>()) //배열을 돌아서 래더러를 찾는다
             {
-                renderer.enabled = false;
+                renderer.enabled = false; //랜더러를 끈다
             }
 
             // 상호작용 비활성화 (XR Interaction Toolkit)
-            XRBaseInteractor interactor = GetComponent<XRBaseInteractor>();
+            XRBaseInteractor interactor = GetComponent<XRBaseInteractor>(); //입력
             if (interactor != null)
             {
-                interactor.enabled = false;
+                interactor.enabled = false;//받지 않기
             }
 
             // 충돌 비활성화
-            foreach (var collider in GetComponentsInChildren<Collider>())
+            foreach (var collider in GetComponentsInChildren<Collider>()) //충돌
             {
-                collider.enabled = false;
+                collider.enabled = false;//받지 않기
             }
 
-            Debug.Log("Remote controller disabled.");
         }
     }
 
