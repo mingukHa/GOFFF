@@ -5,40 +5,28 @@ using UnityEngine.XR.Content.Interaction;
 public class SyncKnobNew : MonoBehaviourPun
 {
     public XRKnob xrKnob;
+    public Valve valve;
     private bool isSyncing = false;
-    private float targetValue;
-    private float currentValue;
-    private float valueVelocity;
-    [SerializeField] private float smoothTime = 0.1f;
+    private bool isAutoRotating = false; // 자동 회전 중인지 확인하는 플래그
 
-    private void Start()
-    {
-        currentValue = xrKnob.value;
-        targetValue = currentValue;
-    }
+    //private void OnEnable()
+    //{
+    //    // XRKnob에서 값이 변경될 때마다 HandleSyncKnobValue 호출
+    //    xrKnob.onValueChange.AddListener(HandleSyncKnobValue);
+    //}
 
-    private void Update()
-    {
-        if (!photonView.IsMine)
-        {
-            // 부드러운 보간 적용
-            currentValue = Mathf.SmoothDamp(currentValue, targetValue, ref valueVelocity, smoothTime);
-            if (!isSyncing)
-            {
-                isSyncing = true;
-                xrKnob.SetValue(currentValue);
-                isSyncing = false;
-            }
-        }
-    }
+    //private void OnDisable()
+    //{
+    //    // 이벤트 구독 해제
+    //    xrKnob.onValueChange.RemoveListener(HandleSyncKnobValue);
+    //}
 
     public void HandleSyncKnobValue()
     {
         if (isSyncing) return;
-        if (photonView.IsMine)
+        if (photonView.IsMine && valve.IsGrabbed)
         {
-            //photonView.RPC("SyncKnobValue", RpcTarget.Others, xrKnob.value);
-            photonView.RPC("SyncKnobValue", RpcTarget.All, xrKnob.value);
+            photonView.RPC("SyncKnobValue", RpcTarget.Others, xrKnob.value);
         }
     }
 
@@ -51,25 +39,16 @@ public class SyncKnobNew : MonoBehaviourPun
     [PunRPC]
     void SyncKnobValueNew(float value)
     {
-        if (!photonView.IsMine)
-        {
-            //isSyncing = true;
-            xrKnob.SetValue(value);
-            //isSyncing = false;
-        }
+        isSyncing = true;
+        xrKnob.SetValue(value);
+        isSyncing = false;
     }
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    public void SetAutoRotating(bool autoRotating)
     {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(xrKnob.value);
-        }
-        else
-        {
-            targetValue = (float)stream.ReceiveNext();
-        }
+        isAutoRotating = autoRotating;
     }
+
     //[PunRPC]
     //void SyncKnobRotation(float angle)
     //{

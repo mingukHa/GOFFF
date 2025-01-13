@@ -1,6 +1,7 @@
 using Photon.Pun;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.XR.Content.Interaction;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
@@ -31,31 +32,22 @@ public class Valve : MonoBehaviourPun
 
     private PhotonTransformView photonTransformView;
 
-    private float currentPlusRotation;
-    private float currentMinusRotation;
-    private float rotationVelocityPlus;
-    private float rotationVelocityMinus;
-    [SerializeField] private float rotationSmoothTime = 0.1f;
-
     public bool IsAttached { get { return isAttached; } }
+    public bool IsGrabbed { get { return isGrabbed; } }
 
     private void Start()
     {
+
         knob = knobValve.GetComponent<XRKnob>();
-        currentPlusRotation = 90f;
-        currentMinusRotation = -90f;
 
         Delay = ColliderDelay(2f);
+
         grabScript.grabValveTrigger = grabValveTriggerHandle;
-        //knob = knobValve.GetComponent<XRKnob>();
-
-        //Delay = ColliderDelay(2f);
-
-        //grabScript.grabValveTrigger = grabValveTriggerHandle;
     }
 
     private void Update()
     {
+        // 모든 클라이언트에서 계산
         if (!isGrabbed && knobValve.activeSelf)
         {
             float duration = valveDuration * knob.value;
@@ -64,49 +56,19 @@ public class Valve : MonoBehaviourPun
 
         if (isAttached)
         {
-            // 목표 회전값 계산
-            float targetPlusRotation = Mathf.Lerp(90f, 0f, knob.value);
-            float targetMinusRotation = Mathf.Lerp(-90f, 0f, knob.value);
+            float plusRotation = Mathf.Lerp(90f, 0f, knob.value);
+            float minusRotation = Mathf.Lerp(-90f, 0f, knob.value);
 
-            // 부드러운 회전 적용
-            currentPlusRotation = Mathf.SmoothDamp(currentPlusRotation, targetPlusRotation,
-                ref rotationVelocityPlus, rotationSmoothTime);
-            currentMinusRotation = Mathf.SmoothDamp(currentMinusRotation, targetMinusRotation,
-                ref rotationVelocityMinus, rotationSmoothTime);
-
-            // 실제 회전 적용
-            bridgePlus.rotation = Quaternion.Euler(new Vector3(currentPlusRotation, 0f, 0f));
-            bridgeMinous.rotation = Quaternion.Euler(new Vector3(currentMinusRotation, 0f, 0f));
-
-            // 마스터 클라이언트에서 회전값 동기화
-            if (photonView.IsMine)
-            {
-                photonView.RPC("RPCSyncBridgeRotation", RpcTarget.Others,
-                    currentPlusRotation, currentMinusRotation);
-            }
+            bridgePlus.rotation = Quaternion.Euler(new Vector3(plusRotation, 0f, 0f));
+            bridgeMinous.rotation = Quaternion.Euler(new Vector3(minusRotation, 0f, 0f));
         }
-        //// 모든 클라이언트에서 계산
-        //if (!isGrabbed && knobValve.activeSelf)
+
+        //// 마스터 클라이언트에서 값 동기화
+        //if (PhotonNetwork.IsMasterClient)
         //{
-        //    float duration = valveDuration * knob.value;
-        //    knob.value = Mathf.SmoothDamp(knob.value, 0f, ref valveVelocity, duration);
+        //    photonView.RPC("RPCSyncKnobValue", RpcTarget.Others, knob.value);
+        //    photonView.RPC("RPCSyncBridgeRotation", RpcTarget.Others, bridgePlus.rotation.eulerAngles.x, bridgeMinous.rotation.eulerAngles.x);
         //}
-
-        //if (isAttached)
-        //{
-        //    float plusRotation = Mathf.Lerp(90f, 0f, knob.value);
-        //    float minusRotation = Mathf.Lerp(-90f, 0f, knob.value);
-
-        //    bridgePlus.rotation = Quaternion.Euler(new Vector3(plusRotation, 0f, 0f));
-        //    bridgeMinous.rotation = Quaternion.Euler(new Vector3(minusRotation, 0f, 0f));
-        //}
-
-        ////// 마스터 클라이언트에서 값 동기화
-        ////if (PhotonNetwork.IsMasterClient)
-        ////{
-        ////    photonView.RPC("RPCSyncKnobValue", RpcTarget.Others, knob.value);
-        ////    photonView.RPC("RPCSyncBridgeRotation", RpcTarget.Others, bridgePlus.rotation.eulerAngles.x, bridgeMinous.rotation.eulerAngles.x);
-        ////}
     }
 
     // knob.value 동기화
@@ -120,15 +82,8 @@ public class Valve : MonoBehaviourPun
     [PunRPC]
     private void RPCSyncBridgeRotation(float plusRotation, float minusRotation)
     {
-        //bridgePlus.rotation = Quaternion.Euler(new Vector3(plusRotation, 0f, 0f));
-        //bridgeMinous.rotation = Quaternion.Euler(new Vector3(minusRotation, 0f, 0f));
-        if (!photonView.IsMine)
-        {
-            currentPlusRotation = plusRotation;
-            currentMinusRotation = minusRotation;
-            bridgePlus.rotation = Quaternion.Euler(new Vector3(currentPlusRotation, 0f, 0f));
-            bridgeMinous.rotation = Quaternion.Euler(new Vector3(currentMinusRotation, 0f, 0f));
-        }
+        bridgePlus.rotation = Quaternion.Euler(new Vector3(plusRotation, 0f, 0f));
+        bridgeMinous.rotation = Quaternion.Euler(new Vector3(minusRotation, 0f, 0f));
     }
     // 실린더에 밸브를 붙이는 메서드
     private void AttachToCylinder(GameObject cylinder, GameObject grabValve)
@@ -200,10 +155,7 @@ public class Valve : MonoBehaviourPun
         {
             Debug.Log("게임 오브젝트 : " + grabValve.name + "콜라이더" + other.name);
             AttachToCylinder(other.gameObject, grabValve);
-            if (isAttached)
-            {
-                photonView.RPC("RPCAttachToCylinder", RpcTarget.Others, other.gameObject, grabValve);
-            }
+            //photonView.RPC("RPCAttachToCylinder", RpcTarget.Others, other.gameObject, grabValve);
         }
     }
 
@@ -222,16 +174,14 @@ public class Valve : MonoBehaviourPun
         {
             photonView.RequestOwnership();
         }
-        //photonView.RPC("RPCValveGrab", RpcTarget.Others, true);
-        photonView.RPC("RPCValveGrab", RpcTarget.All, true);
+        photonView.RPC("RPCValveGrab", RpcTarget.Others, true);
     }
 
     public void OffSelectValve()
     {
         Debug.Log("Knob 밸브를 놓음");
         isGrabbed = false;
-        //photonView.RPC("RPCValveGrab", RpcTarget.Others, false);
-        photonView.RPC("RPCValveGrab", RpcTarget.All, false);
+        photonView.RPC("RPCValveGrab", RpcTarget.Others, false);
     }
 
     [PunRPC]
