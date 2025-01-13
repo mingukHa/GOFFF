@@ -4,10 +4,15 @@ using UnityEngine;
 public class PuzzleManager : MonoBehaviourPunCallbacks
 {
     public SocketValidator[] socketValidators; // 도플갱어 방에 있는 모든 SocketValidator
-    public GameObject jailBar; // 감옥 쇠창살 오브젝트
+    public BoxCollider eVButton; // 엘리베이터 버튼
     [SerializeField]
     private GameObject Monster; // 몬스터 Prefab (Resources 폴더에 있어야 함)
-    
+
+
+    private void Start()
+    {
+        eVButton.enabled = false;
+    }
 
     public void CheckPuzzleStatus()
     {
@@ -32,14 +37,14 @@ public class PuzzleManager : MonoBehaviourPunCallbacks
     [PunRPC]
     private void SolvePuzzle()
     {
-        if (jailBar != null)
+        if (eVButton != null)
         {
-            jailBar.SetActive(false);
-            Debug.Log("쇠창살 비활성화!");
+            eVButton.enabled = true;
+            Debug.Log("엘리베이터 버튼 활성화!");
         }
         else
         {
-            Debug.LogError("쇠창살 오브젝트를 찾을 수 없습니다!");
+            Debug.LogError("엘리베이터 버튼을 찾을 수 없습니다!");
         }
 
         // 몬스터 스폰 호출
