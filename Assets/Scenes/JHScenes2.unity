@@ -2357,7 +2357,7 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 3
+  Synchronization: 1
   OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents:
@@ -6065,7 +6065,7 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 3
+  Synchronization: 1
   OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents:
@@ -11118,6 +11118,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 677820046}
     m_Modifications:
+    - target: {fileID: 6942197562451969803, guid: 53763f48ce029bc4997aa4d972ee0c62,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 35
+      objectReference: {fileID: 0}
     - target: {fileID: 7049805764741760131, guid: 53763f48ce029bc4997aa4d972ee0c62,
         type: 3}
       propertyPath: m_Name
@@ -19329,7 +19334,7 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 3
+  Synchronization: 1
   OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents:
@@ -20983,6 +20988,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 879817279}
+    - target: {fileID: 2178981470625912384, guid: 64f41f77b73d8a1429e3061b37a36756,
+        type: 3}
+      propertyPath: m_VersionIndex
+      value: 412
+      objectReference: {fileID: 0}
     - target: {fileID: 2732289811876751881, guid: 64f41f77b73d8a1429e3061b37a36756,
         type: 3}
       propertyPath: m_Mesh
@@ -21958,7 +21968,7 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 3
+  Synchronization: 1
   OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents:
@@ -24043,7 +24053,7 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 3
+  Synchronization: 1
   OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents:
