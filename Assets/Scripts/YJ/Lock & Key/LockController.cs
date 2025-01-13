@@ -20,18 +20,25 @@ public class LockController : MonoBehaviourPun
             // DoorController의 OpenDoor 메서드 호출 및 동기화
             if (doorController != null)
             {
-                photonView.RPC("OpenDoorAndDestroy", RpcTarget.All);
+                photonView.RPC("OpenDoorAndDestroy", RpcTarget.All, other.gameObject.GetComponent<PhotonView>().ViewID);
             }
         }
     }
 
     [PunRPC]
-    private void OpenDoorAndDestroy()
+    private void OpenDoorAndDestroy(int keyViewID)
     {
         // DoorController의 OpenDoor 메서드 호출
         if (doorController != null)
         {
             doorController.OpenDoor();
+        }
+
+        // 'Key' 오브젝트 제거
+        PhotonView keyPhotonView = PhotonView.Find(keyViewID);
+        if (keyPhotonView != null)
+        {
+            Destroy(keyPhotonView.gameObject);
         }
 
         // Lock 오브젝트 제거
