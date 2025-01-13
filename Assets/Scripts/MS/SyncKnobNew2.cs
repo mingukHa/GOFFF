@@ -5,6 +5,7 @@ using UnityEngine.XR.Content.Interaction;
 public class SyncKnobNew2 : MonoBehaviourPun
 {
     public XRKnob xrKnob;
+    public Valve2 valve;
     private bool isSyncing = false;
 
     //private void OnEnable()
@@ -21,9 +22,10 @@ public class SyncKnobNew2 : MonoBehaviourPun
 
     public void HandleSyncKnobValue()
     {
-        if (isSyncing) return;
-        if (photonView.IsMine)
+        Debug.Log("Onchanged value°¡ ½ÇÇàµÊ");
+        if (photonView.IsMine && valve.IsGrabbed)
         {
+            Debug.Log("IsMine°ú IsGrabbed°¡ Åë°úµÊ");
             photonView.RPC("SyncKnobValue", RpcTarget.Others, xrKnob.value);
         }
     }
