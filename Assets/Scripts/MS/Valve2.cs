@@ -33,6 +33,8 @@ public class Valve2 : MonoBehaviourPun
     private PhotonTransformView photonTransformView;
 
     public bool IsAttached { get { return isAttached; } }
+    public bool IsGrabbed { get { return isGrabbed; } }
+
 
     private void Start()
     {
