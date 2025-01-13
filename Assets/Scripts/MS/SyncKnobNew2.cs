@@ -24,7 +24,7 @@ public class SyncKnobNew2 : MonoBehaviourPun
     public void HandleSyncKnobValue()
     {
         Debug.Log("Onchanged value°¡ ½ÇÇàµÊ, IsGrabbed °ª : " + valve.IsGrabbed);
-        if (photonView.IsMine && valve.IsGrabbed)
+        if (photonView.IsMine)
         {
             Debug.Log("IsMine°ú IsGrabbed°¡ Åë°úµÊ");
             photonView.RPC("SyncKnobValueNew2", RpcTarget.Others, xrKnob.value);

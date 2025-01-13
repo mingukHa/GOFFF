@@ -97,7 +97,7 @@ public class MonsterTest : MonoBehaviour
     private void HandlePlayerCollision(Vector3 collisionPoints)
     {
         SetTargetPosition(collisionPoints);
-        Debug.Log($"{collisionPoints}전달 받은 좌표");
+        //Debug.Log($"{collisionPoints}전달 받은 좌표");
         currentState = MonsterState.Walking;
     }
 
