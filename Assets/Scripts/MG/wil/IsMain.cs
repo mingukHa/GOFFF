@@ -1,14 +1,15 @@
 using UnityEngine;
 using Photon.Pun;
 
-public class PlayerControllerManager : MonoBehaviourPun
+public class PlayerControllerManager : MonoBehaviourPunCallbacks
 {
     private GameObject[] CameraOffset;
     private GameObject[] handOffset;
 
 
-    private void Awake()
+    public override void OnJoinedRoom()
     {
+        base.OnJoinedRoom();
         CameraOffset = GameObject.FindGameObjectsWithTag("PlayerCamera");
         handOffset = GameObject.FindGameObjectsWithTag("PlayerController");
         foreach(GameObject obj in CameraOffset)
