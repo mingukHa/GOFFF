@@ -6446,7 +6446,7 @@ GameObject:
   - component: {fileID: 7102014293633449745}
   - component: {fileID: 4292619623845241322}
   - component: {fileID: -8122503245164215546}
-  - component: {fileID: 6659018772312278028}
+  - component: {fileID: 1247741627738711319}
   - component: {fileID: -5113413083086073020}
   - component: {fileID: 7776948961059441294}
   - component: {fileID: 5760728534539583603}
@@ -6738,13 +6738,13 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 6659018772312278028}
+  - {fileID: 1247741627738711319}
   - {fileID: 7234891028662448440}
   - {fileID: 3469203442369701424}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &6659018772312278028
+--- !u!114 &1247741627738711319
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6753,13 +6753,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5983295875041255981}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SynchronizeVelocity: 1
-  m_SynchronizeAngularVelocity: 0
-  m_TeleportEnabled: 0
-  m_TeleportIfDistanceGreaterThan: 3
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!114 &-5113413083086073020
 MonoBehaviour:
   m_ObjectHideFlags: 0

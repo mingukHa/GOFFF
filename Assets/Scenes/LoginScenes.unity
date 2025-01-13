@@ -4195,7 +4195,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbba0f997c33fc04ea8ec3059cf4c756, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetObject: {fileID: 0}
 --- !u!1001 &545632769
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5385,7 +5384,7 @@ PrefabInstance:
     - target: {fileID: -8122503245164215546, guid: feab0d83960f233479b23431946ef43e,
         type: 3}
       propertyPath: ObservedComponents.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8122503245164215546, guid: feab0d83960f233479b23431946ef43e,
         type: 3}
@@ -5529,6 +5528,7 @@ PrefabInstance:
     - {fileID: 4292619623845241322, guid: feab0d83960f233479b23431946ef43e, type: 3}
     - {fileID: 970908127639885246, guid: feab0d83960f233479b23431946ef43e, type: 3}
     - {fileID: -5113413083086073020, guid: feab0d83960f233479b23431946ef43e, type: 3}
+    - {fileID: 6659018772312278028, guid: feab0d83960f233479b23431946ef43e, type: 3}
     m_RemovedGameObjects:
     - {fileID: 4895434573007124402, guid: feab0d83960f233479b23431946ef43e, type: 3}
     - {fileID: 513997305623281270, guid: feab0d83960f233479b23431946ef43e, type: 3}
