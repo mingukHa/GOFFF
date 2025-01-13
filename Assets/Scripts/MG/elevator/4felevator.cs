@@ -2,11 +2,12 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.UI;
 
 public class f4elevators : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private GameObject button1;
-    [SerializeField] private GameObject button2;
+    [SerializeField] private Button button1;
+    [SerializeField] private Button button2;
     public string Scene = "MainScenes"; //씬 이름은 인스펙터에서 수정 가능
     private int readyPlayerCount = 0; // 준비 완료된 플레이어 수
 
