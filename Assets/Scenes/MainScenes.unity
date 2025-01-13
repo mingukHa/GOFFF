@@ -4834,7 +4834,7 @@ Transform:
   m_GameObject: {fileID: 367614957}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -67.557, y: 1, z: 39.96}
+  m_LocalPosition: {x: -39.95, y: 2, z: -58.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8722,7 +8722,7 @@ Transform:
   m_GameObject: {fileID: 682705972}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 1}
+  m_LocalPosition: {x: -31.24, y: 1, z: -53.77}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16256,7 +16256,7 @@ PrefabInstance:
     - target: {fileID: 1147981313121085501, guid: 52714feb96efcc342bd0d1bc850177d0,
         type: 3}
       propertyPath: viewAngle
-      value: 120
+      value: 360
       objectReference: {fileID: 0}
     - target: {fileID: 1147981313121085501, guid: 52714feb96efcc342bd0d1bc850177d0,
         type: 3}
@@ -16668,6 +16668,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -3.022
       objectReference: {fileID: 0}
+    - target: {fileID: 3120633524275649851, guid: 64f41f77b73d8a1429e3061b37a36756,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3253647438098742979, guid: 64f41f77b73d8a1429e3061b37a36756,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -16677,6 +16682,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 2.1289988
+      objectReference: {fileID: 0}
+    - target: {fileID: 4299255593770693710, guid: 64f41f77b73d8a1429e3061b37a36756,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4445473071895684084, guid: 64f41f77b73d8a1429e3061b37a36756,
         type: 3}
@@ -16817,6 +16827,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.189
+      objectReference: {fileID: 0}
+    - target: {fileID: 7890300138684565889, guid: 64f41f77b73d8a1429e3061b37a36756,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8311837418414909696, guid: 64f41f77b73d8a1429e3061b37a36756,
         type: 3}
