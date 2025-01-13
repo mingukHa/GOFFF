@@ -33,8 +33,6 @@ public class Valve2 : MonoBehaviourPun
     private PhotonTransformView photonTransformView;
 
     public bool IsAttached { get { return isAttached; } }
-    public bool IsGrabbed { get { return isGrabbed; } set { isGrabbed = value; } }
-
 
     private void Start()
     {
@@ -51,16 +49,12 @@ public class Valve2 : MonoBehaviourPun
         // 모든 클라이언트에서 계산
         if (!isGrabbed && knobValve.activeSelf)
         {
-            if (!knobValve.GetPhotonView().IsMine) return;
-
             float duration = valveDuration * knob.value;
             knob.value = Mathf.SmoothDamp(knob.value, 0f, ref valveVelocity, duration);
         }
 
         if (isAttached)
         {
-            if (!knobValve.GetPhotonView().IsMine) return;
-
             float plusRotation = Mathf.Lerp(90f, 0f, knob.value);
             float minusRotation = Mathf.Lerp(-90f, 0f, knob.value);
 
@@ -175,25 +169,25 @@ public class Valve2 : MonoBehaviourPun
     {
         Debug.Log("Knob 밸브를 잡음");
         isGrabbed = true;
-        if (!knobValve.GetPhotonView().IsMine)
+        if (!photonView.IsMine)
         {
-            knobValve.GetPhotonView().RequestOwnership();
+            photonView.RequestOwnership();
         }
-        knobValve.GetPhotonView().RPC("RPCValveGrab2", RpcTarget.Others, true);
+        photonView.RPC("RPCValveGrab2", RpcTarget.Others, true);
     }
 
     public void OffSelectValve()
     {
         Debug.Log("Knob 밸브를 놓음");
         isGrabbed = false;
-        knobValve.GetPhotonView().RPC("RPCValveGrab2", RpcTarget.Others, false);
+        photonView.RPC("RPCValveGrab2", RpcTarget.Others, false);
     }
 
-    //[PunRPC]
-    //private void RPCValveGrab2(bool grabbed)
-    //{
-    //    isGrabbed = grabbed;
-    //}
+    [PunRPC]
+    private void RPCValveGrab2(bool grabbed)
+    {
+        isGrabbed = grabbed;
+    }
 
     [PunRPC]
     private void RPCknobValvefalse()

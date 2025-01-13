@@ -166,8 +166,11 @@ public class PlayerController : MonoBehaviourPun
             if (leftDeltaPosition.z > movementThreshold) // Z값 양수는 Forward 방향
             {
                 float rotationInput = leftDeltaPosition.z; // 왼손 컨트롤러의 Z축 움직임
-                //Debug.Log($"{rotationInput}");
                 ApplyRotation(rotationInput); // 시계 방향으로 회전
+                //Debug.Log($"{rotationInput}");
+
+                // 네트워크에 회전 정보 동기화
+                //photonView.RPC("SyncRotation", RpcTarget.Others, rotationInput);
             }
         }
 
@@ -182,6 +185,9 @@ public class PlayerController : MonoBehaviourPun
                 float rotationInput = -rightDeltaPosition.z; // 오른손 컨트롤러의 Z축 움직임
                 ApplyRotation(rotationInput); // 반시계 방향으로 회전
                 //Debug.Log($"{rotationInput}");
+
+                // 네트워크에 회전 정보 동기화
+                //photonView.RPC("SyncRotation", RpcTarget.Others, rotationInput);
             }
         }
 
@@ -243,16 +249,22 @@ public class PlayerController : MonoBehaviourPun
             rightWheel.Rotate(Vector3.right, wheelRotation);
         }
     }
+    [PunRPC]
+    private void SyncRotation(float direction)
+    {
+        // 네트워크로 전달받은 회전값 적용
+        float rotationAmount = direction * rotationSpeed * Time.deltaTime;
+        playerHolder.Rotate(Vector3.up, rotationAmount);
+    }
 
-
-    //[PunRPC]
-    //private void SyncWheelRotation(float movementMagnitude)
-    //{
-    //    float wheelRotation = movementMagnitude * wheelRotationMultiplier;
-    //
-    //    leftWheel.Rotate(Vector3.right, wheelRotation);
-    //    rightWheel.Rotate(Vector3.right, wheelRotation);
-    //}
+    [PunRPC]
+    private void SyncWheelRotation(float movementMagnitude)
+    {
+        float wheelRotation = movementMagnitude * wheelRotationMultiplier;
+    
+        leftWheel.Rotate(Vector3.right, wheelRotation);
+        rightWheel.Rotate(Vector3.right, wheelRotation);
+    }
 
     // SAVE POINT
 }

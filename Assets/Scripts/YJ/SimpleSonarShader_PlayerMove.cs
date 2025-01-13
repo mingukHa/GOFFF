@@ -18,7 +18,8 @@ public class SimpleSonarShader_PlayerMove : MonoBehaviourPun
 
     private IEnumerator Start()
     {
-        par = GetComponentInParent<SimpleSonarShader_Parent>();
+        //par = GetComponentInParent<SimpleSonarShader_Parent>();
+        par = FindFirstObjectByType<SimpleSonarShader_Parent>();
 
         // Player 검색을 일정 시간 동안 반복 시도
         GameObject playerInstance = null;
