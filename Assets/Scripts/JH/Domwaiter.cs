@@ -4,7 +4,7 @@ using System.Collections;
 public class Domwaiter : MonoBehaviour
 {
     public Transform ovenDoor;  // 오븐 문 오브젝트
-    private bool isOpen = false;
+    private bool isOpen = false;    
     private bool isRotating = false; // 회전 중이면 추가 트리거를 방지
     public float rotationDuration = 1f;  // 문이 회전하는 시간 (인스펙터에서 조정 가능)
 
@@ -26,7 +26,8 @@ public class Domwaiter : MonoBehaviour
 
         while (timeElapsed < rotationDuration)
         {
-            ovenDoor.localRotation = Quaternion.Slerp(startRotation, endRotation, timeElapsed / rotationDuration);
+            ovenDoor.localRotation = Quaternion.Slerp
+                (startRotation, endRotation, timeElapsed / rotationDuration);
             timeElapsed += Time.deltaTime;
             yield return null;  // 한 프레임 대기
         }
