@@ -23,7 +23,7 @@ public class SyncKnobNew : MonoBehaviourPun
     //}
 
     public void HandleSyncKnobValue()
-    { 
+    {
         Debug.Log("Onchanged value°¡ ½ÇÇàµÊ, IsGrabbed °ª : " + valve.IsGrabbed);
         if (photonView.IsMine)
         {
