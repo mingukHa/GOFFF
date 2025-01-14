@@ -23,7 +23,7 @@ public class SimpleSonarShader_ExampleCollision : MonoBehaviourPun
         // 소나 링 시작
         if (par)
         {
-            par.StartSonarRing(collision.contacts[0].point, collision.impulse.magnitude / 15.0f, 0);
+            par.StartSonarRing(collision.contacts[0].point, collision.impulse.magnitude / 10.0f, 0);
         }
     }
 }
