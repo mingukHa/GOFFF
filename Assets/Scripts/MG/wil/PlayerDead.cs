@@ -9,11 +9,11 @@ public class PlayerDead : MonoBehaviourPun
         GOM = GetComponent<GameOverManagers>();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collider)
     {
-        if (collision.gameObject.CompareTag("Monster"))
+        if (collider.gameObject.CompareTag("Monster"))
         {
-            Invoke("ReStart", 2f); // 2초 뒤 RPC 호출
+            photonView.RPC("ReStart", RpcTarget.All);
         }
     }  
 }
