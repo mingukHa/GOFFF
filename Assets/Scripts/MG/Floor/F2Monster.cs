@@ -15,6 +15,8 @@ public class F2Monster : MonoBehaviourPun
     private Transform target; // 플레이어의 Transform
     private GameObject detectedTarget;
 
+    private bool triggers = true;
+
     private SkinnedMeshRenderer skinnedMeshRenderer;
     private MaterialPropertyBlock propertyBlock;
 
@@ -24,26 +26,26 @@ public class F2Monster : MonoBehaviourPun
         animator = GetComponent<Animator>();
         
     }
+    private void Start()
+    {
+        target = TargetPoint.transform;
+    }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Bugger"))
+        if (triggers == true)
         {
-            animator.SetBool("isWalk", true);
-            SetKey();            
-            photonView.RPC("SetKey", RpcTarget.All);
-        }
-        else if ((other.gameObject.CompareTag("Grabbable")))
-        {
-            animator.SetBool("isAttack", true);
-
-            propertyBlock = new MaterialPropertyBlock();
-
-            // 아웃라인 색을 바뀌게 하는 코드
-            skinnedMeshRenderer.GetPropertyBlock(propertyBlock);
-            propertyBlock.SetColor("_OutlineColor", Color.red);
-            skinnedMeshRenderer.SetPropertyBlock(propertyBlock);
-
-            AttackTarget();
+            triggers = false;
+            if (other.gameObject.CompareTag("Bugger"))
+            {
+                animator.SetBool("isWalk", true);
+                SetKey();
+                photonView.RPC("SetKey", RpcTarget.All);
+            }
+            else if ((other.gameObject.CompareTag("Grabbable")))
+            {
+                animator.SetBool("isAttack", true);
+                AttackTarget();
+            }
         }
     }
     [PunRPC]
@@ -61,6 +63,12 @@ public class F2Monster : MonoBehaviourPun
     }
     private void AttackTarget()
     {
+        propertyBlock = new MaterialPropertyBlock();
+
+        // 아웃라인 색을 바뀌게 하는 코드
+        skinnedMeshRenderer.GetPropertyBlock(propertyBlock);
+        propertyBlock.SetColor("_OutlineColor", Color.red);
+        skinnedMeshRenderer.SetPropertyBlock(propertyBlock);
         Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius, isTarget);
             if (colliders.Length > 0)
             {       
