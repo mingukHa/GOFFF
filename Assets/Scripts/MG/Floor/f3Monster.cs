@@ -1,63 +1,18 @@
 using Photon.Pun;
 using UnityEngine;
-using UnityEngine.AI;
-using System.Collections;
 
 public class f3Monster : MonoBehaviourPun
 {
     [SerializeField] private GameObject monsterPrefab; // 소환할 몬스터 프리팹
     [SerializeField] private Transform spawnPoints;  // 몬스터가 소환될 스폰 포인트 배열
-    private string MonsterSet = "idle";
 
-    private NavMeshAgent navMeshAgent; // NavMeshAgent 컴포넌트
-    public float detectionRadius = 40f; // 플레이어를 탐지할 반지름
-    public LayerMask isTarget; // 탐지할 대상 레이어 (플레이어 태그)
-    private Animator animator;
-    private Transform target; // 플레이어의 Transform
-
-    private void Awake()
+    public void SpawnMonster()
     {
-        navMeshAgent = GetComponent<NavMeshAgent>(); // NavMeshAgent 초기화
-        animator = GetComponent<Animator>();
-    }
 
-    private void Start()
-    {
-        //StartCoroutine(UpdatePath()); // 적대적 모드
-    }
-    private void MonsterMode()
-    {
-        switch(MonsterSet)
-    }
-    private IEnumerator UpdatePath()
-    {
-        while (true)
-        {
-            // 범위 내에서 "Player" 태그를 가진 객체 탐지
-            Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius, isTarget);
-            if (colliders.Length > 0)
-            {
-                // 가장 가까운 플레이어를 타겟으로 설정
-                target = colliders[0].transform;
-            }
-            else
-            {
-                target = null; // 타겟 없으면 초기화
-            }
+        Transform spawnPoint = spawnPoints;
 
-            // NavMeshAgent로 타겟을 따라감
-            if (target != null)
-            {
-                navMeshAgent.isStopped = false;
-                navMeshAgent.SetDestination(target.position);
-                animator.SetBool("isWalking", true);
-            }
-            else
-            {
-                navMeshAgent.isStopped = true; // 타겟 없으면 멈춤
-            }
+        PhotonNetwork.Instantiate(monsterPrefab.name, spawnPoint.position, spawnPoint.rotation);
 
-            yield return new WaitForSeconds(0.5f); // 0.5초마다 반복
-        }
+        Debug.Log($"몬스터가 {spawnPoint.position}에서 소환되었습니다.");
     }
 }
