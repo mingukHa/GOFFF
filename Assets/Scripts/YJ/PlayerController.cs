@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviourPun
     private Vector3 lastLeftPosition; // 왼쪽 컨트롤러의 마지막 위치
     private Vector3 lastRightPosition; // 오른쪽 컨트롤러의 마지막 위치
 
+    private Vector3 currentMovement = Vector3.zero;
+
     private void Start()
     {
         playerHolder = GetComponent<Transform>();
@@ -141,7 +143,10 @@ public class PlayerController : MonoBehaviourPun
         {
             finalMovement = finalMovement.normalized * maxSpeed;
         }
-        
+
+        // 현재 움직임 저장
+        currentMovement = finalMovement;
+
         // 카메라 리그 이동
         playerHolder.position += finalMovement;
 
@@ -150,6 +155,11 @@ public class PlayerController : MonoBehaviourPun
 
         //// Photon 동기화
         //photonView.RPC("SyncWheelRotation", RpcTarget.Others, finalMovement.magnitude);
+    }
+
+    public float GetCurrentMovementMagnitude()
+    {
+        return currentMovement.magnitude;
     }
 
     private void HandleRotation()
