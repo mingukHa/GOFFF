@@ -3493,6 +3493,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6071158518498219289, guid: 64f41f77b73d8a1429e3061b37a36756,
         type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6071158518498219289, guid: 64f41f77b73d8a1429e3061b37a36756,
+        type: 3}
       propertyPath: elevatorDoors.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -3642,7 +3647,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   button1: {fileID: 185436153}
   targetPos: {fileID: 1451800024}
-  player1: {fileID: 5983295875041255981, guid: feab0d83960f233479b23431946ef43e, type: 3}
+  player:
+  - {fileID: 5983295875041255981, guid: feab0d83960f233479b23431946ef43e, type: 3}
+  - {fileID: 5983295875041255981, guid: 67e29d514e4231c44aea400288e5f8c8, type: 3}
 --- !u!1001 &197367091
 PrefabInstance:
   m_ObjectHideFlags: 0
