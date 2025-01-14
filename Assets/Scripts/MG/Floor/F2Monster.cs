@@ -37,12 +37,14 @@ public class F2Monster : MonoBehaviourPun
             triggers = false;
             if (other.gameObject.CompareTag("Bugger"))
             {
+                Debug.Log("좀비 버거 받음");
                 animator.SetBool("isWalk", true);
                 SetKey();
                 photonView.RPC("SetKey", RpcTarget.All);
             }
             else if ((other.gameObject.CompareTag("Grabbable")))
             {
+                Debug.Log("좀비 딴거 받음");
                 animator.SetBool("isAttack", true);
                 AttackTarget();
             }
@@ -51,6 +53,7 @@ public class F2Monster : MonoBehaviourPun
     [PunRPC]
     private void SetKey()
     {
+        Debug.Log("setkey실행 됨");
         Key.gameObject.SetActive(true);
         propertyBlock = new MaterialPropertyBlock();
 
@@ -58,8 +61,9 @@ public class F2Monster : MonoBehaviourPun
         skinnedMeshRenderer.GetPropertyBlock(propertyBlock);
         propertyBlock.SetColor("_OutlineColor", Color.white);
         skinnedMeshRenderer.SetPropertyBlock(propertyBlock);
-
+        
         navMeshAgent.SetDestination(target.position);
+        Debug.Log($"{target.position}으로 이동 중");
     }
     private void AttackTarget()
     {
