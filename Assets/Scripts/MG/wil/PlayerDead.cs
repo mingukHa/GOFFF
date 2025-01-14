@@ -3,18 +3,21 @@ using Photon.Pun;
 
 public class PlayerDead : MonoBehaviourPun
 {
-    private GameOverManagers GOM;
-    private void Awake()
-    {
-        GOM = GetComponent<GameOverManagers>();
-    }
+    [SerializeField] private GameOverManagers GOM;
 
     private void OnTriggerEnter(Collider collider)
     {
         if (collider.gameObject.CompareTag("Monster"))
         {
-            GOM.ReStart();
-            photonView.RPC("ReStart", RpcTarget.All);
+            Debug.Log("몬스터에게 닿음");
+            if (GOM != null)
+            {
+                photonView.RPC("ReStart", RpcTarget.All);
+            }
+            else
+            {
+                Debug.LogError("GameOverManagers reference is missing!");
+            }
         }
-    }  
+    }
 }

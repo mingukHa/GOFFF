@@ -13,10 +13,13 @@ public class GameOverManagers : MonoBehaviourPun
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            Player1.transform.position = spwan1.transform.position;
-            Player2.transform.position = spwan2.transform.position;
+            // 플레이어 위치 초기화
+            Player1.transform.position = spwan1.position;
+            Player2.transform.position = spwan2.position;
+
+            // 씬 리로드
             string SceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
-            PhotonNetwork.LoadLevel(SceneName);           
+            PhotonNetwork.LoadLevel(SceneName);
         }
     }
 }
