@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.AI;
+using Photon.Pun;
 
-public class MonsterTest : MonoBehaviour
+public class MonsterTest : MonoBehaviourPun
 {
     [SerializeField] private float detectionRadius = 10f;
     [SerializeField] private float viewAngle = 60f;
@@ -21,6 +22,8 @@ public class MonsterTest : MonoBehaviour
     private Transform detectedTarget;
     private float questTime;
     private float detectTime;
+
+    private bool isDetectedByZombie = false;
 
     private void Awake()
     {
@@ -49,11 +52,9 @@ public class MonsterTest : MonoBehaviour
                 break;
             case MonsterState.Detect:
                 HandleDetectState();
-                
                 break;
             case MonsterState.Attack:
                 AttackTarget();
-                
                 break;
         }
     }
@@ -72,6 +73,12 @@ public class MonsterTest : MonoBehaviour
     public void Detect()
     {
         SoundManager.instance.SFXPlay("ZomShout_SFX");
+
+        if (!isDetectedByZombie)  // 아직 발각되지 않았다면
+        {
+            isDetectedByZombie = true;  // 발각 상태로 변경
+            photonView.RPC("OnZombieDetected", RpcTarget.All);  // 모든 클라이언트에게 발각된 상태 전달
+        }
     }
     private void HandleDetectState()
     {
