@@ -177,6 +177,7 @@
             float _OutlineAlpha;
             float _DistanceFactor;
             float _OutlinePower;
+            float _RingTime;
 
             v2f vert(appdata v)
             {
@@ -210,7 +211,7 @@
                     if (hitTime <= 0) continue; // 유효하지 않은 히트 포인트 스킵
 
                     float dist = distance(hitPos, i.originalWorldPos);
-                    float timeSinceHit = _Time.y - hitTime;
+                    float timeSinceHit = _RingTime - hitTime;
                     
                     // 첫 번째 패스와 동일한 링 범위 계산
                     float ringPosition = timeSinceHit * _RingSpeed;
@@ -241,10 +242,10 @@
                     col.rgb = lerp(col.rgb, _RingColorM.rgb, maxRingIntensity);
                     col.a *= maxRingIntensity;
                 }
-                else
-                {
-                    col.a = 0; // 링 밖에서는 아웃라인을 표시하지 않음
-                }
+                // else
+                // {
+                //     col.a = 0; // 링 밖에서는 아웃라인을 표시하지 않음
+                // }
 
                 if (col.a <= 0.0)
                 {
@@ -258,7 +259,7 @@
         }
 
 
-        // 아웃 라인 그리는 부분
+        //아웃 라인 그리는 부분
         // Pass
         // {
         //     Name "OUTLINE"

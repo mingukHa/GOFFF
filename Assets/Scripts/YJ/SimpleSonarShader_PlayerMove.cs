@@ -58,7 +58,7 @@ public class SimpleSonarShader_PlayerMove : MonoBehaviourPun
             Vector3 sonarOrigin = playerTransform.position;
 
             // PlayerHolder를 중심으로 Sonar 효과 발동
-            par.StartSonarRing(sonarOrigin, 1.4f, 0);
+            par.StartSonarRing(sonarOrigin, 1.2f, 0);
             PlayerMove?.Invoke(sonarOrigin);
             photonView.RPC("RPCPlayerMove", RpcTarget.Others);
         }

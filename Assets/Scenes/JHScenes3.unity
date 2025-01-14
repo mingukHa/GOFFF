@@ -162,6 +162,7 @@ Transform:
   - {fileID: 1268807274}
   - {fileID: 675011885}
   - {fileID: 598630373}
+  - {fileID: 990851573}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3233137
@@ -326,7 +327,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!1 &123777843
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,7 +474,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!1 &183366834 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6558927757334978065, guid: 73f549b46e14531439f12aa8447cfb8d,
@@ -740,7 +739,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!1 &313541537
 GameObject:
   m_ObjectHideFlags: 0
@@ -948,7 +946,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!1 &372395212
 GameObject:
   m_ObjectHideFlags: 0
@@ -1070,7 +1067,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!1001 &385745047
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1187,7 +1183,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!1 &411785879 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2000719113221279303, guid: f5a42311009a9674fbc37df24a9a3d0c,
@@ -1602,7 +1597,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!1001 &489113044
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1739,7 +1733,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!1001 &534317568
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2020,7 +2013,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!1001 &588449113
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2163,7 +2155,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!1 &598630370
 GameObject:
   m_ObjectHideFlags: 0
@@ -2239,7 +2230,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!1 &599396265
 GameObject:
   m_ObjectHideFlags: 0
@@ -2387,7 +2377,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!1001 &629565310
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2530,7 +2519,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!1 &646982393
 GameObject:
   m_ObjectHideFlags: 0
@@ -3031,7 +3019,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!54 &730503839
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3668,7 +3655,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!1 &979158148
 GameObject:
   m_ObjectHideFlags: 0
@@ -3704,6 +3690,80 @@ Transform:
   - {fileID: 313541538}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &990851572
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3233136}
+    m_Modifications:
+    - target: {fileID: 908462133225908519, guid: a8a64bd1c3c1cf544baeb8d09ea87339,
+        type: 3}
+      propertyPath: m_Name
+      value: PlayerMoveRing
+      objectReference: {fileID: 0}
+    - target: {fileID: 2513408517775519709, guid: a8a64bd1c3c1cf544baeb8d09ea87339,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.813302
+      objectReference: {fileID: 0}
+    - target: {fileID: 2513408517775519709, guid: a8a64bd1c3c1cf544baeb8d09ea87339,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.428875
+      objectReference: {fileID: 0}
+    - target: {fileID: 2513408517775519709, guid: a8a64bd1c3c1cf544baeb8d09ea87339,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 38.67065
+      objectReference: {fileID: 0}
+    - target: {fileID: 2513408517775519709, guid: a8a64bd1c3c1cf544baeb8d09ea87339,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2513408517775519709, guid: a8a64bd1c3c1cf544baeb8d09ea87339,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2513408517775519709, guid: a8a64bd1c3c1cf544baeb8d09ea87339,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2513408517775519709, guid: a8a64bd1c3c1cf544baeb8d09ea87339,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2513408517775519709, guid: a8a64bd1c3c1cf544baeb8d09ea87339,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2513408517775519709, guid: a8a64bd1c3c1cf544baeb8d09ea87339,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2513408517775519709, guid: a8a64bd1c3c1cf544baeb8d09ea87339,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a8a64bd1c3c1cf544baeb8d09ea87339, type: 3}
+--- !u!4 &990851573 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2513408517775519709, guid: a8a64bd1c3c1cf544baeb8d09ea87339,
+    type: 3}
+  m_PrefabInstance: {fileID: 990851572}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1009452986
 GameObject:
   m_ObjectHideFlags: 0
@@ -4157,7 +4217,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!1 &1090933692
 GameObject:
   m_ObjectHideFlags: 0
@@ -4321,7 +4380,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!1001 &1156358980
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4438,7 +4496,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!1 &1164114061 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6558927757334978065, guid: 73f549b46e14531439f12aa8447cfb8d,
@@ -4583,7 +4640,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!1 &1233157867 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6558927757334978065, guid: 73f549b46e14531439f12aa8447cfb8d,
@@ -4942,7 +4998,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!1 &1351892503 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2000719113221279303, guid: f5a42311009a9674fbc37df24a9a3d0c,
@@ -5070,7 +5125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!1 &1380712628
 GameObject:
   m_ObjectHideFlags: 0
@@ -5639,7 +5693,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!1001 &1469384922
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5790,7 +5843,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!33 &1492788672
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -6617,7 +6669,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!1 &1630176532 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2000719113221279303, guid: f5a42311009a9674fbc37df24a9a3d0c,
@@ -6658,7 +6709,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!1001 &1637765875
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6801,7 +6851,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!1001 &1710984728
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6918,7 +6967,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!1 &1758781607
 GameObject:
   m_ObjectHideFlags: 0
@@ -7825,7 +7873,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!1 &1902293493
 GameObject:
   m_ObjectHideFlags: 0
@@ -8164,7 +8211,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!1 &2000890420 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6558927757334978065, guid: 73f549b46e14531439f12aa8447cfb8d,
@@ -8303,7 +8349,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!1001 &2057427230
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8420,7 +8465,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!1001 &2067471779
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8563,7 +8607,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!1 &2109188258 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2000719113221279303, guid: f5a42311009a9674fbc37df24a9a3d0c,
@@ -8604,7 +8647,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!1001 &2130603991
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8721,7 +8763,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownDuration: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
