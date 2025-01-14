@@ -42,7 +42,10 @@ public class ObjectMain : MonoBehaviourPun
             
         if(!isGrabbed && gameObject.GetComponent<FixedJoint>() == null)
         {
-            IntersectionBoundsMove(other);
+            if (other.CompareTag("Basket"))
+            {
+                IntersectionBoundsMove(other);
+            }
         }
         Debug.Log("오브젝트가 닿았음");
     }
