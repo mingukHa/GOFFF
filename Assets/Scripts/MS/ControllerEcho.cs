@@ -23,15 +23,7 @@ public class ControllerEcho : MonoBehaviourPun
             Debug.Log("파동 입력을 받고 있음");
             if (!wasBPressed)
             {
-                // B 버튼이 눌렸을 때 동작
-                RaycastHit hit;
-                Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
-
-                if (Physics.Raycast(ray, out hit))
-                {
-                    par.StartSonarRing(hit.point, 1.4f, 0);
-                    photonView.RPC("RPCSonarRing", RpcTarget.Others, hit.point);
-                }
+                par.StartSonarRing(transform.position, 0.7f, 0);
                 wasBPressed = true;
             }
         }
@@ -42,6 +34,6 @@ public class ControllerEcho : MonoBehaviourPun
     [PunRPC]
     private void RPCSonarRing(Vector3 point)
     {
-        par.StartSonarRing(point, 1.4f, 0);
+        par.StartSonarRing(point, 0.7f, 0);
     }
 }
