@@ -14,10 +14,14 @@ public class InElevator : MonoBehaviourPun
     private Vector3 openScale = new Vector3(0, 1, 1);   // 열린 상태의 Scale
 
     public UpElevator upElevator;   // 위로 버튼을 눌렀는지 확인하기 위해
-    public DownElevator downElevator;   // 아래로 버튼을 눌렀는지 확인하기 위해
+    //public DownElevator downElevator;   // 아래로 버튼을 눌렀는지 확인하기 위해
 
     private bool isClosing = false; // 문이 닫히는 중인지 확인
     private int isButtonOn = 0; // 버튼 상태를 로컬에서 관리
+    public ElevatorTrigger elevatorTrigger;
+
+    private bool runElevator = false;
+
 
     //private void OnTriggerEnter(Collider other)
     //{
@@ -34,30 +38,47 @@ public class InElevator : MonoBehaviourPun
     //    }
     //}
 
-    //[PunRPC]
-    public void CloseDoorsRPC()
-    {
-        isButtonOn++;
-        photonView.RPC("RPCIsButtonOn", RpcTarget.Others);
 
-        if (isClosing && isButtonOn < 2) return; // 문이 닫히는 중이면 중복 호출 방지
+    private void Start()
+    {
+        // 델리게이트에 함수 연결
+        elevatorTrigger.OnPlayersTriggered += HandlePlayersTriggered;
+    }
+
+    private void HandlePlayersTriggered(Collider player1, Collider player2)
+    {
+        Debug.Log($"Player1: {player1.name}, Player2: {player2.name}");
+
+        runElevator = true;
+    }
+
+    //[PunRPC]
+    public void CloseDoors()
+    {
+        //isButtonOn++;
+        //photonView.RPC("RPCIsButtonOn", RpcTarget.Others);
+        if (!runElevator) return;
+
+        if (isClosing) return; // 문이 닫히는 중이면 중복 호출 방지
         isClosing = true;
-        if (PhotonNetwork.IsMasterClient)
+        if (photonView.IsMine)
         {
             StartCoroutine(CloseDoorsCoroutine());
+            photonView.RPC("RPCDoorsCoroutine", RpcTarget.Others);
         }
     }
-    [PunRPC]
-    public void RPCIsButtonOn()
-    {
-        isButtonOn++;
-    }
-
     //[PunRPC]
-    //private void RPCDoorsCoroutine()
+    //public void RPCIsButtonOn()
     //{
-    //    StartCoroutine(CloseDoorsCoroutine());
+    //    isButtonOn++;
     //}
+
+    [PunRPC]
+    private void RPCDoorsCoroutine()
+    {
+        isClosing = true;
+        StartCoroutine(CloseDoorsCoroutine());
+    }
 
 
     public IEnumerator CloseDoorsCoroutine()
@@ -95,19 +116,19 @@ public class InElevator : MonoBehaviourPun
         //if (upElevator != null && upElevator.isUpDoorOpening)
         if(PhotonNetwork.IsMasterClient) 
         {
-            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-            int nextSceneIndex = currentSceneIndex + 1;
-            Debug.Log($"{currentSceneIndex}인덱스 씬{nextSceneIndex}다음씬");
+            //int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            //int nextSceneIndex = currentSceneIndex + 1;
+            //Debug.Log($"{currentSceneIndex}인덱스 씬{nextSceneIndex}다음씬");
 
-            if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
-            {
+            //if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+            //{
                 Debug.Log("다음 씬으로 이동합니다.");
-                PhotonNetwork.LoadLevel(nextSceneIndex);
-            }
-            else
-            {
-                Debug.Log("마지막 씬입니다. 더 이상 씬이 없습니다.");
-            }
+                PhotonNetwork.LoadLevel("JHScenes3");
+            //}
+            //else
+            //{
+            //    Debug.Log("마지막 씬입니다. 더 이상 씬이 없습니다.");
+            //}
         }
         //else
         //{
@@ -115,23 +136,23 @@ public class InElevator : MonoBehaviourPun
         //}
     }
 
-    [PunRPC]
-    public void LoadNextScene()
-    {
-        //if (isButtonOn >= 2) return; // 씬이 이미 로드되었는지 확인
+    //[PunRPC]
+    //public void LoadNextScene()
+    //{
+    //    //if (isButtonOn >= 2) return; // 씬이 이미 로드되었는지 확인
 
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        int nextSceneIndex = currentSceneIndex + 1;
-        Debug.Log($"{currentSceneIndex}인덱스 씬{nextSceneIndex}다음씬");
+    //    int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+    //    int nextSceneIndex = currentSceneIndex + 1;
+    //    Debug.Log($"{currentSceneIndex}인덱스 씬{nextSceneIndex}다음씬");
         
-        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
-        {
-            Debug.Log("다음 씬으로 이동합니다.");           
-            PhotonNetwork.LoadLevel(nextSceneIndex);
-        }
-        else
-        {
-            Debug.Log("마지막 씬입니다. 더 이상 씬이 없습니다.");
-        }
-    }
+    //    if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+    //    {
+    //        Debug.Log("다음 씬으로 이동합니다.");           
+    //        PhotonNetwork.LoadLevel(nextSceneIndex);
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("마지막 씬입니다. 더 이상 씬이 없습니다.");
+    //    }
+    //}
 }
