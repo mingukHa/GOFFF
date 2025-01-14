@@ -5,9 +5,13 @@ public class Domwaiterfood : MonoBehaviourPun
 {
     [SerializeField] private DomwaiterOven triggerZone0;   // 주황색 박스 [0]
     [SerializeField] private Transform targetPosition;  // 주황색 박스 [1]
+  
+
+    
 
     public void OnButtonPressed()
     {
+        
         /*  멀티가 아닌 상황에서 로컬 로직
         
         // 주황색 박스[0]dptj 충돌된 모든 오브젝트 가져오기
