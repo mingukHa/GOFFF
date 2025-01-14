@@ -23,22 +23,24 @@ public class ControllerEcho : MonoBehaviourPun
         if (rightController.TryGetFeatureValue(CommonUsages.secondaryButton, out isBPressed) && isBPressed)
         {
             Debug.Log("파동 입력을 받고 있음");
-
-            // 플레이어가 둘뿐이니 둘만 계산
-            Player = GameObject.FindGameObjectsWithTag("Player");
-            if (Player[0].GetPhotonView().IsMine)
+            if (!wasBPressed)
             {
-                Vector3 point = Player[0].transform.position;
-                par.StartSonarRing(point, 0.7f, 0);
-                photonView.RPC("RPCSonarRing",RpcTarget.Others, point);
+                // 플레이어가 둘뿐이니 둘만 계산
+                Player = GameObject.FindGameObjectsWithTag("Player");
+                if (Player[0].GetPhotonView().IsMine)
+                {
+                    Vector3 point = Player[0].transform.position;
+                    par.StartSonarRing(point, 0.7f, 0);
+                    photonView.RPC("RPCSonarRing", RpcTarget.Others, point);
+                }
+                else
+                {
+                    Vector3 point = Player[1].transform.position;
+                    par.StartSonarRing(point, 0.7f, 0);
+                    photonView.RPC("RPCSonarRing", RpcTarget.Others, point);
+                }
+                wasBPressed = true;
             }
-            else
-            {
-                Vector3 point = Player[1].transform.position;
-                par.StartSonarRing(point, 0.7f, 0);
-                photonView.RPC("RPCSonarRing", RpcTarget.Others, point);
-            }
-            wasBPressed = true;
         }
         else
             wasBPressed = false;
