@@ -13,6 +13,7 @@ public class PlayerDead : MonoBehaviourPun
     {
         if (collider.gameObject.CompareTag("Monster"))
         {
+            GOM.ReStart();
             photonView.RPC("ReStart", RpcTarget.All);
         }
     }  

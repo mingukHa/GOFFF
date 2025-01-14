@@ -12,6 +12,7 @@ public class DeadZone : MonoBehaviourPun
     {
         if (collider.gameObject.CompareTag("Player"))
         {
+            GOM.ReStart();
             photonView.RPC("ReStart", RpcTarget.All);
         }
     }
