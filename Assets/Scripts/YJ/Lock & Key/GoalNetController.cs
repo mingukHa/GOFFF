@@ -24,7 +24,7 @@ public class GoalNetController : MonoBehaviourPun
             if (doorController != null)
             {
                 OpenLabDoor();
-                photonView.RPC("OpenLabDoor", RpcTarget.Others);
+                photonView.RPC("OpenLabDoor", RpcTarget.All);
             }
         }
     }
