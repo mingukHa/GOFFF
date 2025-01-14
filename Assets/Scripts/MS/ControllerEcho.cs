@@ -30,13 +30,13 @@ public class ControllerEcho : MonoBehaviourPun
                 if (Player[0].GetPhotonView().IsMine)
                 {
                     Vector3 point = Player[0].transform.position;
-                    par.StartSonarRing(point, 0.7f, 0);
+                    par.StartSonarRing(point, 1.2f, 0);
                     photonView.RPC("RPCSonarRing", RpcTarget.Others, point);
                 }
                 else
                 {
                     Vector3 point = Player[1].transform.position;
-                    par.StartSonarRing(point, 0.7f, 0);
+                    par.StartSonarRing(point, 1.2f, 0);
                     photonView.RPC("RPCSonarRing", RpcTarget.Others, point);
                 }
                 wasBPressed = true;
