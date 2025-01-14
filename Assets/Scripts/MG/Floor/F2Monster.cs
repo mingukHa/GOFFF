@@ -32,8 +32,8 @@ public class F2Monster : MonoBehaviourPun
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (triggers == true)
-        {
+        //if (triggers == true)
+       // {
             triggers = false;
             if (other.gameObject.CompareTag("Bugger"))
             {
@@ -48,7 +48,7 @@ public class F2Monster : MonoBehaviourPun
                 animator.SetBool("isAttack", true);
                 AttackTarget();
             }
-        }
+      //  }
     }
     [PunRPC]
     private void SetKey()

@@ -2220,7 +2220,6 @@ GameObject:
   - component: {fileID: 137615271}
   - component: {fileID: 137615270}
   - component: {fileID: 137615269}
-  - component: {fileID: 137615275}
   - component: {fileID: 137615273}
   - component: {fileID: 137615276}
   m_Layer: 0
@@ -2367,9 +2366,9 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 137615275}
-        m_TargetAssemblyTypeName: Domwaiter, Assembly-CSharp
-        m_MethodName: ToggleDoor
+      - m_Target: {fileID: 1958780918}
+        m_TargetAssemblyTypeName: DoorController, Assembly-CSharp
+        m_MethodName: OpenDoor
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2403,21 +2402,6 @@ MonoBehaviour:
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_StartingInteractionStrengthFilters: []
---- !u!114 &137615275
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 137615268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17b32b4e90357de4d8f6202808e70473, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handle: {fileID: 0}
-  DomwaiterBottom: {fileID: 0}
-  openAngle: -90
 --- !u!114 &137615276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10999,6 +10983,12 @@ Transform:
   - {fileID: 311384688}
   m_Father: {fileID: 2079545688}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &444824433 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 526343073748381630, guid: d5c8d1653cccf9c46ba7de6c7e8b3ef0,
+    type: 3}
+  m_PrefabInstance: {fileID: 42763655}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &448218426
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11938,7 +11928,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -28690,7 +28680,6 @@ Transform:
   - {fileID: 657318160}
   - {fileID: 717229681}
   - {fileID: 881033902}
-  - {fileID: 2035134910}
   - {fileID: 799623933}
   m_Father: {fileID: 746905411}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -28892,6 +28881,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5621707245933178988, guid: f397ff5fa4702af4eb0ee7721adacc54,
     type: 3}
   m_PrefabInstance: {fileID: 1532060065}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1541557830 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5941451431519165070, guid: cd44af195fe2e02459c0ea4f9a9fc854,
+    type: 3}
+  m_PrefabInstance: {fileID: 2121498730}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1546661298
 GameObject:
@@ -34380,6 +34375,55 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1952970056}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1958780917
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1958780919}
+  - component: {fileID: 1958780918}
+  m_Layer: 0
+  m_Name: FoodDoor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1958780918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958780917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a092cd5d98ba0a24989e0b3831a517a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOpen: 0
+  openAngle: 90
+  animationTime: 1
+  soundManager: {fileID: 811224669}
+--- !u!4 &1958780919
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958780917}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -88.196, y: 1.96, z: 42.388}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2035134910}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1972881704
 GameObject:
   m_ObjectHideFlags: 0
@@ -34578,6 +34622,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 1976771452}
+    - target: {fileID: 7152064677340688084, guid: ed131a0f10700ad42904789c55dd3c7b,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnButtonPressed
+      objectReference: {fileID: 0}
+    - target: {fileID: 7152064677340688084, guid: ed131a0f10700ad42904789c55dd3c7b,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Domwaiterfood, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7676277719689914290, guid: ed131a0f10700ad42904789c55dd3c7b,
         type: 3}
@@ -34649,7 +34703,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerZone0: {fileID: 881033903}
-  targetPosition: {fileID: 0}
+  targetPosition: {fileID: 444824433}
 --- !u!114 &1976771453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35801,13 +35855,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2035134909}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.679, y: 2.62, z: -3.014}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.12558746, y: 0.65999985, z: 0.027153015}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 904227522}
-  m_Father: {fileID: 1500425720}
+  m_Father: {fileID: 1958780919}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2041469562
 GameObject:
@@ -37112,7 +37166,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5941451431519165070, guid: cd44af195fe2e02459c0ea4f9a9fc854,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2121498732}
   m_SourcePrefab: {fileID: 100100000, guid: cd44af195fe2e02459c0ea4f9a9fc854, type: 3}
 --- !u!4 &2121498731 stripped
 Transform:
@@ -37120,6 +37178,27 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2121498730}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &2121498732
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541557830}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.92854214, z: 4.2742524}
+  m_Center: {x: 3.3383315e-17, y: -0.03572893, z: 0.017974138}
 --- !u!1 &2130366287
 GameObject:
   m_ObjectHideFlags: 0
@@ -39725,6 +39804,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1723865593}
+  - {fileID: 1958780919}
   - {fileID: 319529764}
   - {fileID: 1389930780}
   - {fileID: 746905411}
