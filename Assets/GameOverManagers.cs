@@ -13,10 +13,10 @@ public class GameOverManagers : MonoBehaviourPun
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            string SceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
-            PhotonNetwork.LoadLevel(SceneName);
             Player1.transform.position = spwan1.transform.position;
             Player2.transform.position = spwan2.transform.position;
+            string SceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+            PhotonNetwork.LoadLevel(SceneName);           
         }
     }
 }

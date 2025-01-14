@@ -13,7 +13,7 @@ public class MonsterTest : MonoBehaviour
     private PlayerDead pd;
     private Animator animator;
 
-    private enum MonsterState { Idle, Walking, LookingAround, Attack, Returning, Detect }
+    private enum MonsterState { Idle, Walking, LookingAround, Attack,  Detect }
     private MonsterState currentState = MonsterState.Idle;
 
     private Vector3 originalPosition;
