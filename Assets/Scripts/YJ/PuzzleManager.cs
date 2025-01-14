@@ -31,7 +31,7 @@ public class PuzzleManager : MonoBehaviourPunCallbacks
             }
         }
         Debug.Log("∆€¡Ò¿Ã «Æ∑»Ω¿¥œ¥Ÿ!");
-        photonView.RPC("SolvePuzzle", RpcTarget.Others);
+        photonView.RPC("SolvePuzzle", RpcTarget.All);
     }
 
     [PunRPC]
