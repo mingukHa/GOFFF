@@ -4574,7 +4574,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 98295
+    m_Bits: 491511
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -11533,10 +11533,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5901329298640489040}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fd31230522301eb4b831e64ca79ec5d2,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4524020064322194531}
   m_SourcePrefab: {fileID: 100100000, guid: fd31230522301eb4b831e64ca79ec5d2, type: 3}
 --- !u!4 &4017856612990563428 stripped
 Transform:
@@ -11571,16 +11567,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.2497278, y: 0.017832696, z: 0.32787836}
   m_Center: {x: 0.00325308, y: 0.0106141865, z: -0.00025817752}
---- !u!114 &4524020064322194531
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4362189108335996638}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58aa7143b88b19840bca33ed88006fb8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  basketTransform: {fileID: 4017856612990563428}
