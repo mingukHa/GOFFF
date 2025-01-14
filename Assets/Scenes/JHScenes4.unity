@@ -3374,6 +3374,31 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: f4elevators, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 1353208363495201588, guid: 64f41f77b73d8a1429e3061b37a36756,
+        type: 3}
+      propertyPath: elevatorDoors.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1353208363495201588, guid: 64f41f77b73d8a1429e3061b37a36756,
+        type: 3}
+      propertyPath: 'elevatorDoors.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1767565846}
+    - target: {fileID: 1353208363495201588, guid: 64f41f77b73d8a1429e3061b37a36756,
+        type: 3}
+      propertyPath: 'elevatorDoors.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1767565844}
+    - target: {fileID: 1353208363495201588, guid: 64f41f77b73d8a1429e3061b37a36756,
+        type: 3}
+      propertyPath: 'elevatorDoors.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2118982084}
+    - target: {fileID: 1353208363495201588, guid: 64f41f77b73d8a1429e3061b37a36756,
+        type: 3}
+      propertyPath: 'elevatorDoors.Array.data[3]'
+      value: 
+      objectReference: {fileID: 2118982084}
     - target: {fileID: 2178981470625912384, guid: 64f41f77b73d8a1429e3061b37a36756,
         type: 3}
       propertyPath: m_Mesh
@@ -3605,6 +3630,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   button1: {fileID: 185436153}
   targetPos: {fileID: 1451800024}
+  player1: {fileID: 5983295875041255981, guid: feab0d83960f233479b23431946ef43e, type: 3}
 --- !u!1001 &197367091
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36863,6 +36889,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aa8af3af1306b24583ed6de7af11c5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &2118982084 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5495397102591351320, guid: 64f41f77b73d8a1429e3061b37a36756,
+    type: 3}
+  m_PrefabInstance: {fileID: 185436151}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2121498730
 PrefabInstance:
   m_ObjectHideFlags: 0

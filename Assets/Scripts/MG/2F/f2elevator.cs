@@ -8,7 +8,7 @@ public class f2elevators : MonoBehaviourPun
 {
     [SerializeField] private GameObject button1;
     [SerializeField] private Transform targetPos;
-
+    [SerializeField] private GameObject player1;
     
 
     public void OnMoveButtonPressed()
@@ -21,16 +21,15 @@ public class f2elevators : MonoBehaviourPun
     }
 
     [PunRPC]
-    private void MoveToTarget(int actorNumber)
+    private void MoveToTarget()
     {
         // 네트워크에서 특정 플레이어 식별
-        if (PhotonNetwork.LocalPlayer.ActorNumber == actorNumber)
-        {
+        
             // 지정된 위치로 이동
-            transform.position = targetPos.position;
+            player1.gameObject.transform.position = targetPos.position;
             PhotonNetwork.Destroy(button1);
 
-        }
+        
     }
 
 }
