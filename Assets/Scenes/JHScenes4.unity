@@ -449,6 +449,11 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 7565395872894041098, guid: d5c8d1653cccf9c46ba7de6c7e8b3ef0,
+        type: 3}
+      propertyPath: soundManager
+      value: 
+      objectReference: {fileID: 811224669}
     - target: {fileID: 8748842350243910213, guid: d5c8d1653cccf9c46ba7de6c7e8b3ef0,
         type: 3}
       propertyPath: m_Name
@@ -28219,6 +28224,11 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 17
       objectReference: {fileID: 0}
+    - target: {fileID: 8434131855226183063, guid: e403a50b5823d7d4599e3aa5568c8657,
+        type: 3}
+      propertyPath: soundManager
+      value: 
+      objectReference: {fileID: 811224669}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 2411473721411878349, guid: e403a50b5823d7d4599e3aa5568c8657, type: 3}
@@ -34098,6 +34108,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 891320781919149806, guid: 5e7e4588976a7e34d9a7134994701d53,
+        type: 3}
+      propertyPath: soundManager
+      value: 
+      objectReference: {fileID: 811224669}
     - target: {fileID: 7199520292813485719, guid: 5e7e4588976a7e34d9a7134994701d53,
         type: 3}
       propertyPath: m_Name
@@ -38876,7 +38891,7 @@ MonoBehaviour:
   isOpen: 0
   openAngle: -140
   animationTime: 1
-  soundManager: {fileID: 0}
+  soundManager: {fileID: 811224669}
 --- !u!65 &7143294355340466861
 BoxCollider:
   m_ObjectHideFlags: 0
