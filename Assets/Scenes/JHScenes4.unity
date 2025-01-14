@@ -1164,7 +1164,7 @@ Transform:
   m_GameObject: {fileID: 80321816}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 29.94, y: 2.8, z: 58}
+  m_LocalPosition: {x: 29.94, y: 2.8, z: 40.31}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -36620,29 +36620,6 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!114 &2034016050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2372774576766230070}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 2034016049}
-  sceneViewId: 22
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!114 &2034016051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36659,7 +36636,7 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents:
   - {fileID: 2034016049}
@@ -36680,45 +36657,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handle: {fileID: 8654416600634204014}
   elevator: {fileID: 1482682738}
---- !u!114 &2034016053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4665080156003916967}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
---- !u!114 &2034016054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4665080156003916967}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 2034016053}
-  sceneViewId: 8
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1001 &2034386220
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38707,8 +38645,8 @@ GameObject:
   - component: {fileID: 2619773464119358017}
   - component: {fileID: 3787253158717461113}
   - component: {fileID: 2034016051}
-  - component: {fileID: 2034016050}
   - component: {fileID: 2034016049}
+  - component: {fileID: 8654416600634204015}
   m_Layer: 0
   m_Name: Handle
   m_TagString: Untagged
@@ -38889,8 +38827,6 @@ GameObject:
   - component: {fileID: 3807781153933832177}
   - component: {fileID: 3844566398877756041}
   - component: {fileID: 2034016052}
-  - component: {fileID: 2034016054}
-  - component: {fileID: 2034016053}
   m_Layer: 0
   m_Name: Lever
   m_TagString: Untagged
@@ -38982,6 +38918,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5066794137081238572}
   m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+--- !u!114 &8654416600634204015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2372774576766230070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f20b470093bab148a3a2b9a3d059469, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
