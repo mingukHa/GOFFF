@@ -6516,7 +6516,6 @@ GameObject:
   - component: {fileID: 5760728534539583603}
   - component: {fileID: 2374373779939970929}
   - component: {fileID: 1228799000358296376}
-  - component: {fileID: 7080329168035894559}
   m_Layer: 6
   m_Name: PlayerHolder1
   m_TagString: Player
@@ -6919,18 +6918,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handOffset: {fileID: 3986268970232686392}
   Cameras: {fileID: 1259931654349844168}
---- !u!114 &7080329168035894559
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5983295875041255981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f20b470093bab148a3a2b9a3d059469, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5997979232351034318
 GameObject:
   m_ObjectHideFlags: 0
