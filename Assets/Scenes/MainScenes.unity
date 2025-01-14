@@ -8227,7 +8227,7 @@ Transform:
   m_GameObject: {fileID: 682705972}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -31.24, y: 1.5, z: -26.8}
+  m_LocalPosition: {x: -35.68, y: 1.5, z: -53.71}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13928,6 +13928,7 @@ MonoBehaviour:
   xrKnob: {fileID: 1198552518}
   valve: {fileID: 1111849194}
   knob: {fileID: 1111849189}
+  lerpSpeed: 5
 --- !u!1 &1209059503
 GameObject:
   m_ObjectHideFlags: 0
@@ -21857,6 +21858,7 @@ MonoBehaviour:
   xrKnob: {fileID: 1817528669}
   valve: {fileID: 328946555}
   knob: {fileID: 1817528665}
+  lerpSpeed: 5
 --- !u!1 &1829112937
 GameObject:
   m_ObjectHideFlags: 0
