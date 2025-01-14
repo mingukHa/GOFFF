@@ -1,20 +1,19 @@
-using Photon.Pun;
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
 
-public class f3Monster : MonoBehaviourPun
+public class F2Monster : MonoBehaviour
 {
-    [SerializeField] private GameObject monsterPrefab; // 소환할 몬스터 프리팹
-    [SerializeField] private Transform spawnPoints;  // 몬스터가 소환될 스폰 포인트 배열
-    private string MonsterSet = "idle";
+    [SerializeField] private GameObject Key;
+    [SerializeField] private GameObject Target;
 
     private NavMeshAgent navMeshAgent; // NavMeshAgent 컴포넌트
     public float detectionRadius = 40f; // 플레이어를 탐지할 반지름
     public LayerMask isTarget; // 탐지할 대상 레이어 (플레이어 태그)
     private Animator animator;
     private Transform target; // 플레이어의 Transform
-
+    private enum MonsterSet { idle, Attack, succese ,Move}
+    private MonsterSet currentState = MonsterSet.idle;
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>(); // NavMeshAgent 초기화
@@ -23,11 +22,28 @@ public class f3Monster : MonoBehaviourPun
 
     private void Start()
     {
-        //StartCoroutine(UpdatePath()); // 적대적 모드
+        StartCoroutine(UpdatePath()); // 탐지 및 이동 코루틴 시작
     }
-    private void MonsterMode()
+    private void Update()
     {
-        switch(MonsterSet)
+        switch (currentState)
+        {
+            case MonsterSet.idle:           
+                break;
+            case MonsterSet.Move:
+
+                break;
+            case MonsterSet.succese:
+                
+                break;
+            case MonsterSet.Attack:
+               
+                break;
+        }
+    }
+    private void CallBackMove()
+    {
+
     }
     private IEnumerator UpdatePath()
     {
@@ -60,4 +76,14 @@ public class f3Monster : MonoBehaviourPun
             yield return new WaitForSeconds(0.5f); // 0.5초마다 반복
         }
     }
+
+    private void OnDrawGizmosSelected()
+    {
+        // 탐지 반경 시각화를 위한 디버그용
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, detectionRadius);
+    }
+
+
+
 }
