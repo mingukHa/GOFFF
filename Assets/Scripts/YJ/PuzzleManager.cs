@@ -41,23 +41,25 @@ public class PuzzleManager : MonoBehaviourPunCallbacks
         {
             eVButton.enabled = true;
             Debug.Log("엘리베이터 버튼 활성화!");
+
+            // 몬스터 스폰 호출
+            Monster.SetActive(true);
+            Debug.Log("좀비가 생성 됨");
+            //MonsterSpawn();
+            //photonView.RPC("MonsterSpawn", RpcTarget.All);
         }
         else
         {
             Debug.LogError("엘리베이터 버튼을 찾을 수 없습니다!");
         }
+    }
 
-        // 몬스터 스폰 호출
-        Debug.Log("좀비가 생성 됨");
-        MonsterSpawn();
-        photonView.RPC("MonsterSpawn", RpcTarget.All);
-    }
-    [PunRPC]
-    private void MonsterSpawn()
-    {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            Monster.SetActive(true);
-        }
-    }
+    //[PunRPC]
+    //private void MonsterSpawn()
+    //{
+    //    if (PhotonNetwork.IsMasterClient)
+    //    {
+    //        Monster.SetActive(true);
+    //    }
+    //}
 }
