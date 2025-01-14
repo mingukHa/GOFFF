@@ -123,9 +123,8 @@ public class Test_Parent : MonoBehaviour
                 block.SetVectorArray("_hitPts", positionsQueue.ToArray());
                 block.SetFloatArray("_Intensity", intensityQueue.ToArray());
                 //block.SetVectorArray("_RingColor", colorQueue.ToArray());
-                block.SetVectorArray("_RingColor", colorQueue.Select(c => (Vector4)c).ToArray());
+                block.SetVectorArray("_RingColor", colorQueue.ToArray());
 
-                block.SetInt("_Type", type); // 추가적인 구분 정보 전달
                 r.SetPropertyBlock(block);
             }
         }
