@@ -11,7 +11,7 @@ public class f2elevators : MonoBehaviourPun
 
     
 
-    private void OnMoveButtonPressed()
+    public void OnMoveButtonPressed()
     {
         // 버튼을 누른 플레이어가 자신인지 확인
         if (photonView.IsMine)
