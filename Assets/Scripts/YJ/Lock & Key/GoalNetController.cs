@@ -22,6 +22,7 @@ public class GoalNetController : MonoBehaviourPun
             // DoorController의 OpenDoor 메서드 호출 및 동기화
             if (doorController != null)
             {
+                doorController.OpenDoor();
                 photonView.RPC("OpenLabDoor", RpcTarget.All);
             }
         }
