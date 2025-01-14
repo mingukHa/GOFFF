@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DownElevator : MonoBehaviour
+public class DownElevator : MonoBehaviourPun
 {
     [SerializeField] private List<Transform> elevatorDoors; //엘리베이터 4개
     public float openDuration = 2f; //문 열리는 시간
@@ -12,11 +12,19 @@ public class DownElevator : MonoBehaviour
 
     public bool isDownDoorOpening = false; //문이 열리는 중인지 확인
 
-    [PunRPC]
     public void CmdOpenDoors()
     {
-        if (isDownDoorOpening) return;
+        if (isDownDoorOpening || !photonView.IsMine) return;
 
+        isDownDoorOpening = true;
+        StartCoroutine(OpenDoorsCoroutine());
+
+        photonView.RPC("RPCOpenDownDoors", RpcTarget.Others);
+    }
+
+    [PunRPC]
+    private void RPCOpenDownDoors()
+    {
         isDownDoorOpening = true;
         StartCoroutine(OpenDoorsCoroutine());
     }

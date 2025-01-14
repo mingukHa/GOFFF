@@ -15,18 +15,20 @@ public class UpElevator : MonoBehaviourPun
     
     public void CmdOpenDoors()
     {
-        if (isUpDoorOpening) return;
+        //if (isUpDoorOpening) return;
+        if (isUpDoorOpening || !photonView.IsMine) return;
 
         isUpDoorOpening = true;
+        StartCoroutine(OpenDoorsCoroutine());
 
         photonView.RPC("RPCOpenDoors", RpcTarget.Others);
-        StartCoroutine(OpenDoorsCoroutine());
     }
 
     [PunRPC]
     private void RPCOpenDoors()
     {
         isUpDoorOpening = true;
+        StartCoroutine(OpenDoorsCoroutine());
     }
 
 
