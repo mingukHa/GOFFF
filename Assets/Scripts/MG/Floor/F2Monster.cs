@@ -24,6 +24,7 @@ public class F2Monster : MonoBehaviourPun
     {
         navMeshAgent = GetComponent<NavMeshAgent>(); // NavMeshAgent 초기화
         animator = GetComponent<Animator>();
+        skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         
     }
     private void Start()
@@ -70,9 +71,12 @@ public class F2Monster : MonoBehaviourPun
         propertyBlock = new MaterialPropertyBlock();
 
         // 아웃라인 색을 바뀌게 하는 코드
-        skinnedMeshRenderer.GetPropertyBlock(propertyBlock);
-        propertyBlock.SetColor("_OutlineColor", Color.red);
-        skinnedMeshRenderer.SetPropertyBlock(propertyBlock);
+        if (skinnedMeshRenderer != null)
+        {
+            skinnedMeshRenderer.GetPropertyBlock(propertyBlock);
+            propertyBlock.SetColor("_OutlineColor", Color.red);
+            skinnedMeshRenderer.SetPropertyBlock(propertyBlock);
+        }
         Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius, isTarget);
             if (colliders.Length > 0)
             {       
