@@ -1,12 +1,12 @@
 using UnityEngine;
 using Photon.Pun;
+using System.Collections;
 
 public class PlayerControllerManager : MonoBehaviourPun
 {
     private GameObject _cameraOffset;
     private GameObject _handOffset;
 
-    // Lazy Initialization
     private GameObject CameraOffset
     {
         get
@@ -41,11 +41,10 @@ public class PlayerControllerManager : MonoBehaviourPun
 
     private void Awake()
     {
-        // 소유 여부에 따라 카메라와 컨트롤러 초기화
         if (!photonView.IsMine)
         {
-            DisableControllers();
-            DisableHand();
+            StartCoroutine(EnsureDisabled(CameraOffset, "CameraOffset"));
+            StartCoroutine(EnsureDisabled(HandOffset, "HandOffset"));
         }
         else
         {
@@ -56,7 +55,6 @@ public class PlayerControllerManager : MonoBehaviourPun
 
     private void Start()
     {
-        // 상대방의 카메라 및 렌더러/콜라이더 비활성화
         if (!photonView.IsMine)
         {
             DisableRenderersAndColliders();
@@ -65,13 +63,11 @@ public class PlayerControllerManager : MonoBehaviourPun
 
     private void DisableRenderersAndColliders()
     {
-        // 렌더러 비활성화
         foreach (var renderer in GetComponentsInChildren<Renderer>())
         {
             renderer.enabled = false;
         }
 
-        // 콜라이더 비활성화
         foreach (var collider in GetComponentsInChildren<Collider>())
         {
             collider.enabled = false;
@@ -111,6 +107,20 @@ public class PlayerControllerManager : MonoBehaviourPun
         {
             HandOffset.SetActive(true);
             Debug.Log("내 손 활성화 완료");
+        }
+    }
+
+    private IEnumerator EnsureDisabled(GameObject target, string targetName)
+    {
+        while (target == null || target.activeSelf)
+        {
+            target = transform.Find(targetName)?.gameObject;
+            if (target != null && target.activeSelf)
+            {
+                target.SetActive(false);
+                Debug.Log($"{targetName} 비활성화 완료");
+            }
+            yield return new WaitForSeconds(0.5f); // 0.5초 간격으로 재시도
         }
     }
 }
