@@ -42,6 +42,8 @@ public class SoundManager : MonoBehaviourPunCallbacks
         //LoginScenes 이름이라면 리스트의 첫 번째 브금 발생
         if (name0.name == "LoginScenes")
             BGMPlay(bgmList[0]);
+        else if (name0.name == "waitRoom")
+            BGMPlay(bgmList[0]);
         else if (name0.name == "MainScenes")
             BGMPlay(bgmList[1]);
     }

@@ -14,7 +14,7 @@ public class GoalNetController : MonoBehaviourPun
 
     private void OnTriggerEnter(Collider other)
     {
-        //Debug.Log("공 충돌함");
+        Debug.Log("공 충돌함");
 
         // 충돌한 오브젝트가 'Ball' 태그를 가지고 있는지 확인
         if (other.CompareTag("Ball"))
