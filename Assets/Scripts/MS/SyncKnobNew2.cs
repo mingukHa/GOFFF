@@ -25,15 +25,7 @@ public class SyncKnobNew2 : MonoBehaviourPun
     //    xrKnob.onValueChange.RemoveListener(HandleSyncKnobValue);
     //}
 
-    void Update()
-    {
-        // 보간을 적용하여 값을 점진적으로 변화시킴
-        if (!isSyncing)
-        {
-            currentValue = Mathf.Lerp(currentValue, targetValue, Time.deltaTime * lerpSpeed);
-            xrKnob.SetValue(currentValue); // 부드럽게 값 설정
-        }
-    }
+
 
     public void HandleSyncKnobValue()
     {

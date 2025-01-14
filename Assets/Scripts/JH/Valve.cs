@@ -47,6 +47,7 @@ public class Valve : MonoBehaviourPun
 
     private void Update()
     {
+        Debug.Log("현재 isGrabbed의 상태 : " + IsGrabbed);
         // 모든 클라이언트에서 계산
         if (!isGrabbed && knobValve.activeSelf)
         {
@@ -190,6 +191,7 @@ public class Valve : MonoBehaviourPun
     {
         Debug.Log("RPC Knob 밸브 전송됨");
         isGrabbed = grabbed;
+        Debug.Log("RPC 전송후 isGrabbed 상태 :" + isGrabbed);
     }
 
     [PunRPC]
