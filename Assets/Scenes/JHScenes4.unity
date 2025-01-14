@@ -394,6 +394,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 864479663729033138, guid: d5c8d1653cccf9c46ba7de6c7e8b3ef0,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 995622430767628906, guid: d5c8d1653cccf9c46ba7de6c7e8b3ef0,
         type: 3}
       propertyPath: sceneViewId
@@ -434,6 +439,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5562672010764532883, guid: d5c8d1653cccf9c46ba7de6c7e8b3ef0,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6135155364747801526, guid: d5c8d1653cccf9c46ba7de6c7e8b3ef0,
         type: 3}
       propertyPath: m_IsActive
@@ -443,6 +453,11 @@ PrefabInstance:
         type: 3}
       propertyPath: sceneViewId
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7359625673179925121, guid: d5c8d1653cccf9c46ba7de6c7e8b3ef0,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7389683180599595777, guid: d5c8d1653cccf9c46ba7de6c7e8b3ef0,
         type: 3}
@@ -2674,7 +2689,7 @@ PrefabInstance:
     - target: {fileID: 3124572688761022004, guid: 524300b41524848988f06b131d209b79,
         type: 3}
       propertyPath: m_TagString
-      value: Grabbable
+      value: Bugger
       objectReference: {fileID: 0}
     - target: {fileID: 3168143567207912387, guid: 524300b41524848988f06b131d209b79,
         type: 3}
@@ -30443,7 +30458,7 @@ PrefabInstance:
     - target: {fileID: 8922622601174049377, guid: 8f7e0188fb06bbe4c8c3b18db476e339,
         type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4592939292132620629, guid: 8f7e0188fb06bbe4c8c3b18db476e339, type: 3}
