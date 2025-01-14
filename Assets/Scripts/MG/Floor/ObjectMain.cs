@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class ObjectMain : MonoBehaviourPun
 {
-    private void Start()
-    {
-    }
-
     private bool isGrabbed = false;
 
     private void Update()
@@ -20,10 +16,10 @@ public class ObjectMain : MonoBehaviourPun
         if(!photonView.IsMine)
         {
             photonView.RequestOwnership();
-            isGrabbed = true;
-            Destroy(GetComponent<FixedJoint>());
-            photonView.RPC("RPCGrabbed", RpcTarget.Others, true);
         }
+        isGrabbed = true;
+        Destroy(GetComponent<FixedJoint>());
+        photonView.RPC("RPCGrabbed", RpcTarget.Others, true);
         Debug.Log("오브젝트를 집었음");
     }
     public void OnSelectFalse()
