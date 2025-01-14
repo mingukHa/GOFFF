@@ -7,29 +7,42 @@ public class F2Monster : MonoBehaviourPun
 {
     [SerializeField] private GameObject Key;
     [SerializeField] private GameObject TargetPoint;
-
+    private Material mr;
     private NavMeshAgent navMeshAgent; // NavMeshAgent 컴포넌트
     public float detectionRadius = 10f; // 플레이어를 탐지할 반지름
     public LayerMask isTarget; // 탐지할 대상 레이어 (플레이어 태그)
     private Animator animator;
     private Transform target; // 플레이어의 Transform
     private GameObject detectedTarget;
+
+    private SkinnedMeshRenderer skinnedMeshRenderer;
+    private MaterialPropertyBlock propertyBlock;
+
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>(); // NavMeshAgent 초기화
         animator = GetComponent<Animator>();
+        
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Bugger"))
         {
             animator.SetBool("isWalk", true);
-            navMeshAgent.SetDestination(target.position);
+            SetKey();            
             photonView.RPC("SetKey", RpcTarget.All);
         }
-        else if ((other.gameObject.CompareTag("Object")))
+        else if ((other.gameObject.CompareTag("Grabbable")))
         {
             animator.SetBool("isAttack", true);
+
+            propertyBlock = new MaterialPropertyBlock();
+
+            // 아웃라인 색을 바뀌게 하는 코드
+            skinnedMeshRenderer.GetPropertyBlock(propertyBlock);
+            propertyBlock.SetColor("_OutlineColor", Color.red);
+            skinnedMeshRenderer.SetPropertyBlock(propertyBlock);
+
             AttackTarget();
         }
     }
@@ -37,6 +50,14 @@ public class F2Monster : MonoBehaviourPun
     private void SetKey()
     {
         Key.gameObject.SetActive(true);
+        propertyBlock = new MaterialPropertyBlock();
+
+        // 아웃라인 색을 바뀌게 하는 코드
+        skinnedMeshRenderer.GetPropertyBlock(propertyBlock);
+        propertyBlock.SetColor("_OutlineColor", Color.white);
+        skinnedMeshRenderer.SetPropertyBlock(propertyBlock);
+
+        navMeshAgent.SetDestination(target.position);
     }
     private void AttackTarget()
     {
