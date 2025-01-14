@@ -28,9 +28,6 @@ public class MonsterSona : MonoBehaviour
     }
 }
 
-
-
-
 //using UnityEngine;
 //using System.Collections;
 

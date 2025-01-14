@@ -2313,7 +2313,7 @@ GameObject:
   m_Component:
   - component: {fileID: 646982396}
   - component: {fileID: 646982395}
-  - component: {fileID: 646982394}
+  - component: {fileID: 646982397}
   m_Layer: 0
   m_Name: Nav
   m_TagString: Untagged
@@ -2321,21 +2321,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &646982394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 646982393}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b52e659d6363e24799bf35e80ebd803, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 713924460}
-  updateInterval: 1
-  bakeRadius: 5
 --- !u!114 &646982395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2383,6 +2368,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &646982397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 646982393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d74843401efef564487402366f9829b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navMeshSurface: {fileID: 646982395}
 --- !u!1 &664005714
 GameObject:
   m_ObjectHideFlags: 0
