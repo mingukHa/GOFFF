@@ -15415,11 +15415,22 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 4
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8318776081507583639, guid: 52714feb96efcc342bd0d1bc850177d0, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 186429603903358422, guid: 52714feb96efcc342bd0d1bc850177d0,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1652282256}
   m_SourcePrefab: {fileID: 100100000, guid: 52714feb96efcc342bd0d1bc850177d0, type: 3}
+--- !u!1 &1309197979 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 186429603903358422, guid: 52714feb96efcc342bd0d1bc850177d0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1309197978}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1325252100 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e2f8c8f533ec5c941a320d19cc7ccf1e,
@@ -19611,6 +19622,36 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1309197978}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1652282256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309197979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 1
+    Name: isWalking
+  - Type: 9
+    SynchronizeType: 1
+    Name: isLookingAround
+  - Type: 4
+    SynchronizeType: 1
+    Name: isDetecting
+  - Type: 9
+    SynchronizeType: 1
+    Name: isAttack
+  m_SynchronizeLayers:
+  - SynchronizeType: 1
+    LayerIndex: 0
 --- !u!1 &1664983140
 GameObject:
   m_ObjectHideFlags: 0
