@@ -59,8 +59,6 @@ public class InElevator : MonoBehaviourPun
         //photonView.RPC("RPCIsButtonOn", RpcTarget.Others);
         if (!runElevator) return;
 
-        if (isClosing) return; // 문이 닫히는 중이면 중복 호출 방지
-        isClosing = true;
         if (photonView.IsMine)
         {
             StartCoroutine(CloseDoorsCoroutine());

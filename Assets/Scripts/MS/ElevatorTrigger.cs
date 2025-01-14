@@ -19,7 +19,7 @@ public class ElevatorTrigger : MonoBehaviour
                 // 첫 번째 플레이어 등록
                 firstPlayer = other;
             }
-            else if (secondPlayer == null && other != firstPlayer)
+            else if (secondPlayer == null && other.name != firstPlayer.name)
             {
                 // 두 번째 플레이어 등록
                 secondPlayer = other;
