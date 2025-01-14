@@ -1,6 +1,4 @@
-﻿// SimpleSonarShader scripts and shaders were written by Drew Okenfuss.
-
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.XR;
 using Photon.Pun;
@@ -15,21 +13,6 @@ public class SimpleSonarShader_ExampleCollision : MonoBehaviourPun
     {
         par = GetComponentInParent<SimpleSonarShader_Parent>();
     }
-    //private void Update()
-    //{
-    //    if (Input.GetMouseButtonDown(0))
-    //    {
-    //        Vector3 mousePos = Input.mousePosition;
-    //        Ray mousePosToRay = Camera.main.ScreenPointToRay(mousePos);
-
-    //        RaycastHit hit;
-    //        if (Physics.Raycast(mousePosToRay, out hit))
-    //        {
-    //            par.StartSonarRing(hit.point, 1.4f, 0);
-    //        }
-    //    }
-    //}
-
 
     void OnCollisionEnter(Collision collision)
     {
