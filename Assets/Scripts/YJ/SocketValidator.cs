@@ -27,6 +27,9 @@ public class SocketValidator : MonoBehaviourPun
 
     public void OnObjectPlaced(SelectEnterEventArgs args)
     {
+        // 소켓에 들어갔을 때 효과음
+        SoundManager.instance.SFXPlay("SocketItem_SFX", this.gameObject);
+
         placedObject = args.interactableObject.transform.gameObject;
 
         if (placedObject.name == expectedObjectName)
