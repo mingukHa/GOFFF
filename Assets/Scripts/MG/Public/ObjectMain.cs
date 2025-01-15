@@ -36,7 +36,7 @@ public class ObjectMain : MonoBehaviourPun
             Debug.Log("내 물체가 아니라서 트리거가 아니라서 작동안함");
         }
 
-        if (other.GetComponent<XRGrabInteractable>() == null) return;
+        if (transform.GetComponent<XRGrabInteractable>() == null) return;
 
         if(!isGrabbed && gameObject.GetComponent<FixedJoint>() == null)
         {
