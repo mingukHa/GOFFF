@@ -55,7 +55,7 @@ public class SimpleSonarShader_PlayerMove : MonoBehaviourPun
     {
         if (par)
         {
-            SoundManager.instance.SFXPlay("Wheel_SFX", this.gameObject);
+            SoundManager.instance.SFXPlay("Wheel_SFX", playerTransform.gameObject);
             Vector3 sonarOrigin = playerTransform.position;
 
             // PlayerHolder를 중심으로 Sonar 효과 발동
