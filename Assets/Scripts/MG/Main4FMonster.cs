@@ -4,6 +4,7 @@ using Photon.Pun;
 
 public class MonsterTest : MonoBehaviourPun
 {
+    [SerializeField] private Vector3 Cubedetect = new Vector3 (10, 10, 10);
     [SerializeField] private float detectionRadius = 10f;
     [SerializeField] private float viewAngle = 60f;
     [SerializeField] private LayerMask detectionLayer;
@@ -219,7 +220,7 @@ public class MonsterTest : MonoBehaviourPun
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, detectionRadius);
+        Gizmos.DrawWireCube(transform.position, Cubedetect);
 
         Vector3 forward = transform.forward * visionDistance;
         Vector3 leftBoundary = Quaternion.Euler(0, -viewAngle / 2, 0) * forward;

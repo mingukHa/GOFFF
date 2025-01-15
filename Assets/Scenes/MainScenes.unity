@@ -14360,8 +14360,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spwan1: {fileID: 682705973}
   spwan2: {fileID: 367614958}
-  Player1: {fileID: 5983295875041255981, guid: feab0d83960f233479b23431946ef43e, type: 3}
-  Player2: {fileID: 5983295875041255981, guid: 67e29d514e4231c44aea400288e5f8c8, type: 3}
 --- !u!1 &1279473521
 GameObject:
   m_ObjectHideFlags: 0
@@ -15047,6 +15045,21 @@ PrefabInstance:
         type: 3}
       propertyPath: viewAngle
       value: 360
+      objectReference: {fileID: 0}
+    - target: {fileID: 1147981313121085501, guid: 52714feb96efcc342bd0d1bc850177d0,
+        type: 3}
+      propertyPath: Cubedetect.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1147981313121085501, guid: 52714feb96efcc342bd0d1bc850177d0,
+        type: 3}
+      propertyPath: Cubedetect.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1147981313121085501, guid: 52714feb96efcc342bd0d1bc850177d0,
+        type: 3}
+      propertyPath: Cubedetect.z
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1147981313121085501, guid: 52714feb96efcc342bd0d1bc850177d0,
         type: 3}
