@@ -25,10 +25,10 @@ public class Domwaiterfood : MonoBehaviourPun
 
         */
 
-       // if (photonView.IsMine) // 이 버튼을 누른 플레이어만 아이템 전송 요청을 보냄
-       // {
-            // 주황색 박스[0]에서 아이템을 전송
+        //if (photonView.IsMine) // 이 버튼을 누른 플레이어만 아이템 전송 요청을 보냄
+        //{
+        //    // 주황색 박스[0]에서 아이템을 전송
             triggerZone0.SendItemsToTarget(targetPosition);
-       // }
+        //}
     }
 }
