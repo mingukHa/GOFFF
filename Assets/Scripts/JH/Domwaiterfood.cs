@@ -6,12 +6,9 @@ public class Domwaiterfood : MonoBehaviourPun
     [SerializeField] private DomwaiterOven triggerZone0;   // 주황색 박스 [0]
     [SerializeField] private Transform targetPosition;  // 주황색 박스 [1]
   
-
-    
-
     public void OnButtonPressed()
     {
-        
+        SoundManager.instance.SFXPlay("Button_SFX", this.gameObject);   //버튼 눌렀을 때
         /*  멀티가 아닌 상황에서 로컬 로직
         
         // 주황색 박스[0]dptj 충돌된 모든 오브젝트 가져오기
@@ -30,5 +27,6 @@ public class Domwaiterfood : MonoBehaviourPun
         //    // 주황색 박스[0]에서 아이템을 전송
             triggerZone0.SendItemsToTarget(targetPosition);
         //}
+        SoundManager.instance.SFXPlay("Elevator_SFX", targetPosition.gameObject);   //지하2층 덤웨이터 바닥에서 발동
     }
 }
