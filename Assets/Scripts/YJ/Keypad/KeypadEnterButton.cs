@@ -14,7 +14,7 @@ public class KeypadEnterButton : MonoBehaviour
 
     public void OnPressed()
     {
-        SoundManager.instance.SFXPlay("Button2_SFX");
+        SoundManager.instance.SFXPlay("Button_SFX", gameObject);
 
 
         PhotonView photonView = PhotonView.Get(keypadManager);

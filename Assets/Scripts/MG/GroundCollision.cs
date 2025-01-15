@@ -12,7 +12,6 @@ public class GroundCollision : MonoBehaviour
             Vector3 collisionPoint = collision.contacts[0].point; // 충돌 좌표
             Debug.Log($"GroundCollision에서 전달된 좌표: {collisionPoint}"); // 전달값 디버깅
             OnObjectHitGround?.Invoke(collisionPoint); // 이벤트 호출
-            SoundManager.instance.SFXPlay("CanThrow_SFX");
         }
     }
 

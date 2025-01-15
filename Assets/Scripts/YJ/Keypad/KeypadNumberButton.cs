@@ -17,7 +17,7 @@ public class KeypadNumberButton : MonoBehaviour
 
     public void OnPressed()
     {
-        SoundManager.instance.SFXPlay("Button_SFX");
+        SoundManager.instance.SFXPlay("Button_SFX", gameObject);
         Debug.Log(number + "번 버튼을 눌렀습니다.");
 
         // RPC를 통해 숫자 추가 동작을 동기화

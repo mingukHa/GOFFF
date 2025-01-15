@@ -84,7 +84,7 @@ public class SoundManager : MonoBehaviourPunCallbacks
             return;
         }
 
-        bgmSound.outputAudioMixerGroup = mixer.FindMatchingGroups("BGM")[0];    //Mixer
+        //bgmSound.outputAudioMixerGroup = mixer.FindMatchingGroups("BGM")[0];    //Mixer
         bgmSound.clip = clip;
         bgmSound.loop = true;
         bgmSound.volume = 1f;
