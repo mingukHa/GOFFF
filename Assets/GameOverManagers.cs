@@ -13,6 +13,7 @@ public class GameOverManagers : MonoBehaviourPun
         if (Input.GetKey(KeyCode.Space))
         {
             ReStart();
+            photonView.RPC("ReStart", RpcTarget.All);
         }
     }
     private void Awake()
