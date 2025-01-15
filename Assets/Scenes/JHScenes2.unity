@@ -30854,6 +30854,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5116758634870225072}
+    - targetCorrespondingSourceObject: {fileID: 7049805764741760131, guid: 53763f48ce029bc4997aa4d972ee0c62,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5116758634870225073}
   m_SourcePrefab: {fileID: 100100000, guid: 53763f48ce029bc4997aa4d972ee0c62, type: 3}
 --- !u!4 &4839665289768604089 stripped
 Transform:
@@ -30877,6 +30881,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 367925fb0bda78d44a553113f78d1960, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5116758634870225073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4839665289768604090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0da77296ee3e1a149b85249fb2516cba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!23 &5117738719038260630
