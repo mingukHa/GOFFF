@@ -7,7 +7,7 @@ public class MGNavMseh : MonoBehaviour
     private NavMeshAgent navMeshAgent; // NavMeshAgent 컴포넌트
     public float detectionRadius = 40f; // 플레이어를 탐지할 반지름
     public LayerMask isTarget; // 탐지할 대상 레이어 (플레이어 태그)
-    private Animator animator;
+    private Animator animator; //에니메이터 받아오기
     private Transform target; // 플레이어의 Transform
 
     private void Awake()
