@@ -46,7 +46,8 @@ public class MonsterTest : MonoBehaviourPun
                 HandleIdleState();
                 break;
             case MonsterState.Walking:
-                MoveToTarget();                
+                MoveToTarget();
+                HandleDetectState();
                 break;
             case MonsterState.LookingAround:
                 LookAround();

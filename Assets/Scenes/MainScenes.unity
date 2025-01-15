@@ -15044,7 +15044,7 @@ PrefabInstance:
     - target: {fileID: 1147981313121085501, guid: 52714feb96efcc342bd0d1bc850177d0,
         type: 3}
       propertyPath: viewAngle
-      value: 360
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 1147981313121085501, guid: 52714feb96efcc342bd0d1bc850177d0,
         type: 3}
@@ -15069,7 +15069,7 @@ PrefabInstance:
     - target: {fileID: 1147981313121085501, guid: 52714feb96efcc342bd0d1bc850177d0,
         type: 3}
       propertyPath: visionDistance
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1147981313121085501, guid: 52714feb96efcc342bd0d1bc850177d0,
         type: 3}
@@ -15079,7 +15079,12 @@ PrefabInstance:
     - target: {fileID: 1147981313121085501, guid: 52714feb96efcc342bd0d1bc850177d0,
         type: 3}
       propertyPath: detectionLayer.m_Bits
-      value: 0
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 5883975807660589847, guid: 52714feb96efcc342bd0d1bc850177d0,
+        type: 3}
+      propertyPath: m_Speed
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6382787116828764366, guid: 52714feb96efcc342bd0d1bc850177d0,
         type: 3}
