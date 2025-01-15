@@ -439,23 +439,5 @@ namespace UnityEngine.XR.Content.Interaction
 
             SetKnobRotation(ValueToRotation());
         }
-
-        //[PunRPC]
-        //void SyncKnobValue(float value)
-        //{
-        //    Photon.Pun
-        //    // 네트워크에서 받은 값을 설정
-        //    m_Value = value;
-        //    m_OnValueChange.Invoke(m_Value);
-        //    SetKnobRotation(ValueToRotation());  // 동기화된 값으로 회전도 업데이트
-        //}
-
-        //[PunRPC]
-        //void SyncKnobRotation(float angle)
-        //{
-        //    // 네트워크에서 받은 회전값을 설정
-        //    if (m_Handle != null)
-        //        m_Handle.localEulerAngles = new Vector3(0.0f, angle, 0.0f);
-        //}
     }
 }

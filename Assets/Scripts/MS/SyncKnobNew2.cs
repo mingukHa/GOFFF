@@ -9,24 +9,6 @@ public class SyncKnobNew2 : MonoBehaviourPun
     public GameObject knob;
     private bool isSyncing = false;
 
-    private float targetValue; // 목표 값
-    private float currentValue; // 현재 값
-    public float lerpSpeed = 5f; // 보간 속도
-
-    //private void OnEnable()
-    //{
-    //    // XRKnob에서 값이 변경될 때마다 HandleSyncKnobValue 호출
-    //    xrKnob.onValueChange.AddListener(HandleSyncKnobValue);
-    //}
-
-    //private void OnDisable()
-    //{
-    //    // 이벤트 구독 해제
-    //    xrKnob.onValueChange.RemoveListener(HandleSyncKnobValue);
-    //}
-
-
-
     public void HandleSyncKnobValue()
     {
         Debug.Log("Onchanged value가 실행됨, IsGrabbed 값 : " + valve.IsGrabbed);
@@ -37,12 +19,6 @@ public class SyncKnobNew2 : MonoBehaviourPun
         }
     }
 
-    //public void HandleSyncKnobRotation(float angle)
-    //{
-    //    if (isSyncing) return;
-    //    photonView.RPC("SyncKnobRotation", RpcTarget.Others, angle);
-    //}
-
     [PunRPC]
     void SyncKnobValueNew2(float value)
     {
@@ -51,11 +27,4 @@ public class SyncKnobNew2 : MonoBehaviourPun
         isSyncing = false;
     }
 
-    //[PunRPC]
-    //void SyncKnobRotation(float angle)
-    //{
-    //    isSyncing = true;
-    //    xrKnob.SetKnobRotation(angle);
-    //    isSyncing = false;
-    //}
 }
