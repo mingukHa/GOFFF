@@ -35,12 +35,13 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
 
     private void Start()
     {
+        // 시작할 때 포톤 서버의 시간 가져오기
         sceneStartTimePhoton = PhotonNetwork.Time;
-        // Get renderers that will have effect applied to them
+        // 자식에서 렌더러 가져오기
         ObjectRenderers = GetComponentsInChildren<Renderer>();
         propertyBlock = new MaterialPropertyBlock();
 
-        // Fill queues with starting values that are garbage values
+        // 큐를 미리 쓰레기 값으로 넣어둠
         for (int i = 0; i < QueueSize; i++)
         {
             positionsQueue.Enqueue(GarbagePosition);
