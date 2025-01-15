@@ -3054,7 +3054,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbba0f997c33fc04ea8ec3059cf4c756, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetObject: {fileID: 0}
 --- !u!1001 &545632769
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9649,17 +9648,17 @@ PrefabInstance:
     - target: {fileID: 7979916830513711551, guid: 4dfac36245beb8e4d884a833a5a0517f,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.16666678
+      value: 0.29
       objectReference: {fileID: 0}
     - target: {fileID: 7979916830513711551, guid: 4dfac36245beb8e4d884a833a5a0517f,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.1666667
+      value: 0.29
       objectReference: {fileID: 0}
     - target: {fileID: 7979916830513711551, guid: 4dfac36245beb8e4d884a833a5a0517f,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.16666676
+      value: 0.29
       objectReference: {fileID: 0}
     - target: {fileID: 7979916830513711551, guid: 4dfac36245beb8e4d884a833a5a0517f,
         type: 3}
@@ -9669,7 +9668,7 @@ PrefabInstance:
     - target: {fileID: 7979916830513711551, guid: 4dfac36245beb8e4d884a833a5a0517f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.86999995
+      value: -1.19
       objectReference: {fileID: 0}
     - target: {fileID: 7979916830513711551, guid: 4dfac36245beb8e4d884a833a5a0517f,
         type: 3}
@@ -9710,6 +9709,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7979916830513711551, guid: 4dfac36245beb8e4d884a833a5a0517f,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8124702712311823896, guid: 4dfac36245beb8e4d884a833a5a0517f,
         type: 3}
@@ -13125,6 +13129,11 @@ PrefabInstance:
       propertyPath: m_Keyboard
       value: 
       objectReference: {fileID: 1650764750}
+    - target: {fileID: 4539441433167135682, guid: acc2577baa3cdd94699676b6baec3281,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4731489310844542891, guid: acc2577baa3cdd94699676b6baec3281,
         type: 3}
       propertyPath: m_Name
@@ -19472,6 +19481,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 144602115}
     m_Modifications:
+    - target: {fileID: 742830031346200232, guid: acc2577baa3cdd94699676b6baec3281,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3465737568174379108, guid: acc2577baa3cdd94699676b6baec3281,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -112.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 3465737568174379108, guid: acc2577baa3cdd94699676b6baec3281,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 208.15
+      objectReference: {fileID: 0}
     - target: {fileID: 3875257921001452812, guid: acc2577baa3cdd94699676b6baec3281,
         type: 3}
       propertyPath: m_Pivot.x
@@ -19572,12 +19596,32 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4539441433167135682, guid: acc2577baa3cdd94699676b6baec3281,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4731489310844542891, guid: acc2577baa3cdd94699676b6baec3281,
         type: 3}
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
     - target: {fileID: 4731489310844542891, guid: acc2577baa3cdd94699676b6baec3281,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6383741239114789401, guid: acc2577baa3cdd94699676b6baec3281,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6860528881760219675, guid: acc2577baa3cdd94699676b6baec3281,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7122853306833290457, guid: acc2577baa3cdd94699676b6baec3281,
         type: 3}
       propertyPath: m_IsActive
       value: 0
