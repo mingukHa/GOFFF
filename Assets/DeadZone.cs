@@ -4,7 +4,7 @@ using UnityEngine;
 public class DeadZone : MonoBehaviourPun
 {
     private GameOverManagers GOM;
-    private void Awake()
+    private void Start()
     {
         GOM = GetComponent<GameOverManagers>();
     }
