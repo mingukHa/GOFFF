@@ -6,11 +6,6 @@ public class ObjectMain : MonoBehaviourPun
 {
     private bool isGrabbed = false;
 
-    private void Update()
-    {
-        Debug.Log("IsGrabbed : " + isGrabbed); 
-    }
-
     public void OnSelectEnter()
     {
         if(!photonView.IsMine)
