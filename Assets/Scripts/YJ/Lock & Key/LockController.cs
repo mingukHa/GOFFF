@@ -3,24 +3,23 @@ using Photon.Pun;
 
 public class LockController : MonoBehaviourPun
 {
-    // DoorController를 참조할 필드
-    public DoorController doorController;
-    private Collider lockColliders;
+    public DoorController doorController; // 열쇠가 자물쇠에 닿으면 열릴 문
+    private Collider lockCollider; // 자물쇠에 부착된 콜라이더
 
     private void Start()
     {
-        lockColliders = GetComponent<Collider>();
+        lockCollider = GetComponent<Collider>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider collider)
     {
         // 충돌한 오브젝트가 'Key' 태그를 가지고 있는지 확인
-        if (other.CompareTag("Key"))
+        if (collider.CompareTag("Key"))
         {
-            // DoorController의 OpenDoor 메서드 호출 및 동기화
+            // RPC로 OpenDoorAndDestroy 메소드 호출
             if (doorController != null)
             {
-                photonView.RPC("OpenDoorAndDestroy", RpcTarget.All, other.gameObject.GetComponent<PhotonView>().ViewID);
+                photonView.RPC("OpenDoorAndDestroy", RpcTarget.All, collider.gameObject.GetComponent<PhotonView>().ViewID);
             }
         }
     }
@@ -28,20 +27,20 @@ public class LockController : MonoBehaviourPun
     [PunRPC]
     private void OpenDoorAndDestroy(int keyViewID)
     {
-        // DoorController의 OpenDoor 메서드 호출
         if (doorController != null)
         {
+            // DoorController의 OpenDoor 메소드 호출하여 문 개방
             doorController.OpenDoor();
         }
 
-        // 'Key' 오브젝트 제거
+        // 열쇠 오브젝트 제거
         PhotonView keyPhotonView = PhotonView.Find(keyViewID);
         if (keyPhotonView != null)
         {
             Destroy(keyPhotonView.gameObject);
         }
 
-        // Lock 오브젝트 제거
+        // 자물쇠 오브젝트 제거
         Destroy(gameObject);
     }
 }

@@ -3,26 +3,22 @@ using Photon.Pun;
 
 public class GoalNetController : MonoBehaviourPun
 {
-    // DoorController를 참조할 필드
-    public DoorController doorController;
-    private Collider lockColliders;
+    public DoorController doorController; // 공이 골네트에 닿으면 열릴 문
+    private Collider goalNetCollider; // 골네트에 부착된 콜라이더
 
     private void Start()
     {
-        lockColliders = GetComponent<Collider>();
+        goalNetCollider = GetComponent<Collider>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider collider)
     {
-        Debug.Log("공 충돌함");
-
         // 충돌한 오브젝트가 'Ball' 태그를 가지고 있는지 확인
-        if (other.CompareTag("Ball"))
+        if (collider.CompareTag("Ball"))
         {
-            // DoorController의 OpenDoor 메서드 호출 및 동기화
+            // RPC로 OpenLabDoor 메소드 호출
             if (doorController != null)
             {
-                //doorController.OpenDoor();
                 photonView.RPC("OpenLabDoor", RpcTarget.All);
             }
         }
@@ -31,10 +27,10 @@ public class GoalNetController : MonoBehaviourPun
     [PunRPC]
     private void OpenLabDoor()
     {
-        // DoorController의 OpenDoor 메서드 호출
+
         if (doorController != null)
         {
-            Debug.Log("DoorController가 작동하였습니다.");
+            // DoorController의 OpenDoor 메소드 호출하여 문 개방
             doorController.OpenDoor();
         }
     }
