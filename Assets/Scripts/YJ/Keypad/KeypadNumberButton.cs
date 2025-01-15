@@ -15,8 +15,8 @@ public class KeypadNumberButton : MonoBehaviour
 
     public void OnPressed()
     {
-        // 키패드 누르는 SFX 추가
-        Debug.Log(number + "번 버튼을 눌렀습니다.");
+        SoundManager.instance.SFXPlay("Button_SFX", this.gameObject);
+        //Debug.Log(number + "번 버튼을 눌렀습니다.");
 
         // RPC를 통해 숫자 추가 동작을 동기화
         PhotonView photonView = PhotonView.Get(keypadManager);

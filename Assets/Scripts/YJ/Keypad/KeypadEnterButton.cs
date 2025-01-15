@@ -12,8 +12,9 @@ public class KeypadEnterButton : MonoBehaviour
 
     public void OnPressed()
     {
-        // 키패드 누르는 SFX 추가
+        SoundManager.instance.SFXPlay("Button_SFX", this.gameObject);
 
+        // RPC를 통해 엔터 버튼 누르는 동작을 동기화
         PhotonView photonView = PhotonView.Get(keypadManager);
         photonView.RPC("OnEnterButtonPressed", RpcTarget.Others);
     }
