@@ -1,16 +1,18 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
+using UnityEngine.Audio;
 
 //본게임시 믹서, 슬라이더 주석해제
-//public class Sound
-//{
-//    public string name; //곡의 이름
-//}
+public class Sound
+{
+    public string name; //곡의 이름
+}
 
 public class SoundManager : MonoBehaviourPunCallbacks
 {
     //싱글턴. singleton. 1개 (프로젝트에 단 하나 존재)
+    public AudioMixer mixer;
     public AudioSource bgmSound;
     public AudioSource sfxSound;
     public static SoundManager instance;
@@ -34,36 +36,32 @@ public class SoundManager : MonoBehaviourPunCallbacks
 
     private void OnSceneLoaded(Scene name0, LoadSceneMode name1)
     {
-        // 기존 재생 중인 배경음악 멈추기
-        if (bgmSound.isPlaying)
+        // 씬에 맞는 음악을 재생하도록 수정
+        if (name0.name == "LoginScenes" || name0.name == "waitRoom")
         {
-            bgmSound.Stop();
+            BGMPlay(bgmList[0]);  // LoginScenes 및 waitRoom에 대해 bgmList[0] 재생
         }
-        //LoginScenes 이름이라면 리스트의 첫 번째 브금 발생
-        if (name0.name == "LoginScenes")
-            BGMPlay(bgmList[0]);
-        else if (name0.name == "waitRoom")
-            BGMPlay(bgmList[0]);
-        else if (name0.name == "MainScenes")
-            BGMPlay(bgmList[1]);
+        else if (name0.name == "MainScenes" || name0.name == "JHScenes2" || name0.name == "JHScenes4" || name0.name == "JHScenes3")
+        {
+            BGMPlay(bgmList[1]);  // MainScenes에 대해 bgmList[1] 재생
+        }
     }
 
     //사용할 때 SoundManager.instance.SFXPlaye(sfxList[]);  를 추가
-    public void SFXPlay(string sfxName)
+    public void SFXPlay(string sfxName, GameObject targetObject)
     {
         AudioClip clip = System.Array.Find(sfxList, sound => sound.name == sfxName);    //이름으로 찾기
 
         if (clip != null)
         {
-            GameObject go = new GameObject(sfxName + "Sound"); //사운드파일 가져옴
-            //audiosource.outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0]; //SFX 믹서 추가
-            AudioSource audiosource = go.AddComponent<AudioSource>();   //AudioSource컴퍼넌트 추가
+            AudioSource audiosource = targetObject.GetComponent<AudioSource>();  // 문 오브젝트에서 AudioSource를 찾음
 
-            // 이미 동일한 사운드가 재생 중이라면 멈추기
-            if (sfxSound.isPlaying)
+            if (audiosource == null)  // 만약 문에 AudioSource가 없다면 추가
             {
-                sfxSound.Stop(); // 현재 재생 중인 사운드를 중지
+                audiosource = targetObject.AddComponent<AudioSource>();
             }
+
+            audiosource.outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0];  // SFX 믹서 추가
 
             // 3D 효과 설정
             audiosource.spatialBlend = 1f;         // 1: 3D 사운드, 0: 2D 사운드
@@ -75,8 +73,6 @@ public class SoundManager : MonoBehaviourPunCallbacks
             audiosource.volume = 1f;    //volume값
 
             audiosource.Play();     //그걸 실행
-
-            Destroy(go, clip.length);  //효과음 소리 지나면 파괴
         }
     }
 
@@ -88,7 +84,7 @@ public class SoundManager : MonoBehaviourPunCallbacks
             return;
         }
 
-        //bgmSound.outputAudioMixerGroup = mixer.FindMatchingGroups("BGM")[0];    //Mixer
+        bgmSound.outputAudioMixerGroup = mixer.FindMatchingGroups("BGM")[0];    //Mixer
         bgmSound.clip = clip;
         bgmSound.loop = true;
         bgmSound.volume = 1f;
