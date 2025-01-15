@@ -6758,7 +6758,7 @@ MonoBehaviour:
   accelerationFactor: 1.4
   inertiaFactor: 0.02
   maxSpeed: 5
-  rotationSpeed: 100
+  rotationSpeed: 75
   wheelRotationMultiplier: 50
 --- !u!114 &4292619623845241322
 MonoBehaviour:
@@ -6777,7 +6777,7 @@ MonoBehaviour:
   centerOfMass: {fileID: 5240997417116052744}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 512
   recoveryForce: 10
   uprightRotationSpeed: 5
   balanceCheckInterval: 0.5
@@ -6835,6 +6835,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476bb63a7e2f47042a52d77a151cfd4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GOM: {fileID: 0}
 --- !u!54 &7776948961059441294
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6861,7 +6862,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 2
 --- !u!65 &5760728534539583603
 BoxCollider:
   m_ObjectHideFlags: 0
