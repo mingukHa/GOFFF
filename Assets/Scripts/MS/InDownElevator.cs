@@ -59,7 +59,8 @@ public class InDownElevator : MonoBehaviourPun
     {
         //isButtonOn++;
         //photonView.RPC("RPCIsButtonOn", RpcTarget.Others);
-        if (!runElevator) return;
+        if (!runElevator && isClosing) return;
+        isClosing = true;
 
         if (photonView.IsMine)
         {
