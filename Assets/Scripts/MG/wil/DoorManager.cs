@@ -35,7 +35,7 @@ public class DoorController : MonoBehaviour
     // 문 열기
     public void OpenDoor()
     {
-        SoundManager.instance.SFXPlay("OpenDoor_SFX", gameObject);
+        SoundManager.instance.SFXPlay("OpenDoor_SFX", this.gameObject);
         StopAllCoroutines();
         StartCoroutine(AnimateDoor(openRotation));
         isOpen = true;
@@ -44,7 +44,7 @@ public class DoorController : MonoBehaviour
     // 문 닫기
     private void CloseDoor()
     {
-        SoundManager.instance.SFXPlay("LockDoor_SFX", gameObject);
+        SoundManager.instance.SFXPlay("LockDoor_SFX", this.gameObject);
         StopAllCoroutines();
         StartCoroutine(AnimateDoor(closedRotation));
         isOpen = false;
