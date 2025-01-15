@@ -1,6 +1,7 @@
 using Photon.Pun;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class ObjectMain : MonoBehaviourPun
 {
@@ -34,7 +35,9 @@ public class ObjectMain : MonoBehaviourPun
         {
             Debug.Log("내 물체가 아니라서 트리거가 아니라서 작동안함");
         }
-            
+
+        if (other.GetComponent<XRGrabInteractable>() == null) return;
+
         if(!isGrabbed && gameObject.GetComponent<FixedJoint>() == null)
         {
             if (other.CompareTag("Basket"))
