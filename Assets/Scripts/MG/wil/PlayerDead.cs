@@ -14,10 +14,6 @@ public class PlayerDead : MonoBehaviourPun
             {
                 photonView.RPC("ReStart", RpcTarget.All);
             }
-            else
-            {
-                Debug.LogError("GameOverManagers reference is missing!");
-            }
         }
     }
 }
