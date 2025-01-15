@@ -19,6 +19,7 @@ public class SecretWallDestroyer : MonoBehaviour
         }
         else if (isCollision && currentRotationX >= 90f)
         {
+            SoundManager.instance.SFXPlay("StrikeWall_SFX", this.gameObject);
             // 90도 회전 후, 오브젝트를 파괴
             Invoke(nameof(DestroygameObject), 2f);
         }
