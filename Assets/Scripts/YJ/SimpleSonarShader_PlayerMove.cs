@@ -18,8 +18,8 @@ public class SimpleSonarShader_PlayerMove : MonoBehaviourPun
 
     private IEnumerator Start()
     {
-        //par = GetComponentInParent<SimpleSonarShader_Parent>();
-        par = FindFirstObjectByType<SimpleSonarShader_Parent>();
+        par = GetComponentInParent<SimpleSonarShader_Parent>();
+        //par = FindFirstObjectByType<SimpleSonarShader_Parent>();
 
         // Player 검색을 일정 시간 동안 반복 시도
         GameObject playerInstance = null;
@@ -61,12 +61,12 @@ public class SimpleSonarShader_PlayerMove : MonoBehaviourPun
             // PlayerHolder를 중심으로 Sonar 효과 발동
             par.StartSonarRing(sonarOrigin, 1.2f, 0);
             PlayerMove?.Invoke(sonarOrigin);
-            photonView.RPC("RPCPlayerMove", RpcTarget.Others);
+            photonView.RPC("RPCPlayerMoveRing", RpcTarget.Others);
         }
     }
 
     [PunRPC]
-    private void RPCPlayerMove(Vector3 sonarOrigin)
+    private void RPCPlayerMoveRing(Vector3 sonarOrigin)
     {
         PlayerMove?.Invoke(sonarOrigin);
     }
