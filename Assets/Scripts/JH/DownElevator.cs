@@ -31,11 +31,11 @@ public class DownElevator : MonoBehaviourPun
 
     public IEnumerator OpenDoorsCoroutine()
     {
-        SoundManager.instance.SFXPlay("Elevator2_SFX");
+        SoundManager.instance.SFXPlay("Elevator_SFX", gameObject);
 
         yield return new WaitForSeconds(1f);
 
-        SoundManager.instance.SFXPlay("ElevatorDoor2_SFX");
+        SoundManager.instance.SFXPlay("ElevatorDoor_SFX", gameObject);
 
         float elapsedTime = 0f;
 

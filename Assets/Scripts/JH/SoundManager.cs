@@ -61,7 +61,7 @@ public class SoundManager : MonoBehaviourPunCallbacks
                 audiosource = targetObject.AddComponent<AudioSource>();
             }
 
-            audiosource.outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0];  // SFX 믹서 추가
+            //audiosource.outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0];  // SFX 믹서 추가
 
             // 3D 효과 설정
             audiosource.spatialBlend = 1f;         // 1: 3D 사운드, 0: 2D 사운드
@@ -84,7 +84,7 @@ public class SoundManager : MonoBehaviourPunCallbacks
             return;
         }
 
-        bgmSound.outputAudioMixerGroup = mixer.FindMatchingGroups("BGM")[0];    //Mixer
+        //bgmSound.outputAudioMixerGroup = mixer.FindMatchingGroups("BGM")[0];    //Mixer
         bgmSound.clip = clip;
         bgmSound.loop = true;
         bgmSound.volume = 1f;

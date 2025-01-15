@@ -82,7 +82,7 @@ public class InElevator : MonoBehaviourPun
 
     public IEnumerator CloseDoorsCoroutine()
     {
-        SoundManager.instance.SFXPlay("ElevatorDoor2_SFX");
+        SoundManager.instance.SFXPlay("ElevatorDoor_SFX",gameObject);
 
         float elapsedTime = 0f;
 

@@ -19,6 +19,7 @@ public class UpElevator : MonoBehaviourPun
         if (isUpDoorOpening || !photonView.IsMine) return;
 
         isUpDoorOpening = true;
+
         StartCoroutine(OpenDoorsCoroutine());
 
         photonView.RPC("RPCOpenDoors", RpcTarget.Others);
@@ -34,11 +35,11 @@ public class UpElevator : MonoBehaviourPun
 
     public IEnumerator OpenDoorsCoroutine()
     {
-        SoundManager.instance.SFXPlay("Elevator2_SFX");
+        SoundManager.instance.SFXPlay("Elevator_SFX", this.gameObject);
 
         yield return new WaitForSeconds(1f);
 
-        SoundManager.instance.SFXPlay("ElevatorDoor2_SFX");
+        SoundManager.instance.SFXPlay("ElevatorDoor_SFX", this.gameObject);
 
         float elapsedTime = 0f;
 
