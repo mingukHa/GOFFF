@@ -1,12 +1,9 @@
 using Photon.Pun;
-using System.Collections;
-using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEngine.ProBuilder.Shapes;
-using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class GrabValve : MonoBehaviourPun
 {
+    // 파이프에 따라 이벤트를 따로 등록
     public delegate void grabValveDelegate(GameObject gameObject, Collider other);
     public grabValveDelegate grabValveTrigger;
     public delegate void grabValve2Delegate(GameObject gameObject, Collider other);
@@ -23,6 +20,7 @@ public class GrabValve : MonoBehaviourPun
 
     private void Update()
     {
+        // 밸브가 추락할 경우 currentTr 장소에 스폰
         if(-15f>transform.position.y)
         {
             Rigidbody ValveRD=transform.GetComponent<Rigidbody>();
@@ -86,6 +84,8 @@ public class GrabValve : MonoBehaviourPun
         }
     }
 
+    // grab이 됐을경우에 isKinematic이 다른 클라이언트에서는 켜져있지 않아
+    // 중력의 영향을 받기 때문에 잡았을 경우 다른 클라이언트에서 isKinematic이 켜지도록 함
     [PunRPC]
     private void RPCGrabbed(bool grabbed)
     {
