@@ -5,8 +5,8 @@ using Photon.Pun;
 public class LeverController : MonoBehaviourPun
 {
     // 핸들, 엘리베이터 오브젝트
-    public Transform handle;
-    public GameObject elevator;
+    public Transform handle; // 레버 핸들
+    public BoxCollider eVButton; // 엘리베이터 상승 버튼
 
     // 레버 올리는 동작
     private Vector3 targetRotation = new Vector3(-45, 0, 0); // 올라간 레버의 회전값
@@ -23,11 +23,18 @@ public class LeverController : MonoBehaviourPun
 
         // 레버 회전
         if (handle != null)
-            StartCoroutine(RotateHandle());
+        {
+            photonView.RPC("RPC_RotateHandle", RpcTarget.All);
+        }
 
-        // 엘리베이터 활성화
-        if (elevator != null)
-            elevator.SetActive(true);
+        // 엘리베이터 버튼 활성화
+        photonView.RPC("RPC_ActivateEVButton", RpcTarget.All);
+    }
+
+    [PunRPC]
+    private void RPC_RotateHandle()
+    {
+        StartCoroutine(RotateHandle());
     }
 
     private IEnumerator RotateHandle()
@@ -45,5 +52,11 @@ public class LeverController : MonoBehaviourPun
         }
 
         handle.localRotation = finalRotation; // 최종 회전값 확인
+    }
+
+    [PunRPC]
+    private void RPC_ActivateEVButton()
+    {
+        eVButton.enabled = true;
     }
 }
