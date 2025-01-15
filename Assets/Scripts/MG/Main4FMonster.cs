@@ -59,18 +59,14 @@ public class MonsterTest : MonoBehaviourPun
                 break;
         }
     }
-    public void Idel()
-    {
-        //SoundManager.instance.SFXPlay("ZomBreathing_SFX");
-    }
     private void HandleIdleState()
     {
         DetectTargetsInView();
     }
-    public void Attack()
-    {
-       // SoundManager.instance.SFXPlay("GameOver_SFX");
-    }
+    //public void Attack()
+    //{
+    //   // SoundManager.instance.SFXPlay("GameOver_SFX");
+    //}
     public void Detect()
     {
         //SoundManager.instance.SFXPlay("ZomShout_SFX");
@@ -93,10 +89,10 @@ public class MonsterTest : MonoBehaviourPun
             animator.SetBool("isDetecting", false);
         }
     }
-    public void Walk()
-    {
-       // SoundManager.instance.SFXPlay("ZomWalk_SFX");
-    }
+    //public void Walk()
+    //{
+    //   // SoundManager.instance.SFXPlay("ZomWalk_SFX");
+    //}
     private void HandleGroundCollision(Vector3 collisionPoint)
     {
         SetTargetPosition(collisionPoint);
