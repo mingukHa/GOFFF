@@ -19,8 +19,8 @@ public class GameOverManagers : MonoBehaviourPun
     private void Awake()
     {
         // 이름으로 플레이어 오브젝트 찾기
-        Player1 = GameObject.Find("PlayerHolder");
-        Player2 = GameObject.Find("PlayerHolder1");
+        Player1 = GameObject.Find("PlayerHolder(Clone)");
+        Player2 = GameObject.Find("PlayerHolder1(Clone)");
         Debug.LogError($"{Player1},{Player2} 확인이 됨");
         if (Player1 == null)
         {

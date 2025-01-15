@@ -8,11 +8,12 @@ public class PlayerDead : MonoBehaviourPun
     {
         GOM = GetComponent<GameOverManagers>();
     }
-    private void OnTriggerEnter(Collider collider)
+   
+    private void OnTriggerEnter(Collider other)
     {
         if (GOM != null)
         {
-            if (collider.gameObject.CompareTag("Monster"))
+            if (other.gameObject.CompareTag("Monster"))
             {
                 Debug.Log("몬스터에게 닿음");
 
