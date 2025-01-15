@@ -8,12 +8,12 @@ using Photon.Pun; // Photon 관련 라이브러리 추가
 public class InDownElevator : MonoBehaviourPun
 {
     [SerializeField] private List<Transform> elevatorDoors; // 할당된 엘리베이터 문 2개
-    [SerializeField] private Transform elevatorBottom;    // 엘리베이터 바닥
+    //[SerializeField] private Transform elevatorBottom;    // 엘리베이터 바닥
     public float closeDuration = 2f; // 문 닫히는 시간
     private Vector3 closedScale = new Vector3(1, 1, 1); // 닫힌 상태의 Scale
     private Vector3 openScale = new Vector3(0, 1, 1);   // 열린 상태의 Scale
 
-    public UpElevator upElevator;   // 위로 버튼을 눌렀는지 확인하기 위해
+    //public UpElevator upElevator;   // 위로 버튼을 눌렀는지 확인하기 위해
     //public DownElevator downElevator;   // 아래로 버튼을 눌렀는지 확인하기 위해
 
     private bool isClosing = false; // 문이 닫히는 중인지 확인
@@ -21,7 +21,7 @@ public class InDownElevator : MonoBehaviourPun
     public ElevatorDownTrigger elevatorTrigger;
     private bool runElevator = false;
     private Transform playerTr;
-    private Transform ThreeFloorTp;
+    public Transform ThreeFloorTp;
 
 
     //private void OnTriggerEnter(Collider other)
