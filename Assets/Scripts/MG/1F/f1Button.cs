@@ -18,6 +18,8 @@ public class f1Button : MonoBehaviourPun
         }
         
         // 새로운 Coroutine 시작
+        SoundManager.instance.SFXPlay("Button_SFX", this.gameObject);
+        SoundManager.instance.SFXPlay("Shutter_SFX", this.gameObject);
         moveCoroutine = StartCoroutine(MoveDoor());
         photonView.RPC("ButtonMove", RpcTarget.Others);
     }

@@ -58,6 +58,7 @@ public class LeverController : MonoBehaviourPun
         }
 
         lever.localRotation = finalRotation; // 레버의 회전값을 최종 회전값과 동기화
+        SoundManager.instance.SFXPlay("Spark1_SFX", this.gameObject);
     }
 
     [PunRPC]
