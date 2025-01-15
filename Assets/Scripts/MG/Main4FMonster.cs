@@ -60,7 +60,7 @@ public class MonsterTest : MonoBehaviourPun
     }
     public void Idel()
     {
-        SoundManager.instance.SFXPlay("ZomBreathing_SFX");
+        //SoundManager.instance.SFXPlay("ZomBreathing_SFX");
     }
     private void HandleIdleState()
     {
@@ -68,11 +68,11 @@ public class MonsterTest : MonoBehaviourPun
     }
     public void Attack()
     {
-        SoundManager.instance.SFXPlay("GameOver_SFX");
+       // SoundManager.instance.SFXPlay("GameOver_SFX");
     }
     public void Detect()
     {
-        SoundManager.instance.SFXPlay("ZomShout_SFX");
+        //SoundManager.instance.SFXPlay("ZomShout_SFX");
 
         if (!isDetectedByZombie)  // 아직 발각되지 않았다면
         {
@@ -94,7 +94,7 @@ public class MonsterTest : MonoBehaviourPun
     }
     public void Walk()
     {
-        SoundManager.instance.SFXPlay("ZomWalk_SFX");
+       // SoundManager.instance.SFXPlay("ZomWalk_SFX");
     }
     private void HandleGroundCollision(Vector3 collisionPoint)
     {
