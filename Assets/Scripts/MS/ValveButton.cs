@@ -55,6 +55,7 @@ public class ValveButton : MonoBehaviourPun
     public void SelectOnButton()
     {
         Debug.Log("버튼이 선택됨");
+        SoundManager.instance.SFXPlay("Button_SFX", this.gameObject);
         //if(valve.IsAttached)
         {
             buttonPush = true;
