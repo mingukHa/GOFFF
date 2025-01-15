@@ -21,7 +21,7 @@ public class GameOverManagers : MonoBehaviourPun
         // 이름으로 플레이어 오브젝트 찾기
         Player1 = GameObject.Find("PlayerHolder(Clone)");
         Player2 = GameObject.Find("PlayerHolder1(Clone)");
-        Debug.LogError($"{Player1},{Player2} 확인이 됨");
+        Debug.Log($"{Player1},{Player2} 확인이 됨");  
         if (Player1 == null)
         {
             Debug.LogError($"{Player1}확인이 안 됨");
@@ -41,7 +41,9 @@ public class GameOverManagers : MonoBehaviourPun
             if (Player1 != null && Player2 != null)
             {
                 Player1.transform.position = spwan1.position;
+                Debug.Log($"{Player1.transform.position}, {spwan1.position}");
                 Player2.transform.position = spwan2.position;
+                Debug.Log($"{Player2.transform.position}, {spwan2.position}");
             }
             else
             {
@@ -49,8 +51,8 @@ public class GameOverManagers : MonoBehaviourPun
             }
 
             // 씬 리로드
-            string SceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
-            PhotonNetwork.LoadLevel(SceneName);
+            
+            PhotonNetwork.LoadLevel("MainScenes");
         }
     }
 }
