@@ -35,7 +35,7 @@ public class KeypadManager : MonoBehaviourPun
         // 문이 열리지 않은 상태에서 입력한 비밀번호가 올바른 비밀번호일 때
         if (!isDoorOpened && enteredPassword == correctPassword)
         {
-            // 맞았다는 SFX 추가
+            SoundManager.instance.SFXPlay("PWCorrect_SFX", this.gameObject);
 
             // 문을 개방한 뒤 열린 상태를 변수에 반영
             doorController.OpenDoor();
@@ -44,7 +44,7 @@ public class KeypadManager : MonoBehaviourPun
         // 틀린 비밀번호일 때
         else if (enteredPassword != correctPassword)
         {
-            // 틀렸다는 SFX 추가
+            SoundManager.instance.SFXPlay("PWInCorrect_SFX", this.gameObject);
         }
 
         // 디스플레이에 표시된 숫자 오브젝트를 제거
