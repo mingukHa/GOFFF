@@ -15044,7 +15044,7 @@ PrefabInstance:
     - target: {fileID: 1147981313121085501, guid: 52714feb96efcc342bd0d1bc850177d0,
         type: 3}
       propertyPath: viewAngle
-      value: 350
+      value: 360
       objectReference: {fileID: 0}
     - target: {fileID: 1147981313121085501, guid: 52714feb96efcc342bd0d1bc850177d0,
         type: 3}
@@ -15075,6 +15075,11 @@ PrefabInstance:
         type: 3}
       propertyPath: detectionRadius
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1147981313121085501, guid: 52714feb96efcc342bd0d1bc850177d0,
+        type: 3}
+      propertyPath: detectionLayer.m_Bits
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6382787116828764366, guid: 52714feb96efcc342bd0d1bc850177d0,
         type: 3}
