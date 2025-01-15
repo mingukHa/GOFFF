@@ -7,6 +7,7 @@ public class CameraMove : MonoBehaviour
     void Update()
     {
         transform.rotation *= Quaternion.Euler(0, rotationSpeed * Time.deltaTime, 0);
+        //로그인씬 카메라 화면의 회전
     }
 }
 
