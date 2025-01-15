@@ -23,6 +23,7 @@ public class InElevator : MonoBehaviourPun
         elevatorTrigger.OnPlayersTriggered += HandlePlayersTriggered;
     }
 
+    // 델리게이트에 연결할 함수
     private void HandlePlayersTriggered(Collider player1, Collider player2)
     {
         Debug.Log($"Player1: {player1.name}, Player2: {player2.name}");
@@ -30,7 +31,7 @@ public class InElevator : MonoBehaviourPun
         runElevator = true;
     }
 
-    //[PunRPC]
+    // SelectOnEnter 이벤트에 등록할 함수
     public void CloseDoors()
     {
         if (!runElevator && isClosing) return;
@@ -43,7 +44,6 @@ public class InElevator : MonoBehaviourPun
         }
     }
 
-
     [PunRPC]
     private void RPCDoorsCoroutine()
     {
@@ -52,6 +52,7 @@ public class InElevator : MonoBehaviourPun
     }
 
 
+    // 문을 닫는 코루틴
     public IEnumerator CloseDoorsCoroutine()
     {
         SoundManager.instance.SFXPlay("ElevatorDoor_SFX",gameObject);
@@ -80,6 +81,7 @@ public class InElevator : MonoBehaviourPun
         photonView.RPC("CheckElevatorConditions", RpcTarget.All); // 모든 클라이언트에 조건 확인 요청
     }
 
+    // 마스터만 씬을 넘기도록 하는 함수
     [PunRPC]
     public void CheckElevatorConditions()
     {

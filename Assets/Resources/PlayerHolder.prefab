@@ -6515,7 +6515,7 @@ GameObject:
   - component: {fileID: 7776948961059441294}
   - component: {fileID: 5760728534539583603}
   - component: {fileID: 2374373779939970929}
-  - component: {fileID: 1228799000358296376}
+  - component: {fileID: 4304981566566632964}
   m_Layer: 6
   m_Name: PlayerHolder
   m_TagString: Player
@@ -6904,7 +6904,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5602256, y: 1.1142801, z: 0.11975363}
   m_Center: {x: 0.0023654103, y: 0.55721277, z: -0.3876073}
---- !u!114 &1228799000358296376
+--- !u!114 &4304981566566632964
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6913,7 +6913,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5983295875041255981}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f923dc9c5106ffd48ad41ed48d4292d5, type: 3}
+  m_Script: {fileID: 11500000, guid: bb50545950898494ca9a12a7fe1f12de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   handOffset: {fileID: 3986268970232686392}

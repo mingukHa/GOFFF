@@ -26,6 +26,7 @@ public class ControllerEcho : MonoBehaviourPun
             if (!wasBPressed)
             {
                 // 플레이어가 둘뿐이니 둘만 계산
+                // 자신의 플레이어 위치에만 링이 발생
                 Player = GameObject.FindGameObjectsWithTag("Player");
                 if (Player[0].GetPhotonView().IsMine)
                 {

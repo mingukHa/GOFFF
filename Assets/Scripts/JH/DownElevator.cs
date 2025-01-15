@@ -12,6 +12,7 @@ public class DownElevator : MonoBehaviourPun
 
     public bool isDownDoorOpening = false; //문이 열리는 중인지 확인
 
+    //SelectOnEnter 이벤트에 등록할 함수
     public void CmdOpenDoors()
     {
         if (isDownDoorOpening || !photonView.IsMine) return;

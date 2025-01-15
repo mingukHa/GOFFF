@@ -3,7 +3,7 @@ using UnityEngine;
 public class DoorController : MonoBehaviour
 {
     public bool isOpen = false; // 문 상태 (열림/닫힘)
-    public float openAngle = -90f; // 문이 열릴 각도 
+    public float openAngle = -90f; // 문이 열릴 각도 (예: 90도 또는 -90도)
     public float animationTime = 1f; // 문 열림/닫힘 애니메이션 시간
     public SoundManager soundManager;
 
@@ -35,9 +35,9 @@ public class DoorController : MonoBehaviour
     // 문 열기
     public void OpenDoor()
     {
-        SoundManager.instance.SFXPlay("OpenDoor_SFX",this.gameObject);
-        StopAllCoroutines(); //코루틴 중복 방지를 위해 다 끄고 시작
-        StartCoroutine(AnimateDoor(openRotation)); //문 여는 각도 값을 함수에 넣으며 코루틴 시작
+        SoundManager.instance.SFXPlay("OpenDoor_SFX", this.gameObject);
+        StopAllCoroutines();
+        StartCoroutine(AnimateDoor(openRotation));
         isOpen = true;
     }
 
