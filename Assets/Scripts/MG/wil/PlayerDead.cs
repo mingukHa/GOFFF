@@ -4,7 +4,7 @@ using Photon.Pun;
 public class PlayerDead : MonoBehaviourPun
 {
     private GameOverManagers GOM;
-    private void Awake()
+    private void Start()
     {
         GOM = GetComponent<GameOverManagers>();
     }
@@ -16,7 +16,7 @@ public class PlayerDead : MonoBehaviourPun
             if (other.gameObject.CompareTag("Monster"))
             {
                 Debug.Log("몬스터에게 닿음");
-
+                GOM.ReStart();
                 photonView.RPC("ReStart", RpcTarget.All);
             }
         }

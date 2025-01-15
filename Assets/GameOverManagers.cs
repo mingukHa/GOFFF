@@ -50,9 +50,6 @@ public class GameOverManagers : MonoBehaviourPun
                 Debug.LogError("Player1 또는 Player2가 null입니다. 위치 초기화를 진행할 수 없습니다.");
             }
 
-            // 씬 리로드
-            
-            PhotonNetwork.LoadLevel("MainScenes");
         }
     }
 }
