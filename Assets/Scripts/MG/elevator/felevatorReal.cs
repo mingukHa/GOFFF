@@ -12,6 +12,8 @@ public class f3elevators : MonoBehaviourPunCallbacks
 
     public void OnButtonPressed()
     {
+        SoundManager.instance.SFXPlay("Button_SFX", this.gameObject);
+
         if (PhotonNetwork.IsMasterClient)
         {
             photonView.RPC("PlayerReady1", RpcTarget.AllBuffered); // 모든 클라이언트에 플레이어 준비 상태 전달
