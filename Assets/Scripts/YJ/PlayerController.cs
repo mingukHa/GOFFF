@@ -22,8 +22,8 @@ public class PlayerController : MonoBehaviourPun
     private Vector3 leftMovementVelocity; // 왼쪽 관성 속도
     private Vector3 rightMovementVelocity; // 오른쪽 관성 속도
 
-    private Vector3 leftPosition; // 왼쪽 컨트롤러 위치
-    private Vector3 rightPosition; // 오른쪽 컨트롤러 위치
+    private Vector3 leftControllerRotation; // 왼쪽 컨트롤러 회전값
+    private Vector3 rightControllerRotation; // 오른쪽 컨트롤러 회전값
     private bool isLGripTriggerPressed; // 왼쪽 그립 트리거 상태
     private bool isRGripTriggerPressed; // 오른쪽 그립 트리거 상태
 
@@ -72,12 +72,12 @@ public class PlayerController : MonoBehaviourPun
 
     public void OnRotateLeft(InputAction.CallbackContext context)
     {
-        leftPosition = context.ReadValue<Vector3>();
+        leftControllerRotation = context.ReadValue<Vector3>();
     }
 
     public void OnRotateRight(InputAction.CallbackContext context)
     {
-        rightPosition = context.ReadValue<Vector3>();
+        rightControllerRotation = context.ReadValue<Vector3>();
     }
 
     public void OnLeftGripTrigger(InputAction.CallbackContext context)
@@ -169,7 +169,7 @@ public class PlayerController : MonoBehaviourPun
         // 왼손 Grip Trigger로 우회전
         if (isLGripTriggerPressed)
         {
-            Vector3 leftDeltaPosition = lastLeftPosition - leftPosition;
+            Vector3 leftDeltaPosition = lastLeftPosition - leftControllerRotation;
 
             // Forward 방향으로 충분히 움직였을 때만 우회전 허용
             if (leftDeltaPosition.z > movementThreshold) // Z값 양수는 Forward 방향
@@ -186,7 +186,7 @@ public class PlayerController : MonoBehaviourPun
         // 오른손 Grip Trigger로 좌회전
         if (isRGripTriggerPressed)
         {
-            Vector3 rightDeltaPosition = lastRightPosition - rightPosition;
+            Vector3 rightDeltaPosition = lastRightPosition - rightControllerRotation;
 
             // Forward 방향으로 충분히 움직였을 때만 좌회전 허용
             if (rightDeltaPosition.z > movementThreshold) // Z값 양수는 Forward 방향
@@ -200,9 +200,9 @@ public class PlayerController : MonoBehaviourPun
             }
         }
 
-        // 이전 위치 업데이트
-        lastRightPosition = rightPosition;
-        lastLeftPosition = leftPosition;
+        // 컨트롤러의 마지막 위치값 업데이트
+        lastRightPosition = rightControllerRotation;
+        lastLeftPosition = leftControllerRotation;
     }
 
 
