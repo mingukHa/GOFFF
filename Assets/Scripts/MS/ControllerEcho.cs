@@ -12,8 +12,6 @@ public class ControllerEcho : MonoBehaviourPun
     private void Start()
     {
         par = GetComponentInParent<SimpleSonarShader_Parent>();
-
-        DontDestroyOnLoad(gameObject);
     }
     private void Update()
     {
