@@ -10,15 +10,15 @@ public class SimpleSonarShader_ExampleCollision : MonoBehaviourPun
         par = GetComponentInParent<SimpleSonarShader_Parent>();
     }
 
-    void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
-        int colliderID = collision.collider.GetInstanceID();
+        //int colliderID = collision.collider.GetInstanceID();
 
-        // 매니저에서 쿨타임 체크
-        if (CollisionCooldownManager.Instance.IsCooldownActive(colliderID))
-        {
-            return; // 쿨다운 중이면 종료
-        }
+        //// 매니저에서 쿨타임 체크
+        //if (CollisionCooldownManager.Instance.IsCooldownActive(colliderID))
+        //{
+        //    return; // 쿨다운 중이면 종료
+        //}
 
         // 소나 링 시작
         if (par)
