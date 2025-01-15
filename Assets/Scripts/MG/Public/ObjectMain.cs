@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class ObjectMain : MonoBehaviourPun
 {
-    private bool isGrabbed = false;
+    private bool isGrabbed = false; //그랩 상태
 
-    public void OnSelectEnter()
+    public void OnSelectEnter() //집어지면
     {
-        if(!photonView.IsMine)
+        if(!photonView.IsMine) //내꺼가 아니면
         {
-            photonView.RequestOwnership();
+            photonView.RequestOwnership(); //권한을 넘겨받음
         }
         isGrabbed = true;
         Destroy(GetComponent<FixedJoint>());
