@@ -18711,6 +18711,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 783900381}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &788640972 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 4024016618939373958, guid: 64f41f77b73d8a1429e3061b37a36756,
+    type: 3}
+  m_PrefabInstance: {fileID: 185436151}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &793502885
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18724,6 +18730,11 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 47
       objectReference: {fileID: 0}
+    - target: {fileID: 1557069815270891330, guid: 119938d848bb54c468a1c68239e14ed4,
+        type: 3}
+      propertyPath: eVButton
+      value: 
+      objectReference: {fileID: 788640972}
     - target: {fileID: 3798733381180593899, guid: 119938d848bb54c468a1c68239e14ed4,
         type: 3}
       propertyPath: m_LocalPosition.x
