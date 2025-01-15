@@ -14,6 +14,8 @@ public class SecretWallDestroyer : MonoBehaviour
                 ? playerController.GetCurrentMovementMagnitude()
                 : 0f;
 
+            Debug.Log("현재 속도: " + movementMagnitude);
+
             // finalMovement.magnitude가 4 이상일 때 객체 파괴
             if (movementMagnitude >= 4f)
             {

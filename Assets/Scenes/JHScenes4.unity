@@ -2575,6 +2575,11 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 6469876617459177419, guid: 5e7e4588976a7e34d9a7134994701d53,
+        type: 3}
+      propertyPath: doorController
+      value: 
+      objectReference: {fileID: 415768392}
     - target: {fileID: 7199520292813485719, guid: 5e7e4588976a7e34d9a7134994701d53,
         type: 3}
       propertyPath: m_Name
@@ -11925,6 +11930,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 412693005}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &415768392 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7565395872894041098, guid: d5c8d1653cccf9c46ba7de6c7e8b3ef0,
+    type: 3}
+  m_PrefabInstance: {fileID: 884839200}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a092cd5d98ba0a24989e0b3831a517a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &419336797
 PrefabInstance:
   m_ObjectHideFlags: 0
