@@ -15,8 +15,8 @@ public class PlayerController : MonoBehaviourPun
     public float rotationSpeed = 100f; // 회전 속도
     public float wheelRotationMultiplier = 50f; // 휠체어 바퀴 회전 계수
 
-    private Vector3 leftVelocity; // 왼쪽 컨트롤러 속도
-    private Vector3 rightVelocity; // 오른쪽 컨트롤러 속도
+    private Vector3 leftControllerLocation; // 왼쪽 컨트롤러 위치값
+    private Vector3 rightControllerLocation; // 오른쪽 컨트롤러 위치값
     private bool isLIdxTriggerPressed; // 왼쪽 인덱스 트리거 상태
     private bool isRIdxTriggerPressed; // 오른쪽 인덱스 트리거 상태
     private Vector3 leftMovementVelocity; // 왼쪽 관성 속도
@@ -42,20 +42,20 @@ public class PlayerController : MonoBehaviourPun
             this.enabled = false;
         }
 
-        lastLeftPosition = playerHolder.position; // 카메라의 위치로 초기화
-        lastRightPosition = playerHolder.position;
+        lastLeftPosition = playerHolder.position; // 왼쪽 컨트롤러의 위치를 플레이어 위치로 초기화
+        lastRightPosition = playerHolder.position; // 오른쪽 컨트롤러의 위치를 플레이어 위치로 초기화
     }
 
-    // Input System 콜백 메서드
+    // Input System 콜백 메소드
     // ------------ 이동 ------------
     public void OnMoveLeft(InputAction.CallbackContext context)
     {
-        leftVelocity = context.ReadValue<Vector3>();
+        leftControllerLocation = context.ReadValue<Vector3>();
     }
 
     public void OnMoveRight(InputAction.CallbackContext context)
     {
-        rightVelocity = context.ReadValue<Vector3>();
+        rightControllerLocation = context.ReadValue<Vector3>();
     }
 
     public void OnLeftIndexTrigger(InputAction.CallbackContext context)
@@ -93,20 +93,20 @@ public class PlayerController : MonoBehaviourPun
     private void FixedUpdate()
     {
         // 이전 프레임과 비교해 이동 거리 계산
-        Vector3 leftDelta = leftVelocity - lastLeftPosition;
-        Vector3 rightDelta = rightVelocity - lastRightPosition;
+        Vector3 leftDelta = leftControllerLocation - lastLeftPosition; // 왼쪽 컨트롤러 이동 거리 = 왼쪽 컨트롤러 현재 위치 - 왼쪽 컨트롤러 마지막 위치
+        Vector3 rightDelta = rightControllerLocation - lastRightPosition; // 오른쪽 컨트롤러 이동 거리 = 오른쪽 컨트롤러 현재 위치 - 오른쪽 컨트롤러 마지막 위치
 
-        // 이전 위치 업데이트
-        lastLeftPosition = leftVelocity;
-        lastRightPosition = rightVelocity;
+        // 컨트롤러의 마지막 위치값 업데이트
+        lastLeftPosition = leftControllerLocation;
+        lastRightPosition = rightControllerLocation;
 
         // 이동 방향 계산
         Vector3 movement = Vector3.zero;
 
         if (isLIdxTriggerPressed)
         {
-            movement += CalculateMovement(leftVelocity, leftDelta);
-            leftMovementVelocity = CalculateMovement(leftVelocity, leftDelta); // 트리거를 누를 때 속도 계산
+            movement += CalculateMovement(leftControllerLocation, leftDelta);
+            leftMovementVelocity = CalculateMovement(leftControllerLocation, leftDelta); // 트리거를 누를 때 속도 계산
         }
         else
         {
@@ -117,8 +117,8 @@ public class PlayerController : MonoBehaviourPun
 
         if (isRIdxTriggerPressed)
         {
-            movement += CalculateMovement(rightVelocity, rightDelta);
-            rightMovementVelocity = CalculateMovement(rightVelocity, rightDelta); // 트리거를 누를 때 속도 계산
+            movement += CalculateMovement(rightControllerLocation, rightDelta);
+            rightMovementVelocity = CalculateMovement(rightControllerLocation, rightDelta); // 트리거를 누를 때 속도 계산
         }
         else
         {
