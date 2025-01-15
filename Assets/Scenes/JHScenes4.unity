@@ -2219,7 +2219,6 @@ GameObject:
   - component: {fileID: 137615271}
   - component: {fileID: 137615270}
   - component: {fileID: 137615269}
-  - component: {fileID: 137615275}
   - component: {fileID: 137615273}
   - component: {fileID: 137615276}
   m_Layer: 0
@@ -2402,21 +2401,6 @@ MonoBehaviour:
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_StartingInteractionStrengthFilters: []
---- !u!114 &137615275
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 137615268}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17b32b4e90357de4d8f6202808e70473, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handle: {fileID: 137615272}
-  DomwaiterBottom: {fileID: 881033902}
-  openAngle: 90
 --- !u!114 &137615276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19655,6 +19639,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 884839200}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &884839202 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 526343073748381630, guid: d5c8d1653cccf9c46ba7de6c7e8b3ef0,
+    type: 3}
+  m_PrefabInstance: {fileID: 884839200}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &887101147
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36122,7 +36112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerZone0: {fileID: 881033903}
-  targetPosition: {fileID: 0}
+  targetPosition: {fileID: 884839202}
 --- !u!114 &1976771453
 MonoBehaviour:
   m_ObjectHideFlags: 0
