@@ -4203,6 +4203,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1173676947}
+    - targetCorrespondingSourceObject: {fileID: 5943608341054021523, guid: 64f41f77b73d8a1429e3061b37a36756,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1173676950}
     - targetCorrespondingSourceObject: {fileID: 3120633524275649851, guid: 64f41f77b73d8a1429e3061b37a36756,
         type: 3}
       insertIndex: -1
@@ -9849,9 +9853,9 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 299959182}
-        m_TargetAssemblyTypeName: DownElevator, Assembly-CSharp
-        m_MethodName: CmdOpenDoors
+      - m_Target: {fileID: 299959184}
+        m_TargetAssemblyTypeName: ObjectMain, Assembly-CSharp
+        m_MethodName: OnSelectEnter
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9861,9 +9865,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 299959184}
-        m_TargetAssemblyTypeName: ObjectMain, Assembly-CSharp
-        m_MethodName: OnSelectEnter
+      - m_Target: {fileID: 299959182}
+        m_TargetAssemblyTypeName: DownElevator, Assembly-CSharp
+        m_MethodName: CmdOpenDoors
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -24512,6 +24516,28 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 2.150505}
   m_Center: {x: 0.0000008583069, y: 0, z: 0.57525253}
+--- !u!114 &1173676950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1173676945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 1
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 13
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &1196548103
 PrefabInstance:
   m_ObjectHideFlags: 0
