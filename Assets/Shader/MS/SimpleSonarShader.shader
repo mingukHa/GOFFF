@@ -4,13 +4,11 @@
     {
         _BaseColor("Base Color", Color) = (1, 1, 1, 1)
         _MainTex("Albedo (RGB)", 2D) = "white" {}
-        //_RingColor("Ring Color", Color) = (1, 1, 1, 1) // 링 색상, Inspector에서 설정
         _RingColorIntensity("Ring Color Intensity", Float) = 2
         _RingSpeed("Ring Speed", Float) = 1
         _RingWidth("Ring Width", Float) = 0.1
         _RingIntensityScale("Ring Intensity Scale", Float) = 1
         _RingTex("Ring Texture", 2D) = "white" {}
-        //_RingColor("Ring Color" Color) = (1, 1, 1, 1)
         _OutlineColor("OutlineColor", Color) = (0, 0, 0, 1)
         _OutlineWidth("Outline Width", Float) = 0.02
         _DistanceFactor("Distance Factor", Float) = 0.1
@@ -29,7 +27,6 @@
 
     SubShader
     {
-        //Tags { "RenderType" = "Transparent" "Queue" = "Transparent" }
         LOD 200
         Pass
         {
@@ -89,8 +86,7 @@
                 float4 baseColor = tex2D(_MainTex, i.uv) * _BaseColor;
                 float3 finalColor = baseColor.rgb;
 
-                // float diffFromRingCol = abs(finalColor.r - _RingColor.r) +
-                //                         abs(finalColor.g - _RingColor.g) +
+
                      
                 for (int idx = 0; idx < 100; idx++)
                 {
@@ -105,8 +101,7 @@
                     float dist = distance(hitPos, i.worldPos);
                     float ringStart = (_RingTime - hitTime) * _RingSpeed - _RingWidth;
                     float ringEnd = (_RingTime - hitTime) * _RingSpeed;
-                    // float ringStart = (_RingTime * _RingSpeed - _RingWidth) * sin(_Time.y * 0.5) + 1.0;  // 시간에 따라 크기 변화
-                    // float ringEnd = (_RingTime * _RingSpeed) * sin(_Time.y * 0.5) + 1.0;  // 링 크기 변화를 계산
+
 
                     if (dist > ringStart && dist < ringEnd)
                     {
@@ -136,128 +131,6 @@
             }
             ENDHLSL
         }
-
-        // Pass
-        // {
-        //     Name "OUTLINE"
-        //     Cull Front
-        //     ZWrite ON
-        //     ZTest LEqual
-        //     Blend SrcAlpha OneMinusSrcAlpha
-
-        //     HLSLPROGRAM
-        //     #pragma vertex vert
-        //     #pragma fragment frag
-        //     #pragma multi_compile_fog
-
-        //     #include "UnityCG.cginc"
-
-        //     struct appdata
-        //     {
-        //         float4 vertex : POSITION;
-        //         float3 normal : NORMAL;
-        //     };
-
-        //     struct v2f
-        //     {
-        //         UNITY_FOG_COORDS(1)
-        //         float4 vertex : SV_POSITION;
-        //         float3 worldPos : TEXCOORD0;
-        //         float3 originalWorldPos : TEXCOORD1;
-        //     };
-
-        //     float _OutlineWidth;
-        //     float4 _OutlineColor;
-        //     float4 _RingColorM;
-        //     float _RingSpeed; // 첫 번째 패스와 동일한 속도 사용
-        //     float _RingWidth; // 첫 번째 패스와 동일한 폭 사용
-        //     float4 _hitPtsM[100];
-        //     float _StartTime;
-        //     float _RingFadeDuration;
-        //     float _OutlineAlpha;
-        //     float _DistanceFactor;
-        //     float _OutlinePower;
-        //     float _RingTime;
-
-        //     v2f vert(appdata v)
-        //     {
-        //         v2f o;
-        //         o.originalWorldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
-        //         float3 viewDir = normalize(_WorldSpaceCameraPos - o.originalWorldPos);
-        //         float3 normal = normalize(mul((float3x3)unity_ObjectToWorld, v.normal));
-        //         float fresnel = 1.0 - saturate(dot(viewDir, normal));
-        //         fresnel = pow(fresnel, _OutlinePower);
-        //         float outlineScale = _OutlineWidth * (1.0 + _DistanceFactor * distance(o.originalWorldPos, _WorldSpaceCameraPos));
-        //         v.vertex.xyz += v.normal * outlineScale;
-        //         o.vertex = UnityObjectToClipPos(v.vertex);
-        //         o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
-        //         UNITY_TRANSFER_FOG(o, o.vertex);
-        //         return o;
-        //     }
-
-        //     fixed4 frag(v2f i) : SV_Target
-        //     {
-        //         fixed4 col = _OutlineColor;
-        //         col.a = _OutlineAlpha;
-
-        //         bool isInAnyRing = false;
-        //         float maxRingIntensity = 0;
-
-        //         for (int idx = 0; idx < 100; idx++)
-        //         {
-        //             float3 hitPos = _hitPtsM[idx].xyz;
-        //             float hitTime = _hitPtsM[idx].w;
-                    
-        //             if (hitTime <= 0) continue; // 유효하지 않은 히트 포인트 스킵
-
-        //             float dist = distance(hitPos, i.originalWorldPos);
-        //             float timeSinceHit = _RingTime - hitTime;
-                    
-        //             // 첫 번째 패스와 동일한 링 범위 계산
-        //             float ringPosition = timeSinceHit * _RingSpeed;
-        //             float ringStart = ringPosition - _RingWidth;
-        //             float ringEnd = ringPosition;
-
-        //             if (dist >= ringStart && dist <= ringEnd)
-        //             {
-        //                 float ringProgress = (dist - ringStart) / _RingWidth;
-        //                 float ringIntensity = 1 - ringProgress;
-                        
-        //                 // 페이드 아웃 효과
-        //                 float fadeProgress = 1 - (timeSinceHit / _RingFadeDuration);
-        //                 fadeProgress = saturate(fadeProgress);
-                        
-        //                 ringIntensity *= fadeProgress;
-                        
-        //                 if (ringIntensity > maxRingIntensity)
-        //                 {
-        //                     maxRingIntensity = ringIntensity;
-        //                     isInAnyRing = true;
-        //                 }
-        //             }
-        //         }
-
-        //         if (isInAnyRing)
-        //         {
-        //             col.rgb = lerp(col.rgb, _RingColorM.rgb, maxRingIntensity);
-        //             col.a *= maxRingIntensity;
-        //         }
-        //         // else
-        //         // {
-        //         //     col.a = 0; // 링 밖에서는 아웃라인을 표시하지 않음
-        //         // }
-
-        //         if (col.a <= 0.0)
-        //         {
-        //             discard;
-        //         }
-
-        //         UNITY_APPLY_FOG(i.fogCoord, col);
-        //         return col;
-        //     }
-        //     ENDHLSL
-        // }
-
 
         //아웃 라인 그리는 부분
         Pass
@@ -361,16 +234,16 @@
                         mostRecentTime = hitTime;   // 가장 최근 시간 업데이트
                         mostRecentPos = hitPos;    // 가장 최근 위치 업데이트
                     }
-                                    // 가장 최근에 영향을 준 파동이 있을 경우 페이드 적용
-                if (mostRecentTime > 0)
-                {
-                    float fadeTime = _RingFadeDuration;
-                    float fadeProgress = 1 - ((_RingTime - mostRecentTime) / fadeTime);
-                    fadeProgress = saturate(fadeProgress); // 0~1로 제한
-                    //col = _RingColor; // 링 색상 적용
-                    float nonLinearFade = pow(fadeProgress, 0.6);
-                    col.a = nonLinearFade; // 알파값은 페이드 프로그래스
-                }
+                    // 가장 최근에 영향을 준 파동이 있을 경우 페이드 적용
+                    if (mostRecentTime > 0 && _OutlineColor.b != 0)
+                    {
+                        float fadeTime = _RingFadeDuration;
+                        float fadeProgress = 1 - ((_RingTime - mostRecentTime) / fadeTime);
+                        fadeProgress = saturate(fadeProgress); // 0~1로 제한
+                        //col = _RingColor; // 링 색상 적용
+                        float nonLinearFade = pow(fadeProgress, 0.6);
+                        col.a = nonLinearFade; // 알파값은 페이드 프로그래스
+                    }
                 }
 
                 if (col.a <= 0.0)

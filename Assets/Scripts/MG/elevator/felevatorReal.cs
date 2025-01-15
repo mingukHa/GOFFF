@@ -5,8 +5,8 @@ using System.Collections;
 
 public class f3elevators : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private GameObject button1;
-    [SerializeField] private GameObject button2;
+    [SerializeField] private GameObject button1; //버튼1
+    [SerializeField] private GameObject button2; //버튼2
     public string Scene = "MainScenes";
     private int readyPlayerCount = 0; // 준비 완료된 플레이어 수
 
@@ -38,6 +38,6 @@ public class f3elevators : MonoBehaviourPunCallbacks
     [PunRPC]
     public void PlayerReady1()
     {
-        readyPlayerCount++;
+        readyPlayerCount++; //플레이 레디 카운트 증가
     }
 }
