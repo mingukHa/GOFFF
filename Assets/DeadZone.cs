@@ -10,10 +10,11 @@ public class DeadZone : MonoBehaviourPun
     }
     private void OnTriggerEnter(Collider collider)
     {
-        SoundManager.instance.SFXPlay("Scream_SFX", this.gameObject);
+        
 
         if (collider.gameObject.CompareTag("Player"))
         {
+            SoundManager.instance.SFXPlay("Scream_SFX", this.gameObject);
             GOM.ReStart();
             photonView.RPC("ReStart", RpcTarget.All);
         }
