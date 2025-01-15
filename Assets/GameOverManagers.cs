@@ -8,7 +8,13 @@ public class GameOverManagers : MonoBehaviourPun
 
     [SerializeField] private Transform spwan1;
     [SerializeField] private Transform spwan2;
-
+    private void FixedUpdate()
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            ReStart();
+        }
+    }
     private void Awake()
     {
         // 이름으로 플레이어 오브젝트 찾기
