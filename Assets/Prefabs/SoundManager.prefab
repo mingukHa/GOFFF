@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3546a6c9136dd4542adb197352d40c0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mixer: {fileID: 0}
   bgmSound: {fileID: 4432544049111833011}
   sfxSound: {fileID: 4432544049111833011}
   bgmList:
@@ -81,6 +82,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 013d28b627ed4e84294e33bc6d4dd99d, type: 3}
   - {fileID: 8300000, guid: 9621c2af7e754394a918f34fa7dca26e, type: 3}
   - {fileID: 8300000, guid: 4018aa257c58c32429079b14c8bfda5d, type: 3}
+  - {fileID: 8300000, guid: 1d4cbd55a362e7d49afb8faaa8edc099, type: 3}
+  - {fileID: 8300000, guid: 6674b159ad35f3340b7b3473097bcf0e, type: 3}
 --- !u!82 &4432544049111833011
 AudioSource:
   m_ObjectHideFlags: 0
