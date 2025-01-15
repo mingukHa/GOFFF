@@ -13,6 +13,7 @@ public class ControllerEcho : MonoBehaviourPun
     {
         par = GetComponentInParent<SimpleSonarShader_Parent>();
 
+        DontDestroyOnLoad(gameObject);
     }
     private void Update()
     {
