@@ -5,6 +5,6 @@ public class ValveSound : MonoBehaviour
     public void OnCollisionEnter(Collision collisionInfo)
     {
         Debug.Log("º§ºê Ãæµ¹µÊ");
-        SoundManager.instance.SFXPlay("DropItem_SFX", this.gameObject);
+        SoundManager.instance.SFXPlay("AttachValve_SFX", this.gameObject);
     }
 }
