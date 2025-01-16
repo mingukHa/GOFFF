@@ -34,11 +34,13 @@ public class SocketValidator : MonoBehaviourPun
 
         if (placedObject.name == expectedObjectName)
         {
-            Debug.Log($"Correct object placed: {placedObject.name}");
+            Debug.Log($"오브젝트가 올바른 위치에 있음: {placedObject.name}");
         }
         else
         {
-            Debug.LogWarning($"Incorrect object placed: {placedObject.name}");
+            Debug.LogWarning($"오브젝트가 잘못된 위치에 있음: {placedObject.name}");
+            socketInteractor.enabled = false;
+            socketInteractor.enabled = true;
         }
 
         // 퍼즐 상태 확인
