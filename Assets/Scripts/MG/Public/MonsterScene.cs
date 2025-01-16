@@ -62,7 +62,7 @@ public class MonsterScene : MonoBehaviourPun
         }
         else
         {
-            Debug.LogWarning("PlayerHolder(Clone) or Start Point for Player 1 not found!");
+            Debug.LogWarning("플레이어1음따");
         }
 
         // 두 번째 플레이어 찾기
@@ -73,7 +73,7 @@ public class MonsterScene : MonoBehaviourPun
         }
         else
         {
-            Debug.LogWarning("PlayerHolder1(Clone) or Start Point for Player 2 not found!");
+            Debug.Log("플레이어2음따");
         }
     }
 }
