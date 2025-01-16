@@ -10,7 +10,7 @@ public class PlayerDead : MonoBehaviourPun
         GOM = GetComponent<GameOverManagers>();
     }
    
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisonEnter(Collider other)
     {
         if (GOM != null)
         {
