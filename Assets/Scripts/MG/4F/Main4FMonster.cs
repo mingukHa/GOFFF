@@ -12,7 +12,7 @@ public class MonsterTest : MonoBehaviourPun
     [SerializeField] private float idleTimeLimit = 10f;
     [SerializeField] private float arrivalThreshold = 2f;
     [SerializeField] private NavMeshAgent navAgent;
-    private PlayerDead pd;
+    //private PlayerDead pd;
     private Animator animator;
 
     private enum MonsterState { Idle, Walking, LookingAround, Attack,  Detect }
@@ -62,7 +62,7 @@ public class MonsterTest : MonoBehaviourPun
     }
     public void Walk()
     {
-        SoundManager.instance.SFXPlay("ZomWalk_SFX", this.gameObject);
+        SoundManager.instance.SFXPlay("ZomBreathing_SFX", this.gameObject);
     }
     public void Idlesound()
     {
