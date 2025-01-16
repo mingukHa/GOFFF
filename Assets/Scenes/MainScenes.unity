@@ -2853,7 +2853,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 238953698}
+      objectReference: {fileID: 238953713}
     - target: {fileID: 6388063402779397497, guid: 4b52085edaab9ae4c99b02fcb32bebec,
         type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
@@ -2881,6 +2881,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6388063402779397497, guid: 4b52085edaab9ae4c99b02fcb32bebec,
         type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: Zombi
+      objectReference: {fileID: 0}
+    - target: {fileID: 6388063402779397497, guid: 4b52085edaab9ae4c99b02fcb32bebec,
+        type: 3}
       propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: F4MonsterSpawn, Assembly-CSharp
       objectReference: {fileID: 0}
@@ -2892,11 +2897,16 @@ PrefabInstance:
     - target: {fileID: 6388063402779397497, guid: 4b52085edaab9ae4c99b02fcb32bebec,
         type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: GrabValve, Assembly-CSharp
+      value: F4MonsterSpawn, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6388063402779397497, guid: 4b52085edaab9ae4c99b02fcb32bebec,
         type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6388063402779397497, guid: 4b52085edaab9ae4c99b02fcb32bebec,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8373961814751708465, guid: 4b52085edaab9ae4c99b02fcb32bebec,
@@ -9025,6 +9035,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: f1Monster
+      objectReference: {fileID: 0}
+    - target: {fileID: 3123081572156928286, guid: 8f7e0188fb06bbe4c8c3b18db476e339,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4952960023124119714, guid: 8f7e0188fb06bbe4c8c3b18db476e339,
         type: 3}
