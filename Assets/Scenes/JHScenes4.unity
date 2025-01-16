@@ -21644,6 +21644,11 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 16
       objectReference: {fileID: 0}
+    - target: {fileID: 1392123136522210752, guid: d5c8d1653cccf9c46ba7de6c7e8b3ef0,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3ca00173fafe5984c952de4204b01553, type: 2}
     - target: {fileID: 1522664958273880120, guid: d5c8d1653cccf9c46ba7de6c7e8b3ef0,
         type: 3}
       propertyPath: sceneViewId
@@ -34345,6 +34350,16 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 4952960023124119714, guid: 8f7e0188fb06bbe4c8c3b18db476e339,
+        type: 3}
+      propertyPath: ObservedComponents.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4952960023124119714, guid: 8f7e0188fb06bbe4c8c3b18db476e339,
+        type: 3}
+      propertyPath: 'ObservedComponents.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1673821583}
     - target: {fileID: 6758810309442988394, guid: 8f7e0188fb06bbe4c8c3b18db476e339,
         type: 3}
       propertyPath: m_Speed

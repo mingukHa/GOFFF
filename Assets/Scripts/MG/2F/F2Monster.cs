@@ -31,6 +31,15 @@ public class F2Monster : MonoBehaviourPun
     private void Start()
     {
         target = TargetPoint.transform;
+        StartCoroutine(Sounds());
+    }
+    private IEnumerator Sounds()
+    {
+        while (true)
+        {
+            SoundManager.instance.SFXPlay("Hungry_SFX", this.gameObject);
+            yield return new WaitForSeconds(2f);
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -42,6 +51,7 @@ public class F2Monster : MonoBehaviourPun
                 Debug.Log("좀비 버거 받음");
                 animator.SetBool("isWalk", true);
                 SetKey();
+
                 photonView.RPC("SetKey", RpcTarget.All);
             }
             else if ((other.gameObject.CompareTag("Grabbable")))
@@ -68,9 +78,11 @@ public class F2Monster : MonoBehaviourPun
         
         navMeshAgent.SetDestination(target.position);
         Debug.Log($"{target.position}으로 이동 중");
+        StopCoroutine(Sounds());
     }
     private void AttackTarget()
     {
+        StopCoroutine(Sounds());
         propertyBlock = new MaterialPropertyBlock();
 
         // 아웃라인 색을 바뀌게 하는 코드
