@@ -30,14 +30,26 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
 
     // photon 서버가 시작된 시간을 Start할때 받아옴
     private double sceneStartTimePhoton;
+    private double sceneAwakeTimePhoton;
     // 게임의 시작하고부터의 시간
     private float timeSinceSceneLoadPhoton;
     private MaterialPropertyBlock propertyBlock;
 
-    private void Start()
+    private void Awake()
     {
         // 시작할 때 포톤 서버의 시간 가져오기
-        sceneStartTimePhoton = PhotonNetwork.Time;
+        sceneAwakeTimePhoton = PhotonNetwork.Time;
+        photonView.RPC("RPCtime", RpcTarget.AllBuffered);
+    }
+
+    [PunRPC]
+    private void RPCtime()
+    {
+        sceneStartTimePhoton = sceneAwakeTimePhoton;
+    }
+
+    private void Start()
+    {
         // 자식에서 렌더러 가져오기
         ObjectRenderers = GetComponentsInChildren<Renderer>();
         propertyBlock = new MaterialPropertyBlock();
@@ -61,7 +73,7 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
             if (r)
             {
                 r.GetPropertyBlock(propertyBlock);
-                propertyBlock.SetFloat("_RingTime", (float)DateTimeOffset.UtcNow.ToUnixTimeSeconds());
+                propertyBlock.SetFloat("_RingTime", timeSinceSceneLoadPhoton);
                 r.SetPropertyBlock(propertyBlock);
             }
         }
@@ -84,8 +96,8 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
 
         Debug.Log("마스터 클라이언트가 링 생성 처리");
 
-        //float timeSinceSceneLoadPhoton = (float)(PhotonNetwork.Time - sceneStartTimePhoton);
-        position[3] = (float)DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+        float timeSinceSceneLoadPhoton = (float)(PhotonNetwork.Time - sceneStartTimePhoton);
+        position[3] = timeSinceSceneLoadPhoton;
 
         // 링 색상 결정
         ringColor = type == 0 ? Color.white : Color.red; // 일반: 0, 몬스터: 1
@@ -108,7 +120,7 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
         float[] ringColors = colorQueue.SelectMany(c => new float[] { c.x, c.y, c.z, c.w }).ToArray();
 
         // 큐 상태를 모든 클라이언트와 동기화
-        photonView.RPC("SyncEntireQueue", RpcTarget.All,
+        photonView.RPC("SyncEntireQueue", RpcTarget.AllBuffered,
             hitPts,
             intensities,
             ringColors);
