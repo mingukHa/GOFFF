@@ -235,13 +235,14 @@
                         mostRecentPos = hitPos;    // 가장 최근 위치 업데이트
                     }
                     // 가장 최근에 영향을 준 파동이 있을 경우 페이드 적용
-                    if (mostRecentTime > 0 && _OutlineColor.b != 0)
+                    if (mostRecentTime > 0 /* && _OutlineColor.b != 0 */)
                     {
                         float fadeTime = _RingFadeDuration;
                         float fadeProgress = 1 - ((_RingTime - mostRecentTime) / fadeTime);
                         fadeProgress = saturate(fadeProgress); // 0~1로 제한
                         //col = _RingColor; // 링 색상 적용
-                        float nonLinearFade = pow(fadeProgress, 0.6);
+                        //float nonLinearFade = pow(fadeProgress, 0.6);
+                        float nonLinearFade = fadeProgress;
                         col.a = nonLinearFade; // 알파값은 페이드 프로그래스
                     }
                 }
