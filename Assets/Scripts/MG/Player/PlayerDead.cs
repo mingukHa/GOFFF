@@ -12,15 +12,19 @@ public class PlayerDead : MonoBehaviourPun
 
     private IEnumerator FindGOM()
     {
+        
         while (true)
         {
+            Debug.Log("데드 코루틴 한바퀴");
             if (GOM == null)
                 GOM = FindFirstObjectByType<GameOverManagers>();
+            Debug.Log($"{GOM}찾음");
             yield return new WaitForSeconds(2f);
         }
+        
     }
 
-    private void OnCollisonEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (GOM != null)
         {
