@@ -33,9 +33,9 @@ public class MonsterTest : MonoBehaviourPun
 
     private void Start()
     {
-        originalPosition = transform.position;
         GroundCollision.OnObjectHitGround += HandleGroundCollision;
         SimpleSonarShader_PlayerMove.PlayerMove += HandlePlayerCollision;
+
     }
 
     private void Update()
@@ -59,6 +59,10 @@ public class MonsterTest : MonoBehaviourPun
                 AttackTarget();
                 break;
         }
+    }
+    public void Idlesound()
+    {
+        SoundManager.instance.SFXPlay("ZomBreathing_SFX", this.gameObject);
     }
     private void HandleIdleState()
     {
@@ -225,4 +229,5 @@ public class MonsterTest : MonoBehaviourPun
         Gizmos.DrawLine(transform.position, transform.position + leftBoundary);
         Gizmos.DrawLine(transform.position, transform.position + rightBoundary);
     }
+
 }
