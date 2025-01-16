@@ -4,7 +4,7 @@ public class CanSound : MonoBehaviour
 {
     public void OnCollisionEnter(Collision collisionInfo)
     {
-        Debug.Log("警 醱給脾");
+        //Debug.Log("警 醱給脾");
         SoundManager.instance.SFXPlay("CanThrow_SFX", this.gameObject);
     }
 }
