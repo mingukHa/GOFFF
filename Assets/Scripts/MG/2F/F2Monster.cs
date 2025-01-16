@@ -7,6 +7,7 @@ public class F2Monster : MonoBehaviourPun
 {
     [SerializeField] private GameObject Key;
     [SerializeField] private GameObject TargetPoint;
+    [SerializeField] private GameObject Bugger;
     private Material mr;
     private NavMeshAgent navMeshAgent; // NavMeshAgent 컴포넌트
     public float detectionRadius = 10f; // 플레이어를 탐지할 반지름
@@ -56,6 +57,8 @@ public class F2Monster : MonoBehaviourPun
     {
         Debug.Log("setkey실행 됨");
         Key.gameObject.SetActive(true);
+        //키 떨구는 소리 추가
+        Bugger.gameObject.SetActive(false);
         propertyBlock = new MaterialPropertyBlock();
 
         // 아웃라인 색을 바뀌게 하는 코드

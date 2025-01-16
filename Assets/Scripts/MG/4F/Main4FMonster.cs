@@ -64,13 +64,10 @@ public class MonsterTest : MonoBehaviourPun
     {
         DetectTargetsInView();
     }
-    //public void Attack()
-    //{
-    //   // SoundManager.instance.SFXPlay("GameOver_SFX");
-    //}
+    
     public void Detect()
     {
-        //SoundManager.instance.SFXPlay("ZomShout_SFX");
+        SoundManager.instance.SFXPlay("ZomShout_SFX",this.gameObject);
 
         if (!isDetectedByZombie)  // 아직 발각되지 않았다면
         {
@@ -185,6 +182,7 @@ public class MonsterTest : MonoBehaviourPun
             {
                 // 보정된 위치로 순간이동
                 transform.position = hit.position;
+                SoundManager.instance.SFXPlay("GameOver_SFX", this.gameObject);
                 Debug.Log($"텔레포트 완료: {hit.position}");
             }
             else
