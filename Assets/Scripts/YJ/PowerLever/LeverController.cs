@@ -26,7 +26,7 @@ public class LeverController : MonoBehaviourPun
         // RPC로 RPC_RotateHandle 메소드 호출
         if (lever != null)
         {
-            photonView.RPC("RPC_RotateHandle", RpcTarget.All);
+            photonView.RPC("RPC_RotateLever", RpcTarget.All);
         }
 
         // RPC로 RPC_ActivateEVButton 메소드 호출
