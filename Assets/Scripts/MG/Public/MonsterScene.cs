@@ -26,7 +26,7 @@ public class MonsterScene : MonoBehaviourPun
         // 몬스터가 "Player" 태그를 가진 객체와 충돌할 경우
         if (other.CompareTag("Player"))
         {
-            SoundManager.instance.SFXPlay("GameOver_SFX", this.gameObject);
+            SoundManager.instance.photonView.RPC("OnZombieLost", RpcTarget.All);
             if (PhotonNetwork.IsMasterClient)
             {
                 photonView.RPC("RestartSceneWithDelay", RpcTarget.All);
