@@ -26,25 +26,17 @@ public class MonsterScene : MonoBehaviourPun
         // 몬스터가 "Player" 태그를 가진 객체와 충돌할 경우
         if (other.CompareTag("Player"))
         {
-            //SoundManager.instance.photonView.RPC("OnZombieLost", RpcTarget.All);
+            SoundManager.instance.SFXPlay("GameOver_SFX", this.gameObject);
             if (PhotonNetwork.IsMasterClient)
             {
-                photonView.RPC("RestartSceneWithDelay", RpcTarget.All);
+                photonView.RPC("RestartScene", RpcTarget.All);
             }
         }
     }
 
     [PunRPC]
-    private void RestartSceneWithDelay()
+    private void RestartScene()
     {
-        StartCoroutine(RestartSceneCoroutine());
-    }
-
-    private IEnumerator RestartSceneCoroutine()
-    {
-        // 1초 지연
-        yield return new WaitForSeconds(0.5f);
-
         // 재시작할 씬 이름 설정
         string sceneToLoad = string.IsNullOrEmpty(restartSceneName)
             ? SceneManager.GetActiveScene().name
