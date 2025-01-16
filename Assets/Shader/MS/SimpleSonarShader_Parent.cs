@@ -30,6 +30,7 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
 
     // photon 서버가 시작된 시간을 Start할때 받아옴
     private double sceneStartTimePhoton;
+    private double sceneAwakeTimePhoton;
     // 게임의 시작하고부터의 시간
     private float timeSinceSceneLoadPhoton;
     private MaterialPropertyBlock propertyBlock;
@@ -37,7 +38,14 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
     private void Awake()
     {
         // 시작할 때 포톤 서버의 시간 가져오기
-        sceneStartTimePhoton = PhotonNetwork.Time;
+        sceneAwakeTimePhoton = PhotonNetwork.Time;
+        photonView.RPC("RPCtime", RpcTarget.AllBuffered);
+    }
+
+    [PunRPC]
+    private void RPCtime()
+    {
+        sceneStartTimePhoton = sceneAwakeTimePhoton;
     }
 
     private void Start()
@@ -112,7 +120,7 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
         float[] ringColors = colorQueue.SelectMany(c => new float[] { c.x, c.y, c.z, c.w }).ToArray();
 
         // 큐 상태를 모든 클라이언트와 동기화
-        photonView.RPC("SyncEntireQueue", RpcTarget.All,
+        photonView.RPC("SyncEntireQueue", RpcTarget.AllBuffered,
             hitPts,
             intensities,
             ringColors);
