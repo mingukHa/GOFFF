@@ -123,7 +123,7 @@ public class MonsterTest : MonoBehaviourPun
             {
                 if (collider.CompareTag("Player"))
                 {
-                    SoundManager.instance.photonView.RPC("OnZombieDetected", RpcTarget.All);
+                   // SoundManager.instance.photonView.RPC("OnZombieDetected", RpcTarget.All);
                     detectedTarget = collider.transform;
                     animator.SetBool("isDetecting", true);
                     currentState = MonsterState.Detect;
