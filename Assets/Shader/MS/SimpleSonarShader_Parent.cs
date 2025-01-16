@@ -34,10 +34,14 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
     private float timeSinceSceneLoadPhoton;
     private MaterialPropertyBlock propertyBlock;
 
-    private void Start()
+    private void Awake()
     {
         // 시작할 때 포톤 서버의 시간 가져오기
         sceneStartTimePhoton = PhotonNetwork.Time;
+    }
+
+    private void Start()
+    {
         // 자식에서 렌더러 가져오기
         ObjectRenderers = GetComponentsInChildren<Renderer>();
         propertyBlock = new MaterialPropertyBlock();
@@ -61,7 +65,7 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
             if (r)
             {
                 r.GetPropertyBlock(propertyBlock);
-                propertyBlock.SetFloat("_RingTime", (float)DateTimeOffset.UtcNow.ToUnixTimeSeconds());
+                propertyBlock.SetFloat("_RingTime", timeSinceSceneLoadPhoton);
                 r.SetPropertyBlock(propertyBlock);
             }
         }
@@ -84,8 +88,8 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
 
         Debug.Log("마스터 클라이언트가 링 생성 처리");
 
-        //float timeSinceSceneLoadPhoton = (float)(PhotonNetwork.Time - sceneStartTimePhoton);
-        position[3] = (float)DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+        float timeSinceSceneLoadPhoton = (float)(PhotonNetwork.Time - sceneStartTimePhoton);
+        position[3] = timeSinceSceneLoadPhoton;
 
         // 링 색상 결정
         ringColor = type == 0 ? Color.white : Color.red; // 일반: 0, 몬스터: 1
