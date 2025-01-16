@@ -17,6 +17,7 @@ public class PlayerDead : MonoBehaviourPun
             if (other.gameObject.CompareTag("Monster"))
             {
                 Debug.Log("몬스터에게 닿음");
+                SoundManager.instance.SFXPlay("GameOver_SFX", this.gameObject);
                 GOM.ReStart();
                 photonView.RPC("ReStart", RpcTarget.All);
             }
