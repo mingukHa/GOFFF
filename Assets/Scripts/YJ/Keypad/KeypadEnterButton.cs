@@ -16,6 +16,6 @@ public class KeypadEnterButton : MonoBehaviour
 
         // RPC를 통해 엔터 버튼 누르는 동작을 동기화
         PhotonView photonView = PhotonView.Get(keypadManager);
-        photonView.RPC("OnEnterButtonPressed", RpcTarget.Others);
+        photonView.RPC("OnEnterButtonPressed", RpcTarget.All);
     }
 }

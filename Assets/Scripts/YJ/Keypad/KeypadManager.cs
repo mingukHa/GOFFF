@@ -44,7 +44,7 @@ public class KeypadManager : MonoBehaviourPun
         // 틀린 비밀번호일 때
         else if (enteredPassword != correctPassword)
         {
-            SoundManager.instance.SFXPlay("PWInCorrect_SFX", this.gameObject);
+            SoundManager.instance.SFXPlay("PWIncorrect_SFX", this.gameObject);
         }
 
         // 디스플레이에 표시된 숫자 오브젝트를 제거
