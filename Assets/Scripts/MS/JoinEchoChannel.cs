@@ -82,7 +82,8 @@ public class VoiceChatManager : MonoBehaviourPunCallbacks
 
     private async Task JoinVoiceChannel(string channelName)
     {
-        await VivoxService.Instance.JoinEchoChannelAsync(channelName, ChatCapability.AudioOnly);
+        //await VivoxService.Instance.JoinEchoChannelAsync(channelName, ChatCapability.AudioOnly);
+        await VivoxService.Instance.JoinGroupChannelAsync(channelName, ChatCapability.AudioOnly);
     }
 
     public override void OnJoinedRoom()
