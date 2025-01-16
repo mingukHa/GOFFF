@@ -134,6 +134,7 @@ public class MonsterTest : MonoBehaviourPun
         animator.SetBool("isDetecting", false);
         detectedTarget = null;
     }
+   
 
     private void MoveToTarget()
     {
@@ -174,45 +175,46 @@ public class MonsterTest : MonoBehaviourPun
             currentState = MonsterState.Idle;
         }
     }
+    
 
     private void AttackTarget()
     {
         if (detectedTarget != null)
-        {
-            navAgent.enabled = false;
+      {
+          navAgent.enabled = false;
 
-            // 플레이어 위치 가져오기
-            Vector3 targetPosition = detectedTarget.position /*+ Vector3.forward*2f*/;
+          // 플레이어 위치 가져오기
+          Vector3 targetPosition = detectedTarget.position + Vector3.left*2f;
 
-            // NavMesh 위 좌표 보정
-            NavMeshHit hit;
-            if (NavMesh.SamplePosition(targetPosition, out hit, 1.0f, NavMesh.AllAreas))
-            {
-                // 보정된 위치로 순간이동
-                transform.position = hit.position;
-                SoundManager.instance.SFXPlay("GameOver_SFX", this.gameObject);
-                Debug.Log($"텔레포트 완료: {hit.position}");
-            }
-            else
-            {
-                Debug.LogWarning("플레이어 위치가 NavMesh 위에 없습니다!");
-            }
+          // NavMesh 위 좌표 보정
+          NavMeshHit hit;
+          if (NavMesh.SamplePosition(targetPosition, out hit, 1.0f, NavMesh.AllAreas))
+          {
+              // 보정된 위치로 순간이동
+              transform.position = hit.position;
+              SoundManager.instance.SFXPlay("GameOver_SFX", this.gameObject);
+              Debug.Log($"텔레포트 완료: {hit.position}");
+          }
+          else
+          {
+              Debug.LogWarning("플레이어 위치가 NavMesh 위에 없습니다!");
+          }
 
-            navAgent.enabled = true;
+          navAgent.enabled = true;
 
-            // 공격 애니메이션 재생
-            animator.SetTrigger("isAttack");
+          // 공격 애니메이션 재생
+          animator.SetTrigger("isAttack");
 
-            // 타겟 초기화 및 상태 전환
-            detectedTarget = null; // 타겟 초기화
-            currentState = MonsterState.Idle; // Idle 상태로 복귀
-        }
-        else
-        {
-            Debug.LogWarning("타겟이 없습니다!");
-            currentState = MonsterState.Idle; // Idle 상태로 복귀
-        }
-    }
+          // 타겟 초기화 및 상태 전환
+          detectedTarget = null; // 타겟 초기화
+          currentState = MonsterState.Idle; // Idle 상태로 복귀
+      }
+      else
+      {
+          Debug.LogWarning("타겟이 없습니다!");
+          currentState = MonsterState.Idle; // Idle 상태로 복귀
+      }
+  }
 
 
     private void SetTargetPosition(Vector3 newTargetPosition)
