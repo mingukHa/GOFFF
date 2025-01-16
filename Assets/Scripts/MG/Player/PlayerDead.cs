@@ -17,8 +17,10 @@ public class PlayerDead : MonoBehaviourPun
         {
             Debug.Log("데드 코루틴 한바퀴");
             if (GOM == null)
+            {
                 GOM = FindFirstObjectByType<GameOverManagers>();
-            Debug.Log($"{GOM}찾음");
+                Debug.Log($"{GOM}찾음");
+            }
             yield return new WaitForSeconds(2f);
         }
         
@@ -26,6 +28,7 @@ public class PlayerDead : MonoBehaviourPun
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("트리거 닿음");
         if (GOM != null)
         {
             if (other.gameObject.CompareTag("Monster"))
