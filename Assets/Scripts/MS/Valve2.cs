@@ -133,8 +133,15 @@ public class Valve2 : MonoBehaviourPun
     {
         if (other.CompareTag("Cylinder") && !isAttached)
         {
-            Debug.Log("게임 오브젝트 : " + grabValve.name + "콜라이더" + other.name);
             AttachToCylinder(other.gameObject, grabValve);
+            if (knobValve.activeSelf == false)
+            {
+                grabValve.transform.position = grabTr.position;
+                Rigidbody grabValveRb = grabValve.GetComponent<Rigidbody>();
+                grabValveRb.linearVelocity = Vector3.zero;
+                grabValveRb.angularVelocity = Vector3.zero;
+                knobValve.SetActive(true);
+            }
         }
     }
 
