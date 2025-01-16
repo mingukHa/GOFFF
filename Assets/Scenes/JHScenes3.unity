@@ -5907,6 +5907,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1518470940}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1518470942 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6558927757334978065, guid: 73f549b46e14531439f12aa8447cfb8d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1518470940}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1522258627
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6355,6 +6361,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spwan1: {fileID: 1902293494}
   spwan2: {fileID: 123777844}
+  monsterspawn: {fileID: 1380712629}
+  monster: {fileID: 1518470942}
 --- !u!4 &1618208251
 Transform:
   m_ObjectHideFlags: 0

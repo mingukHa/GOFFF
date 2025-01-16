@@ -8,7 +8,8 @@ public class GameOverManagers : MonoBehaviourPun
 
     [SerializeField] private Transform spwan1;
     [SerializeField] private Transform spwan2;
-
+    [SerializeField] private Transform monsterspawn;
+    [SerializeField] private GameObject monster;
     private void FixedUpdate()
     {
         if (Input.GetKey(KeyCode.Space))
@@ -45,7 +46,7 @@ public class GameOverManagers : MonoBehaviourPun
             {
                 // 마스터 클라이언트에서 스폰 위치를 브로드캐스트
                 Debug.Log("ReStart 호출됨. 위치를 업데이트 중...");
-                photonView.RPC("UpdatePlayerPosition", RpcTarget.All, spwan1.position, spwan2.position);
+                photonView.RPC("UpdatePlayerPosition", RpcTarget.All, spwan1.position, spwan2.position , monsterspawn.position);
             }
             else
             {
@@ -55,8 +56,9 @@ public class GameOverManagers : MonoBehaviourPun
     }
 
     [PunRPC]
-    private void UpdatePlayerPosition(Vector3 position1, Vector3 position2)
+    private void UpdatePlayerPosition(Vector3 position1, Vector3 position2, Vector3 positon3)
     {
+        
         // 모든 클라이언트에서 위치를 업데이트
         if (Player1 != null)
         {
@@ -67,6 +69,10 @@ public class GameOverManagers : MonoBehaviourPun
         {
             Player2.transform.position = position2;
             Debug.Log($"Player2 위치 업데이트: {position2}");
+        }
+        if (monster != null)
+        {
+            monster.transform.position = positon3;
         }
     }
 }
