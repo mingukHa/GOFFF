@@ -34,14 +34,14 @@ public class GrabValve : MonoBehaviourPun
     // 다른 Collider가 이 밸브와 충돌했을 때 호출되는 메서드
     private void OnTriggerEnter(Collider other)
     {
-        if (!isGrabbed)
+        if (isGrabbed)
         {
             if (other.name == "CylinderA")
             {
                 grabValveTrigger?.Invoke(gameObject, other);
                 photonView.RPC("RPCTrigger", RpcTarget.Others ,other);
             }
-            else
+            else if (other.name == "CylinderB")
             {
                 grabValve2Trigger?.Invoke(gameObject, other);
                 photonView.RPC("RPCTrigger2", RpcTarget.Others, other);

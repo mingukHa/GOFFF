@@ -144,18 +144,7 @@ public class Valve : MonoBehaviourPun
 
     private void grabValveTriggerHandle(GameObject grabValve, Collider other)
     {
-        if (other.CompareTag("Cylinder") && !isAttached)
-        {
-            AttachToCylinder(other.gameObject, grabValve);
-            if(knobValve.activeSelf == false)
-            {
-                grabValve.transform.position = grabTr.position;
-                Rigidbody grabValveRb = grabValve.GetComponent<Rigidbody>();
-                grabValveRb.linearVelocity = Vector3.zero;
-                grabValveRb.angularVelocity = Vector3.zero;
-                knobValve.SetActive(true);
-            }
-        }
+        AttachToCylinder(other.gameObject, grabValve);        
     }
 
     [PunRPC]
