@@ -17700,8 +17700,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1390154835}
   - component: {fileID: 1390154834}
-  - component: {fileID: 1390154833}
   - component: {fileID: 1390154836}
+  - component: {fileID: 1390154837}
   m_Layer: 14
   m_Name: DeadZone
   m_TagString: Untagged
@@ -17709,19 +17709,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1390154833
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1390154832}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6af8753bcc0173f4c9094ed82fe72ed3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GOM: {fileID: 0}
 --- !u!65 &1390154834
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17785,6 +17772,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &1390154837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390154832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ab7bdf72c63dbf4099c3b49f9cd480f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  restartSceneName: 
+  player1StartPoint: {fileID: 682705972}
+  player2StartPoint: {fileID: 367614957}
 --- !u!1001 &1391537007
 PrefabInstance:
   m_ObjectHideFlags: 0
