@@ -32,7 +32,7 @@ MonoBehaviour:
   PunLogging: 0
   EnableSupportLogger: 0
   RunInBackground: 1
-  StartInOfflineMode: 1
+  StartInOfflineMode: 0
   RpcList:
   - ClickRpc
   - DestroyRpc
@@ -138,6 +138,7 @@ MonoBehaviour:
   - UpdatePlayerPosition
   - ZombieOn
   - HandlePlayerCollision
+  - RestartScene
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
