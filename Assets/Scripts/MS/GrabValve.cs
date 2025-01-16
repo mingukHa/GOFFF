@@ -41,7 +41,7 @@ public class GrabValve : MonoBehaviourPun
                 grabValveTrigger?.Invoke(gameObject, other);
                 photonView.RPC("RPCTrigger", RpcTarget.Others ,other);
             }
-            else
+            else if (other.name == "CylinderB")
             {
                 grabValve2Trigger?.Invoke(gameObject, other);
                 photonView.RPC("RPCTrigger2", RpcTarget.Others, other);

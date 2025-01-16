@@ -144,11 +144,7 @@ public class Valve : MonoBehaviourPun
 
     private void grabValveTriggerHandle(GameObject grabValve, Collider other)
     {
-        if (other.CompareTag("Cylinder") && !isAttached)
-        {
-            Debug.Log("게임 오브젝트 : " + grabValve.name + "콜라이더" + other.name);
-            AttachToCylinder(other.gameObject, grabValve);
-        }
+        AttachToCylinder(other.gameObject, grabValve);        
     }
 
     [PunRPC]

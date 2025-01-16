@@ -108,7 +108,8 @@ public class VoiceChatManager : MonoBehaviourPunCallbacks
                 {
                     if (isMuted)
                     {
-                        VivoxService.Instance.UnmuteOutputDevice();
+                        //VivoxService.Instance.UnmuteOutputDevice();
+                        VivoxService.Instance.UnmuteInputDevice();
                         isMuted = false;
                     }
                 }
@@ -116,7 +117,8 @@ public class VoiceChatManager : MonoBehaviourPunCallbacks
                 {
                     if (!isMuted)
                     {
-                        VivoxService.Instance.MuteOutputDevice();
+                        //VivoxService.Instance.MuteOutputDevice();
+                        VivoxService.Instance.MuteInputDevice();
                         isMuted = true;
                     }
                 }

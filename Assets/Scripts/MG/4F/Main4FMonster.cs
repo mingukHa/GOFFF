@@ -60,6 +60,10 @@ public class MonsterTest : MonoBehaviourPun
                 break;
         }
     }
+    public void Walk()
+    {
+        SoundManager.instance.SFXPlay("ZomWalk_SFX", this.gameObject);
+    }
     public void Idlesound()
     {
         SoundManager.instance.SFXPlay("ZomBreathing_SFX", this.gameObject);
@@ -71,7 +75,7 @@ public class MonsterTest : MonoBehaviourPun
     
     public void Detect()
     {
-        SoundManager.instance.SFXPlay("ZomShout_SFX",this.gameObject);
+        //SoundManager.instance.SFXPlay("ZomShout_SFX",this.gameObject);
 
         if (!isDetectedByZombie)  // 아직 발각되지 않았다면
         {
