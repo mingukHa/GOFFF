@@ -1,15 +1,25 @@
 using UnityEngine;
 using Photon.Pun;
+using System.Collections;
 
 public class PlayerDead : MonoBehaviourPun
 {
     private GameOverManagers GOM;
     private void Start()
     {
-        Debug.Log("게임 오버 매니저 활성화");
-        GOM = GetComponent<GameOverManagers>();
+        StartCoroutine(FindGOM());
     }
-   
+
+    private IEnumerator FindGOM()
+    {
+        while (true)
+        {
+            if (GOM == null)
+                GOM = FindFirstObjectByType<GameOverManagers>();
+            yield return new WaitForSeconds(2f);
+        }
+    }
+
     private void OnCollisonEnter(Collider other)
     {
         if (GOM != null)
