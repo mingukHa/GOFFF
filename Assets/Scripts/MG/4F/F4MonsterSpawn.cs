@@ -7,13 +7,14 @@ public class F4MonsterSpawn : MonoBehaviourPun
 
     public void Zombi()
     {
-        Zombi();
-        photonView.RPC("Zombi", RpcTarget.All);
+        ZombieOn();
+        photonView.RPC("ZombieOn", RpcTarget.All);
     }
 
     [PunRPC]
-    private void ZombiOn()
+    private void ZombieOn()
     {
         zombi.SetActive(true);
+        SoundManager.instance.SFXPlay("ZomShout_SFX", zombi.gameObject);
     }
 }
