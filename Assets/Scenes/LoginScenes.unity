@@ -4257,6 +4257,11 @@ PrefabInstance:
       propertyPath: m_UseGravity
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8062670749960009625, guid: feab0d83960f233479b23431946ef43e,
+        type: 3}
+      propertyPath: m_MaxRaycastDistance
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 8603147447804132373, guid: feab0d83960f233479b23431946ef43e,
         type: 3}
       propertyPath: sceneViewId
