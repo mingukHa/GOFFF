@@ -123,6 +123,7 @@ public class MonsterTest : MonoBehaviourPun
             {
                 if (collider.CompareTag("Player"))
                 {
+                    //SoundManager.instance.SFXPlay("Zombie_BGM", this.gameObject);
                     detectedTarget = collider.transform;
                     animator.SetBool("isDetecting", true);
                     currentState = MonsterState.Detect;
