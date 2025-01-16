@@ -31,15 +31,13 @@ public class ControllerEcho : MonoBehaviourPun
                 {
                     Vector3 point = Player[0].transform.position;
                     par.StartSonarRing(point, 1.2f, 0);
-                    photonView.RPC("RPCSonarRing", RpcTarget.Others, point, Player[0]);
-                    SoundManager.instance.SFXPlay("SuperSound_SFX", Player[0]);
+                    photonView.RPC("RPCSonarRing", RpcTarget.Others, point);
                 }
                 else
                 {
                     Vector3 point = Player[1].transform.position;
                     par.StartSonarRing(point, 1.2f, 0);
-                    photonView.RPC("RPCSonarRing", RpcTarget.Others, point, Player[1]);
-                    SoundManager.instance.SFXPlay("SuperSound_SFX", Player[1]);
+                    photonView.RPC("RPCSonarRing", RpcTarget.Others, point);
                 }
                 wasBPressed = true;
             }
@@ -49,9 +47,8 @@ public class ControllerEcho : MonoBehaviourPun
     }
 
     [PunRPC]
-    private void RPCSonarRing(Vector3 point, GameObject Player)
+    private void RPCSonarRing(Vector3 point)
     {
         par.StartSonarRing(point, 0.7f, 0);
-        SoundManager.instance.SFXPlay("SuperSound_SFX", Player);
     }
 }
