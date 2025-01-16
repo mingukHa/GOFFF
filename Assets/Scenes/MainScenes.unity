@@ -16225,13 +16225,23 @@ PrefabInstance:
     - target: {fileID: 6382787116828764366, guid: 52714feb96efcc342bd0d1bc850177d0,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7047606425338909985, guid: 52714feb96efcc342bd0d1bc850177d0,
         type: 3}
       propertyPath: sceneViewId
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 7047606425338909985, guid: 52714feb96efcc342bd0d1bc850177d0,
+        type: 3}
+      propertyPath: ObservedComponents.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7047606425338909985, guid: 52714feb96efcc342bd0d1bc850177d0,
+        type: 3}
+      propertyPath: 'ObservedComponents.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1652282256}
     m_RemovedComponents:
     - {fileID: 8318776081507583639, guid: 52714feb96efcc342bd0d1bc850177d0, type: 3}
     m_RemovedGameObjects: []
@@ -16239,7 +16249,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 186429603903358422, guid: 52714feb96efcc342bd0d1bc850177d0,
         type: 3}
-      insertIndex: -1
+      insertIndex: 6
       addedObject: {fileID: 1652282256}
   m_SourcePrefab: {fileID: 100100000, guid: 52714feb96efcc342bd0d1bc850177d0, type: 3}
 --- !u!1 &1309197979 stripped
