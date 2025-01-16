@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.UIElements;
+using System;
 
 public class SimpleSonarShader_Parent : MonoBehaviourPun
 {
@@ -60,7 +61,7 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
             if (r)
             {
                 r.GetPropertyBlock(propertyBlock);
-                propertyBlock.SetFloat("_RingTime", timeSinceSceneLoadPhoton);
+                propertyBlock.SetFloat("_RingTime", (float)DateTimeOffset.UtcNow.ToUnixTimeSeconds());
                 r.SetPropertyBlock(propertyBlock);
             }
         }
@@ -83,8 +84,8 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
 
         Debug.Log("마스터 클라이언트가 링 생성 처리");
 
-        float timeSinceSceneLoadPhoton = (float)(PhotonNetwork.Time - sceneStartTimePhoton);
-        position[3] = timeSinceSceneLoadPhoton;
+        //float timeSinceSceneLoadPhoton = (float)(PhotonNetwork.Time - sceneStartTimePhoton);
+        position[3] = (float)DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 
         // 링 색상 결정
         ringColor = type == 0 ? Color.white : Color.red; // 일반: 0, 몬스터: 1
