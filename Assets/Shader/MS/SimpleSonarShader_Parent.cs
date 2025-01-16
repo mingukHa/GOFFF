@@ -39,13 +39,14 @@ public class SimpleSonarShader_Parent : MonoBehaviourPun
     {
         // 시작할 때 포톤 서버의 시간 가져오기
         sceneAwakeTimePhoton = PhotonNetwork.Time;
-        photonView.RPC("RPCtime", RpcTarget.AllBuffered);
+        if(PhotonNetwork.IsMasterClient)
+            photonView.RPC("RPCtime", RpcTarget.AllBuffered, sceneAwakeTimePhoton);
     }
 
     [PunRPC]
-    private void RPCtime()
+    private void RPCtime(double masterAwakeTimePhoton)
     {
-        sceneStartTimePhoton = sceneAwakeTimePhoton;
+        sceneStartTimePhoton = masterAwakeTimePhoton;
     }
 
     private void Start()
