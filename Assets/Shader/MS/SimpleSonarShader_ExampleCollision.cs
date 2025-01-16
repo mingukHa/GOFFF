@@ -12,6 +12,10 @@ public class SimpleSonarShader_ExampleCollision : MonoBehaviourPun
 
     private void OnCollisionEnter(Collision collision)
     {
+        // Master Client만 이벤트를 처리하도록 함
+        if (!PhotonNetwork.IsMasterClient)
+            return;
+
         if (collision.gameObject.CompareTag("Player"))
             return;
 
