@@ -9,9 +9,9 @@ public class WheelChairBalancer : MonoBehaviour
     public LayerMask groundLayer; // 지면 레이어
 
     public float recoveryForce = 10f; // 균형을 잡기 위한 힘
-    public float uprightRotationSpeed = 5f; // 회전 복구 속도
-    public float balanceCheckInterval = 0.5f; // 균형 확인 주기
-    public float groundCheckDistance = 0.5f; // 바퀴와 지면 간 거리
+    public float recoverySpeed = 5f; // 회전 복구 속도
+    public float balanceCheckInterval = 0.5f; // 바퀴와 지면 간 거리
+    public float groundCheckDistance = 0.5f; // 균형 확인 주기
 
     private bool isBalancing = false;
 
@@ -58,7 +58,7 @@ public class WheelChairBalancer : MonoBehaviour
         Quaternion targetRotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
         while (Quaternion.Angle(transform.rotation, targetRotation) > 0.1f)
         {
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * uprightRotationSpeed);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * recoverySpeed);
             yield return null;
         }
 
