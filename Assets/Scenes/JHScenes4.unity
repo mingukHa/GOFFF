@@ -11171,7 +11171,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!108 &319529763
 Light:
   m_ObjectHideFlags: 0
@@ -19514,13 +19514,13 @@ PrefabInstance:
     - target: {fileID: 952844564196369427, guid: 119938d848bb54c468a1c68239e14ed4,
         type: 3}
       propertyPath: ObservedComponents.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 952844564196369427, guid: 119938d848bb54c468a1c68239e14ed4,
         type: 3}
       propertyPath: 'ObservedComponents.Array.data[0]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 793502889}
     - target: {fileID: 952844564196369427, guid: 119938d848bb54c468a1c68239e14ed4,
         type: 3}
       propertyPath: 'ObservedComponents.Array.data[1]'
@@ -19586,6 +19586,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4048485744173397926, guid: 119938d848bb54c468a1c68239e14ed4,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4048485744173397926, guid: 119938d848bb54c468a1c68239e14ed4,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4048485744173397926, guid: 119938d848bb54c468a1c68239e14ed4,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 793502891}
+    - target: {fileID: 4048485744173397926, guid: 119938d848bb54c468a1c68239e14ed4,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4048485744173397926, guid: 119938d848bb54c468a1c68239e14ed4,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: CmdOpenDoors
+      objectReference: {fileID: 0}
+    - target: {fileID: 4048485744173397926, guid: 119938d848bb54c468a1c68239e14ed4,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: UpElevator, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4048485744173397926, guid: 119938d848bb54c468a1c68239e14ed4,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8420289945006136846, guid: 119938d848bb54c468a1c68239e14ed4,
         type: 3}
       propertyPath: sceneViewId
@@ -19605,6 +19640,10 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1574875898}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3449929468569896571, guid: 119938d848bb54c468a1c68239e14ed4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 793502891}
     - targetCorrespondingSourceObject: {fileID: 5762319505126542430, guid: 119938d848bb54c468a1c68239e14ed4,
         type: 3}
       insertIndex: -1
@@ -19644,6 +19683,27 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!1 &793502890 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3449929468569896571, guid: 119938d848bb54c468a1c68239e14ed4,
+    type: 3}
+  m_PrefabInstance: {fileID: 793502885}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &793502891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793502890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62ccdc32174868046b228a906d6f3cd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elevatorDoors: []
+  openDuration: 2
+  isUpDoorOpening: 0
 --- !u!1 &799144761
 GameObject:
   m_ObjectHideFlags: 0
