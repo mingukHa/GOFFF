@@ -8,6 +8,7 @@ public class SocketValidator : MonoBehaviourPun
     public string expectedObjectName; // 이 Socket에 배치되어야 할 Object의 이름
     private XRSocketInteractor socketInteractor;
     private GameObject placedObject;
+    private GameObject[] zomshout;
 
     public PuzzleManager puzzleManager; // PuzzleManager 참조
 
