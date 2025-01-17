@@ -84,6 +84,7 @@ public class F2Monster : MonoBehaviourPun
     private void AttackTarget()
     {
         StopCoroutine(Sounds());
+        StartCoroutine(UpdatePath()); // 탐지 및 이동 코루틴 시작
         propertyBlock = new MaterialPropertyBlock();
 
         // 아웃라인 색을 바뀌게 하는 코드
@@ -93,34 +94,7 @@ public class F2Monster : MonoBehaviourPun
             propertyBlock.SetColor("_OutlineColor", Color.red);
             skinnedMeshRenderer.SetPropertyBlock(propertyBlock);
         }
-        Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius, isTarget);
-            if (colliders.Length > 0)
-            {       
-                detectedTarget = colliders[0].gameObject;
-            }
-        if (detectedTarget != null)
-        {
-            navMeshAgent.enabled = false;
-
-            // 플레이어 위치 가져오기
-            Vector3 targetPosition = detectedTarget.transform.position + Vector3.forward * 2f;
-
-
-            // NavMesh 위 좌표 보정
-            NavMeshHit hit;
-            if (NavMesh.SamplePosition(targetPosition, out hit, 1.0f, NavMesh.AllAreas))
-            {
-                // 보정된 위치로 순간이동
-                transform.position = hit.position;
-                Debug.Log($"텔레포트 완료: {hit.position}");
-            }
-            else
-            {
-                Debug.LogWarning("플레이어 위치가 NavMesh 위에 없습니다!");
-            }
-
-            navMeshAgent.enabled = true;
-
+        
             // 공격 애니메이션 재생
             animator.SetTrigger("isAttack");
 
@@ -128,49 +102,42 @@ public class F2Monster : MonoBehaviourPun
             detectedTarget = null; // 타겟 초기화
             
         }
-        else
+    private IEnumerator UpdatePath()
+    {
+        while (true)
         {
-            Debug.LogWarning("타겟이 없습니다!");
-            
+            // 범위 내에서 "Player" 태그를 가진 객체 탐지
+            Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius, isTarget);
+            if (colliders.Length > 0)
+            {
+                // 가장 가까운 플레이어를 타겟으로 설정
+                target = colliders[0].transform;
+            }
+            else
+            {
+                target = null; // 타겟 없으면 초기화
+            }
+
+            // NavMeshAgent로 타겟을 따라감
+            if (target != null)
+            {
+                navMeshAgent.isStopped = false;
+                navMeshAgent.SetDestination(target.position);
+                animator.SetBool("isWalking", true);
+            }
+            else
+            {
+                navMeshAgent.isStopped = true; // 타겟 없으면 멈춤
+            }
+
+            yield return new WaitForSeconds(0.5f); // 0.5초마다 반복
         }
     }
 
-    //private void AttackMonster()
-    //{
-    //    StartCoroutine(UpdatePath()); // 탐지 및 이동 코루틴 시작
-    //}
 
-    //private IEnumerator UpdatePath()
-    //{
-    //    while (true)
-    //    {
-    //        // 범위 내에서 "Player" 태그를 가진 객체 탐지
-    //        Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius, isTarget);
-    //        if (colliders.Length > 0)
-    //        {
-    //            // 가장 가까운 플레이어를 타겟으로 설정
-    //            target = colliders[0].transform;
-    //        }
-    //        else
-    //        {
-    //            target = null; // 타겟 없으면 초기화
-    //        }
 
-    //        // NavMeshAgent로 타겟을 따라감
-    //        if (target != null)
-    //        {
-    //            navMeshAgent.isStopped = false;
-    //            navMeshAgent.SetDestination(target.position);
-    //            animator.SetBool("isWalking", true);
-    //        }
-    //        else
-    //        {
-    //            navMeshAgent.isStopped = true; // 타겟 없으면 멈춤
-    //        }
 
-    //        yield return new WaitForSeconds(0.5f); // 0.5초마다 반복
-    //    }
-    //}
+
 
     private void OnDrawGizmosSelected()
     {
