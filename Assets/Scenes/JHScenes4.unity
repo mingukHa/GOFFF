@@ -19701,7 +19701,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62ccdc32174868046b228a906d6f3cd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elevatorDoors: []
+  elevatorDoors:
+  - {fileID: 1767565845}
+  - {fileID: 1767565844}
   openDuration: 2
   isUpDoorOpening: 0
 --- !u!1 &799144761
@@ -34665,6 +34667,7 @@ MonoBehaviour:
   Key: {fileID: 884839203}
   TargetPoint: {fileID: 1982665991}
   Bugger: {fileID: 518163413}
+  thia: {fileID: 0}
   detectionRadius: 10
   isTarget:
     serializedVersion: 2
