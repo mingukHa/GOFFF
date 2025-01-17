@@ -64,8 +64,7 @@ public class GrabValve : MonoBehaviourPun
     public void SelectOn()
     {
         Debug.Log("밸브를 잡았습니다.");
-        isGrabbed = true;
-        photonView.RPC("RPCGrabbed", RpcTarget.Others, true);
+        
 
     }
 
@@ -82,6 +81,8 @@ public class GrabValve : MonoBehaviourPun
         {
             photonView.RequestOwnership();
         }
+        isGrabbed = true;
+        photonView.RPC("RPCGrabbed", RpcTarget.Others, true);
     }
 
     // grab이 됐을경우에 isKinematic이 다른 클라이언트에서는 켜져있지 않아
