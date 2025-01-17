@@ -7,7 +7,10 @@ public class PuzzleManager : MonoBehaviourPunCallbacks
     public BoxCollider eVButton; // 엘리베이터 버튼
     [SerializeField]
     private GameObject Monster; // 몬스터 Prefab (Resources 폴더에 있어야 함)
-
+    [SerializeField]
+    private GameObject zom;
+    [SerializeField]
+    private GameObject zom1;
 
     private void Start()
     {
@@ -44,7 +47,9 @@ public class PuzzleManager : MonoBehaviourPunCallbacks
 
             // 몬스터 스폰 호출
             Monster.SetActive(true);
-            Debug.Log("좀비가 생성 됨");
+            SoundManager.instance.SFXPlay("ZomShout_SFX", zom.gameObject);
+            SoundManager.instance.SFXPlay("ZomShout_SFX", zom1.gameObject);
+
             //MonsterSpawn();
             //photonView.RPC("MonsterSpawn", RpcTarget.All);
         }
