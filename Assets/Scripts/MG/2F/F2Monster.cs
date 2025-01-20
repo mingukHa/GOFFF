@@ -17,7 +17,7 @@ public class F2Monster : MonoBehaviourPun
     private Transform target; // 플레이어의 Transform
     private GameObject detectedTarget;
 
-    private bool triggers = true;
+    
 
     private SkinnedMeshRenderer skinnedMeshRenderer;
     private MaterialPropertyBlock propertyBlock;
@@ -46,7 +46,7 @@ public class F2Monster : MonoBehaviourPun
     {
         //if (triggers == true)
        // {
-            triggers = false;
+            
             if (other.gameObject.CompareTag("Bugger"))
             {
                 Debug.Log("좀비 버거 받음");
@@ -68,11 +68,11 @@ public class F2Monster : MonoBehaviourPun
     {
         Debug.Log("setkey실행 됨");
         Key.gameObject.SetActive(true);
-        SoundManager.instance.SFXPlay("DropKey_SFX", this.gameObject);
+        //SoundManager.instance.SFXPlay("DropKey_SFX", this.gameObject);
         //키 떨구는 소리 추가
         Bugger.gameObject.SetActive(false);
         propertyBlock = new MaterialPropertyBlock();
-        thia.enabled = false;
+        
         // 아웃라인 색을 바뀌게 하는 코드
         skinnedMeshRenderer.GetPropertyBlock(propertyBlock);
         propertyBlock.SetColor("_OutlineColor", Color.white);
