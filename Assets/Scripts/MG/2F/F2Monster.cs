@@ -68,7 +68,7 @@ public class F2Monster : MonoBehaviourPun
     {
         Debug.Log("setkey실행 됨");
         Key.gameObject.SetActive(true);
-        SoundManager.instance.SFXPlay("DropKey_SFX", this.gameObject);
+        //SoundManager.instance.SFXPlay("DropKey_SFX", this.gameObject);
         //키 떨구는 소리 추가
         Bugger.gameObject.SetActive(false);
         propertyBlock = new MaterialPropertyBlock();

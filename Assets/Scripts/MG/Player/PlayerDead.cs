@@ -5,7 +5,7 @@ using System.Collections;
 public class PlayerBehavior : MonoBehaviourPun
 {
     private NewGameOver gameOverManager; // NewGameOver 참조
-
+    private float overTime = 0.5f;
     private void Start()
     {
         // 씬 로드 이벤트 등록
@@ -63,13 +63,15 @@ public class PlayerBehavior : MonoBehaviourPun
     private void OnTriggerEnter(Collider other)
     {
         if (!photonView.IsMine) return; // 로컬 플레이어만 처리
-
+        
         if (other.CompareTag("Monster"))
         {
+            float currtime = Time.deltaTime;
             Debug.Log("몬스터와 충돌 발생!");
-
-            // 모든 클라이언트에서 처리
-            photonView.RPC("HandlePlayerCollision", RpcTarget.All);
+            if (overTime >= currtime)
+            {
+                photonView.RPC("HandlePlayerCollision", RpcTarget.All);
+            }
         }
     }
 
