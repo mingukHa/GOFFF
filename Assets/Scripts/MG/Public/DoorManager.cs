@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DoorController : MonoBehaviour
+public class DoorManager : MonoBehaviour //모든 문 스크립트
 {
     public bool isOpen = false; // 문 상태 (열림/닫힘)
     public float openAngle = -90f; // 문이 열릴 각도 (예: 90도 또는 -90도)

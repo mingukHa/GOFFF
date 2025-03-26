@@ -1,7 +1,7 @@
 using Photon.Pun;
 using UnityEngine;
 
-public class GameOverManagers : MonoBehaviourPun
+public class GameOverManager : MonoBehaviourPun
 {
     private GameObject Player1;
     private GameObject Player2;

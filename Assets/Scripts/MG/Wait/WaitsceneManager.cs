@@ -3,7 +3,7 @@ using Photon.Pun;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-public class Waitscene : MonoBehaviourPunCallbacks
+public class WaitsceneManager : MonoBehaviourPunCallbacks //대기실 총괄 매니저
 {
     [SerializeField] private GameObject[] playerPrefab; //플레이어 프리팹을 받아 올 배열
     [SerializeField] private Transform[] spawnPoints; //플레이어의 스폰 위치

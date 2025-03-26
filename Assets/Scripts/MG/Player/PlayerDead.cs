@@ -2,7 +2,7 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.SceneManagement;
 using System.Collections;
-public class PlayerBehavior : MonoBehaviourPun
+public class PlayerDead : MonoBehaviourPun //플레이어 사망 코드
 {
     private NewGameOver gameOverManager; // NewGameOver 참조
     private float overTime = 0.5f;

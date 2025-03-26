@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using TMPro;
 
-public class f2elevators : MonoBehaviourPun
+public class F2Elevators : MonoBehaviourPun //2√˛ ø§∏Æ∫£¿Ã≈Õ
 {
     [SerializeField] private GameObject button1;
     [SerializeField] private Transform targetPos;

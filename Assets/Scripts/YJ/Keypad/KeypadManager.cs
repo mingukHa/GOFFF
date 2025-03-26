@@ -4,7 +4,7 @@ using Photon.Pun;
 public class KeypadManager : MonoBehaviourPun
 {
     public Transform[] displayPoints; // 100자리, 10자리, 1자리 위치를 담은 배열
-    public DoorController doorController; // 문에 연결된 DoorController
+    public DoorManager doorController; // 문에 연결된 DoorController
     [SerializeField]
     private string correctPassword = "346"; // 정답 비밀번호
     private string enteredPassword = ""; // 입력된 비밀번호

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CameraMove : MonoBehaviour
+public class LoginCameraMove : MonoBehaviour //코그인 카메라 회전
 {
     public float rotationSpeed = 10f; 
 

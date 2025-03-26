@@ -2,7 +2,7 @@ using Photon.Pun;
 using UnityEngine;
 using System.Collections;
 
-public class f3playerspawn : MonoBehaviour
+public class F3PlayerSpawn : MonoBehaviour //3층 플레이어 스폰
 {
     public Transform[] TagObject; // 배열에 PlayerPos1, PlayerPos2 위치 설정
     private GameObject handOffset;

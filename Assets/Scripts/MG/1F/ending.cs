@@ -3,14 +3,14 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using Photon.Pun;
 
-public class ending : MonoBehaviourPun
+public class Ending : MonoBehaviourPun //엔딩 스크립트
 {
     private float endTime = 2f;
     public void OnButtonPress()
     {
-        StartCoroutine(Ending());       
+        StartCoroutine(EndingCoroutine());       
     }
-    private IEnumerator Ending() //엔딩 코루틴
+    private IEnumerator EndingCoroutine() //엔딩 코루틴
     {
         float elapsedTime = 0;
         elapsedTime += Time.deltaTime;

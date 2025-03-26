@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class DeadZone : MonoBehaviourPun
 {
-    public GameOverManagers GOM;
+    public GameOverManager GOM;
     
     private void OnTriggerEnter(Collider collider)
     {

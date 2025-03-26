@@ -3,7 +3,7 @@ using UnityEngine.AI;
 using System.Collections;
 using Photon.Pun;
 
-public class F2Monster : MonoBehaviourPun
+public class F2Monster : MonoBehaviourPun //2Ãþ ¸ó½ºÅÍ
 {
     [SerializeField] private GameObject Key;
     [SerializeField] private GameObject TargetPoint;

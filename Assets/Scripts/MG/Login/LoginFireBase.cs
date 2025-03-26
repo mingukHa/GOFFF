@@ -10,7 +10,7 @@ using Photon.Realtime;
 using Photon.Pun.Demo.PunBasics;
 
 
-public class LoginFireBase : MonoBehaviour
+public class LoginFireBase : MonoBehaviour //로그인 파이어베이스 코드
 {
     [SerializeField]
     private TMP_InputField Username;

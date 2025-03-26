@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-public class MonsterScene : MonoBehaviourPun
+public class SceneRestart : MonoBehaviourPun //다시 시작 단축키 코드
 {
     [SerializeField] private string restartSceneName; // 다시 시작할 씬 이름, 비워두면 현재 씬 재시작
     [SerializeField] private GameObject player1StartPoint; // 첫 번째 플레이어 시작 위치 지정 오브젝트

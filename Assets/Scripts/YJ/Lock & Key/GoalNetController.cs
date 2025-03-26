@@ -3,7 +3,7 @@ using Photon.Pun;
 
 public class GoalNetController : MonoBehaviourPun
 {
-    public DoorController doorController; // 공이 골네트에 닿으면 열릴 문
+    public DoorManager doorController; // 공이 골네트에 닿으면 열릴 문
     private Collider goalNetCollider; // 골네트에 부착된 콜라이더
 
     private void Start()

@@ -1,7 +1,7 @@
 using Photon.Pun;
 using UnityEngine;
 
-public class ValveTrigger : MonoBehaviourPun
+public class ValveTrigger : MonoBehaviourPun //벨브를 지나가면 철창이 무너짐
 {
     public GameObject cage; //케이지 터질 것
     

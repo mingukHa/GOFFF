@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Photon.Pun;
 
-public class MainF4onster : MonoBehaviourPun //4층 몬스터 메인 FSM
+public class MonsterTest : MonoBehaviourPun
 {
     [SerializeField] private Vector3 Cubedetect = new Vector3 (10, 10, 10);
     [SerializeField] private float detectionRadius = 10f;

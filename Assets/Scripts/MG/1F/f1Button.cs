@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using Photon.Pun;
-public class f1Button : MonoBehaviourPun
+public class F1Button : MonoBehaviourPun //1층 버튼 관리
 {
     public float MoveSpeed = 5f; // 이동 속도
     public GameObject door;

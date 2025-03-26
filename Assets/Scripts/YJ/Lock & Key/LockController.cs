@@ -3,7 +3,7 @@ using Photon.Pun;
 
 public class LockController : MonoBehaviourPun
 {
-    public DoorController doorController; // 열쇠가 자물쇠에 닿으면 열릴 문
+    public DoorManager doorController; // 열쇠가 자물쇠에 닿으면 열릴 문
     private Collider lockCollider; // 자물쇠에 부착된 콜라이더
 
     private void Start()

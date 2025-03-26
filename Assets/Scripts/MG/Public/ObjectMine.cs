@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
-public class ObjectMain : MonoBehaviourPun
+public class ObjectMine : MonoBehaviourPun
 {
     private bool isGrabbed = false; //±×·¦ »óÅÂ
 

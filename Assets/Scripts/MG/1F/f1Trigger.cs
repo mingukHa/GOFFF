@@ -1,7 +1,7 @@
 using Photon.Pun;
 using UnityEngine;
 
-public class f1Trigger : MonoBehaviourPunCallbacks
+public class F1Trigger : MonoBehaviourPunCallbacks //발판 밟으면 철창 무너지는 스크립트
 {
     [SerializeField]
     private GameObject ironcage;

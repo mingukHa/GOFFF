@@ -3,7 +3,7 @@ using UnityEngine.XR;
 using UnityEngine.XR.Management;
 using System.Collections;
 
-public class VRManager : MonoBehaviour
+public class VRManagerStartManager : MonoBehaviour //VR강제 활성화 코드
 {
     private void Start()
     {

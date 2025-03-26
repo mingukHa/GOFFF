@@ -3,7 +3,7 @@ using Photon.Pun;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-public class f3elevators : MonoBehaviourPunCallbacks
+public class Elevator : MonoBehaviourPunCallbacks //3층 엘리베이터
 {
     [SerializeField] private GameObject button1; //버튼1
     [SerializeField] private GameObject button2; //버튼2

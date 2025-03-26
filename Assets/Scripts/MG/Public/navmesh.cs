@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshSurface))]
-public class DynamicNavMeshBaker : MonoBehaviour
+public class Navmesh : MonoBehaviour
 {
     [SerializeField]
     private Transform target; // 몬스터나 NavMesh를 따라다닐 대상

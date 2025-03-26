@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GroundCollision : MonoBehaviour
+public class GroundCollision : MonoBehaviour //충돌 좌표 전달 스크립트
 {
     public delegate void CollisionEvent(Vector3 collisionPoint);
     public static event CollisionEvent OnObjectHitGround;

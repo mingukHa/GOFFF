@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MGNavMseh : MonoBehaviour
+public class F1Monster : MonoBehaviour //1층 몬스터
 {
     private NavMeshAgent navMeshAgent; // NavMeshAgent 컴포넌트
     public float detectionRadius = 40f; // 플레이어를 탐지할 반지름

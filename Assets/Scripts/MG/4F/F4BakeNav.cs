@@ -2,7 +2,7 @@ using System.Collections;
 using Unity.AI.Navigation;
 using UnityEngine;
 
-public class F4BakeNav : MonoBehaviour
+public class F4BakeNav : MonoBehaviour //4층 네브메쉬 동적 생성
 {
     public NavMeshSurface navMeshSurface;
 

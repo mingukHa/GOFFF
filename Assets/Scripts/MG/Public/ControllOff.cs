@@ -1,7 +1,7 @@
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
-public class controllerOff : MonoBehaviourPun
+public class ControllerOff : MonoBehaviourPun //컨트롤러 강제 종료
 
 {
     public GameObject handOffset;
